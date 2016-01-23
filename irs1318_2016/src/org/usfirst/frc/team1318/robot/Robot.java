@@ -2,13 +2,13 @@ package org.usfirst.frc.team1318.robot;
 
 import org.usfirst.frc.team1318.robot.Common.SmartDashboardLogger;
 import org.usfirst.frc.team1318.robot.Compressor.CompressorController;
-import org.usfirst.frc.team1318.robot.DriveTrain.DriveTrainController;
 import org.usfirst.frc.team1318.robot.DriveTrain.PositionManager;
 import org.usfirst.frc.team1318.robot.Driver.Driver;
 import org.usfirst.frc.team1318.robot.Driver.IControlTask;
 import org.usfirst.frc.team1318.robot.Driver.Autonomous.AutonomousDriver;
 import org.usfirst.frc.team1318.robot.Driver.ControlTasks.WaitTask;
 import org.usfirst.frc.team1318.robot.Driver.User.UserDriver;
+import org.usfirst.frc.team1318.robot.TestMechanism.TestController;
 
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.IterativeRobot;
@@ -47,7 +47,8 @@ public class Robot extends IterativeRobot
 
     // Controllers
     private CompressorController compressorController;
-    private DriveTrainController driveTrainController;
+    //private DriveTrainController driveTrainController;
+    private TestController testController;
 
     // DipSwitches for selecting autonomous mode
     private DigitalInput dipSwitchA;
@@ -68,12 +69,13 @@ public class Robot extends IterativeRobot
 
         // create controllers for each mechanism
         this.compressorController = new CompressorController(this.components.getCompressor());
-        this.driveTrainController = new DriveTrainController(
-            this.components.getDriveTrain(),
-            TuningConstants.DRIVETRAIN_USE_PID_DEFAULT);
+        //this.driveTrainControoler = new DriveTrainController(
+        //    this.components.getDriveTrain(),
+        //    TuningConstants.DRIVETRAIN_USE_PID_DEFAULT);
+        this.testController = new TestController(this.components.getTest());
 
         // create position manager
-        this.position = new PositionManager(this.components.getDriveTrain());
+        this.position = new PositionManager(null);
 
         SmartDashboardLogger.putString(Robot.ROBOT_STATE_LOG_KEY, "Init");
 
@@ -97,9 +99,14 @@ public class Robot extends IterativeRobot
             this.compressorController.stop();
         }
 
-        if (this.driveTrainController != null)
+        //if (this.driveTrainController != null)
+        //{
+        //    this.driveTrainController.stop();
+        //}
+
+        if (this.testController != null)
         {
-            this.driveTrainController.stop();
+            this.testController.stop();
         }
 
         SmartDashboardLogger.putString(Robot.ROBOT_STATE_LOG_KEY, "Disabled");
@@ -112,7 +119,7 @@ public class Robot extends IterativeRobot
     public void autonomousInit()
     {
         // reset the drivetrain component and position manager so that we consider ourself at the origin (0,0) and facing the 0 direction.
-        this.components.getDriveTrain().reset();
+        // this.components.getDriveTrain().reset();
         this.position.reset();
 
         // Find desired autonomous routine.
@@ -172,13 +179,14 @@ public class Robot extends IterativeRobot
     public void generalInit()
     {
         // apply the driver to the controllers
-        this.driveTrainController.setDriver(this.driver);
+        //this.driveTrainController.setDriver(this.driver);
+        this.testController.setDriver(this.driver);
 
         // we will run the compressor controller here because we should start it in advance...
         this.compressorController.update();
 
         // by default we want to be in Velocity PID mode whenever we start (or switch between) a periodic mode
-        this.driveTrainController.setVelocityPIDMode();
+        //this.driveTrainController.setVelocityPIDMode();
     }
 
     /**
@@ -219,7 +227,8 @@ public class Robot extends IterativeRobot
 
         // run each controller
         this.compressorController.update();
-        this.driveTrainController.update();
+        //this.driveTrainController.update();
+        this.testController.update();
     }
 
     /**
