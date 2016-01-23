@@ -4,8 +4,8 @@ import java.util.Map;
 
 import org.usfirst.frc.team1318.robot.ComponentManager;
 import org.usfirst.frc.team1318.robot.Driver.IControlTask;
-import org.usfirst.frc.team1318.robot.Driver.JoystickButtonConstants;
 import org.usfirst.frc.team1318.robot.Driver.Operation;
+import org.usfirst.frc.team1318.robot.Driver.UserInputDeviceButton;
 import org.usfirst.frc.team1318.robot.Driver.Buttons.ClickButton;
 import org.usfirst.frc.team1318.robot.Driver.Buttons.IButton;
 import org.usfirst.frc.team1318.robot.Driver.Descriptions.MacroOperationDescription;
@@ -75,7 +75,7 @@ public class MacroOperationState extends OperationState
         MacroOperationDescription description = (MacroOperationDescription)this.getDescription();
 
         Joystick relevantJoystick;
-        int relevantButton;
+        UserInputDeviceButton relevantButton;
         switch (description.getUserInputDevice())
         {
             case None:
@@ -89,20 +89,33 @@ public class MacroOperationState extends OperationState
                 relevantJoystick = coDriver;
                 break;
 
+            case Sensor:
+                relevantJoystick = null;
+
             default:
                 throw new RuntimeException("unexpected user input device " + description.getUserInputDevice().toString());
         }
 
-        relevantButton = description.getUserInputDeviceButton();
-
         boolean buttonPressed;
-        if (relevantButton == JoystickButtonConstants.JOYSTICK_POV)
+        if (relevantJoystick != null)
         {
-            buttonPressed = relevantJoystick.getPOV() == description.getUserInputDevicePovValue();
+            // find the appropriate button and grab the value from the relevant joystick
+            relevantButton = description.getUserInputDeviceButton();
+
+            if (relevantButton == UserInputDeviceButton.JOYSTICK_POV)
+            {
+                buttonPressed = relevantJoystick.getPOV() == description.getUserInputDevicePovValue();
+            }
+            else
+            {
+                buttonPressed = relevantJoystick.getRawButton(relevantButton.Value);
+            }
         }
         else
         {
-            buttonPressed = relevantJoystick.getRawButton(relevantButton);
+            // grab the appropriate sensor output.
+            // e.g.: if (description.getSensor() == DigitalSensor.None) ...
+            buttonPressed = false;
         }
 
         this.button.updateState(buttonPressed);

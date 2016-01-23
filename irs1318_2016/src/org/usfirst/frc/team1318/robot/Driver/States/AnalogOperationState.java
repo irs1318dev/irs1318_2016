@@ -74,41 +74,56 @@ public class AnalogOperationState extends OperationState
                 relevantJoystick = coDriver;
                 break;
 
+            case Sensor:
+                relevantJoystick = null;
+
             default:
                 throw new RuntimeException("unexpected user input device " + description.getUserInputDevice().toString());
         }
 
-        switch (description.getUserInputDeviceAxis())
+        double newValue;
+        double oldValue = this.currentValue;
+        if (relevantJoystick != null)
         {
-            case None:
-                return false;
+            switch (description.getUserInputDeviceAxis())
+            {
+                case None:
+                    return false;
 
-            case X:
-                relevantAxis = AxisType.kX;
-                break;
+                case X:
+                    relevantAxis = AxisType.kX;
+                    break;
 
-            case Y:
-                relevantAxis = AxisType.kY;
-                break;
+                case Y:
+                    relevantAxis = AxisType.kY;
+                    break;
 
-            case Z:
-                relevantAxis = AxisType.kZ;
-                break;
+                case Z:
+                    relevantAxis = AxisType.kZ;
+                    break;
 
-            case Twist:
-                relevantAxis = AxisType.kTwist;
-                break;
+                case Twist:
+                    relevantAxis = AxisType.kTwist;
+                    break;
 
-            case Throttle:
-                relevantAxis = AxisType.kThrottle;
-                break;
+                case Throttle:
+                    relevantAxis = AxisType.kThrottle;
+                    break;
 
-            default:
-                throw new RuntimeException("unknown axis type " + description.getUserInputDeviceAxis());
+                default:
+                    throw new RuntimeException("unknown axis type " + description.getUserInputDeviceAxis());
+            }
+
+            newValue = relevantJoystick.getAxis(relevantAxis);
+        }
+        else
+        {
+            // grab the appropriate sensor output.
+            // e.g.: if (description.getSensor() == AnalogSensor.None) ...
+            newValue = 0.0;
         }
 
-        double oldValue = this.currentValue;
-        this.currentValue = relevantJoystick.getAxis(relevantAxis);
+        this.currentValue = newValue;
         return this.currentValue != oldValue;
     }
 

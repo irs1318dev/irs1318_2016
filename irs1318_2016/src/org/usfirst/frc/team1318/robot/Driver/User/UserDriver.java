@@ -7,9 +7,9 @@ import java.util.Map;
 import java.util.Set;
 
 import org.usfirst.frc.team1318.robot.ComponentManager;
+import org.usfirst.frc.team1318.robot.ElectronicsConstants;
 import org.usfirst.frc.team1318.robot.Common.SetHelper;
 import org.usfirst.frc.team1318.robot.Driver.Driver;
-import org.usfirst.frc.team1318.robot.Driver.JoystickButtonConstants;
 import org.usfirst.frc.team1318.robot.Driver.MacroOperation;
 import org.usfirst.frc.team1318.robot.Driver.Operation;
 import org.usfirst.frc.team1318.robot.Driver.States.MacroOperationState;
@@ -37,8 +37,8 @@ public class UserDriver extends Driver
     {
         super();
 
-        this.joystickDriver = new Joystick(JoystickButtonConstants.JOYSTICK_DRIVER_PORT);
-        this.joystickCoDriver = new Joystick(JoystickButtonConstants.JOYSTICK_CO_DRIVER_PORT);
+        this.joystickDriver = new Joystick(ElectronicsConstants.JOYSTICK_DRIVER_PORT);
+        this.joystickCoDriver = new Joystick(ElectronicsConstants.JOYSTICK_CO_DRIVER_PORT);
 
         this.macroStateMap = new HashMap<MacroOperation, MacroOperationState>();
         this.components = components;
