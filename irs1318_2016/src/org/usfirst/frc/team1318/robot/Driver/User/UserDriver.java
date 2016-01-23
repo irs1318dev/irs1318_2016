@@ -77,7 +77,8 @@ public class UserDriver extends Driver
         Set<Operation> interruptedOperations = new HashSet<Operation>();
         for (Operation operation : this.operationStateMap.keySet())
         {
-            boolean receivedInput = this.operationStateMap.get(operation).checkUserInput(this.joystickDriver, this.joystickCoDriver);
+            boolean receivedInput = this.operationStateMap.get(operation).checkInput(this.joystickDriver, this.joystickCoDriver,
+                this.components);
             if (receivedInput)
             {
                 modifiedOperations.add(operation);
@@ -97,7 +98,7 @@ public class UserDriver extends Driver
         for (MacroOperation macroOperation : this.macroStateMap.keySet())
         {
             MacroOperationState macroState = this.macroStateMap.get(macroOperation);
-            boolean modifiedMacro = macroState.checkUserInput(this.joystickDriver, this.joystickCoDriver);
+            boolean modifiedMacro = macroState.checkInput(this.joystickDriver, this.joystickCoDriver, this.components);
             if (modifiedMacro)
             {
                 modifiedMacroOperations.add(macroOperation);
