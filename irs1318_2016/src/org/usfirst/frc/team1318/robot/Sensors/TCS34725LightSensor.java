@@ -302,6 +302,11 @@ public class TCS34725LightSensor
         return value;
     }
 
+    /**
+     * TCS34725 tends to have bytes in low, high order.
+     * @param buffer of bytes
+     * @return integer between 0 and 65535
+     */
     private static int IntFromBytePair(byte[] buffer)
     {
         int lowByte = Byte.toUnsignedInt(buffer[0]);
