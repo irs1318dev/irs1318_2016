@@ -2,6 +2,7 @@ package org.usfirst.frc.team1318.robot.TestMechanism;
 
 import org.usfirst.frc.team1318.robot.Common.IController;
 import org.usfirst.frc.team1318.robot.Driver.Driver;
+import org.usfirst.frc.team1318.robot.Sensors.TCS34725LightSensor;
 
 /**
  * Test controller.
@@ -36,6 +37,16 @@ public class TestController implements IController
     @Override
     public void update()
     {
+        String colorString = "";
+        TCS34725LightSensor.Color color = this.component.getColor();
+        if (color != null)
+        {
+            colorString += String.format("%02X|%02X|%02X|%02X", color.getRed(), color.getGreen(), color.getBlue(), color.getClear());
+        }
+
+        int proximity = this.component.getProximity();
+        int ambientLight = this.component.getAmbientLight();
+        System.out.printf("Color: %s, Proximity: %04X, AmbientLight: %04X\n", colorString, proximity, ambientLight);
     }
 
     /**
@@ -44,5 +55,6 @@ public class TestController implements IController
     @Override
     public void stop()
     {
+        this.component.stop();
     }
 }
