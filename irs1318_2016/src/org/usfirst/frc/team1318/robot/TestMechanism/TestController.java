@@ -29,6 +29,7 @@ public class TestController implements IController
     public void setDriver(Driver driver)
     {
         // not needed for this controller
+        this.component.start();
     }
 
     /**
@@ -41,7 +42,7 @@ public class TestController implements IController
         TCS34725LightSensor.Color color = this.component.getColor();
         if (color != null)
         {
-            colorString += String.format("%02X|%02X|%02X|%02X", color.getRed(), color.getGreen(), color.getBlue(), color.getClear());
+            colorString += String.format("%04X|%04X|%04X|%04X", color.getRed(), color.getGreen(), color.getBlue(), color.getClear());
         }
 
         int proximity = this.component.getProximity();

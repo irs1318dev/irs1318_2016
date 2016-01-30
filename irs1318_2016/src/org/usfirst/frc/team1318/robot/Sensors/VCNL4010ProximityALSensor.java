@@ -25,8 +25,8 @@ public class VCNL4010ProximityALSensor
 
     private static final int AMBIENT_LIGHT_RESULT_HIGH_REGISTER = 0x85; // high byte for the ambient light measurement
     private static final int AMBIENT_LIGHT_RESULT_LOW_REGISTER = 0x86; // low byte for the ambient light measurement
-    private static final int PROXIMITY_RESULT_HIGH_REGISTER = 0x85; // high byte for the proximity measurement
-    private static final int PROXIMITY_RESULT_LOW_REGISTER = 0x86; // low byte for the proximity measurement
+    private static final int PROXIMITY_RESULT_HIGH_REGISTER = 0x87; // high byte for the proximity measurement
+    private static final int PROXIMITY_RESULT_LOW_REGISTER = 0x88; // low byte for the proximity measurement
 
     public enum ProximityRate
     {

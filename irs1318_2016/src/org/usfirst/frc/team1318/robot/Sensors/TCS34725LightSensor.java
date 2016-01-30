@@ -6,6 +6,7 @@ public class TCS34725LightSensor
 {
     private static final int ADDRESS = 0x29;
     private static final int COMMAND_BIT = 0x80;
+    private static final int INCREMENT_BIT = 0x20;
 
     private static final int ENABLE_REGISTER = 0x00; // enable - used to enable RGBC interrupt, Wait, RGBC, and Power
     private static final int ENABLE_AIEN = 0x10; // enable RGBC Interrupt (1 enables, 0 disables)
@@ -179,9 +180,22 @@ public class TCS34725LightSensor
 
     public void start()
     {
+        this.connection.write(COMMAND_BIT | ENABLE_REGISTER, ENABLE_PON);
+
+        try
+        {
+            Thread.sleep(3);
+        }
+        catch (InterruptedException e)
+        {
+        }
+
         int value = this.calculateEnabledValue(true, true, this.waitEnabled, this.interruptEnabled);
 
         this.connection.write(COMMAND_BIT | ENABLE_REGISTER, value);
+
+        byte[] buffer = new byte[1];
+        this.connection.read(COMMAND_BIT | ENABLE_REGISTER, 1, buffer);
 
         this.powerEnabled = true;
         this.rgbcEnabled = true;
@@ -201,7 +215,6 @@ public class TCS34725LightSensor
     public Color readColor()
     {
         byte[] buffer = new byte[2];
-
         this.connection.read(COMMAND_BIT | RED_DATA_LOW_REGISTER, 2, buffer);
         int red = IntFromBytePair(buffer);
 
