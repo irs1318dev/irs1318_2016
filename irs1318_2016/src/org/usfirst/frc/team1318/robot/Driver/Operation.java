@@ -21,6 +21,8 @@ public enum Operation
     DefenseArmBack, 
     DefenseArmForward, 
     DefenseArmMoveToFront, 
-    DefenseArmMoveToBack;
+    DefenseArmMoveToBack,
+    DefenseArmUsePositionalMode,
+    DefenseArmSetAngle;
 
 }

@@ -74,8 +74,14 @@ public class DefenseArmController implements IController
 
         movingToFront = movingToFront || driver.getDigital(Operation.DefenseArmForward);
         movingToBack = movingToBack || driver.getDigital(Operation.DefenseArmBack);
+        
+        // Operation check for the portcullis macro        
+        if (driver.getDigital(Operation.DefenseArmUsePositionalMode))
+        {
+            desiredPosition = driver.getAnalog(Operation.DefenseArmSetAngle);
+        }
 
-        // 
+        // moving to front & moving to back commands
         if (movingToFront)
         {
             desiredPosition = TuningConstants.DEFENSE_ARM_PAST_FRONT_POSITION;
