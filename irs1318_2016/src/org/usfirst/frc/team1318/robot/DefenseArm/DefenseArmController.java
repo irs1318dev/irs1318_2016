@@ -11,7 +11,7 @@ import edu.wpi.first.wpilibj.Timer;
 
 /*
  * @Author Corbin
- * This class controls the defense arm. It is designed to have several defined positions for the arm, the ability to move the arm
+ * This class controlls the defense arm. It is designed to have several defined positions for the arm, the ability to move the arm
  * to the front of the robot or the back of the robot, and to correct for any error that may occur during arm movement.
  */
 
@@ -21,11 +21,11 @@ public class DefenseArmController implements IController
     private final DefenseArmComponent defenseArm;
     private Driver driver;
 
-    // The controller for PID and a timer for use in PID functions
+    // The cotroller for PID and a timer for use in PID functions
     private PIDHandler pidHandler;
     private Timer timer;
 
-    // State of PID enablization
+    // State of PID enableization
     private boolean usePID;
 
     // Current function the arm may be performing
