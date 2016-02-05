@@ -6,7 +6,6 @@ public class TCS34725LightSensor
 {
     private static final int ADDRESS = 0x29;
     private static final int COMMAND_BIT = 0x80;
-    private static final int INCREMENT_BIT = 0x20;
 
     private static final int ENABLE_REGISTER = 0x00; // enable - used to enable RGBC interrupt, Wait, RGBC, and Power
     private static final int ENABLE_AIEN = 0x10; // enable RGBC Interrupt (1 enables, 0 disables)

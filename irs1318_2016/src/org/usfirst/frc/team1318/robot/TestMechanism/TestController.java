@@ -42,7 +42,18 @@ public class TestController implements IController
         TCS34725LightSensor.Color color = this.component.getColor();
         if (color != null)
         {
-            colorString += String.format("%04X|%04X|%04X|%04X", color.getRed(), color.getGreen(), color.getBlue(), color.getClear());
+            int clear = color.getClear();
+            if (clear == 0)
+            {
+                clear = 1;
+            }
+
+            int red, green, blue;
+            red = (int)(256 * (((double)color.getRed()) / clear));
+            green = (int)(256 * (((double)color.getGreen()) / clear));
+            blue = (int)(256 * (((double)color.getBlue()) / clear));
+
+            colorString += String.format("%02X%02X%02X (%04X)", red, green, blue, clear);
         }
 
         int proximity = this.component.getProximity();
