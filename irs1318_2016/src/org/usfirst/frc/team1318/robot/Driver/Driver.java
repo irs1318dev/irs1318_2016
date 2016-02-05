@@ -70,22 +70,30 @@ public abstract class Driver
                     UserInputDevice.None,
                     AnalogAxis.None));
             // Operations for the defense arm
-            put(Operation.DefenseArmBack,
-                new DigitalOperationDescription(UserInputDevice.Driver,
-                    UserInputDeviceButton.JOYSTICK_STICK_BOTTOM_LEFT_BUTTON,
-                    ButtonType.Simple));
-            put(Operation.DefenseArmBackState,
-                new DigitalOperationDescription(UserInputDevice.Driver,
-                    UserInputDeviceButton.JOYSTICK_STICK_BOTTOM_LEFT_BUTTON,
-                    ButtonType.Click));
-            put(Operation.DefenseArmForward,
-                new DigitalOperationDescription(UserInputDevice.Driver,
-                    UserInputDeviceButton.NONE,
-                    ButtonType.Simple));
             put(Operation.DefenseArmFrontState,
                 new DigitalOperationDescription(UserInputDevice.Driver,
                     UserInputDeviceButton.NONE,
                     ButtonType.Click));
+            put(Operation.DefenseArmPortcullisState,
+                new DigitalOperationDescription(UserInputDevice.Driver,
+                    UserInputDeviceButton.JOYSTICK_STICK_BOTTOM_LEFT_BUTTON,
+                    ButtonType.Click));
+            put(Operation.DefenseArmSallyPortState,
+                new DigitalOperationDescription(UserInputDevice.Driver,
+                    UserInputDeviceButton.JOYSTICK_STICK_BOTTOM_LEFT_BUTTON,
+                    ButtonType.Simple));
+            put(Operation.DefenseArmDrawbridgeState,
+                new DigitalOperationDescription(UserInputDevice.Driver,
+                    UserInputDeviceButton.JOYSTICK_STICK_BOTTOM_LEFT_BUTTON,
+                    ButtonType.Click));
+            put(Operation.DefenseArmBack,
+                new DigitalOperationDescription(UserInputDevice.Driver,
+                    UserInputDeviceButton.JOYSTICK_STICK_BOTTOM_LEFT_BUTTON,
+                    ButtonType.Simple));
+            put(Operation.DefenseArmForward,
+                new DigitalOperationDescription(UserInputDevice.Driver,
+                    UserInputDeviceButton.NONE,
+                    ButtonType.Simple));
             put(Operation.DefenseArmMoveToBack,
                 new DigitalOperationDescription(UserInputDevice.Driver,
                     UserInputDeviceButton.NONE,
@@ -94,23 +102,15 @@ public abstract class Driver
                 new DigitalOperationDescription(UserInputDevice.Driver,
                     UserInputDeviceButton.NONE,
                     ButtonType.Click));
-            put(Operation.DefenseArmMoveToPosition1,
+            put(Operation.DefenseArmPortcullisPosition,
                 new DigitalOperationDescription(UserInputDevice.Driver,
                     UserInputDeviceButton.NONE,
                     ButtonType.Click));
-            put(Operation.DefenseArmMoveToPosition2,
+            put(Operation.DefenseArmDrawbridgePosition,
                 new DigitalOperationDescription(UserInputDevice.Driver,
                     UserInputDeviceButton.NONE,
                     ButtonType.Click));
-            put(Operation.DefenseArmMoveToPosition3,
-                new DigitalOperationDescription(UserInputDevice.Driver,
-                    UserInputDeviceButton.NONE,
-                    ButtonType.Click));
-            put(Operation.DefenseArmMoveToPosition4,
-                new DigitalOperationDescription(UserInputDevice.Driver,
-                    UserInputDeviceButton.NONE,
-                    ButtonType.Click));
-            put(Operation.DefenseArmMoveToPosition5,
+            put(Operation.DefenseArmSallyPortPosition,
                 new DigitalOperationDescription(UserInputDevice.Driver,
                     UserInputDeviceButton.NONE,
                     ButtonType.Click));

@@ -78,7 +78,7 @@ public class DefenseArmController implements IController
             desiredPosition = driver.getAnalog(Operation.DefenseArmSetAngle);
         }
 
-        // moving to front & moving to back commands
+        // Check for the desire to move the arm to the front or back of the robot
         if (this.driver.getDigital(Operation.DefenseArmForward))
         {
             this.movingToFront = true;
@@ -89,6 +89,7 @@ public class DefenseArmController implements IController
             this.movingToBack = true;
         }
         
+        // Set desired position to the front or back depending on movingToFront and movingToBack
         if (this.movingToFront)
         {
             this.desiredPosition = TuningConstants.DEFENSE_ARM_PAST_FRONT_POSITION;
@@ -117,44 +118,40 @@ public class DefenseArmController implements IController
             enforceNonPositive = true;
         }
 
-        // Makes the base state of the defense arm either the front or their back on command
+        // Makes the base state of the defense arm one needed for certain defenses (if applicable)
         if (this.driver.getDigital(Operation.DefenseArmFrontState))
         {
             this.baseState = HardwareConstants.DEFENSE_ARM_FRONT_STATE;
         }
-        else if (this.driver.getDigital(Operation.DefenseArmBackState))
+        else if (this.driver.getDigital(Operation.DefenseArmPortcullisState))
         {
-            this.baseState = HardwareConstants.DEFENSE_ARM_BACK_STATE;
+            this.baseState = HardwareConstants.DEFENSE_ARM_PORTCULLIS_STATE;
+        }
+        else if (this.driver.getDigital(Operation.DefenseArmSallyPortState))
+        {
+            this.baseState = HardwareConstants.DEFENSE_ARM_SALLY_PORT_STATE;
+        }
+        else if (this.driver.getDigital(Operation.DefenseArmDrawbridgeState))
+        {
+            this.baseState = HardwareConstants.DEFENSE_ARM_DRAWBRIDGE_STATE;
         }
 
         // Sets the desiredPosition based on several possible inputs
-        if (this.driver.getDigital(Operation.DefenseArmMoveToPosition1))
+        if (this.driver.getDigital(Operation.DefenseArmPortcullisPosition))
         {
             this.desiredPosition = this.baseState + HardwareConstants.DEFENSE_ARM_POSITION_1;
             this.movingToFront = false;
             this.movingToBack = false;
         }
-        else if (this.driver.getDigital(Operation.DefenseArmMoveToPosition2))
+        else if (this.driver.getDigital(Operation.DefenseArmDrawbridgePosition))
         {
             this.desiredPosition = baseState + HardwareConstants.DEFENSE_ARM_POSITION_2;
             this.movingToFront = false;
             this.movingToBack = false;
         }
-        else if (this.driver.getDigital(Operation.DefenseArmMoveToPosition3))
+        else if (this.driver.getDigital(Operation.DefenseArmSallyPortPosition))
         {
             this.desiredPosition = this.baseState + HardwareConstants.DEFENSE_ARM_POSITION_3;
-            this.movingToFront = false;
-            this.movingToBack = false;
-        }
-        else if (this.driver.getDigital(Operation.DefenseArmMoveToPosition4))
-        {
-            this.desiredPosition = this.baseState + HardwareConstants.DEFENSE_ARM_POSITION_4;
-            this.movingToFront = false;
-            this.movingToBack = false;
-        }
-        else if (this.driver.getDigital(Operation.DefenseArmMoveToPosition5))
-        {
-            this.desiredPosition = this.baseState + HardwareConstants.DEFENSE_ARM_POSITION_5;
             this.movingToFront = false;
             this.movingToBack = false;
         }

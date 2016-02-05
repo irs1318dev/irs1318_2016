@@ -28,7 +28,9 @@ public class HardwareConstants
     public static final double DEFENSE_ARM_PULSE_DISTANCE = 0;
     public static final double DEFENSE_ARM_BASE_STATE = 0;
     public static final double DEFENSE_ARM_FRONT_STATE = 0;
-    public static final double DEFENSE_ARM_BACK_STATE = 0;
+    public static final double DEFENSE_ARM_PORTCULLIS_STATE = 0;
+    public static final double DEFENSE_ARM_SALLY_PORT_STATE = 0;
+    public static final double DEFENSE_ARM_DRAWBRIDGE_STATE = 0;
     public static final double DEFENSE_ARM_POSITION_1 = 0;
     public static final double DEFENSE_ARM_POSITION_2 = 0;
     public static final double DEFENSE_ARM_POSITION_3 = 0;

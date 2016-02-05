@@ -9,8 +9,7 @@ import edu.wpi.first.wpilibj.Talon;
 
 public class DefenseArmComponent
 {
-    // The following are the components needed to run the Defense Arm
-
+    // The following are the components needed to run the defense arm
     private final Talon talon;
 
     private final Encoder encoder;
@@ -30,7 +29,6 @@ public class DefenseArmComponent
 
         this.encoder.setDistancePerPulse(HardwareConstants.DEFENSE_ARM_PULSE_DISTANCE);
         this.zeroOffset = 0.0;
-
     }
 
     // Set speed of the motor controlling arm movement
@@ -67,7 +65,6 @@ public class DefenseArmComponent
     public void setZeroOffset(double zeroOffset)
     {
         this.zeroOffset = zeroOffset;
-
     }
 
 }
