@@ -1,5 +1,7 @@
 package org.usfirst.frc.team1318.robot;
 
+import edu.wpi.first.wpilibj.DigitalSource;
+
 /**
  * All constants describing how the electronics are plugged together.
  * 
@@ -48,6 +50,12 @@ public class ElectronicsConstants
     public static final int DEFENSE_ARM_BACK_LIMIT_SWITCH_CHANNEL = 0;
     public static final int DEFENSE_ARM_ENCODER_CHANNEL_A = 0;
     public static final int DEFENSE_ARM_ENCODER_CHANNEL_B = 0;
+    
+    //=================================================== Shooter ===================================================================
+    
+    public static final int SHOOTER_MOTOR_CHANNEL = 0;
+    public static final int SHOOTER_ENCODER_CHANNEL_A = 0;
+    public static final int SHOOTER_ENCODER_CHANNEL_B = 0;
     
     // ================================================= Sensor test =============================================================
     

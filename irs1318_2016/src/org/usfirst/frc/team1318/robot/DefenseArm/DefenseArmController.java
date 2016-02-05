@@ -9,10 +9,12 @@ import org.usfirst.frc.team1318.robot.Driver.Operation;
 
 import edu.wpi.first.wpilibj.Timer;
 
-/*
+/**
+ * Controller for the defense arm. It is designed to have several defined positions for the arm, the ability to move the arm
+ * to the front of the robot or the back of the robot, have several set states for the bottom
+ * and to correct for any error that may occur during arm movement.
  * @author Corbin
- * This class controls the defense arm. It is designed to have several defined positions for the arm, the ability to move the arm
- * to the front of the robot or the back of the robot, and to correct for any error that may occur during arm movement.
+ *
  */
 
 public class DefenseArmController implements IController

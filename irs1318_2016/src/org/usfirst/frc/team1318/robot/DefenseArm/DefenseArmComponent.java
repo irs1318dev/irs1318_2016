@@ -6,7 +6,11 @@ import org.usfirst.frc.team1318.robot.HardwareConstants;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.Talon;
-
+/**
+ * Component for the defense arm mechanism.
+ * @author Corbin
+ *
+ */
 public class DefenseArmComponent
 {
     // The following are the components needed to run the defense arm
