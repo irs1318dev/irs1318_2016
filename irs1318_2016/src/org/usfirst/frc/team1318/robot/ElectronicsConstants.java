@@ -48,4 +48,8 @@ public class ElectronicsConstants
     public static final int DEFENSE_ARM_BACK_LIMIT_SWITCH_CHANNEL = 0;
     public static final int DEFENSE_ARM_ENCODER_CHANNEL_A = 0;
     public static final int DEFENSE_ARM_ENCODER_CHANNEL_B = 0;
+    
+    // ================================================= Sensor test =============================================================
+    
+    public static final int TEST_SENSOR_SHARP = 0;
 }

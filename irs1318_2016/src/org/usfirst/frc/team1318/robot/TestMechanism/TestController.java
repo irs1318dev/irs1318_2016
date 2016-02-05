@@ -2,7 +2,7 @@ package org.usfirst.frc.team1318.robot.TestMechanism;
 
 import org.usfirst.frc.team1318.robot.Common.IController;
 import org.usfirst.frc.team1318.robot.Driver.Driver;
-import org.usfirst.frc.team1318.robot.Sensors.TCS34725LightSensor;
+import org.usfirst.frc.team1318.robot.Sensors.TCS34725LightSensor.Color;
 
 /**
  * Test controller.
@@ -39,7 +39,7 @@ public class TestController implements IController
     public void update()
     {
         String colorString = "";
-        TCS34725LightSensor.Color color = this.component.getColor();
+        Color color = this.component.getColor();
         if (color != null)
         {
             int clear = color.getClear();
