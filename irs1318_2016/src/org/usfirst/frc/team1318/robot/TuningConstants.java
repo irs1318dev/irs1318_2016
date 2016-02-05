@@ -61,4 +61,21 @@ public class TuningConstants
 
     public static final double DRIVETRAIN_REVERSE_RIGHT_SCALE_FACTOR = 1.15;//moving forwards
     public static final double DRIVETRAIN_REVERSE_LEFT_SCALE_FACTOR = 1.17;//moving backwards
+
+    // Defense arm max speed
+    public static final double DEFENSE_ARM_MAX_VELOCITY = 0.0;
+
+    // Defense arm max power level
+    public static final double DEFENSE_ARM_OVERRIDE_POWER_LEVEL = 0.0;
+
+    // Defense arm PID values
+    public static final double DEFENSE_ARM_POSITION_PID_KP_DEFAULT = 0.0;
+    public static final double DEFENSE_ARM_POSITION_PID_KI_DEFAULT = 0.0;
+    public static final double DEFENSE_ARM_POSITION_PID_KD_DEFAULT = 0.0;
+    public static final double DEFENSE_ARM_POSITION_PID_KF_DEFAULT = 0.0;
+    public static final double DEFENSE_ARM_MAX_POWER_LEVEL = 0.0;
+    public static final double DEFENSE_ARM_BELOW_FRONT_POSITION = 0.0;
+    public static final double DEFENSE_ARM_PAST_FRONT_POSITION = 0.0;
+    public static final double DEFENSE_ARM_PAST_BACK_POSITION = 0.0;
+
 }
