@@ -69,6 +69,51 @@ public abstract class Driver
                 new AnalogOperationDescription(
                     UserInputDevice.None,
                     AnalogAxis.None));
+            // Operations for the defense arm
+            put(Operation.DefenseArmBack,
+                new DigitalOperationDescription(UserInputDevice.Driver,
+                    UserInputDeviceButton.JOYSTICK_STICK_BOTTOM_LEFT_BUTTON,
+                    ButtonType.Simple));
+            put(Operation.DefenseArmBackState,
+                new DigitalOperationDescription(UserInputDevice.Driver,
+                    UserInputDeviceButton.JOYSTICK_STICK_BOTTOM_LEFT_BUTTON,
+                    ButtonType.Click));
+            put(Operation.DefenseArmForward,
+                new DigitalOperationDescription(UserInputDevice.Driver,
+                    UserInputDeviceButton.NONE,
+                    ButtonType.Simple));
+            put(Operation.DefenseArmFrontState,
+                new DigitalOperationDescription(UserInputDevice.Driver,
+                    UserInputDeviceButton.NONE,
+                    ButtonType.Click));
+            put(Operation.DefenseArmMoveToBack,
+                new DigitalOperationDescription(UserInputDevice.Driver,
+                    UserInputDeviceButton.NONE,
+                    ButtonType.Click));
+            put(Operation.DefenseArmMoveToFront,
+                new DigitalOperationDescription(UserInputDevice.Driver,
+                    UserInputDeviceButton.NONE,
+                    ButtonType.Click));
+            put(Operation.DefenseArmMoveToPosition1,
+                new DigitalOperationDescription(UserInputDevice.Driver,
+                    UserInputDeviceButton.NONE,
+                    ButtonType.Click));
+            put(Operation.DefenseArmMoveToPosition2,
+                new DigitalOperationDescription(UserInputDevice.Driver,
+                    UserInputDeviceButton.NONE,
+                    ButtonType.Click));
+            put(Operation.DefenseArmMoveToPosition3,
+                new DigitalOperationDescription(UserInputDevice.Driver,
+                    UserInputDeviceButton.NONE,
+                    ButtonType.Click));
+            put(Operation.DefenseArmMoveToPosition4,
+                new DigitalOperationDescription(UserInputDevice.Driver,
+                    UserInputDeviceButton.NONE,
+                    ButtonType.Click));
+            put(Operation.DefenseArmMoveToPosition5,
+                new DigitalOperationDescription(UserInputDevice.Driver,
+                    UserInputDeviceButton.NONE,
+                    ButtonType.Click));
         }
     };
 
@@ -83,7 +128,7 @@ public abstract class Driver
                     UserInputDeviceButton.JOYSTICK_BASE_BOTTOM_RIGHT_BUTTON,
                     () -> ((IControlTask)new DriveTimedTask(20.0, 0.05, 0.05)),
                     new Operation[]
-                        { Operation.DriveTrainMoveForward, Operation.DriveTrainTurn, Operation.DriveTrainUsePositionalMode }));
+            { Operation.DriveTrainMoveForward, Operation.DriveTrainTurn, Operation.DriveTrainUsePositionalMode }));
         }
     };
 

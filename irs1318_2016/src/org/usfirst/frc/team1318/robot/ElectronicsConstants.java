@@ -40,4 +40,12 @@ public class ElectronicsConstants
 
     public static final int AUTONOMOUS_DIP_SWITCH_A = 8;
     public static final int AUTONOMOUS_DIP_SWITCH_B = 9;
+
+    //================================================= Defense Arm ===============================================================
+
+    public static final int DEFENSE_ARM_MOTOR_CHANNEL = 0;
+    public static final int DEFENSE_ARM_FRONT_LIMIT_SWITCH_CHANNEL = 0;
+    public static final int DEFENSE_ARM_BACK_LIMIT_SWITCH_CHANNEL = 0;
+    public static final int DEFENSE_ARM_ENCODER_CHANNEL_A = 0;
+    public static final int DEFENSE_ARM_ENCODER_CHANNEL_B = 0;
 }
