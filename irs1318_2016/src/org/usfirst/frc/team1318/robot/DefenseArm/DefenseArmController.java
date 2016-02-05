@@ -10,8 +10,8 @@ import org.usfirst.frc.team1318.robot.Driver.Operation;
 import edu.wpi.first.wpilibj.Timer;
 
 /*
- * @Author Corbin
- * This class controlls the defense arm. It is designed to have several defined positions for the arm, the ability to move the arm
+ * @author Corbin
+ * This class controls the defense arm. It is designed to have several defined positions for the arm, the ability to move the arm
  * to the front of the robot or the back of the robot, and to correct for any error that may occur during arm movement.
  */
 
@@ -21,11 +21,11 @@ public class DefenseArmController implements IController
     private final DefenseArmComponent defenseArm;
     private Driver driver;
 
-    // The cotroller for PID and a timer for use in PID functions
+    // The controller for PID and a timer for use in PID functions
     private PIDHandler pidHandler;
     private Timer timer;
 
-    // State of PID enableization
+    // State of PID (enabled or not)
     private boolean usePID;
 
     // Current function the arm may be performing
@@ -100,7 +100,7 @@ public class DefenseArmController implements IController
         }
 
         // Check to see if the arm is at the front of the robot, 
-        // update zeroOffset, and set the appropirate boolean to false
+        // update zeroOffset, and set the appropriate boolean to false
         if (isAtFront)
         {
             this.defenseArm.setZeroOffset(currentEncoderDistance);
@@ -110,7 +110,7 @@ public class DefenseArmController implements IController
         }
 
         // Check to see if the arm is at the back of the robot, 
-        // and set the appropirate boolean to false
+        // and set the appropriate boolean to false
         if (isAtBack)
         {
             this.movingToBack = false;
