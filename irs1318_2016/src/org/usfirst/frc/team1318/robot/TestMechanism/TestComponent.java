@@ -21,14 +21,21 @@ public class TestComponent
      */
     public TestComponent()
     {
-        this.lightSensor = new TCS34725LightSensor(I2C.Port.kOnboard, IntegrationTime.Time101MS, Gain.X1);
-        this.proxSensor = null;//new VCNL4010ProximityALSensor(I2C.Port.kOnboard);
+        this.lightSensor = null; //new TCS34725LightSensor(I2C.Port.kOnboard, IntegrationTime.Time101MS, Gain.X1);
+        this.proxSensor = new VCNL4010ProximityALSensor(I2C.Port.kOnboard);
     }
 
     public void start()
     {
-        this.lightSensor.start();
-        //this.proxSensor.start();
+        if (this.lightSensor != null)
+        {
+            this.lightSensor.start();
+        }
+        
+        if (this.proxSensor != null)
+        {
+            this.proxSensor.start();
+        }
     }
 
     public TCS34725LightSensor.Color getColor()

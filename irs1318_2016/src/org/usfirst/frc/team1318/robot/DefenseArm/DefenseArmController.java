@@ -42,56 +42,61 @@ public class DefenseArmController implements IController
     {
         this.defenseArm = defenseArmComponent;
 
-        usePID = true;
-        createPIDHandler();
+        this.usePID = true;
+        this.createPIDHandler();
 
-        baseState = HardwareConstants.DEFENSE_ARM_BASE_STATE;
-        desiredPosition = HardwareConstants.DEFENSE_ARM_BASE_STATE;
+        this.baseState = HardwareConstants.DEFENSE_ARM_BASE_STATE;
+        this.desiredPosition = HardwareConstants.DEFENSE_ARM_BASE_STATE;
 
-        timer = new Timer();
-        startTime = timer.get();
-
+        this.timer = new Timer();
+        this.timer.start();
+        this.startTime = this.timer.get();
     }
 
     @Override
     public void update()
     {
         // Set the current time using the timer
-        double currentTime = timer.get();
+        double currentTime = this.timer.get();
         
         // Booleans to make sure that the arm doesn't break itself against its boundaries
         boolean enforceNonNegative = false;
         boolean enforceNonPositive = false;
 
         // Set current distance of the encoder, and create zeroOffset and motorValue
-        double currentEncoderDistance = defenseArm.getEncoderTicks();
+        double currentEncoderDistance = this.defenseArm.getEncoderTicks();
         double zeroOffset;
         double motorValue;
 
         // Get the values of the front and back limit switches
-        boolean isAtFront = defenseArm.getFrontLimitSwitch();
-        boolean isAtBack = defenseArm.getBackLimitSwitch();
+        boolean isAtFront = this.defenseArm.getFrontLimitSwitch();
+        boolean isAtBack = this.defenseArm.getBackLimitSwitch();
 
-        movingToFront = movingToFront || driver.getDigital(Operation.DefenseArmForward);
-        movingToBack = movingToBack || driver.getDigital(Operation.DefenseArmBack);
-
-        // 
-        if (movingToFront)
+        if (this.driver.getDigital(Operation.DefenseArmForward))
         {
-            desiredPosition = TuningConstants.DEFENSE_ARM_PAST_FRONT_POSITION;
+            this.movingToFront = true;
         }
 
-        else if (movingToBack)
+        if (this.driver.getDigital(Operation.DefenseArmBack))
         {
-            desiredPosition = TuningConstants.DEFENSE_ARM_PAST_BACK_POSITION;
+            this.movingToBack = true;
+        }
+
+        if (this.movingToFront)
+        {
+            this.desiredPosition = TuningConstants.DEFENSE_ARM_PAST_FRONT_POSITION;
+        }
+        else if (this.movingToBack)
+        {
+            this.desiredPosition = TuningConstants.DEFENSE_ARM_PAST_BACK_POSITION;
         }
 
         // Check to see if the arm is at the front of the robot, 
         // update zeroOffset, and set the appropirate boolean to false
         if (isAtFront)
         {
-            defenseArm.setZeroOffset(currentEncoderDistance);
-            movingToFront = false;
+            this.defenseArm.setZeroOffset(currentEncoderDistance);
+            this.movingToFront = false;
 
             enforceNonNegative = true;
         }
@@ -100,111 +105,114 @@ public class DefenseArmController implements IController
         // and set the appropirate boolean to false
         if (isAtBack)
         {
-            movingToBack = false;
+            this.movingToBack = false;
             
             enforceNonPositive = true;
         }
 
         // Makes the base state of the defense arm either the front or their back on command
-        if (driver.getDigital(Operation.DefenseArmFrontState))
+        if (this.driver.getDigital(Operation.DefenseArmFrontState))
         {
-            baseState = HardwareConstants.DEFENSE_ARM_FRONT_STATE;
+            this.baseState = HardwareConstants.DEFENSE_ARM_FRONT_STATE;
         }
-        else if (driver.getDigital(Operation.DefenseArmBackState))
+        else if (this.driver.getDigital(Operation.DefenseArmBackState))
         {
-            baseState = HardwareConstants.DEFENSE_ARM_BACK_STATE;
+            this.baseState = HardwareConstants.DEFENSE_ARM_BACK_STATE;
         }
 
         // Sets the desiredPosition based on several possible inputs
-        if (driver.getDigital(Operation.DefenseArmMoveToPosition1))
+        if (this.driver.getDigital(Operation.DefenseArmMoveToPosition1))
         {
-            desiredPosition = baseState + HardwareConstants.DEFENSE_ARM_POSITION_1;
-            movingToFront = false;
-            movingToBack = false;
+            this.desiredPosition = this.baseState + HardwareConstants.DEFENSE_ARM_POSITION_1;
+            this.movingToFront = false;
+            this.movingToBack = false;
         }
-        else if (driver.getDigital(Operation.DefenseArmMoveToPosition2))
+        else if (this.driver.getDigital(Operation.DefenseArmMoveToPosition2))
         {
-            desiredPosition = baseState + HardwareConstants.DEFENSE_ARM_POSITION_2;
-            movingToFront = false;
-            movingToBack = false;
+            this.desiredPosition = baseState + HardwareConstants.DEFENSE_ARM_POSITION_2;
+            this.movingToFront = false;
+            this.movingToBack = false;
         }
-        else if (driver.getDigital(Operation.DefenseArmMoveToPosition3))
+        else if (this.driver.getDigital(Operation.DefenseArmMoveToPosition3))
         {
-            desiredPosition = baseState + HardwareConstants.DEFENSE_ARM_POSITION_3;
-            movingToFront = false;
-            movingToBack = false;
+            this.desiredPosition = this.baseState + HardwareConstants.DEFENSE_ARM_POSITION_3;
+            this.movingToFront = false;
+            this.movingToBack = false;
         }
-        else if (driver.getDigital(Operation.DefenseArmMoveToPosition4))
+        else if (this.driver.getDigital(Operation.DefenseArmMoveToPosition4))
         {
-            desiredPosition = baseState + HardwareConstants.DEFENSE_ARM_POSITION_4;
-            movingToFront = false;
-            movingToBack = false;
+            this.desiredPosition = this.baseState + HardwareConstants.DEFENSE_ARM_POSITION_4;
+            this.movingToFront = false;
+            this.movingToBack = false;
         }
-        else if (driver.getDigital(Operation.DefenseArmMoveToPosition5))
+        else if (this.driver.getDigital(Operation.DefenseArmMoveToPosition5))
         {
-            desiredPosition = baseState + HardwareConstants.DEFENSE_ARM_POSITION_5;
-            movingToFront = false;
-            movingToBack = false;
+            this.desiredPosition = this.baseState + HardwareConstants.DEFENSE_ARM_POSITION_5;
+            this.movingToFront = false;
+            this.movingToBack = false;
         }
 
-        zeroOffset = defenseArm.getZeroOffset();
+        zeroOffset = this.defenseArm.getZeroOffset();
 
         // Logic for moving the defense arm forward and backward manually
-        if (usePID)
+        if (this.usePID)
         {
-            if (movingToBack)
+            if (this.movingToBack)
             {
-                desiredPosition = currentEncoderDistance - zeroOffset;
-                desiredPosition += TuningConstants.DEFENSE_ARM_MAX_VELOCITY * (currentTime - startTime);
-                movingToFront = false;
-                movingToBack = false;
+                this.desiredPosition = currentEncoderDistance - zeroOffset;
+                this.desiredPosition += TuningConstants.DEFENSE_ARM_MAX_VELOCITY * (currentTime - this.startTime);
+                this.movingToFront = false;
+                this.movingToBack = false;
             }
-            else if (movingToFront)
+            else if (this.movingToFront)
             {
-                desiredPosition = currentEncoderDistance - zeroOffset;
-                desiredPosition -= TuningConstants.DEFENSE_ARM_MAX_VELOCITY * (currentTime - startTime);
-                movingToFront = false;
-                movingToBack = false;
+                this.desiredPosition = currentEncoderDistance - zeroOffset;
+                this.desiredPosition -= TuningConstants.DEFENSE_ARM_MAX_VELOCITY * (currentTime - this.startTime);
+                this.movingToFront = false;
+                this.movingToBack = false;
             }
-            motorValue = pidHandler.calculatePosition(zeroOffset + desiredPosition, defenseArm.getEncoderTicks());
+            
+            motorValue = this.pidHandler.calculatePosition(zeroOffset + this.desiredPosition, this.defenseArm.getEncoderTicks());
         }
         else
         {
-            if (driver.getDigital(Operation.DefenseArmMoveToBack))
+            if (this.driver.getDigital(Operation.DefenseArmMoveToBack))
             {
                 motorValue = TuningConstants.DEFENSE_ARM_OVERRIDE_POWER_LEVEL;
-                movingToFront = false;
-                movingToBack = false;
+                this.movingToFront = false;
+                this.movingToBack = false;
             }
             else if (this.driver.getDigital(Operation.DefenseArmMoveToFront))
             {
                 motorValue = -TuningConstants.DEFENSE_ARM_OVERRIDE_POWER_LEVEL;
-                movingToFront = false;
-                movingToBack = false;
+                this.movingToFront = false;
+                this.movingToBack = false;
             }
             else
             {
                 motorValue = 0.0;
-                movingToFront = false;
-                movingToBack = false;
+                this.movingToFront = false;
+                this.movingToBack = false;
             }
         }
         
-        if (enforceNonNegative || enforceNonPositive)
+        if (enforceNonNegative)
         {
-            defenseArm.setSpeed(0.0);
+            motorValue = Math.min(0.0, motorValue);
         }
-        else 
+        
+        if (enforceNonPositive)
         {
-            defenseArm.setSpeed(motorValue);
+            motorValue = Math.max(0.0, motorValue);
         }
-
+        
+        this.defenseArm.setSpeed(motorValue);
     }
 
     @Override
     public void stop()
     {
-        defenseArm.setSpeed(0.0);
+        this.defenseArm.setSpeed(0.0);
     }
 
     @Override
@@ -217,9 +225,9 @@ public class DefenseArmController implements IController
     private void createPIDHandler()
     {
         // Initial check if using PID is not desired (initializes the object if true)
-        if (usePID)
+        if (this.usePID)
         {
-            pidHandler = new PIDHandler(
+            this.pidHandler = new PIDHandler(
                 "arm",
                 TuningConstants.DEFENSE_ARM_POSITION_PID_KP_DEFAULT,
                 TuningConstants.DEFENSE_ARM_POSITION_PID_KI_DEFAULT,
@@ -230,7 +238,7 @@ public class DefenseArmController implements IController
         }
         else
         {
-            pidHandler = null;
+            this.pidHandler = null;
         }
     }
 }
