@@ -34,4 +34,5 @@ public class HardwareConstants
     public static final double DEFENSE_ARM_POSITION_3 = 0;
     public static final double DEFENSE_ARM_POSITION_4 = 0;
     public static final double DEFENSE_ARM_POSITION_5 = 0;
+    public static final double DEFENSE_ARM_LENGTH = 0.0;
 }

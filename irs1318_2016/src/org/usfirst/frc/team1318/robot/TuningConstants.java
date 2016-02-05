@@ -78,4 +78,11 @@ public class TuningConstants
     public static final double DEFENSE_ARM_PAST_FRONT_POSITION = 0.0;
     public static final double DEFENSE_ARM_PAST_BACK_POSITION = 0.0;
 
+    
+    // MACROS
+    public static final double PORTCULLIS_BREACH_DISTANCE = 0.0;
+        //Distance Robot must travel to breach portcullis
+    public static final double PORTCULLIS_BREACH_ITERATIVE = 0.0;
+    public static final double DEFENSE_ARM_RADIANS_TO_TICKS = 0.0;
+        //(Radian angle of DEFENSE ARM) * (CONSTANT) should equal the amount of ticks passed on encoder
 }
