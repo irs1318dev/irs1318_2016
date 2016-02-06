@@ -25,8 +25,13 @@ public class BreachPortcullisTask extends ControlTaskBase
 
     public BreachPortcullisTask()
     {
-        driveTrain = getComponents().getDriveTrain();
+    }
 
+    @Override
+    public void begin()
+    {
+        driveTrain = getComponents().getDriveTrain();
+        
         // Log the starting distance of the encoders (for the drive train)
         startDTDistanceRight = driveTrain.getRightEncoderDistance();
         startDTDistanceLeft = driveTrain.getLeftEncoderDistance();
@@ -34,11 +39,7 @@ public class BreachPortcullisTask extends ControlTaskBase
         // Set the desired position for the drive train
         desiredDTDistanceRight = startDTDistanceRight + TuningConstants.PORTCULLIS_BREACH_DISTANCE;
         desiredDTDistanceLeft = startDTDistanceLeft + TuningConstants.PORTCULLIS_BREACH_DISTANCE;
-    }
-
-    @Override
-    public void begin()
-    {
+        
         // Reset the defense arm
         setDigitalOperationState(Operation.DefenseArmMoveToFront, true);
         // Set necessary operations to true

@@ -57,6 +57,9 @@ public class ElectronicsConstants
     public static final int SHOOTER_ENCODER_CHANNEL_A = 0;
     public static final int SHOOTER_ENCODER_CHANNEL_B = 0;
     
+    //=================================================== Intake =================================================================
+    public static final int INTAKE_MOTOR_CHANNEL = 0;
+    
     // ================================================= Sensor test =============================================================
     
     public static final int TEST_SENSOR_SHARP = 0;

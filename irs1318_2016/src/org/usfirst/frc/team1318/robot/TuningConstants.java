@@ -85,4 +85,8 @@ public class TuningConstants
     public static final double PORTCULLIS_BREACH_ITERATIVE = 0.0;
     public static final double DEFENSE_ARM_RADIANS_TO_TICKS = 0.0;
         //(Radian angle of DEFENSE ARM) * (CONSTANT) should equal the amount of ticks passed on encoder
+    
+    // Shooter constants
+    public static final double SHOOTER_K1 = 1.0;
+    public static final double SHOOTER_MAX_POWER_LEVEL = 1.0;
 }
