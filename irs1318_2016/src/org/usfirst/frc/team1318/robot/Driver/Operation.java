@@ -25,10 +25,8 @@ public enum Operation
     DefenseArmUsePositionalMode,
     DefenseArmSetAngle,
     ShooterSpeed,
-    ShooterEnable;
-    DefenseArmSetAngle,
+    ShooterEnable,
     IntakeRotatingIn,
     IntakeRotatingOut,
     IntakeNotRotating;
-
 }
