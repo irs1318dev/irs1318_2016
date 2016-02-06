@@ -26,15 +26,10 @@ public class HardwareConstants
 
     //================================================== Defense Arm =============================================================
     public static final double DEFENSE_ARM_PULSE_DISTANCE = 0;
-    public static final double DEFENSE_ARM_BASE_STATE = 0;
-    public static final double DEFENSE_ARM_FRONT_STATE = 0;
-    public static final double DEFENSE_ARM_PORTCULLIS_STATE = 0;
-    public static final double DEFENSE_ARM_SALLY_PORT_STATE = 0;
-    public static final double DEFENSE_ARM_DRAWBRIDGE_STATE = 0;
-    public static final double DEFENSE_ARM_POSITION_1 = 0;
-    public static final double DEFENSE_ARM_POSITION_2 = 0;
-    public static final double DEFENSE_ARM_POSITION_3 = 0;
-    public static final double DEFENSE_ARM_POSITION_4 = 0;
-    public static final double DEFENSE_ARM_POSITION_5 = 0;
+    public static final double DEFENSE_ARM_FRONT_POSITION = 0;
+    public static final double DEFENSE_ARM_PORTCULLIS_POSITION = 0;
+    public static final double DEFENSE_ARM_DRAWBRIDGE_POSITION = 0;
+    public static final double DEFENSE_ARM_SALLY_PORT_POSITION = 0;
+    public static final double DEFENSE_ARM_BACK_POSITION = 0;
     public static final double DEFENSE_ARM_LENGTH = 0.0;
 }

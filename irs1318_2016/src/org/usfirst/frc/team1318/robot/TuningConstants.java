@@ -73,7 +73,9 @@ public class TuningConstants
     public static final double DEFENSE_ARM_POSITION_PID_KI_DEFAULT = 0.0;
     public static final double DEFENSE_ARM_POSITION_PID_KD_DEFAULT = 0.0;
     public static final double DEFENSE_ARM_POSITION_PID_KF_DEFAULT = 0.0;
+    
     public static final double DEFENSE_ARM_MAX_POWER_LEVEL = 0.0;
+    public static final double DEFENSE_ARM_MOVE_END_POWER_LEVEL = 0.0;
     public static final double DEFENSE_ARM_BELOW_FRONT_POSITION = 0.0;
     public static final double DEFENSE_ARM_PAST_FRONT_POSITION = 0.0;
     public static final double DEFENSE_ARM_PAST_BACK_POSITION = 0.0;

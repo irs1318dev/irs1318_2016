@@ -9,7 +9,6 @@ import org.usfirst.frc.team1318.robot.Driver.Operation;
  * @author Preston and Corbin
  * This class is a task designed to automatically drive the robot through the portcullis.
  */
-
 public class BreachPortcullisTask extends ControlTaskBase
 {
     private double startDTDistanceRight;
@@ -30,37 +29,41 @@ public class BreachPortcullisTask extends ControlTaskBase
     @Override
     public void begin()
     {
-        driveTrain = getComponents().getDriveTrain();
+        this.driveTrain = this.getComponents().getDriveTrain();
         
         // Log the starting distance of the encoders (for the drive train)
-        startDTDistanceRight = driveTrain.getRightEncoderDistance();
-        startDTDistanceLeft = driveTrain.getLeftEncoderDistance();
+        this.startDTDistanceRight = this.driveTrain.getRightEncoderDistance();
+        this.startDTDistanceLeft = this.driveTrain.getLeftEncoderDistance();
 
         // Set the desired position for the drive train
-        desiredDTDistanceRight = startDTDistanceRight + TuningConstants.PORTCULLIS_BREACH_DISTANCE;
-        desiredDTDistanceLeft = startDTDistanceLeft + TuningConstants.PORTCULLIS_BREACH_DISTANCE;
+        this.desiredDTDistanceRight = this.startDTDistanceRight + TuningConstants.PORTCULLIS_BREACH_DISTANCE;
+        this.desiredDTDistanceLeft = this.startDTDistanceLeft + TuningConstants.PORTCULLIS_BREACH_DISTANCE;
         
         // Reset the defense arm
-        setDigitalOperationState(Operation.DefenseArmMoveToFront, true);
+        this.setDigitalOperationState(Operation.DefenseArmFrontPosition, true);
+        
         // Set necessary operations to true
-        setDigitalOperationState(Operation.DriveTrainUsePositionalMode, true);
-        setDigitalOperationState(Operation.DefenseArmUsePositionalMode, true);
+        this.setDigitalOperationState(Operation.DriveTrainUsePositionalMode, true);
+        this.setDigitalOperationState(Operation.DefenseArmUsePositionalMode, true);
     }
 
     @Override
     public void update()
     {
         // Find current encoder distances
-        currentDTDistanceRight = driveTrain.getRightEncoderDistance();
-        currentDTDistanceLeft = driveTrain.getLeftEncoderDistance();
+        this.currentDTDistanceRight = this.driveTrain.getRightEncoderDistance();
+        this.currentDTDistanceLeft = this.driveTrain.getLeftEncoderDistance();
+        
         // Move the drive train by the PORTCULLIS_BREACH_ITERATIVE constant
-        setAnalogOperationState(Operation.DriveTrainRightPosition, currentDTDistanceRight
+        this.setAnalogOperationState(Operation.DriveTrainRightPosition, this.currentDTDistanceRight
             + TuningConstants.PORTCULLIS_BREACH_ITERATIVE);
-        setAnalogOperationState(Operation.DriveTrainLeftPosition, currentDTDistanceLeft
+        this.setAnalogOperationState(Operation.DriveTrainLeftPosition, this.currentDTDistanceLeft
             + TuningConstants.PORTCULLIS_BREACH_ITERATIVE);
+        
         // Find distance traveled by both right and left wheels since macro started
-        double traveledRightDistance = currentDTDistanceRight - startDTDistanceRight;
-        double traveledLeftDistance = currentDTDistanceLeft - startDTDistanceLeft;
+        double traveledRightDistance = this.currentDTDistanceRight - this.startDTDistanceRight;
+        double traveledLeftDistance = this.currentDTDistanceLeft - this.startDTDistanceLeft;
+        
         // Find average of right and left traveled distance (both left and right should be the same theoretically);
         double traveledDistance = (traveledRightDistance + traveledLeftDistance) / 2;
         
@@ -69,39 +72,33 @@ public class BreachPortcullisTask extends ControlTaskBase
             / HardwareConstants.DEFENSE_ARM_LENGTH);
         
         // Set the desired arm angle converted to ticks
-        setAnalogOperationState(Operation.DefenseArmSetAngle, armAngle * TuningConstants.DEFENSE_ARM_RADIANS_TO_TICKS);
+        this.setAnalogOperationState(Operation.DefenseArmSetAngle, armAngle * TuningConstants.DEFENSE_ARM_RADIANS_TO_TICKS);
     }
 
     @Override
     public void stop()
     {
         // Disable positional modes for drive train and defense arm
-        setDigitalOperationState(Operation.DriveTrainUsePositionalMode, false);
-        setDigitalOperationState(Operation.DefenseArmUsePositionalMode, false);
+        this.setDigitalOperationState(Operation.DriveTrainUsePositionalMode, false);
+        this.setDigitalOperationState(Operation.DefenseArmUsePositionalMode, false);
     }
 
     @Override
     public void end()
     {
         // Disable positional modes for drive train and defense arm
-        setDigitalOperationState(Operation.DriveTrainUsePositionalMode, true);
-        setDigitalOperationState(Operation.DefenseArmUsePositionalMode, true);
+        this.setDigitalOperationState(Operation.DriveTrainUsePositionalMode, false);
+        this.setDigitalOperationState(Operation.DefenseArmUsePositionalMode, false);
+        
         // Return defense arm to the front of the robot
-        setDigitalOperationState(Operation.DefenseArmMoveToFront, true);
+        this.setDigitalOperationState(Operation.DefenseArmFrontPosition, true);
     }
 
     @Override
     public boolean hasCompleted()
     {
         // Check that the distance the robot has traveled (with the purpose of returning true if the desired position has been met)
-        if (currentDTDistanceRight >= desiredDTDistanceRight && currentDTDistanceLeft >= desiredDTDistanceLeft)
-        {
-            return true;
-        }
-        else
-        {
-            return false;
-        }
+        return this.currentDTDistanceRight >= this.desiredDTDistanceRight && this.currentDTDistanceLeft >= this.desiredDTDistanceLeft;
     }
 
 }
