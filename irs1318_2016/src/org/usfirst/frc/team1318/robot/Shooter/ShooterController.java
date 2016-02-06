@@ -56,13 +56,21 @@ public class ShooterController implements IController
             // Zero if its not enabled, cause... yeah
             this.shooter.setMotorSpeed(0.0);
         }
-            
+        
+        if (this.driver.getDigital(Operation.ShooterLoad))
+        {
+            this.shooter.kick(true);
+        }
+        else 
+        {
+            this.shooter.kick(false);
+        }
     }
 
     @Override
     public void stop()
     {
-        this.shooter.setMotorSpeed(0.0);
+        this.shooter.stop();
     }
 
     @Override

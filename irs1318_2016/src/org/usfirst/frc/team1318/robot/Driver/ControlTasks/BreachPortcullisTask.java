@@ -44,7 +44,7 @@ public class BreachPortcullisTask extends ControlTaskBase
         
         // Set necessary operations to true
         this.setDigitalOperationState(Operation.DriveTrainUsePositionalMode, true);
-        this.setDigitalOperationState(Operation.DefenseArmUsePositionalMode, true);
+        this.setDigitalOperationState(Operation.DefenseArmTakePositionInput, true);
     }
 
     @Override
@@ -80,7 +80,7 @@ public class BreachPortcullisTask extends ControlTaskBase
     {
         // Disable positional modes for drive train and defense arm
         this.setDigitalOperationState(Operation.DriveTrainUsePositionalMode, false);
-        this.setDigitalOperationState(Operation.DefenseArmUsePositionalMode, false);
+        this.setDigitalOperationState(Operation.DefenseArmTakePositionInput, false);
     }
 
     @Override
@@ -88,7 +88,7 @@ public class BreachPortcullisTask extends ControlTaskBase
     {
         // Disable positional modes for drive train and defense arm
         this.setDigitalOperationState(Operation.DriveTrainUsePositionalMode, false);
-        this.setDigitalOperationState(Operation.DefenseArmUsePositionalMode, false);
+        this.setDigitalOperationState(Operation.DefenseArmTakePositionInput, false);
         
         // Return defense arm to the front of the robot
         this.setDigitalOperationState(Operation.DefenseArmFrontPosition, true);

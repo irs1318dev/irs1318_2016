@@ -72,7 +72,7 @@ public class DefenseArmController implements IController
         boolean isAtBack = this.defenseArm.getBackLimitSwitch();
 
         // Operation check for the portcullis macro        
-        if (this.driver.getDigital(Operation.DefenseArmUsePositionalMode))
+        if (this.driver.getDigital(Operation.DefenseArmTakePositionInput))
         {
             this.desiredPosition = this.driver.getAnalog(Operation.DefenseArmSetAngle);
         }

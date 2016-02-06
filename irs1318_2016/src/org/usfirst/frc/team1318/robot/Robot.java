@@ -9,6 +9,7 @@ import org.usfirst.frc.team1318.robot.Driver.IControlTask;
 import org.usfirst.frc.team1318.robot.Driver.Autonomous.AutonomousDriver;
 import org.usfirst.frc.team1318.robot.Driver.ControlTasks.WaitTask;
 import org.usfirst.frc.team1318.robot.Driver.User.UserDriver;
+import org.usfirst.frc.team1318.robot.Intake.IntakeController;
 import org.usfirst.frc.team1318.robot.Shooter.ShooterController;
 import org.usfirst.frc.team1318.robot.TestMechanism.TestController;
 
@@ -53,6 +54,7 @@ public class Robot extends IterativeRobot
     private TestController testController;
     private DefenseArmController defenseArmController;
     private ShooterController shooterController;
+    private IntakeController intakeController;
 
     // DipSwitches for selecting autonomous mode
     private DigitalInput dipSwitchA;
@@ -91,6 +93,9 @@ public class Robot extends IterativeRobot
         
         // Initialize the shooterController
         this.shooterController = new ShooterController(components.getShooterComponent());
+        
+        //Initialize the intakeController
+        this.intakeController = new IntakeController(components.getIntakeComponent());
     }
 
     /**
@@ -124,7 +129,12 @@ public class Robot extends IterativeRobot
             this.defenseArmController.stop();
         }
         
-        if(this.shooterController != null)
+        if (this.shooterController != null)
+        {
+            this.shooterController.stop();
+        }
+        
+        if (this.shooterController != null)
         {
             this.shooterController.stop();
         }
@@ -203,6 +213,7 @@ public class Robot extends IterativeRobot
         this.testController.setDriver(this.driver);
         this.defenseArmController.setDriver(this.driver);
         this.shooterController.setDriver(this.driver);
+        this.intakeController.setDriver(this.driver);
 
         // we will run the compressor controller here because we should start it in advance...
         this.compressorController.update();
@@ -255,6 +266,8 @@ public class Robot extends IterativeRobot
         this.defenseArmController.update();
         
         this.shooterController.update();
+        
+        this.intakeController.update();
     }
 
     /**

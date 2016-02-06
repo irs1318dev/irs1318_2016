@@ -11,6 +11,7 @@ public enum Operation
     DriveTrainUsePositionalMode,
     DriveTrainLeftPosition,
     DriveTrainRightPosition,
+    // Defense arm operations:
     DefenseArmFrontPosition,
     DefenseArmPortcullisPosition,
     DefenseArmDrawbridgePosition,
@@ -18,12 +19,15 @@ public enum Operation
     DefenseArmBackPosition,
     DefenseArmMoveBack,
     DefenseArmMoveForward,
-    DefenseArmUsePositionalMode,
+    DefenseArmTakePositionInput,
     DefenseArmSetAngle,
+    // Shooter operations:
     ShooterSpeed,
     ShooterEnable,
+    ShooterLoad,
+    // Intake operations:
     IntakeRotatingIn,
     IntakeRotatingOut,
-    IntakeNotRotating,
-    Load;
+    IntakeExtend,
+    IntakeRetract;
 }

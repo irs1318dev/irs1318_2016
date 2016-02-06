@@ -5,7 +5,12 @@ import java.util.Map;
 
 import org.usfirst.frc.team1318.robot.Driver.Buttons.AnalogAxis;
 import org.usfirst.frc.team1318.robot.Driver.Buttons.ButtonType;
+import org.usfirst.frc.team1318.robot.Driver.ControlTasks.BreachPortcullisTask;
+import org.usfirst.frc.team1318.robot.Driver.ControlTasks.DriveDistanceTask;
 import org.usfirst.frc.team1318.robot.Driver.ControlTasks.DriveTimedTask;
+import org.usfirst.frc.team1318.robot.Driver.ControlTasks.LoadShooterTask;
+import org.usfirst.frc.team1318.robot.Driver.ControlTasks.SequentialTask;
+import org.usfirst.frc.team1318.robot.Driver.ControlTasks.SpinUpShooterTask;
 import org.usfirst.frc.team1318.robot.Driver.Descriptions.AnalogOperationDescription;
 import org.usfirst.frc.team1318.robot.Driver.Descriptions.DigitalOperationDescription;
 import org.usfirst.frc.team1318.robot.Driver.Descriptions.MacroOperationDescription;
@@ -106,24 +111,47 @@ public abstract class Driver
                     UserInputDeviceButton.NONE,
                     ButtonType.Simple));
             put(
-                Operation.ShooterEnable,
+                Operation.DefenseArmTakePositionInput,
                 new DigitalOperationDescription(UserInputDevice.Driver,
                     UserInputDeviceButton.NONE,
-                    ButtonType.Click));
+                    ButtonType.Simple));
+            put(
+                Operation.DefenseArmSetAngle,
+                new AnalogOperationDescription(
+                    UserInputDevice.None,
+                    AnalogAxis.None));
             put(
                 Operation.ShooterSpeed,
                 new AnalogOperationDescription(
                     UserInputDevice.None,
                     AnalogAxis.None));
-            put(Operation.IntakeRotatingIn,
+            put(
+                Operation.ShooterEnable,
                 new DigitalOperationDescription(UserInputDevice.Driver,
                     UserInputDeviceButton.NONE,
                     ButtonType.Click));
-            put(Operation.IntakeRotatingOut,
+            put(
+                Operation.ShooterLoad,
                 new DigitalOperationDescription(UserInputDevice.Driver,
                     UserInputDeviceButton.NONE,
                     ButtonType.Click));
-            put(Operation.IntakeNotRotating,
+            put(
+                Operation.IntakeRotatingIn,
+                new DigitalOperationDescription(UserInputDevice.Driver,
+                    UserInputDeviceButton.NONE,
+                    ButtonType.Simple));
+            put(
+                Operation.IntakeRotatingOut,
+                new DigitalOperationDescription(UserInputDevice.Driver,
+                    UserInputDeviceButton.NONE,
+                    ButtonType.Simple));
+            put(
+                Operation.IntakeExtend,
+                new DigitalOperationDescription(UserInputDevice.Driver,
+                    UserInputDeviceButton.NONE,
+                    ButtonType.Click));
+            put(
+                Operation.IntakeRetract,
                 new DigitalOperationDescription(UserInputDevice.Driver,
                     UserInputDeviceButton.NONE,
                     ButtonType.Click));
@@ -142,6 +170,45 @@ public abstract class Driver
                     () -> new DriveTimedTask(20.0, 0.05, 0.05),
                     new Operation[]
                         { Operation.DriveTrainMoveForward, Operation.DriveTrainTurn, Operation.DriveTrainUsePositionalMode }));
+            put(
+                MacroOperation.ShootFar,
+                new MacroOperationDescription(
+                    UserInputDevice.Driver,
+                    UserInputDeviceButton.NONE,
+                    () -> new SequentialTask(
+                            new IControlTask[]
+                                {
+                                new SpinUpShooterTask(true),
+                                new LoadShooterTask()
+                                }),
+                    new Operation[]
+                        { Operation.ShooterEnable, Operation.ShooterSpeed, Operation.ShooterLoad }));
+            put(
+                MacroOperation.ShootClose,
+                new MacroOperationDescription(
+                    UserInputDevice.Driver,
+                    UserInputDeviceButton.NONE,
+                    () -> new SequentialTask(
+                            new IControlTask[]
+                                {
+                                new SpinUpShooterTask(false),
+                                new LoadShooterTask()
+                                }),
+                    new Operation[]
+                        { Operation.ShooterEnable, Operation.ShooterSpeed, Operation.ShooterLoad }));
+            put(
+                MacroOperation.BreachPortcullis,
+                new MacroOperationDescription(
+                    UserInputDevice.Driver,
+                    UserInputDeviceButton.NONE,
+                    () -> new BreachPortcullisTask(),
+                    new Operation[]
+                        { Operation.DriveTrainRightPosition, 
+                            Operation.DriveTrainLeftPosition, 
+                            Operation.DefenseArmFrontPosition, 
+                            Operation.DriveTrainUsePositionalMode, 
+                            Operation.DefenseArmTakePositionInput, 
+                            Operation.DefenseArmSetAngle }));
         }
     };
 

@@ -4,27 +4,23 @@ import org.usfirst.frc.team1318.robot.TuningConstants;
 import org.usfirst.frc.team1318.robot.Driver.IControlTask;
 import org.usfirst.frc.team1318.robot.Driver.Operation;
 
-public class ShootTask extends TimedTask implements IControlTask
+public class SpinUpShooterTask extends TimedTask implements IControlTask
 {
-    /**
-     * @author Corbin, Jake and Will
-     * The following takes a type of shot (in the form of a boolean), 
-     * and then fires the boulder after waiting a period of time.
-     */
     boolean distance;
     
-    // False for distance is close, true is far
-    protected ShootTask(boolean distance)
-    {   
-        super(TuningConstants.SHOOTER_SPIN_UP_DURATION + TuningConstants.SHOOTER_FIRE_TIME);
+    public SpinUpShooterTask(boolean distance)
+    {
+        super(TuningConstants.SHOOTER_SPIN_UP_DURATION);
         this.distance = distance;
     }
-
+    
     @Override
     public void begin()
     {
         super.begin();
+        
         setDigitalOperationState(Operation.ShooterEnable, true);
+        
         if (distance)
         {
             setAnalogOperationState(Operation.ShooterSpeed, TuningConstants.SHOOTER_FAR_SHOT_VELOCITY);
@@ -32,15 +28,6 @@ public class ShootTask extends TimedTask implements IControlTask
         else 
         {
             setAnalogOperationState(Operation.ShooterSpeed, TuningConstants.SHOOTER_CLOSE_SHOT_VELOCITY);
-        }
-    }
-    
-    @Override
-    public void update() 
-    {
-        if (this.timer.get() >= this.startTime + TuningConstants.SHOOTER_SPIN_UP_DURATION)   
-        {
-            setDigitalOperationState(Operation.ShooterLoad, true);
         }
     }
     
@@ -53,10 +40,10 @@ public class ShootTask extends TimedTask implements IControlTask
     }
 
     @Override
-    public void end()
+    public void update()
     {
-        setDigitalOperationState(Operation.ShooterLoad, false);
-        setDigitalOperationState(Operation.ShooterEnable, false);
+        // TODO Auto-generated method stub
+        
     }
     
     @Override
