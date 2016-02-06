@@ -25,50 +25,18 @@ public abstract class Driver
     protected Map<Operation, OperationDescription> operationSchema = new HashMap<Operation, OperationDescription>()
     {
         {
-            put(
-                Operation.DriveTrainMoveForward,
-                new AnalogOperationDescription(
-                    UserInputDevice.Driver,
-                    AnalogAxis.Y));
-            put(
-                Operation.DriveTrainTurn,
-                new AnalogOperationDescription(
-                    UserInputDevice.Driver,
-                    AnalogAxis.X));
-            put(
-                Operation.DriveTrainShiftGearUp,
-                new DigitalOperationDescription(
-                    UserInputDevice.Driver,
-                    UserInputDeviceButton.JOYSTICK_STICK_TOP_LEFT_BUTTON,
-                    ButtonType.Click));
-            put(
-                Operation.DriveTrainShiftGearDown,
-                new DigitalOperationDescription(
-                    UserInputDevice.Driver,
-                    UserInputDeviceButton.JOYSTICK_STICK_BOTTOM_LEFT_BUTTON,
-                    ButtonType.Click));
-            put(
-                Operation.DriveTrainSimpleMode,
-                new DigitalOperationDescription(
-                    UserInputDevice.Driver,
-                    UserInputDeviceButton.JOYSTICK_STICK_THUMB_BUTTON,
-                    ButtonType.Toggle));
-            put(
-                Operation.DriveTrainUsePositionalMode,
-                new DigitalOperationDescription(
-                    UserInputDevice.None,
-                    UserInputDeviceButton.NONE,
-                    ButtonType.Toggle));
-            put(
-                Operation.DriveTrainLeftPosition,
-                new AnalogOperationDescription(
-                    UserInputDevice.None,
-                    AnalogAxis.None));
-            put(
-                Operation.DriveTrainRightPosition,
-                new AnalogOperationDescription(
-                    UserInputDevice.None,
-                    AnalogAxis.None));
+            put(Operation.DriveTrainMoveForward, new AnalogOperationDescription(UserInputDevice.Driver, AnalogAxis.Y));
+            put(Operation.DriveTrainTurn, new AnalogOperationDescription(UserInputDevice.Driver, AnalogAxis.X));
+            put(Operation.DriveTrainShiftGearUp, new DigitalOperationDescription(UserInputDevice.Driver,
+                UserInputDeviceButton.JOYSTICK_STICK_TOP_LEFT_BUTTON, ButtonType.Click));
+            put(Operation.DriveTrainShiftGearDown, new DigitalOperationDescription(UserInputDevice.Driver,
+                UserInputDeviceButton.JOYSTICK_STICK_BOTTOM_LEFT_BUTTON, ButtonType.Click));
+            put(Operation.DriveTrainSimpleMode, new DigitalOperationDescription(UserInputDevice.Driver,
+                UserInputDeviceButton.JOYSTICK_STICK_THUMB_BUTTON, ButtonType.Toggle));
+            put(Operation.DriveTrainUsePositionalMode, new DigitalOperationDescription(UserInputDevice.None, UserInputDeviceButton.NONE,
+                ButtonType.Toggle));
+            put(Operation.DriveTrainLeftPosition, new AnalogOperationDescription(UserInputDevice.None, AnalogAxis.None));
+            put(Operation.DriveTrainRightPosition, new AnalogOperationDescription(UserInputDevice.None, AnalogAxis.None));
         }
     };
 
@@ -81,7 +49,7 @@ public abstract class Driver
                 new MacroOperationDescription(
                     UserInputDevice.Driver,
                     UserInputDeviceButton.JOYSTICK_BASE_BOTTOM_RIGHT_BUTTON,
-                    new DriveTimedTask(20.0, 0.05, 0.05),
+                    () -> new DriveTimedTask(20.0, 0.05, 0.05),
                     new Operation[]
                         { Operation.DriveTrainMoveForward, Operation.DriveTrainTurn, Operation.DriveTrainUsePositionalMode }));
         }
