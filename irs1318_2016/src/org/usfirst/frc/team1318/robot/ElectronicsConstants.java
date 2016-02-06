@@ -60,4 +60,7 @@ public class ElectronicsConstants
     // ================================================= Sensor test =============================================================
     
     public static final int TEST_SENSOR_SHARP = 0;
+    
+    //=================================================== Intake =================================================================
+    public static final int INTAKE_MOTOR_CHANNEL = 0;
 }

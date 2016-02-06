@@ -79,7 +79,6 @@ public class TestComponent
         {
             return false;
         }
-
         return this.sharpSensor.get();
     }
 

@@ -114,6 +114,18 @@ public abstract class Driver
                 new DigitalOperationDescription(UserInputDevice.Driver,
                     UserInputDeviceButton.NONE,
                     ButtonType.Click));
+            put(Operation.IntakeRotatingIn,
+                new DigitalOperationDescription(UserInputDevice.Driver,
+                    UserInputDeviceButton.NONE,
+                    ButtonType.Click));
+            put(Operation.IntakeRotatingOut,
+                new DigitalOperationDescription(UserInputDevice.Driver,
+                    UserInputDeviceButton.NONE,
+                    ButtonType.Click));
+            put(Operation.IntakeNotRotating,
+                new DigitalOperationDescription(UserInputDevice.Driver,
+                    UserInputDeviceButton.NONE,
+                    ButtonType.Click));
         }
     };
 

@@ -23,6 +23,9 @@ public enum Operation
     DefenseArmMoveToFront, 
     DefenseArmMoveToBack,
     DefenseArmUsePositionalMode,
-    DefenseArmSetAngle;
+    DefenseArmSetAngle,
+    IntakeRotatingIn,
+    IntakeRotatingOut,
+    IntakeNotRotating;
 
 }
