@@ -26,4 +26,9 @@ public enum Operation
     DefenseArmSetAngle,
     ShooterSpeed,
     ShooterEnable;
+    DefenseArmSetAngle,
+    IntakeRotatingIn,
+    IntakeRotatingOut,
+    IntakeNotRotating;
+
 }

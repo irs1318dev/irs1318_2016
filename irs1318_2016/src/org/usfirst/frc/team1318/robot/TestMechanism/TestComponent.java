@@ -1,10 +1,13 @@
 package org.usfirst.frc.team1318.robot.TestMechanism;
 
+import org.usfirst.frc.team1318.robot.ElectronicsConstants;
 import org.usfirst.frc.team1318.robot.Sensors.TCS34725LightSensor;
+import org.usfirst.frc.team1318.robot.Sensors.TCS34725LightSensor.Color;
 import org.usfirst.frc.team1318.robot.Sensors.TCS34725LightSensor.Gain;
 import org.usfirst.frc.team1318.robot.Sensors.TCS34725LightSensor.IntegrationTime;
 import org.usfirst.frc.team1318.robot.Sensors.VCNL4010ProximityALSensor;
 
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.I2C;
 
 /**
@@ -15,6 +18,7 @@ public class TestComponent
 {
     private final TCS34725LightSensor lightSensor;
     private final VCNL4010ProximityALSensor proxSensor;
+    private final DigitalInput sharpSensor;
 
     /**
      * Initializes a new TestComponent
@@ -23,6 +27,7 @@ public class TestComponent
     {
         this.lightSensor = null; //new TCS34725LightSensor(I2C.Port.kOnboard, IntegrationTime.Time101MS, Gain.X1);
         this.proxSensor = new VCNL4010ProximityALSensor(I2C.Port.kOnboard);
+        this.sharpSensor = null; // new DigitalInput(ElectronicsConstants.TEST_SENSOR_SHARP);
     }
 
     public void start()
@@ -38,7 +43,7 @@ public class TestComponent
         }
     }
 
-    public TCS34725LightSensor.Color getColor()
+    public Color getColor()
     {
         if (this.lightSensor == null)
         {
@@ -66,6 +71,15 @@ public class TestComponent
         }
 
         return this.proxSensor.getAmbientLightValue();
+    }
+
+    public boolean getSharpProximity()
+    {
+        if (this.sharpSensor == null)
+        {
+            return false;
+        }
+        return this.sharpSensor.get();
     }
 
     public void stop()
