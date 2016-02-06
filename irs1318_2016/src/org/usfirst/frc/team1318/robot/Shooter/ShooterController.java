@@ -19,13 +19,10 @@ public class ShooterController implements IController
     private Driver driver;
     private PIDHandler PID;
     
-    boolean usePID;
-    
-    
-    public ShooterController(ShooterComponent shooter, boolean usePID) 
+    public ShooterController(ShooterComponent shooter) 
     {
-        this.usePID = usePID;
         this.shooter = shooter;
+        createPIDHandler();
     }
 
     @Override
@@ -37,7 +34,7 @@ public class ShooterController implements IController
             double velocityGoal = 0.0;
             
             // The actual velocity of the shooter wheel
-            int currentTicks = this.shooter.getEncoderTicks();
+            double currentTicks = this.shooter.getCounterTicks();
             
             // The velocity set in the analog operaton
             double setVelocity = this.driver.getAnalog(Operation.ShooterSpeed);
@@ -48,15 +45,8 @@ public class ShooterController implements IController
             
             double power;
             
-            // Calculate the power required to reach the velocity goal
-            if (this.usePID)
-            {
-                power = this.PID.calculateVelocity(velocityGoal, currentTicks);
-            }
-            else 
-            {
-                power = 0.0;
-            }
+            // Calculate the power required to reach the velocity goal     
+            power = this.PID.calculateVelocity(velocityGoal, currentTicks);
             
             // Set the motor power with the calculated value
             this.shooter.setMotorSpeed(power);
@@ -79,5 +69,16 @@ public class ShooterController implements IController
     public void setDriver(Driver driver)
     {
         this.driver = driver;
+    }
+    
+    public void createPIDHandler() 
+    {
+        this.PID = new PIDHandler("shooter", 
+            TuningConstants.SHOOTER_VELOCITY_PID_KP_DEFAULT, 
+            TuningConstants.SHOOTER_VELOCITY_PID_KI_DEFAULT, 
+            TuningConstants.SHOOTER_VELOCITY_PID_KD_DEFAULT, 
+            TuningConstants.SHOOTER_VELOCITY_PID_KF_DEFAULT, 
+            -TuningConstants.SHOOTER_MAX_POWER_LEVEL, 
+            TuningConstants.SHOOTER_MAX_POWER_LEVEL);
     }
 }

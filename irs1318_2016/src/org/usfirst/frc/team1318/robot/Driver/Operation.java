@@ -28,5 +28,6 @@ public enum Operation
     ShooterEnable,
     IntakeRotatingIn,
     IntakeRotatingOut,
-    IntakeNotRotating;
+    IntakeNotRotating,
+    Load;
 }

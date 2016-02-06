@@ -78,7 +78,6 @@ public class TuningConstants
     public static final double DEFENSE_ARM_PAST_FRONT_POSITION = 0.0;
     public static final double DEFENSE_ARM_PAST_BACK_POSITION = 0.0;
 
-    
     // MACROS
     public static final double PORTCULLIS_BREACH_DISTANCE = 0.0;
         //Distance Robot must travel to breach portcullis
@@ -89,4 +88,14 @@ public class TuningConstants
     // Shooter constants
     public static final double SHOOTER_K1 = 1.0;
     public static final double SHOOTER_MAX_POWER_LEVEL = 1.0;
+
+    public static final double SHOOTER_VELOCITY_PID_KP_DEFAULT = 0.0;
+    public static final double SHOOTER_VELOCITY_PID_KI_DEFAULT = 0.0;
+    public static final double SHOOTER_VELOCITY_PID_KD_DEFAULT = 0.0;
+    public static final double SHOOTER_VELOCITY_PID_KF_DEFAULT = 0.0;
+
+    public static final double SHOOTER_FAR_SHOT_VELOCITY = 0.0;
+    public static final double SHOOTER_CLOSE_SHOT_VELOCITY = 0.0;
+    public static final double SHOOTER_FIRE_TIME = 1.0;
+    public static final double SHOOTER_SPIN_UP_DURATION = 1.0;
 }

@@ -90,7 +90,7 @@ public class Robot extends IterativeRobot
         this.defenseArmController = new DefenseArmController(components.getDefenseArm());
         
         // Initialize the shooterController
-        this.shooterController = new ShooterController(components.getShooterComponent(), true);
+        this.shooterController = new ShooterController(components.getShooterComponent());
     }
 
     /**
