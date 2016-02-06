@@ -1,6 +1,7 @@
 package org.usfirst.frc.team1318.robot.TestMechanism;
 
 import org.usfirst.frc.team1318.robot.ElectronicsConstants;
+import org.usfirst.frc.team1318.robot.Sensors.IRSensor;
 import org.usfirst.frc.team1318.robot.Sensors.TCS34725LightSensor;
 import org.usfirst.frc.team1318.robot.Sensors.TCS34725LightSensor.Color;
 import org.usfirst.frc.team1318.robot.Sensors.TCS34725LightSensor.Gain;
@@ -19,6 +20,7 @@ public class TestComponent
     private final TCS34725LightSensor lightSensor;
     private final VCNL4010ProximityALSensor proxSensor;
     private final DigitalInput sharpSensor;
+    private final IRSensor irSensor;
 
     /**
      * Initializes a new TestComponent
@@ -26,8 +28,9 @@ public class TestComponent
     public TestComponent()
     {
         this.lightSensor = null; //new TCS34725LightSensor(I2C.Port.kOnboard, IntegrationTime.Time101MS, Gain.X1);
-        this.proxSensor = new VCNL4010ProximityALSensor(I2C.Port.kOnboard);
-        this.sharpSensor = null; // new DigitalInput(ElectronicsConstants.TEST_SENSOR_SHARP);
+        this.proxSensor = null; //new VCNL4010ProximityALSensor(I2C.Port.kOnboard);
+        this.sharpSensor = null; //new DigitalInput(ElectronicsConstants.TEST_SENSOR_SHARP);
+        this.irSensor = null; //new IRSensor(ElectronicsConstants.TEST_SENSOR_IR_IN, ElectronicsConstants.TEST_SENSOR_IR_OUT);
     }
 
     public void start()
@@ -40,6 +43,29 @@ public class TestComponent
         if (this.proxSensor != null)
         {
             this.proxSensor.start();
+        }
+        
+        if (this.irSensor != null)
+        {
+            this.irSensor.start();
+        }
+    }
+
+    public void stop()
+    {
+        if (this.lightSensor != null)
+        {
+            this.lightSensor.stop();
+        }
+        
+        if (this.proxSensor != null)
+        {
+            this.proxSensor.stop();
+        }
+        
+        if (this.irSensor != null)
+        {
+            this.irSensor.stop();
         }
     }
 
@@ -83,16 +109,13 @@ public class TestComponent
         return this.sharpSensor.get();
     }
 
-    public void stop()
+    public boolean getIRSense()
     {
-        if (this.lightSensor != null)
+        if (this.irSensor == null)
         {
-            this.lightSensor.stop();
+            return false;
         }
 
-        if (this.proxSensor != null)
-        {
-            this.proxSensor.stop();
-        }
+        return this.irSensor.get();
     }
 }

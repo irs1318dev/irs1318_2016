@@ -59,6 +59,7 @@ public class TestController implements IController
         int proximity = this.component.getProximity();
         int ambientLight = this.component.getAmbientLight();
         System.out.printf("Color: %s, Proximity: %04X, AmbientLight: %04X\n", colorString, proximity, ambientLight);
+        System.out.printf("IR: %s, Proximity: %s\n", "" + this.component.getIRSense(), "" + this.component.getSharpProximity());
     }
 
     /**

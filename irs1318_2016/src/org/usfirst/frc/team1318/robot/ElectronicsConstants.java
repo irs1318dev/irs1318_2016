@@ -60,4 +60,6 @@ public class ElectronicsConstants
     // ================================================= Sensor test =============================================================
     
     public static final int TEST_SENSOR_SHARP = 0;
+    public static final int TEST_SENSOR_IR_IN = 0;
+    public static final int TEST_SENSOR_IR_OUT = 0;
 }
