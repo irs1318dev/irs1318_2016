@@ -35,37 +35,55 @@ public class DefenseArmComponent
         this.zeroOffset = 0.0;
     }
 
-    // Set speed of the motor controlling arm movement
+    /**
+     * Set speed of the motor controlling arm movement
+     * @param speed of the motor, where negative is towards the front of the robot
+     */
     public void setSpeed(double speed)
     {
         this.talon.set(speed);
     }
 
-    // Returns the current count of the encoder on the Defense Arm
+    /**
+     * Get Encoder ticks
+     * @return the current count of the encoder on the Defense Arm
+     */
     public int getEncoderTicks()
     {
         return this.encoder.get();
     }
 
-    // Returns the state of the front limit switch for the Defense Arm
+    /**
+     * Get the front limit switch state
+     * @return the state of the front limit switch for the Defense Arm
+     */
     public boolean getFrontLimitSwitch()
     {
         return this.frontLimitSwitch.get();
     }
 
-    // Returns the state of the back limit switch for the Defense Arm
+    /**
+     * Get the back limit switch state
+     * @return the state of the back limit switch for the Defense Arm
+     */
     public boolean getBackLimitSwitch()
     {
         return this.backLimitSwitch.get();
     }
 
-    // Return the current count of zeroOffset
+    /**
+     * Get the zero offset
+     * @return the current count of zeroOffset
+     */
     public double getZeroOffset()
     {
         return this.zeroOffset;
     }
 
-    // Set the value of zeroOffset
+    /**
+     * Set the value of zeroOffset
+     * @param zeroOffset encoder position when the arm is all the way forward
+     */
     public void setZeroOffset(double zeroOffset)
     {
         this.zeroOffset = zeroOffset;
