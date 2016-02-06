@@ -70,50 +70,71 @@ public abstract class Driver
                     UserInputDevice.None,
                     AnalogAxis.None));
             // Operations for the defense arm
-            put(Operation.DefenseArmFrontState,
+            put(
+                Operation.DefenseArmFrontState,
                 new DigitalOperationDescription(UserInputDevice.Driver,
                     UserInputDeviceButton.NONE,
                     ButtonType.Click));
-            put(Operation.DefenseArmPortcullisState,
+            put(
+                Operation.DefenseArmPortcullisState,
                 new DigitalOperationDescription(UserInputDevice.Driver,
-                    UserInputDeviceButton.JOYSTICK_STICK_BOTTOM_LEFT_BUTTON,
+                    UserInputDeviceButton.NONE,
                     ButtonType.Click));
-            put(Operation.DefenseArmSallyPortState,
-                new DigitalOperationDescription(UserInputDevice.Driver,
-                    UserInputDeviceButton.JOYSTICK_STICK_BOTTOM_LEFT_BUTTON,
-                    ButtonType.Simple));
-            put(Operation.DefenseArmDrawbridgeState,
-                new DigitalOperationDescription(UserInputDevice.Driver,
-                    UserInputDeviceButton.JOYSTICK_STICK_BOTTOM_LEFT_BUTTON,
-                    ButtonType.Click));
-            put(Operation.DefenseArmBack,
-                new DigitalOperationDescription(UserInputDevice.Driver,
-                    UserInputDeviceButton.JOYSTICK_STICK_BOTTOM_LEFT_BUTTON,
-                    ButtonType.Simple));
-            put(Operation.DefenseArmForward,
+            put(
+                Operation.DefenseArmSallyPortState,
                 new DigitalOperationDescription(UserInputDevice.Driver,
                     UserInputDeviceButton.NONE,
                     ButtonType.Simple));
-            put(Operation.DefenseArmMoveToBack,
+            put(
+                Operation.DefenseArmDrawbridgeState,
                 new DigitalOperationDescription(UserInputDevice.Driver,
                     UserInputDeviceButton.NONE,
                     ButtonType.Click));
-            put(Operation.DefenseArmMoveToFront,
+            put(
+                Operation.DefenseArmBack,
+                new DigitalOperationDescription(UserInputDevice.Driver,
+                    UserInputDeviceButton.NONE,
+                    ButtonType.Simple));
+            put(
+                Operation.DefenseArmForward,
+                new DigitalOperationDescription(UserInputDevice.Driver,
+                    UserInputDeviceButton.NONE,
+                    ButtonType.Simple));
+            put(
+                Operation.DefenseArmMoveToBack,
                 new DigitalOperationDescription(UserInputDevice.Driver,
                     UserInputDeviceButton.NONE,
                     ButtonType.Click));
-            put(Operation.DefenseArmPortcullisPosition,
+            put(
+                Operation.DefenseArmMoveToFront,
                 new DigitalOperationDescription(UserInputDevice.Driver,
                     UserInputDeviceButton.NONE,
                     ButtonType.Click));
-            put(Operation.DefenseArmDrawbridgePosition,
+            put(
+                Operation.DefenseArmPortcullisPosition,
                 new DigitalOperationDescription(UserInputDevice.Driver,
                     UserInputDeviceButton.NONE,
                     ButtonType.Click));
-            put(Operation.DefenseArmSallyPortPosition,
+            put(
+                Operation.DefenseArmDrawbridgePosition,
                 new DigitalOperationDescription(UserInputDevice.Driver,
                     UserInputDeviceButton.NONE,
                     ButtonType.Click));
+            put(
+                Operation.DefenseArmSallyPortPosition,
+                new DigitalOperationDescription(UserInputDevice.Driver,
+                    UserInputDeviceButton.NONE,
+                    ButtonType.Click));
+            put(
+                Operation.ShooterEnable,
+                new DigitalOperationDescription(UserInputDevice.Driver,
+                    UserInputDeviceButton.NONE,
+                    ButtonType.Click));
+            put(
+                Operation.ShooterSpeed,
+                new AnalogOperationDescription(
+                    UserInputDevice.None,
+                    AnalogAxis.None));
         }
     };
 

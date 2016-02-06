@@ -1,4 +1,4 @@
-package org.usfirst.frc.team1318.robot;
+ package org.usfirst.frc.team1318.robot;
 
 import org.usfirst.frc.team1318.robot.Common.SmartDashboardLogger;
 import org.usfirst.frc.team1318.robot.Compressor.CompressorController;
@@ -9,6 +9,7 @@ import org.usfirst.frc.team1318.robot.Driver.IControlTask;
 import org.usfirst.frc.team1318.robot.Driver.Autonomous.AutonomousDriver;
 import org.usfirst.frc.team1318.robot.Driver.ControlTasks.WaitTask;
 import org.usfirst.frc.team1318.robot.Driver.User.UserDriver;
+import org.usfirst.frc.team1318.robot.Shooter.ShooterController;
 import org.usfirst.frc.team1318.robot.TestMechanism.TestController;
 
 import edu.wpi.first.wpilibj.DigitalInput;
@@ -51,6 +52,7 @@ public class Robot extends IterativeRobot
     //private DriveTrainController driveTrainController;
     private TestController testController;
     private DefenseArmController defenseArmController;
+    private ShooterController shooterController;
 
     // DipSwitches for selecting autonomous mode
     private DigitalInput dipSwitchA;
@@ -86,6 +88,9 @@ public class Robot extends IterativeRobot
 
         // Initialize the defenseArmController
         this.defenseArmController = new DefenseArmController(components.getDefenseArm());
+        
+        // Initialize the shooterController
+        this.shooterController = new ShooterController(components.getShooterComponent(), true);
     }
 
     /**
@@ -117,6 +122,11 @@ public class Robot extends IterativeRobot
         if (this.defenseArmController != null)
         {
             this.defenseArmController.stop();
+        }
+        
+        if(this.shooterController != null)
+        {
+            this.shooterController.stop();
         }
 
         SmartDashboardLogger.putString(Robot.ROBOT_STATE_LOG_KEY, "Disabled");
@@ -192,6 +202,7 @@ public class Robot extends IterativeRobot
         //this.driveTrainController.setDriver(this.driver);
         this.testController.setDriver(this.driver);
         this.defenseArmController.setDriver(this.driver);
+        this.shooterController.setDriver(this.driver);
 
         // we will run the compressor controller here because we should start it in advance...
         this.compressorController.update();
@@ -242,6 +253,8 @@ public class Robot extends IterativeRobot
         this.testController.update();
         
         this.defenseArmController.update();
+        
+        this.shooterController.update();
     }
 
     /**

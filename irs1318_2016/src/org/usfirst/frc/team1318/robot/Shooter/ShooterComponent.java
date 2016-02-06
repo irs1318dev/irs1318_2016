@@ -27,8 +27,14 @@ public class ShooterComponent
         this.talon.set(speed);
     }
     
-    public double getEncoderTicks()
+    public int getEncoderTicks()
     {
         return this.encoder.get();
+    }
+    
+    public double getShooterVelocity()
+    {
+        // This should be the velocity of the shooter wheel
+        return this.encoder.getRate();
     }
 }
