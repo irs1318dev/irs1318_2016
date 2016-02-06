@@ -18,8 +18,9 @@ public class ComponentManager
     {
         this.compressorComponent = new CompressorComponent();
         this.testComponent = new TestComponent();
-        this.defenseArmComponent = new DefenseArmComponent();
-        this.shooterComponent = new ShooterComponent();
+        //this.driveTrainComponent = new DriveTrainComponent();
+        //this.defenseArmComponent = new DefenseArmComponent();
+        //this.shooterComponent = new ShooterComponent();
     }
 
     public CompressorComponent getCompressor()
