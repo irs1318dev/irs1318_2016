@@ -71,42 +71,7 @@ public abstract class Driver
                     AnalogAxis.None));
             // Operations for the defense arm
             put(
-                Operation.DefenseArmFrontState,
-                new DigitalOperationDescription(UserInputDevice.Driver,
-                    UserInputDeviceButton.NONE,
-                    ButtonType.Click));
-            put(
-                Operation.DefenseArmPortcullisState,
-                new DigitalOperationDescription(UserInputDevice.Driver,
-                    UserInputDeviceButton.NONE,
-                    ButtonType.Click));
-            put(
-                Operation.DefenseArmSallyPortState,
-                new DigitalOperationDescription(UserInputDevice.Driver,
-                    UserInputDeviceButton.NONE,
-                    ButtonType.Simple));
-            put(
-                Operation.DefenseArmDrawbridgeState,
-                new DigitalOperationDescription(UserInputDevice.Driver,
-                    UserInputDeviceButton.NONE,
-                    ButtonType.Click));
-            put(
-                Operation.DefenseArmBack,
-                new DigitalOperationDescription(UserInputDevice.Driver,
-                    UserInputDeviceButton.NONE,
-                    ButtonType.Simple));
-            put(
-                Operation.DefenseArmForward,
-                new DigitalOperationDescription(UserInputDevice.Driver,
-                    UserInputDeviceButton.NONE,
-                    ButtonType.Simple));
-            put(
-                Operation.DefenseArmMoveToBack,
-                new DigitalOperationDescription(UserInputDevice.Driver,
-                    UserInputDeviceButton.NONE,
-                    ButtonType.Click));
-            put(
-                Operation.DefenseArmMoveToFront,
+                Operation.DefenseArmFrontPosition,
                 new DigitalOperationDescription(UserInputDevice.Driver,
                     UserInputDeviceButton.NONE,
                     ButtonType.Click));
@@ -125,6 +90,21 @@ public abstract class Driver
                 new DigitalOperationDescription(UserInputDevice.Driver,
                     UserInputDeviceButton.NONE,
                     ButtonType.Click));
+            put(
+                Operation.DefenseArmBackPosition,
+                new DigitalOperationDescription(UserInputDevice.Driver,
+                    UserInputDeviceButton.NONE,
+                    ButtonType.Click));
+            put(
+                Operation.DefenseArmMoveBack,
+                new DigitalOperationDescription(UserInputDevice.Driver,
+                    UserInputDeviceButton.NONE,
+                    ButtonType.Simple));
+            put(
+                Operation.DefenseArmMoveForward,
+                new DigitalOperationDescription(UserInputDevice.Driver,
+                    UserInputDeviceButton.NONE,
+                    ButtonType.Simple));
             put(
                 Operation.ShooterEnable,
                 new DigitalOperationDescription(UserInputDevice.Driver,
@@ -159,9 +139,9 @@ public abstract class Driver
                 new MacroOperationDescription(
                     UserInputDevice.Driver,
                     UserInputDeviceButton.JOYSTICK_BASE_BOTTOM_RIGHT_BUTTON,
-                    () -> ((IControlTask)new DriveTimedTask(20.0, 0.05, 0.05)),
+                    () -> new DriveTimedTask(20.0, 0.05, 0.05),
                     new Operation[]
-            { Operation.DriveTrainMoveForward, Operation.DriveTrainTurn, Operation.DriveTrainUsePositionalMode }));
+                        { Operation.DriveTrainMoveForward, Operation.DriveTrainTurn, Operation.DriveTrainUsePositionalMode }));
         }
     };
 
