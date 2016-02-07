@@ -8,20 +8,21 @@ import edu.wpi.first.wpilibj.Talon;
 
 public class IntakeComponent
 {
-    private Talon motor;
-    private DoubleSolenoid solenoid;
-    
+    private final Talon motor;
+    private final DoubleSolenoid solenoid;
+
     public IntakeComponent() 
     {
         this.motor = new Talon(ElectronicsConstants.INTAKE_MOTOR_CHANNEL);
-        this.solenoid = new DoubleSolenoid(ElectronicsConstants.INTAKE_SOLENOID_CHANNEL_A, 
+        this.solenoid = new DoubleSolenoid(
+            ElectronicsConstants.INTAKE_SOLENOID_CHANNEL_A,
             ElectronicsConstants.INTAKE_SOLENOID_CHANNEL_B);
     }
     
     // True extends the intake, false retracts it.
     public void extendOrRetract(boolean extend)
     {
-        if(extend)
+        if (extend)
         {
             this.solenoid.set(Value.kForward);
         }
@@ -42,5 +43,4 @@ public class IntakeComponent
     {
         this.motor.set(speed);
     }
-
 }

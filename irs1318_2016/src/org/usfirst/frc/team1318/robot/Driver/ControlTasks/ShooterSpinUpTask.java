@@ -4,11 +4,11 @@ import org.usfirst.frc.team1318.robot.TuningConstants;
 import org.usfirst.frc.team1318.robot.Driver.IControlTask;
 import org.usfirst.frc.team1318.robot.Driver.Operation;
 
-public class SpinUpShooterTask extends TimedTask implements IControlTask
+public class ShooterSpinUpTask extends TimedTask implements IControlTask
 {
     boolean distance;
     
-    public SpinUpShooterTask(boolean distance)
+    public ShooterSpinUpTask(boolean distance)
     {
         super(TuningConstants.SHOOTER_SPIN_UP_DURATION);
         this.distance = distance;
@@ -19,7 +19,7 @@ public class SpinUpShooterTask extends TimedTask implements IControlTask
     {
         super.begin();
         
-        setDigitalOperationState(Operation.ShooterEnable, true);
+        setDigitalOperationState(Operation.ShooterSpin, true);
         
         if (distance)
         {
@@ -35,7 +35,7 @@ public class SpinUpShooterTask extends TimedTask implements IControlTask
     public void stop()
     {
         super.stop();
-        setDigitalOperationState(Operation.ShooterEnable, false);
+        setDigitalOperationState(Operation.ShooterSpin, false);
         setAnalogOperationState(Operation.ShooterSpeed, 0.0);
     }
 

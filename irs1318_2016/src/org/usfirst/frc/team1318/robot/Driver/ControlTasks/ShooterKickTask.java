@@ -4,9 +4,9 @@ import org.usfirst.frc.team1318.robot.TuningConstants;
 import org.usfirst.frc.team1318.robot.Driver.IControlTask;
 import org.usfirst.frc.team1318.robot.Driver.Operation;
 
-public class LoadShooterTask extends TimedTask implements IControlTask
+public class ShooterKickTask extends TimedTask implements IControlTask
 {
-    public LoadShooterTask()
+    public ShooterKickTask()
     {
         super(TuningConstants.SHOOTER_FIRE_TIME);
     }
@@ -20,22 +20,22 @@ public class LoadShooterTask extends TimedTask implements IControlTask
     public void begin()
     {
         super.begin();
-        setDigitalOperationState(Operation.ShooterLoad, true);
+        setDigitalOperationState(Operation.ShooterKick, true);
     }
     
     @Override
     public void stop()
     {
         super.stop();
-        setDigitalOperationState(Operation.ShooterEnable, false);
-        setDigitalOperationState(Operation.ShooterLoad, false);
+        setDigitalOperationState(Operation.ShooterSpin, false);
+        setDigitalOperationState(Operation.ShooterKick, false);
     }
 
     @Override
     public void end()
     {
-        setDigitalOperationState(Operation.ShooterLoad, false);
-        setDigitalOperationState(Operation.ShooterEnable, false);
+        setDigitalOperationState(Operation.ShooterKick, false);
+        setDigitalOperationState(Operation.ShooterSpin, false);
     }
     
     @Override

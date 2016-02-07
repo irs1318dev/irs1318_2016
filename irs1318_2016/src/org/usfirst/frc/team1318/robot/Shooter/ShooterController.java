@@ -28,36 +28,27 @@ public class ShooterController implements IController
     @Override
     public void update()
     {
-        if (this.driver.getDigital(Operation.ShooterEnable))
+        if (this.driver.getDigital(Operation.ShooterSpin))
         {
-            // The desired percentage of the max velocity
-            double velocityGoal = 0.0;
-            
             // The actual velocity of the shooter wheel
             double currentTicks = this.shooter.getCounterTicks();
             
             // The velocity set in the analog operaton
-            double setVelocity = this.driver.getAnalog(Operation.ShooterSpeed);
-            
-            // Set the velocity goal as the desired velocity, multipled by the max level and the tuning constant
-            velocityGoal = setVelocity * TuningConstants.SHOOTER_K1;
-            velocityGoal *= TuningConstants.SHOOTER_MAX_POWER_LEVEL;
-            
-            double power;
+            double velocityGoal = this.driver.getAnalog(Operation.ShooterSpeed);
             
             // Calculate the power required to reach the velocity goal     
-            power = this.PID.calculateVelocity(velocityGoal, currentTicks);
+            double power = this.PID.calculateVelocity(velocityGoal, currentTicks);
             
             // Set the motor power with the calculated value
             this.shooter.setMotorSpeed(power);
         }
         else 
         {
-            // Zero if its not enabled, cause... yeah
+            // Zero if we're not spinning...
             this.shooter.setMotorSpeed(0.0);
         }
         
-        if (this.driver.getDigital(Operation.ShooterLoad))
+        if (this.driver.getDigital(Operation.ShooterKick))
         {
             this.shooter.kick(true);
         }

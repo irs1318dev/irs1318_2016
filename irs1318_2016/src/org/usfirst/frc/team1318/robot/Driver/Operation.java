@@ -23,8 +23,8 @@ public enum Operation
     DefenseArmSetAngle,
     // Shooter operations:
     ShooterSpeed,
-    ShooterEnable,
-    ShooterLoad,
+    ShooterSpin,
+    ShooterKick,
     // Intake operations:
     IntakeRotatingIn,
     IntakeRotatingOut,
