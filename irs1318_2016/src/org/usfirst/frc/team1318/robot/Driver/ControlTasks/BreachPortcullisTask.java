@@ -5,6 +5,8 @@ import org.usfirst.frc.team1318.robot.TuningConstants;
 import org.usfirst.frc.team1318.robot.DriveTrain.DriveTrainComponent;
 import org.usfirst.frc.team1318.robot.Driver.Operation;
 
+import edu.wpi.first.wpilibj.Timer;
+
 /**
  * @author Preston and Corbin
  * This class is a task designed to automatically drive the robot through the portcullis.
@@ -21,6 +23,8 @@ public class BreachPortcullisTask extends ControlTaskBase
     private double currentDTDistanceLeft;
 
     private DriveTrainComponent driveTrain;
+    private double prevTime;
+    private Timer timer;
 
     public BreachPortcullisTask()
     {
@@ -30,6 +34,9 @@ public class BreachPortcullisTask extends ControlTaskBase
     public void begin()
     {
         this.driveTrain = this.getComponents().getDriveTrain();
+        this.timer = new Timer();
+        this.timer.start();
+        this.prevTime = this.timer.get();
         
         // Log the starting distance of the encoders (for the drive train)
         this.startDTDistanceRight = this.driveTrain.getRightEncoderDistance();
@@ -54,11 +61,17 @@ public class BreachPortcullisTask extends ControlTaskBase
         this.currentDTDistanceRight = this.driveTrain.getRightEncoderDistance();
         this.currentDTDistanceLeft = this.driveTrain.getLeftEncoderDistance();
         
-        // Move the drive train by the PORTCULLIS_BREACH_ITERATIVE constant
+        // calculate the elapsed time
+        double currTime = this.timer.get();
+        double timeElapsed = currTime - this.prevTime;
+        this.prevTime = currTime;
+
+        // Move the drive train by the PORTCULLIS_BREACH_VELOCITY constant
+        double distanceToTravel = TuningConstants.PORTCULLIS_BREACH_VELOCITY * timeElapsed;
         this.setAnalogOperationState(Operation.DriveTrainRightPosition, this.currentDTDistanceRight
-            + TuningConstants.PORTCULLIS_BREACH_ITERATIVE);
+            + distanceToTravel);
         this.setAnalogOperationState(Operation.DriveTrainLeftPosition, this.currentDTDistanceLeft
-            + TuningConstants.PORTCULLIS_BREACH_ITERATIVE);
+            + distanceToTravel);
         
         // Find distance traveled by both right and left wheels since macro started
         double traveledRightDistance = this.currentDTDistanceRight - this.startDTDistanceRight;

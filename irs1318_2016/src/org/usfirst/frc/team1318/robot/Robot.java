@@ -52,9 +52,9 @@ public class Robot extends IterativeRobot
     private CompressorController compressorController;
     //private DriveTrainController driveTrainController;
     private TestController testController;
-    private DefenseArmController defenseArmController;
-    private ShooterController shooterController;
-    private IntakeController intakeController;
+    //private DefenseArmController defenseArmController;
+    //private ShooterController shooterController;
+    //private IntakeController intakeController;
 
     // DipSwitches for selecting autonomous mode
     private DigitalInput dipSwitchA;
@@ -89,13 +89,13 @@ public class Robot extends IterativeRobot
         this.dipSwitchB = new DigitalInput(ElectronicsConstants.AUTONOMOUS_DIP_SWITCH_B);
 
         // Initialize the defenseArmController
-        this.defenseArmController = new DefenseArmController(components.getDefenseArm());
+        //this.defenseArmController = new DefenseArmController(components.getDefenseArm());
         
         // Initialize the shooterController
-        this.shooterController = new ShooterController(components.getShooterComponent());
+        //this.shooterController = new ShooterController(components.getShooterComponent());
         
         //Initialize the intakeController
-        this.intakeController = new IntakeController(components.getIntakeComponent());
+        //this.intakeController = new IntakeController(components.getIntakeComponent());
     }
 
     /**
@@ -124,20 +124,20 @@ public class Robot extends IterativeRobot
             this.testController.stop();
         }
         
-        if (this.defenseArmController != null)
-        {
-            this.defenseArmController.stop();
-        }
+        //if (this.defenseArmController != null)
+        //{
+        //    this.defenseArmController.stop();
+        //}
         
-        if (this.shooterController != null)
-        {
-            this.shooterController.stop();
-        }
+        //if (this.intakeController != null)
+        //{
+        //    this.intakeController.stop();
+        //}
         
-        if (this.shooterController != null)
-        {
-            this.shooterController.stop();
-        }
+        //if(this.shooterController != null)
+        //{
+        //    this.shooterController.stop();
+        //}
 
         SmartDashboardLogger.putString(Robot.ROBOT_STATE_LOG_KEY, "Disabled");
     }
@@ -211,9 +211,9 @@ public class Robot extends IterativeRobot
         // apply the driver to the controllers
         //this.driveTrainController.setDriver(this.driver);
         this.testController.setDriver(this.driver);
-        this.defenseArmController.setDriver(this.driver);
-        this.shooterController.setDriver(this.driver);
-        this.intakeController.setDriver(this.driver);
+        //this.defenseArmController.setDriver(this.driver);
+        //this.shooterController.setDriver(this.driver);
+        //this.intakeController.setDriver(this.driver);
 
         // we will run the compressor controller here because we should start it in advance...
         this.compressorController.update();
@@ -261,13 +261,10 @@ public class Robot extends IterativeRobot
         // run each controller
         this.compressorController.update();
         //this.driveTrainController.update();
-        this.testController.update();
-        
-        this.defenseArmController.update();
-        
-        this.shooterController.update();
-        
-        this.intakeController.update();
+        this.testController.update();        
+        //this.defenseArmController.update();        
+        //this.shooterController.update();
+        //this.intakeController.update();
     }
 
     /**
