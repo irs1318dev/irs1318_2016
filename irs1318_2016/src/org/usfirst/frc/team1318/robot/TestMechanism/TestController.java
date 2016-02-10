@@ -2,7 +2,7 @@ package org.usfirst.frc.team1318.robot.TestMechanism;
 
 import org.usfirst.frc.team1318.robot.Common.IController;
 import org.usfirst.frc.team1318.robot.Driver.Driver;
-import org.usfirst.frc.team1318.robot.Sensors.TCS34725LightSensor.Color;
+import org.usfirst.frc.team1318.robot.Sensors.TCS34725ColorSensor.Color;
 
 /**
  * Test controller.

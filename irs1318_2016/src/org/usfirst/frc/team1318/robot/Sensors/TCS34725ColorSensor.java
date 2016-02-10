@@ -2,7 +2,7 @@ package org.usfirst.frc.team1318.robot.Sensors;
 
 import edu.wpi.first.wpilibj.I2C;
 
-public class TCS34725LightSensor
+public class TCS34725ColorSensor
 {
     private static final int ADDRESS = 0x29;
     private static final int COMMAND_BIT = 0x80;
@@ -136,24 +136,24 @@ public class TCS34725LightSensor
     private boolean powerEnabled;
     private boolean interruptEnabled;
 
-    public TCS34725LightSensor(I2C.Port port)
+    public TCS34725ColorSensor(I2C.Port port)
     {
         this(port, IntegrationTime.Time2_4MS, Gain.X1);
     }
 
-    public TCS34725LightSensor(I2C.Port port, IntegrationTime integration)
+    public TCS34725ColorSensor(I2C.Port port, IntegrationTime integration)
     {
         this(port, integration, Gain.X1);
     }
 
-    public TCS34725LightSensor(I2C.Port port, Gain gain)
+    public TCS34725ColorSensor(I2C.Port port, Gain gain)
     {
         this(port, IntegrationTime.Time2_4MS, gain);
     }
 
-    public TCS34725LightSensor(I2C.Port port, IntegrationTime integration, Gain gain)
+    public TCS34725ColorSensor(I2C.Port port, IntegrationTime integration, Gain gain)
     {
-        this.connection = new I2C(port, TCS34725LightSensor.ADDRESS);
+        this.connection = new I2C(port, TCS34725ColorSensor.ADDRESS);
         this.wlongEnabled = false;
         this.waitEnabled = false;
         this.rgbcEnabled = false;

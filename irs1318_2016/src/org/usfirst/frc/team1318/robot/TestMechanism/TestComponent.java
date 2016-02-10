@@ -2,10 +2,10 @@ package org.usfirst.frc.team1318.robot.TestMechanism;
 
 import org.usfirst.frc.team1318.robot.ElectronicsConstants;
 import org.usfirst.frc.team1318.robot.Sensors.IRSensor;
-import org.usfirst.frc.team1318.robot.Sensors.TCS34725LightSensor;
-import org.usfirst.frc.team1318.robot.Sensors.TCS34725LightSensor.Color;
-import org.usfirst.frc.team1318.robot.Sensors.TCS34725LightSensor.Gain;
-import org.usfirst.frc.team1318.robot.Sensors.TCS34725LightSensor.IntegrationTime;
+import org.usfirst.frc.team1318.robot.Sensors.TCS34725ColorSensor;
+import org.usfirst.frc.team1318.robot.Sensors.TCS34725ColorSensor.Color;
+import org.usfirst.frc.team1318.robot.Sensors.TCS34725ColorSensor.Gain;
+import org.usfirst.frc.team1318.robot.Sensors.TCS34725ColorSensor.IntegrationTime;
 import org.usfirst.frc.team1318.robot.Sensors.VCNL4010ProximityALSensor;
 
 import edu.wpi.first.wpilibj.DigitalInput;
@@ -17,7 +17,7 @@ import edu.wpi.first.wpilibj.I2C;
  */
 public class TestComponent
 {
-    private final TCS34725LightSensor lightSensor;
+    private final TCS34725ColorSensor lightSensor;
     private final VCNL4010ProximityALSensor proxSensor;
     private final DigitalInput sharpSensor;
     private final IRSensor irSensor;
