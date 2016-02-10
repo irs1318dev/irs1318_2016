@@ -29,7 +29,7 @@ public class TestComponent
     {
         this.lightSensor = null; //new TCS34725LightSensor(I2C.Port.kOnboard, IntegrationTime.Time101MS, Gain.X1);
         this.proxSensor = null; //new VCNL4010ProximityALSensor(I2C.Port.kOnboard);
-        this.sharpSensor = null; //new DigitalInput(ElectronicsConstants.TEST_SENSOR_SHARP);
+        this.sharpSensor = new DigitalInput(ElectronicsConstants.TEST_SENSOR_SHARP);
         this.irSensor = null; //new IRSensor(ElectronicsConstants.TEST_SENSOR_IR_IN, ElectronicsConstants.TEST_SENSOR_IR_OUT);
     }
 
@@ -105,7 +105,9 @@ public class TestComponent
         {
             return false;
         }
-        return this.sharpSensor.get();
+        
+        // sharp digital distance sensor returns the reverse of what I'd expect (true when far away, false when close)
+        return !this.sharpSensor.get();
     }
 
     public boolean getIRSense()
