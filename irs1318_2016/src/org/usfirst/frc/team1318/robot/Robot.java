@@ -55,6 +55,7 @@ public class Robot extends IterativeRobot
     //private DefenseArmController defenseArmController;
     //private ShooterController shooterController;
     //private IntakeController intakeController;
+    //private ClimbingArmController climbingArmController;
 
     // DipSwitches for selecting autonomous mode
     private DigitalInput dipSwitchA;
@@ -96,6 +97,9 @@ public class Robot extends IterativeRobot
         
         //Initialize the intakeController
         //this.intakeController = new IntakeController(components.getIntakeComponent());
+        
+        //Initialize the climbingArmController
+        //this.climbingArmController = new ClimbingArmController(components.getClimbingArmComponent());
     }
 
     /**
@@ -138,7 +142,11 @@ public class Robot extends IterativeRobot
         //{
         //    this.shooterController.stop();
         //}
-
+        
+        //if(this.climbingArmController != null)
+        //{
+        //    this.climbingArmController.stop();
+        //}
         SmartDashboardLogger.putString(Robot.ROBOT_STATE_LOG_KEY, "Disabled");
     }
 
@@ -214,6 +222,7 @@ public class Robot extends IterativeRobot
         //this.defenseArmController.setDriver(this.driver);
         //this.shooterController.setDriver(this.driver);
         //this.intakeController.setDriver(this.driver);
+        //this.climbingArmController.setDriver(this.driver);
 
         // we will run the compressor controller here because we should start it in advance...
         this.compressorController.update();
@@ -265,6 +274,7 @@ public class Robot extends IterativeRobot
         //this.defenseArmController.update();        
         //this.shooterController.update();
         //this.intakeController.update();
+        //this.climbingArmController.update();
     }
 
     /**

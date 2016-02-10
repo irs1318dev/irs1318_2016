@@ -160,6 +160,18 @@ public abstract class Driver
                     UserInputDevice.Driver,
                     UserInputDeviceButton.NONE,
                     ButtonType.Click));
+            put(
+                Operation.ClimbingArmExtend,
+                new DigitalOperationDescription(
+                    UserInputDevice.Driver,
+                    UserInputDeviceButton.NONE,
+                    ButtonType.Click));
+            put(
+                Operation.ClimbingArmRetract,
+                new DigitalOperationDescription(
+                    UserInputDevice.Driver,
+                    UserInputDeviceButton.NONE,
+                    ButtonType.Click));
         }
     };
 

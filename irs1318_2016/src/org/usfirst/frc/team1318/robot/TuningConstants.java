@@ -103,4 +103,7 @@ public class TuningConstants
     
     // Intake constants
     public static final double INTAKE_MAX_SPEED = 1.0;
+    
+    //Climbing Arm Constants
+    public static final double CLIMBING_ARM_MAX_SPEED = 1.0;
 }
