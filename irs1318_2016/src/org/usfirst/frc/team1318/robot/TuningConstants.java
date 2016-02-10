@@ -98,11 +98,12 @@ public class TuningConstants
 
     public static final double SHOOTER_FAR_SHOT_VELOCITY = 0.0;
     public static final double SHOOTER_CLOSE_SHOT_VELOCITY = 0.0;
-    public static final double SHOOTER_FIRE_TIME = 1.0;
-    public static final double SHOOTER_SPIN_UP_DURATION = 1.0;
+    public static final double SHOOTER_FIRE_TIME = 1.5;
+    public static final double SHOOTER_SPIN_UP_DURATION = 3.0;
     
     // Intake constants
-    public static final double INTAKE_MAX_SPEED = 1.0;
+    public static final double INTAKE_IN_POWER_LEVEL = 0.4;
+    public static final double INTAKE_OUT_POWER_LEVEL = -0.4;
     
     //Climbing Arm Constants
     public static final double CLIMBING_ARM_MAX_SPEED = 1.0;

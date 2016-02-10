@@ -40,11 +40,11 @@ public class ShooterComponent
     {
         if (up)
         {
-            this.kicker.set(Value.kReverse);
+            this.kicker.set(Value.kForward);
         }
         else
         {
-            this.kicker.set(Value.kForward);
+            this.kicker.set(Value.kReverse);
         }
     }
     

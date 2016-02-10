@@ -2,10 +2,10 @@ package org.usfirst.frc.team1318.robot.TestMechanism;
 
 import org.usfirst.frc.team1318.robot.ElectronicsConstants;
 import org.usfirst.frc.team1318.robot.Sensors.IRSensor;
-import org.usfirst.frc.team1318.robot.Sensors.TCS34725LightSensor;
-import org.usfirst.frc.team1318.robot.Sensors.TCS34725LightSensor.Color;
-import org.usfirst.frc.team1318.robot.Sensors.TCS34725LightSensor.Gain;
-import org.usfirst.frc.team1318.robot.Sensors.TCS34725LightSensor.IntegrationTime;
+import org.usfirst.frc.team1318.robot.Sensors.TCS34725ColorSensor;
+import org.usfirst.frc.team1318.robot.Sensors.TCS34725ColorSensor.Color;
+import org.usfirst.frc.team1318.robot.Sensors.TCS34725ColorSensor.Gain;
+import org.usfirst.frc.team1318.robot.Sensors.TCS34725ColorSensor.IntegrationTime;
 import org.usfirst.frc.team1318.robot.Sensors.VCNL4010ProximityALSensor;
 
 import edu.wpi.first.wpilibj.DigitalInput;
@@ -17,7 +17,7 @@ import edu.wpi.first.wpilibj.I2C;
  */
 public class TestComponent
 {
-    private final TCS34725LightSensor lightSensor;
+    private final TCS34725ColorSensor lightSensor;
     private final VCNL4010ProximityALSensor proxSensor;
     private final DigitalInput sharpSensor;
     private final IRSensor irSensor;
@@ -79,42 +79,42 @@ public class TestComponent
         return this.lightSensor.readColor();
     }
 
-    public int getProximity()
+    public Integer getProximity()
     {
         if (this.proxSensor == null)
         {
-            return 0;
+            return null;
         }
 
         return this.proxSensor.getProximityValue();
     }
 
-    public int getAmbientLight()
+    public Integer getAmbientLight()
     {
         if (this.proxSensor == null)
         {
-            return 0;
+            return null;
         }
 
         return this.proxSensor.getAmbientLightValue();
     }
 
-    public boolean getSharpProximity()
+    public Boolean getSharpProximity()
     {
         if (this.sharpSensor == null)
         {
-            return false;
+            return null;
         }
         
         // sharp digital distance sensor returns the reverse of what I'd expect (true when far away, false when close)
         return !this.sharpSensor.get();
     }
 
-    public boolean getIRSense()
+    public Boolean getIRSense()
     {
         if (this.irSensor == null)
         {
-            return false;
+            return null;
         }
 
         return this.irSensor.get();

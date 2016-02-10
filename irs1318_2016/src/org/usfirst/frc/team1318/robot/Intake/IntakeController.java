@@ -32,11 +32,11 @@ public class IntakeController implements IController
         // Roll the intake in, out, or not at all when appropriate
         if (this.driver.getDigital(Operation.IntakeRotatingIn))
         {
-            this.intake.setIntakeSpeed(TuningConstants.INTAKE_MAX_SPEED);
+            this.intake.setIntakeSpeed(TuningConstants.INTAKE_IN_POWER_LEVEL);
         }
         else if (this.driver.getDigital(Operation.IntakeRotatingOut))
         {
-            this.intake.setIntakeSpeed(-TuningConstants.INTAKE_MAX_SPEED);
+            this.intake.setIntakeSpeed(TuningConstants.INTAKE_OUT_POWER_LEVEL);
         }
         else 
         {

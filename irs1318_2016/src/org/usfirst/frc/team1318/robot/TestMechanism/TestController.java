@@ -2,7 +2,7 @@ package org.usfirst.frc.team1318.robot.TestMechanism;
 
 import org.usfirst.frc.team1318.robot.Common.IController;
 import org.usfirst.frc.team1318.robot.Driver.Driver;
-import org.usfirst.frc.team1318.robot.Sensors.TCS34725LightSensor.Color;
+import org.usfirst.frc.team1318.robot.Sensors.TCS34725ColorSensor.Color;
 
 /**
  * Test controller.
@@ -38,7 +38,7 @@ public class TestController implements IController
     @Override
     public void update()
     {
-        String colorString = "";
+        String colorString = null;
         Color color = this.component.getColor();
         if (color != null)
         {
@@ -48,18 +48,40 @@ public class TestController implements IController
                 clear = 1;
             }
 
-            int red, green, blue;
-            red = (int)(256 * (((double)color.getRed()) / clear));
-            green = (int)(256 * (((double)color.getGreen()) / clear));
-            blue = (int)(256 * (((double)color.getBlue()) / clear));
+            int red = color.getRed(); 
+            int green = color.getGreen();
+            int blue = color.getBlue();
 
-            colorString += String.format("%02X%02X%02X (%04X)", red, green, blue, clear);
+            int adjustedRed = (int)(256 * (((double)red) / clear));
+            int adjustedGreen = (int)(256 * (((double)green) / clear));
+            int adjustedBlue = (int)(256 * (((double)blue) / clear));
+            
+            colorString = String.format("R: %04X G: %04X B: %04X (%04X) - %02X%02X%02X", red, green, blue, clear, adjustedRed, adjustedGreen, adjustedBlue);
         }
 
-        int proximity = this.component.getProximity();
-        int ambientLight = this.component.getAmbientLight();
-        System.out.printf("Color: %s, Proximity: %04X, AmbientLight: %04X\n", colorString, proximity, ambientLight);
-        System.out.printf("IR: %s, Proximity: %s\n", "" + this.component.getIRSense(), "" + this.component.getSharpProximity());
+        if (colorString != null)
+        {
+            System.out.printf("Color: %s\n", colorString);
+        }
+
+        Integer proximity = this.component.getProximity();
+        Integer ambientLight = this.component.getAmbientLight();
+        if (proximity != null || ambientLight != null)
+        {
+            System.out.printf("Proximity: %04X, AmbientLight: %04X\n", proximity, ambientLight);
+        }
+
+        Boolean irSensed = this.component.getIRSense();
+        if (irSensed != null)
+        {
+            System.out.printf("IR: %s\n", irSensed.toString());
+        }
+
+        Boolean sharpProximity = this.component.getSharpProximity();
+        if (sharpProximity != null)
+        {
+            System.out.printf("WithinProximity: %s\n", sharpProximity.toString());
+        }
     }
 
     /**
