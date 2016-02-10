@@ -38,7 +38,7 @@ public class TestController implements IController
     @Override
     public void update()
     {
-        String colorString = "";
+        String colorString = null;
         Color color = this.component.getColor();
         if (color != null)
         {
@@ -53,13 +53,32 @@ public class TestController implements IController
             green = (int)(256 * (((double)color.getGreen()) / clear));
             blue = (int)(256 * (((double)color.getBlue()) / clear));
 
-            colorString += String.format("%02X%02X%02X (%04X)", red, green, blue, clear);
+            colorString = String.format("%02X%02X%02X (%04X)", red, green, blue, clear);
         }
 
-        int proximity = this.component.getProximity();
-        int ambientLight = this.component.getAmbientLight();
-        System.out.printf("Color: %s, Proximity: %04X, AmbientLight: %04X\n", colorString, proximity, ambientLight);
-        System.out.printf("IR: %s, Proximity: %s\n", "" + this.component.getIRSense(), "" + this.component.getSharpProximity());
+        if (colorString != null)
+        {
+            System.out.printf("Color: %s", colorString);
+        }
+
+        Integer proximity = this.component.getProximity();
+        Integer ambientLight = this.component.getAmbientLight();
+        if (proximity != null || ambientLight != null)
+        {
+            System.out.printf("Proximity: %04X, AmbientLight: %04X\n", proximity, ambientLight);
+        }
+
+        Boolean irSensed = this.component.getIRSense();
+        if (irSensed != null)
+        {
+            System.out.printf("IR: %s\n", irSensed.toString());
+        }
+
+        Boolean sharpProximity = this.component.getSharpProximity();
+        if (sharpProximity != null)
+        {
+            System.out.printf("WithinProximity: %s\n", sharpProximity.toString());
+        }
     }
 
     /**

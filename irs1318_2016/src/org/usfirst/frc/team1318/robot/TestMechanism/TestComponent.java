@@ -79,42 +79,42 @@ public class TestComponent
         return this.lightSensor.readColor();
     }
 
-    public int getProximity()
+    public Integer getProximity()
     {
         if (this.proxSensor == null)
         {
-            return 0;
+            return null;
         }
 
         return this.proxSensor.getProximityValue();
     }
 
-    public int getAmbientLight()
+    public Integer getAmbientLight()
     {
         if (this.proxSensor == null)
         {
-            return 0;
+            return null;
         }
 
         return this.proxSensor.getAmbientLightValue();
     }
 
-    public boolean getSharpProximity()
+    public Boolean getSharpProximity()
     {
         if (this.sharpSensor == null)
         {
-            return false;
+            return null;
         }
         
         // sharp digital distance sensor returns the reverse of what I'd expect (true when far away, false when close)
         return !this.sharpSensor.get();
     }
 
-    public boolean getIRSense()
+    public Boolean getIRSense()
     {
         if (this.irSensor == null)
         {
-            return false;
+            return null;
         }
 
         return this.irSensor.get();
