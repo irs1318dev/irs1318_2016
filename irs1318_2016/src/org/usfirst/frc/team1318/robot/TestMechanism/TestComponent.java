@@ -105,7 +105,9 @@ public class TestComponent
         {
             return false;
         }
-        return this.sharpSensor.get();
+        
+        // sharp digital distance sensor returns the reverse of what I'd expect (true when far away, false when close)
+        return !this.sharpSensor.get();
     }
 
     public boolean getIRSense()
