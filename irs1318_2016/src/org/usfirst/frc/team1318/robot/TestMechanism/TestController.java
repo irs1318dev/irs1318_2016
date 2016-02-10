@@ -48,17 +48,20 @@ public class TestController implements IController
                 clear = 1;
             }
 
-            int red, green, blue;
-            red = (int)(256 * (((double)color.getRed()) / clear));
-            green = (int)(256 * (((double)color.getGreen()) / clear));
-            blue = (int)(256 * (((double)color.getBlue()) / clear));
+            int red = color.getRed(); 
+            int green = color.getGreen();
+            int blue = color.getBlue();
 
-            colorString = String.format("%02X%02X%02X (%04X)", red, green, blue, clear);
+            int adjustedRed = (int)(256 * (((double)red) / clear));
+            int adjustedGreen = (int)(256 * (((double)green) / clear));
+            int adjustedBlue = (int)(256 * (((double)blue) / clear));
+            
+            colorString = String.format("R: %04X G: %04X B: %04X (%04X) - %02X%02X%02X", red, green, blue, clear, adjustedRed, adjustedGreen, adjustedBlue);
         }
 
         if (colorString != null)
         {
-            System.out.printf("Color: %s", colorString);
+            System.out.printf("Color: %s\n", colorString);
         }
 
         Integer proximity = this.component.getProximity();
