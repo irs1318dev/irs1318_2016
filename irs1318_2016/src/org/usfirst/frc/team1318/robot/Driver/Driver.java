@@ -43,13 +43,13 @@ public abstract class Driver
                 Operation.DriveTrainShiftGearUp,
                 new DigitalOperationDescription(
                     UserInputDevice.Driver,
-                    UserInputDeviceButton.JOYSTICK_STICK_TOP_LEFT_BUTTON,
+                    UserInputDeviceButton.NONE,
                     ButtonType.Click));
             put(
                 Operation.DriveTrainShiftGearDown,
                 new DigitalOperationDescription(
                     UserInputDevice.Driver,
-                    UserInputDeviceButton.JOYSTICK_STICK_BOTTOM_LEFT_BUTTON,
+                    UserInputDeviceButton.NONE,
                     ButtonType.Click));
             put(
                 Operation.DriveTrainSimpleMode,
@@ -76,42 +76,50 @@ public abstract class Driver
             // Operations for the defense arm
             put(
                 Operation.DefenseArmFrontPosition,
-                new DigitalOperationDescription(UserInputDevice.Driver,
-                    UserInputDeviceButton.NONE,
+                new DigitalOperationDescription(
+                    UserInputDevice.Driver,
+                    UserInputDeviceButton.JOYSTICK_BASE_BOTTOM_LEFT_BUTTON,
                     ButtonType.Click));
             put(
                 Operation.DefenseArmPortcullisPosition,
-                new DigitalOperationDescription(UserInputDevice.Driver,
-                    UserInputDeviceButton.NONE,
-                    ButtonType.Click));
-            put(
-                Operation.DefenseArmDrawbridgePosition,
-                new DigitalOperationDescription(UserInputDevice.Driver,
-                    UserInputDeviceButton.NONE,
+                new DigitalOperationDescription(
+                    UserInputDevice.Driver,
+                    UserInputDeviceButton.JOYSTICK_BASE_MIDDLE_LEFT_BUTTON,
                     ButtonType.Click));
             put(
                 Operation.DefenseArmSallyPortPosition,
-                new DigitalOperationDescription(UserInputDevice.Driver,
-                    UserInputDeviceButton.NONE,
+                new DigitalOperationDescription(
+                    UserInputDevice.Driver,
+                    UserInputDeviceButton.JOYSTICK_BASE_TOP_LEFT_BUTTON,
+                    ButtonType.Click));
+            put(
+                Operation.DefenseArmDrawbridgePosition,
+                new DigitalOperationDescription(
+                    UserInputDevice.Driver,
+                    UserInputDeviceButton.JOYSTICK_BASE_BOTTOM_RIGHT_BUTTON,
                     ButtonType.Click));
             put(
                 Operation.DefenseArmBackPosition,
-                new DigitalOperationDescription(UserInputDevice.Driver,
-                    UserInputDeviceButton.NONE,
+                new DigitalOperationDescription(
+                    UserInputDevice.Driver,
+                    UserInputDeviceButton.JOYSTICK_BASE_MIDDLE_RIGHT_BUTTON,
                     ButtonType.Click));
             put(
-                Operation.DefenseArmMoveBack,
-                new DigitalOperationDescription(UserInputDevice.Driver,
-                    UserInputDeviceButton.NONE,
+                Operation.DefenseArmMoveForward,
+                new DigitalOperationDescription(
+                    UserInputDevice.Driver,
+                    UserInputDeviceButton.JOYSTICK_STICK_TOP_LEFT_BUTTON,
                     ButtonType.Simple));
             put(
-                Operation.DefenseArmMoveForward,
-                new DigitalOperationDescription(UserInputDevice.Driver,
-                    UserInputDeviceButton.NONE,
+                Operation.DefenseArmMoveBack,
+                new DigitalOperationDescription(
+                    UserInputDevice.Driver,
+                    UserInputDeviceButton.JOYSTICK_STICK_BOTTOM_LEFT_BUTTON,
                     ButtonType.Simple));
             put(
                 Operation.DefenseArmTakePositionInput,
-                new DigitalOperationDescription(UserInputDevice.Driver,
+                new DigitalOperationDescription(
+                    UserInputDevice.None,
                     UserInputDeviceButton.NONE,
                     ButtonType.Simple));
             put(
@@ -152,13 +160,13 @@ public abstract class Driver
                 Operation.IntakeExtend,
                 new DigitalOperationDescription(
                     UserInputDevice.Driver,
-                    UserInputDeviceButton.NONE,
+                    UserInputDeviceButton.JOYSTICK_STICK_TOP_RIGHT_BUTTON,
                     ButtonType.Click));
             put(
                 Operation.IntakeRetract,
                 new DigitalOperationDescription(
                     UserInputDevice.Driver,
-                    UserInputDeviceButton.NONE,
+                    UserInputDeviceButton.JOYSTICK_STICK_BOTTOM_RIGHT_BUTTON,
                     ButtonType.Click));
         }
     };
@@ -179,7 +187,7 @@ public abstract class Driver
                 MacroOperation.ShootFar,
                 new MacroOperationDescription(
                     UserInputDevice.Driver,
-                    UserInputDeviceButton.NONE,
+                    UserInputDeviceButton.JOYSTICK_STICK_THUMB_BUTTON,
                     () -> new SequentialTask(
                             new IControlTask[]
                             {
@@ -192,7 +200,7 @@ public abstract class Driver
                 MacroOperation.ShootClose,
                 new MacroOperationDescription(
                     UserInputDevice.Driver,
-                    UserInputDeviceButton.NONE,
+                    UserInputDeviceButton.JOYSTICK_STICK_TRIGGER_BUTTON,
                     () -> new SequentialTask(
                             new IControlTask[]
                             {
@@ -205,7 +213,7 @@ public abstract class Driver
                 MacroOperation.BreachPortcullis,
                 new MacroOperationDescription(
                     UserInputDevice.Driver,
-                    UserInputDeviceButton.NONE,
+                    UserInputDeviceButton.JOYSTICK_BASE_TOP_RIGHT_BUTTON,
                     () -> new BreachPortcullisTask(),
                     new Operation[]
                         { Operation.DriveTrainRightPosition, 
