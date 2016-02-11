@@ -32,6 +32,8 @@ public enum Operation
     IntakeRetract,
     //Climbing Arm Operation
     ClimbingArmExtend,
-    ClimbingArmRetract;
+    ClimbingArmRetract,
+    ClimbingArmUp,
+    ClimbingArmStand;
     
 }
