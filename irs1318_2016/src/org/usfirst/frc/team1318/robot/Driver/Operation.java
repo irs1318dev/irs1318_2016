@@ -29,5 +29,9 @@ public enum Operation
     IntakeRotatingIn,
     IntakeRotatingOut,
     IntakeExtend,
-    IntakeRetract;
+    IntakeRetract,
+    //Climbing Arm Operation
+    ClimbingArmExtend,
+    ClimbingArmRetract;
+    
 }

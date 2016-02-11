@@ -73,7 +73,7 @@ public class TuningConstants
     public static final double DEFENSE_ARM_POSITION_PID_KI_DEFAULT = 0.0;
     public static final double DEFENSE_ARM_POSITION_PID_KD_DEFAULT = 0.0;
     public static final double DEFENSE_ARM_POSITION_PID_KF_DEFAULT = 0.0;
-
+    
     public static final double DEFENSE_ARM_MAX_POWER_LEVEL = 0.0;
     public static final double DEFENSE_ARM_MOVE_END_POWER_LEVEL = 0.0;
     public static final double DEFENSE_ARM_BELOW_FRONT_POSITION = 0.0;
@@ -104,4 +104,7 @@ public class TuningConstants
     // Intake constants
     public static final double INTAKE_IN_POWER_LEVEL = 0.4;
     public static final double INTAKE_OUT_POWER_LEVEL = -0.4;
+    
+    //Climbing Arm Constants
+    public static final double CLIMBING_ARM_MAX_SPEED = 1.0;
 }
