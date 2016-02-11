@@ -48,14 +48,11 @@ public class PIDHandler
     // other vars
     private final Timer timer;
 
-    private String prefix;
-
     private double prevDeltaX = 0.0;
 
     /**
      * This constructor initializes the object and sets constants to affect gain
      * 
-     * @param prefix to use for smartdashboard logging
      * @param kp scalar for proportional component
      * @param ki scalar for integral component
      * @param kd scalar for derivative component
@@ -63,16 +60,15 @@ public class PIDHandler
      * @param minOutput indicates the minimum output value acceptable, or null
      * @param maxOutput indicates the maximum output value acceptable, or null
      */
-    public PIDHandler(String prefix, double kp, double ki, double kd, double kf, Double minOutput, Double maxOutput)
+    public PIDHandler(double kp, double ki, double kd, double kf, Double minOutput, Double maxOutput)
     {
-        this(prefix, kp, ki, kd, kf, 1.0, 0.0, 1.0, minOutput, maxOutput);
+        this(kp, ki, kd, kf, 1.0, 0.0, 1.0, minOutput, maxOutput);
     }
 
     /**
      * This constructor initializes the object and sets constants to affect gain.
      * This defaults to not utilizing a complementary filter to slow ramp-up/ramp-down.
      * 
-     * @param prefix to use for smartdashboard logging
      * @param kp scalar for proportional component
      * @param ki scalar for integral component
      * @param kd scalar for derivative component
@@ -81,16 +77,15 @@ public class PIDHandler
      * @param minOutput indicates the minimum output value acceptable, or null
      * @param maxOutput indicates the maximum output value acceptable, or null
      */
-    public PIDHandler(String prefix, double kp, double ki, double kd, double kf, double ks, Double minOutput, Double maxOutput)
+    public PIDHandler(double kp, double ki, double kd, double kf, double ks, Double minOutput, Double maxOutput)
     {
-        this(prefix, kp, ki, kd, kf, ks, 0.0, 1.0, minOutput, maxOutput);
+        this(kp, ki, kd, kf, ks, 0.0, 1.0, minOutput, maxOutput);
     }
 
     /**
      * This constructor initializes the object and sets constants to affect gain.
      * This defaults to not utilizing a complementary filter to slow ramp-up/ramp-down.
      * 
-     * @param prefix to use for smartdashboard logging
      * @param kp scalar for proportional component
      * @param ki scalar for integral component
      * @param kd scalar for derivative component
@@ -100,16 +95,15 @@ public class PIDHandler
      * @param minOutput indicates the minimum output value acceptable, or null
      * @param maxOutput indicates the maximum output value acceptable, or null
      */
-    public PIDHandler(String prefix, double kp, double ki, double kd, double kf, double kO, double kN, Double minOutput, Double maxOutput)
+    public PIDHandler(double kp, double ki, double kd, double kf, double kO, double kN, Double minOutput, Double maxOutput)
     {
-        this(prefix, kp, ki, kd, kf, 1.0, kO, kN, minOutput, maxOutput);
+        this(kp, ki, kd, kf, 1.0, kO, kN, minOutput, maxOutput);
     }
 
     /**
      * This constructor initializes the object and sets constants to affect gain.
      * This utilizes a complementary filter to slow ramp-up/ramp-down.
      * 
-     * @param prefix to use for smartdashboard logging
      * @param kp scalar for proportional component
      * @param ki scalar for integral component
      * @param kd scalar for derivative component
@@ -120,11 +114,8 @@ public class PIDHandler
      * @param minOutput indicates the minimum output value acceptable, or null
      * @param maxOutput indicates the maximum output value acceptable, or null
      */
-    public PIDHandler(
-        String prefix, double kp, double ki, double kd, double kf, double ks, double kO, double kN, Double minOutput, Double maxOutput)
+    public PIDHandler(double kp, double ki, double kd, double kf, double ks, double kO, double kN, Double minOutput, Double maxOutput)
     {
-        this.prefix = prefix;
-
         this.ki = ki;
         this.kd = kd;
         this.kp = kp;
@@ -232,7 +223,6 @@ public class PIDHandler
         // update dt
         this.curTime = this.timer.get();
         this.dt = this.curTime - this.prevTime;
-        SmartDashboardLogger.putNumber(this.prefix + "DT", this.dt);
 
         // To prevent division by zero and over-aggressive measurement, output updates at a max of 1kHz
         if (this.dt >= PIDHandler.MinTimeStep)
@@ -241,7 +231,6 @@ public class PIDHandler
 
             // calculate error
             double deltaX = this.measuredValue - this.prevMeasuredValue;
-            //            this.prevDeltaX = deltaX;
 
             if (this.dt > 0.002)
             {
@@ -251,12 +240,8 @@ public class PIDHandler
             }
             else
             {
-                this.error = this.ks * this.setpoint - prevDeltaX;
+                this.error = this.ks * this.setpoint - this.prevDeltaX;
             }
-
-            //            this.error = this.ks * this.setpoint - deltaX;
-
-            SmartDashboardLogger.putNumber(this.prefix + "DeltaX: ", deltaX);
 
             // calculate integral, limiting it based on MaxOutput/MinOutput
             double potentialI = this.ki * (this.integral + this.error * this.dt);

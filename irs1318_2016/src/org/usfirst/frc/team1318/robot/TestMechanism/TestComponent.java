@@ -27,7 +27,7 @@ public class TestComponent
      */
     public TestComponent()
     {
-        this.lightSensor = null; //new TCS34725LightSensor(I2C.Port.kOnboard, IntegrationTime.Time101MS, Gain.X1);
+        this.lightSensor = null; //new TCS34725ColorSensor(I2C.Port.kOnboard, IntegrationTime.Time101MS, Gain.X1);
         this.proxSensor = null; //new VCNL4010ProximityALSensor(I2C.Port.kOnboard);
         this.sharpSensor = null; //new DigitalInput(ElectronicsConstants.TEST_SENSOR_SHARP);
         this.irSensor = null; //new IRSensor(ElectronicsConstants.TEST_SENSOR_IR_IN, ElectronicsConstants.TEST_SENSOR_IR_OUT);

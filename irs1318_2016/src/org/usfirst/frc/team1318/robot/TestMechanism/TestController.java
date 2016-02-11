@@ -1,5 +1,6 @@
 package org.usfirst.frc.team1318.robot.TestMechanism;
 
+import org.usfirst.frc.team1318.robot.Common.DashboardLogger;
 import org.usfirst.frc.team1318.robot.Common.IController;
 import org.usfirst.frc.team1318.robot.Driver.Driver;
 import org.usfirst.frc.team1318.robot.Sensors.TCS34725ColorSensor.Color;
@@ -61,26 +62,27 @@ public class TestController implements IController
 
         if (colorString != null)
         {
-            System.out.printf("Color: %s\n", colorString);
+            DashboardLogger.putString("Color", colorString);
         }
 
         Integer proximity = this.component.getProximity();
         Integer ambientLight = this.component.getAmbientLight();
         if (proximity != null || ambientLight != null)
         {
-            System.out.printf("Proximity: %04X, AmbientLight: %04X\n", proximity, ambientLight);
+            DashboardLogger.putInteger("Proximity", proximity, "%04X");
+            DashboardLogger.putInteger("AmbientLight", ambientLight, "%04X");
         }
 
         Boolean irSensed = this.component.getIRSense();
         if (irSensed != null)
         {
-            System.out.printf("IR: %s\n", irSensed.toString());
+            DashboardLogger.putBoolean("IR", irSensed);
         }
 
         Boolean sharpProximity = this.component.getSharpProximity();
         if (sharpProximity != null)
         {
-            System.out.printf("WithinProximity: %s\n", sharpProximity.toString());
+            DashboardLogger.putBoolean("WithinProximity", irSensed);
         }
     }
 

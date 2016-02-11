@@ -1,6 +1,6 @@
  package org.usfirst.frc.team1318.robot;
 
-import org.usfirst.frc.team1318.robot.Common.SmartDashboardLogger;
+import org.usfirst.frc.team1318.robot.Common.DashboardLogger;
 import org.usfirst.frc.team1318.robot.Compressor.CompressorController;
 import org.usfirst.frc.team1318.robot.DefenseArm.DefenseArmController;
 import org.usfirst.frc.team1318.robot.DriveTrain.PositionManager;
@@ -83,7 +83,7 @@ public class Robot extends IterativeRobot
         // create position manager
         this.position = new PositionManager(null);
 
-        SmartDashboardLogger.putString(Robot.ROBOT_STATE_LOG_KEY, "Init");
+        DashboardLogger.putString(Robot.ROBOT_STATE_LOG_KEY, "Init");
 
         this.dipSwitchA = new DigitalInput(ElectronicsConstants.AUTONOMOUS_DIP_SWITCH_A);
         this.dipSwitchB = new DigitalInput(ElectronicsConstants.AUTONOMOUS_DIP_SWITCH_B);
@@ -139,7 +139,7 @@ public class Robot extends IterativeRobot
         //    this.shooterController.stop();
         //}
 
-        SmartDashboardLogger.putString(Robot.ROBOT_STATE_LOG_KEY, "Disabled");
+        DashboardLogger.putString(Robot.ROBOT_STATE_LOG_KEY, "Disabled");
     }
 
     /**
@@ -177,7 +177,7 @@ public class Robot extends IterativeRobot
                 break;
         }
 
-        SmartDashboardLogger.putNumber(Robot.AUTONOMOUS_ROUTINE_PREFERENCE_KEY, routineSelection);
+        DashboardLogger.putInteger(Robot.AUTONOMOUS_ROUTINE_PREFERENCE_KEY, routineSelection);
 
         // create autonomous driver based on our desired routine
         this.driver = new AutonomousDriver(autonomousRoutine, this.components);
@@ -185,7 +185,7 @@ public class Robot extends IterativeRobot
         this.generalInit();
 
         // log that we are in autonomous mode
-        SmartDashboardLogger.putString(Robot.ROBOT_STATE_LOG_KEY, "Autonomous");
+        DashboardLogger.putString(Robot.ROBOT_STATE_LOG_KEY, "Autonomous");
     }
 
     /**
@@ -200,7 +200,7 @@ public class Robot extends IterativeRobot
         this.generalInit();
 
         // log that we are in teleop mode
-        SmartDashboardLogger.putString(Robot.ROBOT_STATE_LOG_KEY, "Teleop");
+        DashboardLogger.putString(Robot.ROBOT_STATE_LOG_KEY, "Teleop");
     }
 
     /**

@@ -211,7 +211,6 @@ public class DefenseArmController implements IController
         if (this.usePID)
         {
             this.pidHandler = new PIDHandler(
-                "arm",
                 TuningConstants.DEFENSE_ARM_POSITION_PID_KP_DEFAULT,
                 TuningConstants.DEFENSE_ARM_POSITION_PID_KI_DEFAULT,
                 TuningConstants.DEFENSE_ARM_POSITION_PID_KD_DEFAULT,
