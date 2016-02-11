@@ -106,5 +106,5 @@ public class TuningConstants
     public static final double INTAKE_OUT_POWER_LEVEL = -0.4;
     
     //Climbing Arm Constants
-    public static final double CLIMBING_ARM_MAX_SPEED = 1.0;
+    public static final double CLIMBING_ARM_MAX_SPEED = 0.8;
 }

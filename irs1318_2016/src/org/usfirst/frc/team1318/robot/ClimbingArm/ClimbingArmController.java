@@ -19,8 +19,8 @@ public class ClimbingArmController implements IController
     @Override
     public void update()
     {
-        Boolean topLimitSwitch = this.climbingArm.getTopLimitSwitch();
-        Boolean bottomLimitSwitch = this.climbingArm.getBottomLimitSwitch();
+        boolean topLimitSwitch = this.climbingArm.getTopLimitSwitch();
+        boolean bottomLimitSwitch = this.climbingArm.getBottomLimitSwitch();
         
         // The operations for raising up and standing will probably only be used in macros, so it should be fine to have it like this
         // The toggle for the side solenoid
