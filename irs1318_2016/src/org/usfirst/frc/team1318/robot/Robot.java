@@ -7,6 +7,9 @@ import org.usfirst.frc.team1318.robot.DriveTrain.PositionManager;
 import org.usfirst.frc.team1318.robot.Driver.Driver;
 import org.usfirst.frc.team1318.robot.Driver.IControlTask;
 import org.usfirst.frc.team1318.robot.Driver.Autonomous.AutonomousDriver;
+import org.usfirst.frc.team1318.robot.Driver.ControlTasks.BreachPortcullisTask;
+import org.usfirst.frc.team1318.robot.Driver.ControlTasks.DriveDistanceTask;
+import org.usfirst.frc.team1318.robot.Driver.ControlTasks.SequentialTask;
 import org.usfirst.frc.team1318.robot.Driver.ControlTasks.WaitTask;
 import org.usfirst.frc.team1318.robot.Driver.User.UserDriver;
 import org.usfirst.frc.team1318.robot.Intake.IntakeController;
@@ -178,6 +181,8 @@ public class Robot extends IterativeRobot
         switch (routineSelection)
         {
             case 0://neither flipped
+                //autonomousRoutine = AutonomousPortcullisBreach();
+                //break;
             case 1://switch A flipped
             case 2://switch B flipped
             default://both flipped or can't read 
@@ -285,6 +290,17 @@ public class Robot extends IterativeRobot
     private static IControlTask GetFillerRoutine()
     {
         return new WaitTask(0);
+    }
+    
+    // @author Corbin
+    // My first attempt to write an autonomous routine
+    @SuppressWarnings("unused")
+    private static IControlTask AutonomousPortcullisBreach() 
+    {
+        IControlTask[] tasks = new IControlTask[1];
+        tasks[0] = new DriveDistanceTask(1.0);
+        tasks[1] = new BreachPortcullisTask();
+        return new SequentialTask(tasks);
     }
 }
 
