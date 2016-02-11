@@ -69,7 +69,7 @@ public class ElectronicsConstants
     
     public static final int TEST_SENSOR_SHARP = 0;
     public static final int TEST_SENSOR_IR_IN = 0;
-    public static final int TEST_SENSOR_IR_OUT = 0;
+    public static final int TEST_SENSOR_IR_OUT = 1;
     
  // ================================================= Climbing Arm =============================================================
     public static final int CLIMBING_ARM_MOTOR_CHANNEL = 0;
