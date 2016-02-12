@@ -33,7 +33,7 @@ public enum Operation
     //Climbing Arm Operation
     ClimbingArmExtend,
     ClimbingArmRetract,
-    ClimbingArmUp,
-    ClimbingArmStand;
+    ClimbingArmShoulderUp,
+    ClimbingArmElbowUp;
     
 }

@@ -2,18 +2,18 @@
 package org.usfirst.frc.team1318.robot.Driver.ControlTasks;
 
 import org.usfirst.frc.team1318.robot.Driver.Operation;
+
 /**
- * Last (or first) step of the climbing macro. Can be used to extend or retract.
+ * Climbing macro. Can be used to extend or retract.
  * @author Corbin_Modica
  *
  */
-
-public class ClimbingArmExtendOrRetractTask extends ControlTaskBase
+public class ClimbingArmLifterUpTask extends ControlTaskBase
 {
     private boolean extend;
     
     // True extends, and false retracts.
-    public ClimbingArmExtendOrRetractTask(boolean extend)
+    public ClimbingArmLifterUpTask(boolean extend)
     {
         this.extend = extend;
     }
@@ -40,7 +40,6 @@ public class ClimbingArmExtendOrRetractTask extends ControlTaskBase
     {
         this.setDigitalOperationState(Operation.ClimbingArmExtend, false);
         this.setDigitalOperationState(Operation.ClimbingArmRetract, false);
-        this.getComponents().getClimbingArmComponent().stop();
     }
 
     @Override
@@ -67,8 +66,6 @@ public class ClimbingArmExtendOrRetractTask extends ControlTaskBase
 
     @Override
     public void update()
-    {
-        
+    {        
     }
-
 }

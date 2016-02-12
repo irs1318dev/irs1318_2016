@@ -10,53 +10,56 @@ import edu.wpi.first.wpilibj.Talon;
 public class ClimbingArmComponent
 {
     private final Talon motor;
-    private final DoubleSolenoid sideSolenoid;
-    private final DoubleSolenoid armSolenoid;
+    private final DoubleSolenoid shoulderSolenoid;
+    private final DoubleSolenoid elbowSolenoid;
     private final DigitalInput bottomLimitSwitch;
     private final DigitalInput topLimitSwitch;
     
-    public ClimbingArmComponent(){
+    public ClimbingArmComponent()
+    {
         this.motor = new Talon(ElectronicsConstants.CLIMBING_ARM_MOTOR_CHANNEL);
-        this.sideSolenoid = new DoubleSolenoid(ElectronicsConstants.CLIMBING_ARM_SIDE_SOLENOID_CHANNEL_A, ElectronicsConstants.CLIMBING_ARM_SIDE_SOLENOID_CHANNEL_B);
-        this.armSolenoid = new DoubleSolenoid(ElectronicsConstants.CLIMBING_ARM_ARM_SOLENOID_CHANNEL_A, ElectronicsConstants.CLIMBING_ARM_ARM_SOLENOID_CHANNEL_B);
+        this.shoulderSolenoid = new DoubleSolenoid(ElectronicsConstants.CLIMBING_ARM_SHOULDER_SOLENOID_CHANNEL_A, ElectronicsConstants.CLIMBING_ARM_SHOULDER_SOLENOID_CHANNEL_B);
+        this.elbowSolenoid = new DoubleSolenoid(ElectronicsConstants.CLIMBING_ARM_ELBOW_SOLENOID_CHANNEL_A, ElectronicsConstants.CLIMBING_ARM_ELBOW_SOLENOID_CHANNEL_B);
         this.bottomLimitSwitch = new DigitalInput(ElectronicsConstants.CLIMBING_ARM_BOTTOM_LIMIT_SWITCH_CHANNEL);
         this.topLimitSwitch = new DigitalInput(ElectronicsConstants.CLIMBING_ARM_TOP_LIMIT_SWITCH_CHANNEL);
     }
     
-    public void stop(){
+    public void stop()
+    {
         this.motor.set(0.0);
-        this.sideSolenoid.set(Value.kOff);
-        this.armSolenoid.set(Value.kOff);
+        this.shoulderSolenoid.set(Value.kOff);
+        this.elbowSolenoid.set(Value.kOff);
     }
     
-    // Takes a speed and sets the motor with that speedS
-    public void setClimbingSpeed(double motorSpeed){
+    // Takes a speed and sets the motor with that speed
+    public void setClimbingSpeed(double motorSpeed)
+    {
         this.motor.set(motorSpeed);
     }
     
     // True extends the side solenoid, false retracts it
-    public void extendOrRetractSideSolenoid(boolean enable)
+    public void extendShoulderSolenoid(boolean enable)
     {
         if (enable)
         {
-            this.sideSolenoid.set(Value.kForward);
+            this.shoulderSolenoid.set(Value.kForward);
         }
         else 
         {
-            this.sideSolenoid.set(Value.kReverse);
+            this.shoulderSolenoid.set(Value.kReverse);
         }
     }
     
     // True extends the arm solenoid, false retracts it
-    public void extendOrRetractArmSolenoid(boolean enable)
+    public void extendElbowSolenoid(boolean enable)
     {
         if (enable)
         {
-            this.armSolenoid.set(Value.kForward);
+            this.elbowSolenoid.set(Value.kForward);
         }
         else
         {
-            this.armSolenoid.set(Value.kReverse);
+            this.elbowSolenoid.set(Value.kReverse);
         }
     }
     

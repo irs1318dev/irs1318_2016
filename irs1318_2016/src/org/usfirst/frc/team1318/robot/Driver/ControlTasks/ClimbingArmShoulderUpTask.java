@@ -1,20 +1,21 @@
 package org.usfirst.frc.team1318.robot.Driver.ControlTasks;
 
+import org.usfirst.frc.team1318.robot.TuningConstants;
 import org.usfirst.frc.team1318.robot.Driver.Operation;
+
 /**
- * First (or last) step of the climbing macro. Can be used to stand or sit.
+ * Second step of the climbing macro. Can be used to move arm up or down.
  * @author Corbin_Modica
  *
  */
-
-public class ClimbingArmStandTask extends TimedTask
+public class ClimbingArmShoulderUpTask extends TimedTask
 {
-    boolean up;
+    private boolean up;
 
     // True is, well, up...
-    public ClimbingArmStandTask(boolean up)
+    public ClimbingArmShoulderUpTask(boolean up)
     {
-        super(1.0);
+        super(TuningConstants.CLIMBING_ARM_SHOULDER_UP_DURATION);
         this.up = up;
     }
 
@@ -23,29 +24,26 @@ public class ClimbingArmStandTask extends TimedTask
     {
         if (up)
         {
-            this.setDigitalOperationState(Operation.ClimbingArmUp, true);
+            this.setDigitalOperationState(Operation.ClimbingArmShoulderUp, true);
         }
         else
         {
-            this.setDigitalOperationState(Operation.ClimbingArmUp, false);
+            this.setDigitalOperationState(Operation.ClimbingArmShoulderUp, false);
         }
     }
     
     @Override
     public void update()
     {
-     
     }
 
     @Override
     public void stop()
     {
-        this.getComponents().getClimbingArmComponent().stop();
     }
 
     @Override
     public void end()
     {
-        
     }
 }

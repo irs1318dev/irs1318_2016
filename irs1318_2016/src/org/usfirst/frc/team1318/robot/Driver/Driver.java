@@ -6,9 +6,9 @@ import java.util.Map;
 import org.usfirst.frc.team1318.robot.Driver.Buttons.AnalogAxis;
 import org.usfirst.frc.team1318.robot.Driver.Buttons.ButtonType;
 import org.usfirst.frc.team1318.robot.Driver.ControlTasks.BreachPortcullisTask;
-import org.usfirst.frc.team1318.robot.Driver.ControlTasks.ClimbingArmExtendOrRetractTask;
-import org.usfirst.frc.team1318.robot.Driver.ControlTasks.ClimbingArmStandTask;
-import org.usfirst.frc.team1318.robot.Driver.ControlTasks.ClimbingArmUpTask;
+import org.usfirst.frc.team1318.robot.Driver.ControlTasks.ClimbingArmLifterUpTask;
+import org.usfirst.frc.team1318.robot.Driver.ControlTasks.ClimbingArmElbowUpTask;
+import org.usfirst.frc.team1318.robot.Driver.ControlTasks.ClimbingArmShoulderUpTask;
 import org.usfirst.frc.team1318.robot.Driver.ControlTasks.DriveDistanceTask;
 import org.usfirst.frc.team1318.robot.Driver.ControlTasks.ShooterKickTask;
 import org.usfirst.frc.team1318.robot.Driver.ControlTasks.SequentialTask;
@@ -190,14 +190,6 @@ public abstract class Driver
     protected Map<MacroOperation, MacroOperationDescription> macroSchema = new HashMap<MacroOperation, MacroOperationDescription>()
     {
         {
-            put(
-                MacroOperation.DriveDistance,
-                new MacroOperationDescription(
-                    UserInputDevice.Driver,
-                    UserInputDeviceButton.JOYSTICK_BASE_BOTTOM_RIGHT_BUTTON,
-                    () -> new DriveDistanceTask(20.0),
-                    new Operation[]
-                        { Operation.DriveTrainMoveForward, Operation.DriveTrainTurn, Operation.DriveTrainUsePositionalMode }));
             // Macros for shooting distance.
             put(
                 MacroOperation.ShootFar,
@@ -243,30 +235,30 @@ public abstract class Driver
             put(
                 MacroOperation.ClimbingArmStand,
                 new MacroOperationDescription(
-                    UserInputDevice.Driver,
-                    UserInputDeviceButton.NONE,
-                    () -> new ClimbingArmStandTask(true),
-                    new Operation[]{Operation.ClimbingArmStand}));
+                    UserInputDevice.CoDriver,
+                    UserInputDeviceButton.BUTTON_PAD_BUTTON_1,
+                    () -> new ClimbingArmElbowUpTask(true),
+                    new Operation[]{Operation.ClimbingArmElbowUp}));
             put(
                 MacroOperation.ClimbingArmUp,
                 new MacroOperationDescription(
-                    UserInputDevice.Driver,
-                    UserInputDeviceButton.NONE,
-                    () -> new ClimbingArmUpTask(true),
-                    new Operation[]{Operation.ClimbingArmUp}));
+                    UserInputDevice.CoDriver,
+                    UserInputDeviceButton.BUTTON_PAD_BUTTON_2,
+                    () -> new ClimbingArmShoulderUpTask(true),
+                    new Operation[]{Operation.ClimbingArmShoulderUp}));
             put(
                 MacroOperation.ClimbingArmExtend,
                 new MacroOperationDescription(
-                    UserInputDevice.Driver,
-                    UserInputDeviceButton.NONE,
-                    () -> new ClimbingArmExtendOrRetractTask(true),
+                    UserInputDevice.CoDriver,
+                    UserInputDeviceButton.BUTTON_PAD_BUTTON_3,
+                    () -> new ClimbingArmLifterUpTask(true),
                     new Operation[]{Operation.ClimbingArmExtend, Operation.ClimbingArmRetract}));
             put(
                 MacroOperation.ClimbingArmRetract,
                 new MacroOperationDescription(
-                    UserInputDevice.Driver,
-                    UserInputDeviceButton.NONE,
-                    () -> new ClimbingArmExtendOrRetractTask(false),
+                    UserInputDevice.CoDriver,
+                    UserInputDeviceButton.BUTTON_PAD_BUTTON_4,
+                    () -> new ClimbingArmLifterUpTask(false),
                     new Operation[]{Operation.ClimbingArmExtend, Operation.ClimbingArmRetract}));
         }
     };

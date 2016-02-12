@@ -107,4 +107,6 @@ public class TuningConstants
     
     //Climbing Arm Constants
     public static final double CLIMBING_ARM_MAX_SPEED = 0.8;
+    public static final double CLIMBING_ARM_ELBOW_UP_DURATION = 2.0;
+    public static final double CLIMBING_ARM_SHOULDER_UP_DURATION = 2.0;
 }

@@ -74,11 +74,11 @@ public class ElectronicsConstants
  // ================================================= Climbing Arm =============================================================
     public static final int CLIMBING_ARM_MOTOR_CHANNEL = 0;
 
-    public static final int CLIMBING_ARM_SIDE_SOLENOID_CHANNEL_A = 0;
-    public static final int CLIMBING_ARM_SIDE_SOLENOID_CHANNEL_B = 0;
+    public static final int CLIMBING_ARM_SHOULDER_SOLENOID_CHANNEL_A = 0;
+    public static final int CLIMBING_ARM_SHOULDER_SOLENOID_CHANNEL_B = 0;
     
-    public static final int CLIMBING_ARM_ARM_SOLENOID_CHANNEL_A = 0;
-    public static final int CLIMBING_ARM_ARM_SOLENOID_CHANNEL_B = 0;
+    public static final int CLIMBING_ARM_ELBOW_SOLENOID_CHANNEL_A = 0;
+    public static final int CLIMBING_ARM_ELBOW_SOLENOID_CHANNEL_B = 0;
 
     public static final int CLIMBING_ARM_BOTTOM_LIMIT_SWITCH_CHANNEL = 0;
     public static final int CLIMBING_ARM_TOP_LIMIT_SWITCH_CHANNEL = 0;
