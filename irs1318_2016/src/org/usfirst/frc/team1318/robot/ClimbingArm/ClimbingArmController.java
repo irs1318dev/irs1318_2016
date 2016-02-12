@@ -12,7 +12,8 @@ public class ClimbingArmController implements IController
     private ClimbingArmComponent climbingArm;
     private Driver driver;
     
-    public ClimbingArmController(ClimbingArmComponent climbingArm){
+    public ClimbingArmController(ClimbingArmComponent climbingArm)
+    {
         this.climbingArm = climbingArm;
     }
 

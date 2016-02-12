@@ -6,6 +6,9 @@ import java.util.Map;
 import org.usfirst.frc.team1318.robot.Driver.Buttons.AnalogAxis;
 import org.usfirst.frc.team1318.robot.Driver.Buttons.ButtonType;
 import org.usfirst.frc.team1318.robot.Driver.ControlTasks.BreachPortcullisTask;
+import org.usfirst.frc.team1318.robot.Driver.ControlTasks.ClimbingArmExtendOrRetractTask;
+import org.usfirst.frc.team1318.robot.Driver.ControlTasks.ClimbingArmStandTask;
+import org.usfirst.frc.team1318.robot.Driver.ControlTasks.ClimbingArmUpTask;
 import org.usfirst.frc.team1318.robot.Driver.ControlTasks.DriveDistanceTask;
 import org.usfirst.frc.team1318.robot.Driver.ControlTasks.ShooterKickTask;
 import org.usfirst.frc.team1318.robot.Driver.ControlTasks.SequentialTask;
@@ -195,6 +198,7 @@ public abstract class Driver
                     () -> new DriveDistanceTask(20.0),
                     new Operation[]
                         { Operation.DriveTrainMoveForward, Operation.DriveTrainTurn, Operation.DriveTrainUsePositionalMode }));
+            // Macros for shooting distance.
             put(
                 MacroOperation.ShootFar,
                 new MacroOperationDescription(
@@ -221,6 +225,7 @@ public abstract class Driver
                             }),
                     new Operation[]
                         { Operation.ShooterSpin, Operation.ShooterSpeed, Operation.ShooterKick }));
+            // Portcullis breach macro.
             put(
                 MacroOperation.BreachPortcullis,
                 new MacroOperationDescription(
@@ -234,6 +239,35 @@ public abstract class Driver
                             Operation.DriveTrainUsePositionalMode, 
                             Operation.DefenseArmTakePositionInput, 
                             Operation.DefenseArmSetAngle }));
+            // Macros for the climbing arm.
+            put(
+                MacroOperation.ClimbingArmStand,
+                new MacroOperationDescription(
+                    UserInputDevice.Driver,
+                    UserInputDeviceButton.NONE,
+                    () -> new ClimbingArmStandTask(true),
+                    new Operation[]{Operation.ClimbingArmStand}));
+            put(
+                MacroOperation.ClimbingArmUp,
+                new MacroOperationDescription(
+                    UserInputDevice.Driver,
+                    UserInputDeviceButton.NONE,
+                    () -> new ClimbingArmUpTask(true),
+                    new Operation[]{Operation.ClimbingArmUp}));
+            put(
+                MacroOperation.ClimbingArmExtend,
+                new MacroOperationDescription(
+                    UserInputDevice.Driver,
+                    UserInputDeviceButton.NONE,
+                    () -> new ClimbingArmExtendOrRetractTask(true),
+                    new Operation[]{Operation.ClimbingArmExtend, Operation.ClimbingArmRetract}));
+            put(
+                MacroOperation.ClimbingArmRetract,
+                new MacroOperationDescription(
+                    UserInputDevice.Driver,
+                    UserInputDeviceButton.NONE,
+                    () -> new ClimbingArmExtendOrRetractTask(false),
+                    new Operation[]{Operation.ClimbingArmExtend, Operation.ClimbingArmRetract}));
         }
     };
 
