@@ -19,9 +19,7 @@ public class ClimbingArmController implements IController
 
     @Override
     public void update()
-    {
-        double currentSpeed;
-        
+    {        
         boolean topLimitSwitch = this.climbingArm.getTopLimitSwitch();
         boolean bottomLimitSwitch = this.climbingArm.getBottomLimitSwitch();
         
@@ -46,7 +44,8 @@ public class ClimbingArmController implements IController
             this.climbingArm.extendOrRetractArmSolenoid(false);
         }
         
-        //Extend climbing arm, retract climbing arm, or stop climbing arm when appropriate
+        // Extend climbing arm, retract climbing arm, or stop climbing arm when appropriate
+        double currentSpeed = 0.0;
         if (this.driver.getDigital(Operation.ClimbingArmExtend))
         {
             currentSpeed = TuningConstants.CLIMBING_ARM_MAX_SPEED;
@@ -55,19 +54,15 @@ public class ClimbingArmController implements IController
         {
             currentSpeed = -TuningConstants.CLIMBING_ARM_MAX_SPEED;
         }
-        else
-        {
-            currentSpeed = 0.0;
-        }
         
         // Check to see if the nut has reached the top of the lead screw, and set the motor speed to 0 if it has.
-        if (topLimitSwitch && currentSpeed > 0)
+        if (topLimitSwitch && currentSpeed > 0.0)
         {
             currentSpeed = 0.0;
         }
         
         // Check to see if the nut has reached the bottom of the lead screw, and set the motor speed to 0 if it has.
-        if (bottomLimitSwitch && currentSpeed < 0)
+        if (bottomLimitSwitch && currentSpeed < 0.0)
         {
             currentSpeed = 0.0;
         }
