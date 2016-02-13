@@ -16,7 +16,6 @@ import org.usfirst.frc.team1318.robot.Driver.ControlTasks.WaitTask;
 import org.usfirst.frc.team1318.robot.Driver.User.UserDriver;
 import org.usfirst.frc.team1318.robot.Intake.IntakeController;
 import org.usfirst.frc.team1318.robot.Shooter.ShooterController;
-import org.usfirst.frc.team1318.robot.TestMechanism.TestController;
 
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.IterativeRobot;
@@ -57,7 +56,6 @@ public class Robot extends IterativeRobot
     // Controllers
     private CompressorController compressorController;
     //private DriveTrainController driveTrainController;
-    private TestController testController;
     //private DefenseArmController defenseArmController;
     //private ShooterController shooterController;
     //private IntakeController intakeController;
@@ -85,7 +83,6 @@ public class Robot extends IterativeRobot
         //this.driveTrainControoler = new DriveTrainController(
         //    this.components.getDriveTrain(),
         //    TuningConstants.DRIVETRAIN_USE_PID_DEFAULT);
-        this.testController = new TestController(this.components.getTest());
 
         // create position manager
         this.position = new PositionManager(null);
@@ -129,11 +126,6 @@ public class Robot extends IterativeRobot
         //{
         //    this.driveTrainController.stop();
         //}
-
-        if (this.testController != null)
-        {
-            this.testController.stop();
-        }
         
         //if (this.defenseArmController != null)
         //{
@@ -228,7 +220,6 @@ public class Robot extends IterativeRobot
     {
         // apply the driver to the controllers
         //this.driveTrainController.setDriver(this.driver);
-        this.testController.setDriver(this.driver);
         //this.defenseArmController.setDriver(this.driver);
         //this.shooterController.setDriver(this.driver);
         //this.intakeController.setDriver(this.driver);
@@ -280,7 +271,6 @@ public class Robot extends IterativeRobot
         // run each controller
         this.compressorController.update();
         //this.driveTrainController.update();
-        this.testController.update();        
         //this.defenseArmController.update();        
         //this.shooterController.update();
         //this.intakeController.update();
