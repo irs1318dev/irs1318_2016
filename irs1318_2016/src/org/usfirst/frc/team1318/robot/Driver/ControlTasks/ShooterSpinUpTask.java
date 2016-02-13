@@ -8,6 +8,7 @@ public class ShooterSpinUpTask extends TimedTask implements IControlTask
 {
     boolean distance;
     
+    // True is a far shot, false is a close shot.
     public ShooterSpinUpTask(boolean distance)
     {
         super(TuningConstants.SHOOTER_SPIN_UP_DURATION);
@@ -19,15 +20,17 @@ public class ShooterSpinUpTask extends TimedTask implements IControlTask
     {
         super.begin();
         
-        setDigitalOperationState(Operation.ShooterSpin, true);
+        this.setDigitalOperationState(Operation.ShooterSpin, true);
         
         if (distance)
         {
-            setAnalogOperationState(Operation.ShooterSpeed, TuningConstants.SHOOTER_FAR_SHOT_VELOCITY);
+            this.setAnalogOperationState(Operation.ShooterSpeed, TuningConstants.SHOOTER_FAR_SHOT_VELOCITY);
+            this.setDigitalOperationState(Operation.ShooterExtendHood, true);
         }
         else 
         {
-            setAnalogOperationState(Operation.ShooterSpeed, TuningConstants.SHOOTER_CLOSE_SHOT_VELOCITY);
+            this.setAnalogOperationState(Operation.ShooterSpeed, TuningConstants.SHOOTER_CLOSE_SHOT_VELOCITY);
+            this.setDigitalOperationState(Operation.ShooterExtendHood, false);
         }
     }
     
@@ -35,8 +38,8 @@ public class ShooterSpinUpTask extends TimedTask implements IControlTask
     public void stop()
     {
         super.stop();
-        setDigitalOperationState(Operation.ShooterSpin, false);
-        setAnalogOperationState(Operation.ShooterSpeed, 0.0);
+        this.setDigitalOperationState(Operation.ShooterSpin, false);
+        this.setAnalogOperationState(Operation.ShooterSpeed, 0.0);
     }
 
     @Override

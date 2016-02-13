@@ -25,6 +25,7 @@ public enum Operation
     ShooterSpeed,
     ShooterSpin,
     ShooterKick,
+    ShooterExtendHood,
     // Intake operations:
     IntakeRotatingIn,
     IntakeRotatingOut,
@@ -32,6 +33,8 @@ public enum Operation
     IntakeRetract,
     //Climbing Arm Operation
     ClimbingArmExtend,
-    ClimbingArmRetract;
+    ClimbingArmRetract,
+    ClimbingArmShoulderUp,
+    ClimbingArmElbowUp;
     
 }

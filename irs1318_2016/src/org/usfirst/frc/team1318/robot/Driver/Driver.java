@@ -7,6 +7,9 @@ import org.usfirst.frc.team1318.robot.TuningConstants;
 import org.usfirst.frc.team1318.robot.Driver.Buttons.AnalogAxis;
 import org.usfirst.frc.team1318.robot.Driver.Buttons.ButtonType;
 import org.usfirst.frc.team1318.robot.Driver.ControlTasks.BreachPortcullisTask;
+import org.usfirst.frc.team1318.robot.Driver.ControlTasks.ClimbingArmLifterUpTask;
+import org.usfirst.frc.team1318.robot.Driver.ControlTasks.ClimbingArmElbowUpTask;
+import org.usfirst.frc.team1318.robot.Driver.ControlTasks.ClimbingArmShoulderUpTask;
 import org.usfirst.frc.team1318.robot.Driver.ControlTasks.DriveDistanceTask;
 import org.usfirst.frc.team1318.robot.Driver.ControlTasks.SallyPortArcDriveTask;
 import org.usfirst.frc.team1318.robot.Driver.ControlTasks.ShooterKickTask;
@@ -190,14 +193,7 @@ public abstract class Driver
     protected Map<MacroOperation, MacroOperationDescription> macroSchema = new HashMap<MacroOperation, MacroOperationDescription>()
     {
         {
-            put(
-                MacroOperation.DriveDistance,
-                new MacroOperationDescription(
-                    UserInputDevice.Driver,
-                    UserInputDeviceButton.JOYSTICK_BASE_BOTTOM_RIGHT_BUTTON,
-                    () -> new DriveDistanceTask(20.0),
-                    new Operation[]
-                        { Operation.DriveTrainMoveForward, Operation.DriveTrainTurn, Operation.DriveTrainUsePositionalMode }));
+            // Macros for shooting distance.
             put(
                 MacroOperation.ShootFar,
                 new MacroOperationDescription(
@@ -224,6 +220,7 @@ public abstract class Driver
                             }),
                     new Operation[]
                         { Operation.ShooterSpin, Operation.ShooterSpeed, Operation.ShooterKick }));
+            // Portcullis breach macro.
             put(
                 MacroOperation.BreachPortcullis,
                 new MacroOperationDescription(
@@ -237,6 +234,35 @@ public abstract class Driver
                             Operation.DriveTrainUsePositionalMode, 
                             Operation.DefenseArmTakePositionInput, 
                             Operation.DefenseArmSetAngle }));
+            // Macros for the climbing arm.
+            put(
+                MacroOperation.ClimbingArmStand,
+                new MacroOperationDescription(
+                    UserInputDevice.CoDriver,
+                    UserInputDeviceButton.BUTTON_PAD_BUTTON_1,
+                    () -> new ClimbingArmElbowUpTask(true),
+                    new Operation[]{Operation.ClimbingArmElbowUp}));
+            put(
+                MacroOperation.ClimbingArmUp,
+                new MacroOperationDescription(
+                    UserInputDevice.CoDriver,
+                    UserInputDeviceButton.BUTTON_PAD_BUTTON_2,
+                    () -> new ClimbingArmShoulderUpTask(true),
+                    new Operation[]{Operation.ClimbingArmShoulderUp}));
+            put(
+                MacroOperation.ClimbingArmExtend,
+                new MacroOperationDescription(
+                    UserInputDevice.CoDriver,
+                    UserInputDeviceButton.BUTTON_PAD_BUTTON_3,
+                    () -> new ClimbingArmLifterUpTask(true),
+                    new Operation[]{Operation.ClimbingArmExtend, Operation.ClimbingArmRetract}));
+            put(
+                MacroOperation.ClimbingArmRetract,
+                new MacroOperationDescription(
+                    UserInputDevice.CoDriver,
+                    UserInputDeviceButton.BUTTON_PAD_BUTTON_4,
+                    () -> new ClimbingArmLifterUpTask(false),
+                    new Operation[]{Operation.ClimbingArmExtend, Operation.ClimbingArmRetract}));
             
             put(
                 MacroOperation.BreachSallyPort,

@@ -20,17 +20,17 @@ public class TestComponent
     private final TCS34725ColorSensor lightSensor;
     private final VCNL4010ProximityALSensor proxSensor;
     private final DigitalInput sharpSensor;
-    private final IRSensor irSensor;
+    private final DigitalInput irSensor;
 
     /**
      * Initializes a new TestComponent
      */
     public TestComponent()
     {
-        this.lightSensor = null; //new TCS34725LightSensor(I2C.Port.kOnboard, IntegrationTime.Time101MS, Gain.X1);
+        this.lightSensor = null; //new TCS34725ColorSensor(I2C.Port.kOnboard, IntegrationTime.Time101MS, Gain.X1);
         this.proxSensor = null; //new VCNL4010ProximityALSensor(I2C.Port.kOnboard);
         this.sharpSensor = null; //new DigitalInput(ElectronicsConstants.TEST_SENSOR_SHARP);
-        this.irSensor = null; //new IRSensor(ElectronicsConstants.TEST_SENSOR_IR_IN, ElectronicsConstants.TEST_SENSOR_IR_OUT);
+        this.irSensor = null; //new DigitalInput(ElectronicsConstants.TEST_SENSOR_IR_IN);
     }
 
     public void start()
@@ -44,11 +44,6 @@ public class TestComponent
         {
             this.proxSensor.start();
         }
-        
-        if (this.irSensor != null)
-        {
-            this.irSensor.start();
-        }
     }
 
     public void stop()
@@ -61,11 +56,6 @@ public class TestComponent
         if (this.proxSensor != null)
         {
             this.proxSensor.stop();
-        }
-        
-        if (this.irSensor != null)
-        {
-            this.irSensor.stop();
         }
     }
 
@@ -117,6 +107,7 @@ public class TestComponent
             return null;
         }
 
-        return this.irSensor.get();
+        // IR sensor returns the reverse of what I'd expect (false when IR reflection detected, true otherwise)
+        return !this.irSensor.get();
     }
 }
