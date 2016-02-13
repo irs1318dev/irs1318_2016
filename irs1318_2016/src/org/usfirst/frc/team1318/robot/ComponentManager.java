@@ -6,13 +6,11 @@ import org.usfirst.frc.team1318.robot.DefenseArm.DefenseArmComponent;
 import org.usfirst.frc.team1318.robot.DriveTrain.DriveTrainComponent;
 import org.usfirst.frc.team1318.robot.Intake.IntakeComponent;
 import org.usfirst.frc.team1318.robot.Shooter.ShooterComponent;
-import org.usfirst.frc.team1318.robot.TestMechanism.TestComponent;
 
 public class ComponentManager
 {
     private CompressorComponent compressorComponent;
     private DriveTrainComponent driveTrainComponent;
-    private TestComponent testComponent;
     private DefenseArmComponent defenseArmComponent;
     private ShooterComponent shooterComponent;
     private IntakeComponent intakeComponent;
@@ -21,7 +19,6 @@ public class ComponentManager
     public ComponentManager()
     {
         this.compressorComponent = new CompressorComponent();
-        this.testComponent = new TestComponent();
         //this.driveTrainComponent = new DriveTrainComponent();
         //this.defenseArmComponent = new DefenseArmComponent();
         //this.shooterComponent = new ShooterComponent();
@@ -49,17 +46,17 @@ public class ComponentManager
         return this.defenseArmComponent;
     }
     
-    public ShooterComponent getShooterComponent() 
+    public ShooterComponent getShooter() 
     {
         return this.shooterComponent;
     }
     
-    public IntakeComponent getIntakeComponent()
+    public IntakeComponent getIntake()
     {
         return this.intakeComponent;
     }
     
-    public ClimbingArmComponent getClimbingArmComponent()
+    public ClimbingArmComponent getClimbingArm()
     {
         return this.climbingArmComponent;
     }
