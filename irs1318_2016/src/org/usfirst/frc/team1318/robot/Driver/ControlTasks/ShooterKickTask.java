@@ -8,7 +8,7 @@ public class ShooterKickTask extends TimedTask implements IControlTask
 {
     public ShooterKickTask()
     {
-        super(TuningConstants.SHOOTER_FIRE_TIME);
+        super(TuningConstants.SHOOTER_FIRE_DURATION);
     }
 
     @Override

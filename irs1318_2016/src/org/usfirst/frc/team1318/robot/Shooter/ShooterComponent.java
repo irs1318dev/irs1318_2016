@@ -23,7 +23,7 @@ public class ShooterComponent
     public ShooterComponent() 
     {
         this.kicker = new DoubleSolenoid(ElectronicsConstants.SHOOTER_KICKER_CHANNEL_A, ElectronicsConstants.SHOOTER_KICKER_CHANNEL_B);
-        this.hood = new DoubleSolenoid(ElectronicsConstants.SHOOTER_HOOD_CHANNEL_A, ElectronicsConstants.SHOOTER_ENCODER_CHANNEL_B);
+        this.hood = new DoubleSolenoid(ElectronicsConstants.SHOOTER_HOOD_CHANNEL_A, ElectronicsConstants.SHOOTER_HOOD_CHANNEL_B);
         this.talon = new Talon(ElectronicsConstants.SHOOTER_MOTOR_CHANNEL);
         this.counter = new Counter(ElectronicsConstants.SHOOTER_COUNTER_CHANNEL);
         this.counter.setUpDownCounterMode();

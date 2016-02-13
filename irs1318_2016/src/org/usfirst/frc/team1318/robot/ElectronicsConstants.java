@@ -35,9 +35,6 @@ public class ElectronicsConstants
     public static final int DRIVETRAIN_LEFT_ENCODER_CHANNEL_A = 4;
     public static final int DRIVETRAIN_LEFT_ENCODER_CHANNEL_B = 5;
 
-    public static final int DRIVETRAIN_PROXIMITY_SENSOR_BACK_PORT = 1;
-    public static final int DRIVETRAIN_PROXIMITY_SENSOR_FRONT_PORT = 2;
-
     //================================================== Autonomous ==============================================================
 
     public static final int AUTONOMOUS_DIP_SWITCH_A = 8;
@@ -54,8 +51,6 @@ public class ElectronicsConstants
     //=================================================== Shooter ===================================================================
     
     public static final int SHOOTER_MOTOR_CHANNEL = 0;
-    public static final int SHOOTER_ENCODER_CHANNEL_A = 0;
-    public static final int SHOOTER_ENCODER_CHANNEL_B = 0;
     public static final int SHOOTER_COUNTER_CHANNEL = 0;
     public static final int SHOOTER_KICKER_CHANNEL_A = 0;
     public static final int SHOOTER_KICKER_CHANNEL_B = 0;

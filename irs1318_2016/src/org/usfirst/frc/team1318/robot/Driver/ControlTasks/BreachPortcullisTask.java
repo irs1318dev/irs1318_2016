@@ -85,7 +85,7 @@ public class BreachPortcullisTask extends ControlTaskBase
             / HardwareConstants.DEFENSE_ARM_LENGTH);
         
         // Set the desired arm angle converted to ticks
-        this.setAnalogOperationState(Operation.DefenseArmSetAngle, armAngle * TuningConstants.DEFENSE_ARM_RADIANS_TO_TICKS);
+        this.setAnalogOperationState(Operation.DefenseArmSetAngle, armAngle * HardwareConstants.DEFENSE_ARM_TICKS_PER_RADIAN);
     }
 
     @Override
