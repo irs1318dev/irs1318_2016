@@ -45,30 +45,10 @@ public abstract class Driver
                     UserInputDevice.Driver,
                     AnalogAxis.X));
             put(
-                Operation.DriveTrainShiftGearUp,
-                new DigitalOperationDescription(
-                    UserInputDevice.Driver,
-<<<<<<< HEAD
-                    UserInputDeviceButton.JOYSTICK_STICK_TOP_LEFT_BUTTON,
-=======
-                    UserInputDeviceButton.NONE,
->>>>>>> testBed
-                    ButtonType.Click));
-            put(
-                Operation.DriveTrainShiftGearDown,
-                new DigitalOperationDescription(
-                    UserInputDevice.Driver,
-<<<<<<< HEAD
-                    UserInputDeviceButton.JOYSTICK_STICK_BOTTOM_LEFT_BUTTON,
-=======
-                    UserInputDeviceButton.NONE,
->>>>>>> testBed
-                    ButtonType.Click));
-            put(
                 Operation.DriveTrainSimpleMode,
                 new DigitalOperationDescription(
                     UserInputDevice.Driver,
-                    UserInputDeviceButton.JOYSTICK_STICK_THUMB_BUTTON,
+                    UserInputDeviceButton.NONE,
                     ButtonType.Toggle));
             put(
                 Operation.DriveTrainUsePositionalMode,
@@ -86,8 +66,6 @@ public abstract class Driver
                 new AnalogOperationDescription(
                     UserInputDevice.None,
                     AnalogAxis.None));
-<<<<<<< HEAD
-=======
             // Operations for the defense arm
             put(
                 Operation.DefenseArmFrontPosition,
@@ -195,8 +173,6 @@ public abstract class Driver
                     UserInputDevice.Driver,
                     UserInputDeviceButton.NONE,
                     ButtonType.Click));
-            
->>>>>>> testBed
         }
     };
 
@@ -231,24 +207,6 @@ public abstract class Driver
                             }),
                     new Operation[]
                         { Operation.ShooterSpin, Operation.ShooterSpeed, Operation.ShooterKick }));
-            // Portcullis breach macro.
-            put(
-                MacroOperation.BreachPortcullis,
-                new MacroOperationDescription(
-                    UserInputDevice.Driver,
-                    UserInputDeviceButton.JOYSTICK_BASE_TOP_RIGHT_BUTTON,
-                    () -> new SequentialTask(
-                        new IControlTask[]{
-                            new DriveDistanceTask(TuningConstants.PORTCULLIS_OUTER_WORKS_DISTANCE),
-                            new BreachPortcullisTask()
-                    }),
-                    new Operation[]
-                        { Operation.DriveTrainRightPosition, 
-                            Operation.DriveTrainLeftPosition, 
-                            Operation.DefenseArmFrontPosition, 
-                            Operation.DriveTrainUsePositionalMode, 
-                            Operation.DefenseArmTakePositionInput, 
-                            Operation.DefenseArmSetAngle }));
             // Macros for the climbing arm.
             put(
                 MacroOperation.ClimbingArmStand,
@@ -278,12 +236,29 @@ public abstract class Driver
                     UserInputDeviceButton.BUTTON_PAD_BUTTON_4,
                     () -> new ClimbingArmLifterUpTask(false),
                     new Operation[]{Operation.ClimbingArmExtend, Operation.ClimbingArmRetract}));
-            
+            // Portcullis breach macro.
+            put(
+                MacroOperation.BreachPortcullis,
+                new MacroOperationDescription(
+                    UserInputDevice.CoDriver,
+                    UserInputDeviceButton.BUTTON_PAD_BUTTON_5,
+                    () -> new SequentialTask(
+                        new IControlTask[]{
+                            new DriveDistanceTask(TuningConstants.PORTCULLIS_OUTER_WORKS_DISTANCE),
+                            new BreachPortcullisTask()
+                    }),
+                    new Operation[]
+                        { Operation.DriveTrainRightPosition, 
+                            Operation.DriveTrainLeftPosition, 
+                            Operation.DefenseArmFrontPosition, 
+                            Operation.DriveTrainUsePositionalMode, 
+                            Operation.DefenseArmTakePositionInput, 
+                            Operation.DefenseArmSetAngle }));            
             put(
                 MacroOperation.BreachSallyPort,
                 new MacroOperationDescription(
-                    UserInputDevice.Driver,
-                    UserInputDeviceButton.NONE,
+                    UserInputDevice.CoDriver,
+                    UserInputDeviceButton.BUTTON_PAD_BUTTON_6,
                     () -> new SequentialTask(
                         new IControlTask[]
                             {
