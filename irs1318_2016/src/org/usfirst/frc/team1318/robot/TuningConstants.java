@@ -79,10 +79,7 @@ public class TuningConstants
     public static final double DEFENSE_ARM_PAST_FRONT_POSITION = -1000.0;
     public static final double DEFENSE_ARM_PAST_BACK_POSITION = 1000.0;
 
-    // Portcullis macro constants
-    
-    //Portcullis Breach Macro
-    //Distance Robot must travel to breach portcullis
+    // Distance Robot must travel to breach portcullis
     public static final double PORTCULLIS_BREACH_DISTANCE = 2 * HardwareConstants.DEFENSE_ARM_LENGTH;
     public static final double START_TO_OUTER_WORKS_DISTANCE = 74.0 * 2.54;
     // Distance from the outerworks edge to where the robot needs to be to start opening the portcullis
@@ -90,15 +87,14 @@ public class TuningConstants
     
     // Distance Robot must travel to breach portcullis
     public static final double PORTCULLIS_BREACH_VELOCITY = 10.0; // cm/s
-        //(Radian angle of DEFENSE ARM) * (CONSTANT) should equal the amount of ticks passed on encoder
-    public static final double DEFENSE_ARM_RADIANS_TO_TICKS = 0.0;
-    //Sally Port Breach Macro
+    
+    // Sally Port Breach Macro
     // Distance robot must drive for first part of sally port breach (first drive backwards)
     public static final double SALLY_PORT_BREACH_DISTANCE_PART_ONE = 0.0; //will be negative, as robot is driving backwards
-    //Distance for each side of the robot during the second part of the sally port breach (the arc driving)
+    // Distance for each side of the robot during the second part of the sally port breach (the arc driving)
     public static final double SALLY_PORT_ARC_DRIVE_DISTANCE_PART_TWO_LEFT = 0.0;
     public static final double SALLY_PORT_ARC_DRIVE_DISTANCE_PART_TWO_RIGHT = 0.0;
-    //Distance for each side of the robot during the third part of the sally port breach ()
+    // Distance for each side of the robot during the third part of the sally port breach ()
     public static final double SALLY_PORT_BREACH_DISTANCE_PART_THREE = 0.0; //will be negative, as robot is driving backwards
 
 
