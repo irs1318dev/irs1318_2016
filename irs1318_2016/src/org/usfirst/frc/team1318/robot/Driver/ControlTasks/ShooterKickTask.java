@@ -20,22 +20,23 @@ public class ShooterKickTask extends TimedTask implements IControlTask
     public void begin()
     {
         super.begin();
-        setDigitalOperationState(Operation.ShooterKick, true);
+        this.setDigitalOperationState(Operation.ShooterKick, true);
     }
     
     @Override
     public void stop()
     {
         super.stop();
-        setDigitalOperationState(Operation.ShooterSpin, false);
-        setDigitalOperationState(Operation.ShooterKick, false);
+        this.setDigitalOperationState(Operation.ShooterSpin, false);
+        this.setDigitalOperationState(Operation.ShooterKick, false);
     }
 
     @Override
     public void end()
     {
-        setDigitalOperationState(Operation.ShooterKick, false);
-        setDigitalOperationState(Operation.ShooterSpin, false);
+        this.setDigitalOperationState(Operation.ShooterKick, false);
+        this.setDigitalOperationState(Operation.ShooterSpin, false);
+        this.setDigitalOperationState(Operation.ShooterExtendHood, false);
     }
     
     @Override

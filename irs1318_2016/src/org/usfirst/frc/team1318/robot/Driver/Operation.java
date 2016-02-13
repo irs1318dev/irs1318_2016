@@ -25,6 +25,7 @@ public enum Operation
     ShooterSpeed,
     ShooterSpin,
     ShooterKick,
+    ShooterExtendHood,
     // Intake operations:
     IntakeRotatingIn,
     IntakeRotatingOut,

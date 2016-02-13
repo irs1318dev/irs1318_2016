@@ -56,6 +56,15 @@ public class ShooterController implements IController
         {
             this.shooter.kick(false);
         }
+        
+        if (this.driver.getDigital(Operation.ShooterExtendHood))
+        {
+            this.shooter.hood(true);
+        }
+        else
+        {
+            this.shooter.hood(false);
+        }
     }
 
     @Override

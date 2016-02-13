@@ -59,6 +59,8 @@ public class ElectronicsConstants
     public static final int SHOOTER_COUNTER_CHANNEL = 0;
     public static final int SHOOTER_KICKER_CHANNEL_A = 0;
     public static final int SHOOTER_KICKER_CHANNEL_B = 0;
+    public static final int SHOOTER_HOOD_CHANNEL_A = 0;
+    public static final int SHOOTER_HOOD_CHANNEL_B = 0;
     
     //=================================================== Intake =================================================================
     public static final int INTAKE_MOTOR_CHANNEL = 0;
