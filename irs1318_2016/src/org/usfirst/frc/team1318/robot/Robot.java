@@ -96,13 +96,13 @@ public class Robot extends IterativeRobot
         //this.defenseArmController = new DefenseArmController(components.getDefenseArm());
         
         // Initialize the shooterController
-        //this.shooterController = new ShooterController(components.getShooterComponent());
+        //this.shooterController = new ShooterController(components.getShooter());
         
         //Initialize the intakeController
-        //this.intakeController = new IntakeController(components.getIntakeComponent());
+        //this.intakeController = new IntakeController(components.getIntake());
         
         //Initialize the climbingArmController
-        //this.climbingArmController = new ClimbingArmController(components.getClimbingArmComponent());
+        //this.climbingArmController = new ClimbingArmController(components.getClimbingArm());
         
     }
 
