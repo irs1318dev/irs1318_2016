@@ -63,7 +63,7 @@ public class TuningConstants
     public static final double DRIVETRAIN_REVERSE_LEFT_SCALE_FACTOR = 1.17;//moving backwards
 
     // Defense arm max speed
-    public static final double DEFENSE_ARM_MAX_VELOCITY = 0.0;
+    public static final double DEFENSE_ARM_MAX_VELOCITY = 0.8;
 
     // Defense arm max power level
     public static final double DEFENSE_ARM_OVERRIDE_POWER_LEVEL = 0.0;
@@ -76,9 +76,9 @@ public class TuningConstants
     
     public static final double DEFENSE_ARM_MAX_POWER_LEVEL = 0.0;
     public static final double DEFENSE_ARM_MOVE_END_POWER_LEVEL = 0.0;
-    public static final double DEFENSE_ARM_BELOW_FRONT_POSITION = 0.0;
-    public static final double DEFENSE_ARM_PAST_FRONT_POSITION = 0.0;
-    public static final double DEFENSE_ARM_PAST_BACK_POSITION = 0.0;
+    // public static final double DEFENSE_ARM_BELOW_FRONT_POSITION = 0.0;
+    public static final double DEFENSE_ARM_PAST_FRONT_POSITION = -1000.0;
+    public static final double DEFENSE_ARM_PAST_BACK_POSITION = 1000.0;
 
     // MACROS
     public static final double PORTCULLIS_BREACH_DISTANCE = 0.0;
@@ -96,10 +96,10 @@ public class TuningConstants
     public static final double SHOOTER_VELOCITY_PID_KD_DEFAULT = 0.0;
     public static final double SHOOTER_VELOCITY_PID_KF_DEFAULT = 0.0;
 
-    public static final double SHOOTER_FAR_SHOT_VELOCITY = 0.0;
-    public static final double SHOOTER_CLOSE_SHOT_VELOCITY = 0.0;
+    public static final double SHOOTER_FAR_SHOT_VELOCITY = 1.0;
+    public static final double SHOOTER_CLOSE_SHOT_VELOCITY = 0.5;
     public static final double SHOOTER_FIRE_TIME = 1.5;
-    public static final double SHOOTER_SPIN_UP_DURATION = 3.0;
+    public static final double SHOOTER_SPIN_UP_DURATION = 1.0;
     
     // Intake constants
     public static final double INTAKE_IN_POWER_LEVEL = 0.4;

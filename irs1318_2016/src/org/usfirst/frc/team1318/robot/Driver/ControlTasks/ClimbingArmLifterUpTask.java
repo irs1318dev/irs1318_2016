@@ -4,8 +4,8 @@ package org.usfirst.frc.team1318.robot.Driver.ControlTasks;
 import org.usfirst.frc.team1318.robot.Driver.Operation;
 
 /**
- * Climbing macro. Can be used to extend or retract.
- * @author Corbin_Modica
+ * Climbing macro. Can be used to put the shoulder up or down.
+ * @author Corbin
  *
  */
 public class ClimbingArmLifterUpTask extends ControlTaskBase

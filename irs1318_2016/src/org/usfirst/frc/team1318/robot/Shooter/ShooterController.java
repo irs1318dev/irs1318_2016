@@ -9,7 +9,7 @@ import org.usfirst.frc.team1318.robot.Shooter.ShooterComponent;
 
 /**
  * Controller for the shooter. Needs to contain velocity PID.
- * @author Corbin_Modica
+ * @author Corbin
  *
  */
 

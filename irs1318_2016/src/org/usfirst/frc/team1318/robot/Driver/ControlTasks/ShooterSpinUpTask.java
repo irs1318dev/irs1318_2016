@@ -8,6 +8,7 @@ public class ShooterSpinUpTask extends TimedTask implements IControlTask
 {
     boolean distance;
     
+    // True is a far shot, false is a close shot.
     public ShooterSpinUpTask(boolean distance)
     {
         super(TuningConstants.SHOOTER_SPIN_UP_DURATION);

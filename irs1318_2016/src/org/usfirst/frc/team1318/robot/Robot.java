@@ -10,6 +10,8 @@ import org.usfirst.frc.team1318.robot.Driver.Autonomous.AutonomousDriver;
 import org.usfirst.frc.team1318.robot.Driver.ControlTasks.BreachPortcullisTask;
 import org.usfirst.frc.team1318.robot.Driver.ControlTasks.DriveDistanceTask;
 import org.usfirst.frc.team1318.robot.Driver.ControlTasks.SequentialTask;
+import org.usfirst.frc.team1318.robot.Driver.ControlTasks.ShooterKickTask;
+import org.usfirst.frc.team1318.robot.Driver.ControlTasks.ShooterSpinUpTask;
 import org.usfirst.frc.team1318.robot.Driver.ControlTasks.WaitTask;
 import org.usfirst.frc.team1318.robot.Driver.User.UserDriver;
 import org.usfirst.frc.team1318.robot.Intake.IntakeController;
@@ -20,7 +22,8 @@ import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.IterativeRobot;
 
 /**
- * Main class for the FRC 201? Robot for IRS1318 - RobotName
+ * Main class for the FRC 2016 Stronghold Competition
+ * Robot for IRS1318 - RobotName
  * 
  * 
  * The VM is configured to automatically run this class, and to call the
@@ -103,6 +106,7 @@ public class Robot extends IterativeRobot
         
         //Initialize the climbingArmController
         //this.climbingArmController = new ClimbingArmController(components.getClimbingArmComponent());
+        
     }
 
     /**
@@ -295,13 +299,15 @@ public class Robot extends IterativeRobot
     
     // @author Corbin
     // My first attempt to write an autonomous routine
+    // Should move to the portcullis, go through, spin up the shooter, and then shoot.
     @SuppressWarnings("unused")
-    private static IControlTask AutonomousPortcullisBreach() 
+    private static IControlTask autonomousPortcullisBreach() 
     {
-        IControlTask[] tasks = new IControlTask[1];
-        tasks[0] = new DriveDistanceTask(1.0);
-        tasks[1] = new BreachPortcullisTask();
-        return new SequentialTask(tasks);
+        return new SequentialTask(new IControlTask[]{
+            new DriveDistanceTask(1.0),
+            new BreachPortcullisTask(),
+            new ShooterSpinUpTask(true),
+            new ShooterKickTask()}); 
     }
 }
 

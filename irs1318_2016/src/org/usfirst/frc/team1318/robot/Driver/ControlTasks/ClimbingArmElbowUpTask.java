@@ -4,8 +4,8 @@ import org.usfirst.frc.team1318.robot.TuningConstants;
 import org.usfirst.frc.team1318.robot.Driver.Operation;
 
 /**
- * First (or last) step of the climbing macro. Can be used to stand or sit.
- * @author Corbin_Modica
+ * First (or last) step of the climbing macro. Can be used to put the elbow up or down.
+ * @author Corbin
  *
  */
 public class ClimbingArmElbowUpTask extends TimedTask
