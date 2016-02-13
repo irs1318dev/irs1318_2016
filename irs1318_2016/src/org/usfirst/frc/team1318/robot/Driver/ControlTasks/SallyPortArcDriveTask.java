@@ -15,19 +15,17 @@ public class SallyPortArcDriveTask extends ControlTaskBase
     private double currentDTDistanceRight;
     private double currentDTDistanceLeft;
 
-    private DriveTrainComponent driveTrain;
-    
-    public SallyPortArcDriveTask(){
-        
+    public SallyPortArcDriveTask()
+    {    
     }
 
     @Override
     public void begin()
-    {
-        
+    {   
+        final DriveTrainComponent driveTrain = this.getComponents().getDriveTrain();
         // Log the starting distance of the encoders (for the drive train)
-        this.startDTDistanceRight = this.driveTrain.getRightEncoderDistance();
-        this.startDTDistanceLeft = this.driveTrain.getLeftEncoderDistance();
+        this.startDTDistanceRight = driveTrain.getRightEncoderDistance();
+        this.startDTDistanceLeft = driveTrain.getLeftEncoderDistance();
 
         // Calculate the desired position for the left and right sides of the drive train (dependant upon their arc distances)
         this.desiredDTDistanceRight = this.startDTDistanceRight + TuningConstants.SALLY_PORT_ARC_DRIVE_DISTANCE_PART_TWO_RIGHT;
@@ -50,24 +48,22 @@ public class SallyPortArcDriveTask extends ControlTaskBase
     @Override
     public void stop()
     {
-     // Disable positional modes for drive train and defense arm
+        // Disable positional modes for drive train and defense arm
         this.setDigitalOperationState(Operation.DriveTrainUsePositionalMode, false);    
     }
 
     @Override
     public void end()
     {
-     // Disable positional modes for drive train and defense arm
+        // Disable positional modes for drive train and defense arm
         this.setDigitalOperationState(Operation.DriveTrainUsePositionalMode, false);               
     }
 
     @Override
     public boolean hasCompleted()
     {
-     // Check that the distance the robot has traveled (with the purpose of returning true if the desired position has been met)
+        // Check that the distance the robot has traveled (with the purpose of returning true if the desired position has been met)
         return this.currentDTDistanceRight >= this.desiredDTDistanceRight 
             && this.currentDTDistanceLeft >= this.desiredDTDistanceLeft;
     }
-    
-    
 }

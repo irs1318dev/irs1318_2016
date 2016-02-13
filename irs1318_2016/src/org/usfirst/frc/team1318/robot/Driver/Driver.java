@@ -226,7 +226,11 @@ public abstract class Driver
                 new MacroOperationDescription(
                     UserInputDevice.Driver,
                     UserInputDeviceButton.JOYSTICK_BASE_TOP_RIGHT_BUTTON,
-                    () -> new BreachPortcullisTask(),
+                    () -> new SequentialTask(
+                        new IControlTask[]{
+                            new DriveDistanceTask(TuningConstants.PORTCULLIS_OUTER_WORKS_DISTANCE),
+                            new BreachPortcullisTask()
+                    }),
                     new Operation[]
                         { Operation.DriveTrainRightPosition, 
                             Operation.DriveTrainLeftPosition, 
