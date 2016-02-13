@@ -62,11 +62,11 @@ public class TuningConstants
     public static final double DRIVETRAIN_REVERSE_RIGHT_SCALE_FACTOR = 1.15;//moving forwards
     public static final double DRIVETRAIN_REVERSE_LEFT_SCALE_FACTOR = 1.17;//moving backwards
 
-    // Defense arm max speed
-    public static final double DEFENSE_ARM_MAX_VELOCITY = 0.8;
+    // Defense arm max velocity (angular)
+    public static final double DEFENSE_ARM_MAX_VELOCITY = Math.PI / 16.0;
 
-    // Defense arm max power level
-    public static final double DEFENSE_ARM_OVERRIDE_POWER_LEVEL = 0.0;
+    // Defense arm power level for when PID is disabled
+    public static final double DEFENSE_ARM_OVERRIDE_POWER_LEVEL = 0.5;
 
     // Defense arm PID values
     public static final double DEFENSE_ARM_POSITION_PID_KP_DEFAULT = 0.5;
@@ -80,9 +80,13 @@ public class TuningConstants
     public static final double DEFENSE_ARM_PAST_BACK_POSITION = 1000.0;
 
     // Portcullis macro constants
-    public static final double PORTCULLIS_BREACH_DISTANCE = 0.0;
-        //Distance Robot must travel to breach portcullis
-    public static final double PORTCULLIS_BREACH_VELOCITY = 0.0;
+    public static final double PORTCULLIS_BREACH_DISTANCE = 2 * HardwareConstants.DEFENSE_ARM_LENGTH;
+    public static final double START_TO_OUTER_WORKS_DISTANCE = 74.0 * 2.54;
+    // Distance from the outerworks edge to where the robot needs to be to start opening the portcullis
+    public static final double PORTCULLIS_OUTER_WORKS_DISTANCE = 9.0 * 2.54;
+    
+    // Distance Robot must travel to breach portcullis
+    public static final double PORTCULLIS_BREACH_VELOCITY = 10.0; // cm/s
     
     // Shooter constants
     public static final double SHOOTER_MAX_POWER_LEVEL = 1.0;
@@ -101,7 +105,7 @@ public class TuningConstants
     public static final double INTAKE_IN_POWER_LEVEL = 0.4;
     public static final double INTAKE_OUT_POWER_LEVEL = -0.4;
     
-    //Climbing Arm Constants
+    // Climbing Arm Constants
     public static final double CLIMBING_ARM_MAX_SPEED = 0.8;
     public static final double CLIMBING_ARM_ELBOW_UP_DURATION = 2.0;
     public static final double CLIMBING_ARM_SHOULDER_UP_DURATION = 2.0;
