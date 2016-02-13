@@ -15,6 +15,7 @@ import org.usfirst.frc.team1318.robot.Driver.ControlTasks.ShooterSpinUpTask;
 import org.usfirst.frc.team1318.robot.Driver.ControlTasks.WaitTask;
 import org.usfirst.frc.team1318.robot.Driver.User.UserDriver;
 import org.usfirst.frc.team1318.robot.Intake.IntakeController;
+import org.usfirst.frc.team1318.robot.SensorManager.SensorManagerController;
 import org.usfirst.frc.team1318.robot.Shooter.ShooterController;
 
 import edu.wpi.first.wpilibj.DigitalInput;
@@ -60,6 +61,7 @@ public class Robot extends IterativeRobot
     //private ShooterController shooterController;
     //private IntakeController intakeController;
     //private ClimbingArmController climbingArmController;
+    private SensorManagerController sensorManagerController;
 
     // DipSwitches for selecting autonomous mode
     private DigitalInput dipSwitchA;
@@ -104,6 +106,8 @@ public class Robot extends IterativeRobot
         //Initialize the climbingArmController
         //this.climbingArmController = new ClimbingArmController(components.getClimbingArm());
         
+        // Initialize the sensor manager controller
+        this.sensorManagerController = new SensorManagerController(components.getSensorManager());
     }
 
     /**
@@ -146,6 +150,11 @@ public class Robot extends IterativeRobot
         //{
         //    this.climbingArmController.stop();
         //}
+        
+        if (this.sensorManagerController != null)
+        {
+            this.sensorManagerController.stop();
+        }
         
         DashboardLogger.putString(Robot.ROBOT_STATE_LOG_KEY, "Disabled");
     }
@@ -224,6 +233,7 @@ public class Robot extends IterativeRobot
         //this.shooterController.setDriver(this.driver);
         //this.intakeController.setDriver(this.driver);
         //this.climbingArmController.setDriver(this.driver);
+        this.sensorManagerController.setDriver(this.driver);
 
         // we will run the compressor controller here because we should start it in advance...
         this.compressorController.update();
@@ -275,6 +285,7 @@ public class Robot extends IterativeRobot
         //this.shooterController.update();
         //this.intakeController.update();
         //this.climbingArmController.update();
+        this.sensorManagerController.update();
     }
 
     /**
