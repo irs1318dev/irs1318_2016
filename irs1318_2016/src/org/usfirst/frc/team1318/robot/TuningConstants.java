@@ -81,11 +81,24 @@ public class TuningConstants
     public static final double DEFENSE_ARM_PAST_BACK_POSITION = 0.0;
 
     // MACROS
+    
+    //Portcullis Breach Macro
+    //Distance Robot must travel to breach portcullis
     public static final double PORTCULLIS_BREACH_DISTANCE = 0.0;
-        //Distance Robot must travel to breach portcullis
     public static final double PORTCULLIS_BREACH_VELOCITY = 0.0;
-    public static final double DEFENSE_ARM_RADIANS_TO_TICKS = 0.0;
         //(Radian angle of DEFENSE ARM) * (CONSTANT) should equal the amount of ticks passed on encoder
+    public static final double DEFENSE_ARM_RADIANS_TO_TICKS = 0.0;
+    //Sally Port Breach Macro
+    // Distance robot must drive for first part of sally port breach (first drive backwards)
+    public static final double SALLY_PORT_BREACH_DISTANCE_PART_ONE = 0.0; //will be negative, as robot is driving backwards
+    //Distance for each side of the robot during the second part of the sally port breach (the arc driving)
+    public static final double SALLY_PORT_ARC_DRIVE_DISTANCE_PART_TWO_LEFT = 0.0;
+    public static final double SALLY_PORT_ARC_DRIVE_DISTANCE_PART_TWO_RIGHT = 0.0;
+    //Distance for each side of the robot during the third part of the sally port breach ()
+    public static final double SALLY_PORT_BREACH_DISTANCE_PART_THREE = 0.0; //will be negative, as robot is driving backwards
+
+
+        
     
     // Shooter constants
     public static final double SHOOTER_K1 = 1.0;

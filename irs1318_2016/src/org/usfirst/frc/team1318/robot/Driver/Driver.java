@@ -3,10 +3,12 @@ package org.usfirst.frc.team1318.robot.Driver;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.usfirst.frc.team1318.robot.TuningConstants;
 import org.usfirst.frc.team1318.robot.Driver.Buttons.AnalogAxis;
 import org.usfirst.frc.team1318.robot.Driver.Buttons.ButtonType;
 import org.usfirst.frc.team1318.robot.Driver.ControlTasks.BreachPortcullisTask;
 import org.usfirst.frc.team1318.robot.Driver.ControlTasks.DriveDistanceTask;
+import org.usfirst.frc.team1318.robot.Driver.ControlTasks.SallyPortArcDriveTask;
 import org.usfirst.frc.team1318.robot.Driver.ControlTasks.ShooterKickTask;
 import org.usfirst.frc.team1318.robot.Driver.ControlTasks.SequentialTask;
 import org.usfirst.frc.team1318.robot.Driver.ControlTasks.ShooterSpinUpTask;
@@ -180,6 +182,7 @@ public abstract class Driver
                     UserInputDevice.Driver,
                     UserInputDeviceButton.NONE,
                     ButtonType.Click));
+            
         }
     };
 
@@ -234,7 +237,26 @@ public abstract class Driver
                             Operation.DriveTrainUsePositionalMode, 
                             Operation.DefenseArmTakePositionInput, 
                             Operation.DefenseArmSetAngle }));
-        }
+            
+            put(
+                MacroOperation.BreachSallyPort,
+                new MacroOperationDescription(
+                    UserInputDevice.Driver,
+                    UserInputDeviceButton.NONE,
+                    () -> new SequentialTask(
+                        new IControlTask[]
+                            {
+                                new DriveDistanceTask(TuningConstants.SALLY_PORT_BREACH_DISTANCE_PART_ONE),
+                                new SallyPortArcDriveTask(),
+                                new DriveDistanceTask(TuningConstants.SALLY_PORT_BREACH_DISTANCE_PART_THREE)
+                            }),
+                    new Operation[]{
+                        Operation.DriveTrainUsePositionalMode, 
+                        Operation.DriveTrainRightPosition, 
+                        Operation.DriveTrainLeftPosition, 
+                        Operation.DefenseArmFrontPosition,
+                    }));
+                }
     };
 
     protected final Map<Operation, OperationState> operationStateMap;

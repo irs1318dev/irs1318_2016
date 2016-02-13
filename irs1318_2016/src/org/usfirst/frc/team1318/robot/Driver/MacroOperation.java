@@ -5,5 +5,6 @@ public enum MacroOperation
     DriveDistance,
     BreachPortcullis,
     ShootFar,
-    ShootClose;
+    ShootClose,
+    BreachSallyPort;
 }
