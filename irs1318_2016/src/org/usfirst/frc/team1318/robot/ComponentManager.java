@@ -36,11 +36,6 @@ public class ComponentManager
         return this.driveTrainComponent;
     }
 
-    public TestComponent getTest()
-    {
-        return this.testComponent;
-    }
-
     public DefenseArmComponent getDefenseArm()
     {
         return this.defenseArmComponent;
