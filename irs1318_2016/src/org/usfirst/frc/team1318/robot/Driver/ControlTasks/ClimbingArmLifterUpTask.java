@@ -55,12 +55,12 @@ public class ClimbingArmLifterUpTask extends ControlTaskBase
         // If extending, checks to see if the top limit switch has been triggered.
         if(extend)
         {
-            return this.getComponents().getClimbingArmComponent().getTopLimitSwitch();
+            return this.getComponents().getClimbingArm().getTopLimitSwitch();
         }
         // If retracting, checks to see if the bottom limit switch has been triggered.
         else
         {
-            return this.getComponents().getClimbingArmComponent().getBottomLimitSwitch();
+            return this.getComponents().getClimbingArm().getBottomLimitSwitch();
         }
     }
 
