@@ -1,8 +1,6 @@
 package org.usfirst.frc.team1318.robot.DriveTrain;
 
-import org.usfirst.frc.team1318.robot.HardwareConstants;
 import org.usfirst.frc.team1318.robot.Common.IController;
-import org.usfirst.frc.team1318.robot.Common.SmartDashboardLogger;
 import org.usfirst.frc.team1318.robot.Driver.Driver;
 
 /**
@@ -66,33 +64,35 @@ public class PositionManager implements IController
     @Override
     public void update()
     {
+        /*
         // check the current distance recorded by the encoders
         double leftDistance = this.driveTrainComponent.getLeftEncoderDistance();
         double rightDistance = this.driveTrainComponent.getRightEncoderDistance();
-
+        
         // calculate the angle (in radians) based on the total distance traveled
         double angleR = ((leftDistance - rightDistance) / HardwareConstants.DRIVETRAIN_WHEEL_SEPARATION_DISTANCE);
-
+        
         // correct for weirdness (7 degree offset in the angle)
         angleR *= 0.979858464888405;
-
+        
         // calculate the average distance traveled
         double averagePositionChange = ((leftDistance - this.prevLeftDistance) + (rightDistance - this.prevRightDistance)) / 2;
-
+        
         // calculate the change since last time, and update our relative position
         this.x += averagePositionChange * Math.cos(angleR);
         this.y += averagePositionChange * Math.sin(angleR);
-
+        
         this.angle = (angleR * 360 / (2 * Math.PI)) % 360;
-
+        
         // record distance for next time
         this.prevLeftDistance = leftDistance;
         this.prevRightDistance = rightDistance;
-
+        
         // log the current position and orientation
         SmartDashboardLogger.putNumber(PositionManager.ANGLE_LOG_KEY, this.angle);
         SmartDashboardLogger.putNumber(PositionManager.X_POSITION_LOG_KEY, this.x);
         SmartDashboardLogger.putNumber(PositionManager.Y_POSITION_LOG_KEY, this.y);
+        */
     }
 
     /**

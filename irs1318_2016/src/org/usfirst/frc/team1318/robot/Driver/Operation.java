@@ -10,5 +10,31 @@ public enum Operation
     DriveTrainSimpleMode,
     DriveTrainUsePositionalMode,
     DriveTrainLeftPosition,
-    DriveTrainRightPosition;
+    DriveTrainRightPosition,
+    // Defense arm operations:
+    DefenseArmFrontPosition,
+    DefenseArmPortcullisPosition,
+    DefenseArmDrawbridgePosition,
+    DefenseArmSallyPortPosition,
+    DefenseArmBackPosition,
+    DefenseArmMoveBack,
+    DefenseArmMoveForward,
+    DefenseArmTakePositionInput,
+    DefenseArmSetAngle,
+    // Shooter operations:
+    ShooterSpeed,
+    ShooterSpin,
+    ShooterKick,
+    ShooterExtendHood,
+    // Intake operations:
+    IntakeRotatingIn,
+    IntakeRotatingOut,
+    IntakeExtend,
+    IntakeRetract,
+    //Climbing Arm Operation
+    ClimbingArmExtend,
+    ClimbingArmRetract,
+    ClimbingArmShoulderUp,
+    ClimbingArmElbowUp;
+    
 }

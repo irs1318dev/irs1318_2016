@@ -1,20 +1,28 @@
-package org.usfirst.frc.team1318.robot;
+ package org.usfirst.frc.team1318.robot;
 
-import org.usfirst.frc.team1318.robot.Common.SmartDashboardLogger;
+import org.usfirst.frc.team1318.robot.Common.DashboardLogger;
 import org.usfirst.frc.team1318.robot.Compressor.CompressorController;
-import org.usfirst.frc.team1318.robot.DriveTrain.DriveTrainController;
+import org.usfirst.frc.team1318.robot.DefenseArm.DefenseArmController;
 import org.usfirst.frc.team1318.robot.DriveTrain.PositionManager;
 import org.usfirst.frc.team1318.robot.Driver.Driver;
 import org.usfirst.frc.team1318.robot.Driver.IControlTask;
 import org.usfirst.frc.team1318.robot.Driver.Autonomous.AutonomousDriver;
+import org.usfirst.frc.team1318.robot.Driver.ControlTasks.BreachPortcullisTask;
+import org.usfirst.frc.team1318.robot.Driver.ControlTasks.DriveDistanceTask;
+import org.usfirst.frc.team1318.robot.Driver.ControlTasks.SequentialTask;
+import org.usfirst.frc.team1318.robot.Driver.ControlTasks.ShooterKickTask;
+import org.usfirst.frc.team1318.robot.Driver.ControlTasks.ShooterSpinUpTask;
 import org.usfirst.frc.team1318.robot.Driver.ControlTasks.WaitTask;
 import org.usfirst.frc.team1318.robot.Driver.User.UserDriver;
+import org.usfirst.frc.team1318.robot.Intake.IntakeController;
+import org.usfirst.frc.team1318.robot.Shooter.ShooterController;
 
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.IterativeRobot;
 
 /**
- * Main class for the FRC 201? Robot for IRS1318 - RobotName
+ * Main class for the FRC 2016 Stronghold Competition
+ * Robot for IRS1318 - RobotName
  * 
  * 
  * The VM is configured to automatically run this class, and to call the
@@ -47,7 +55,11 @@ public class Robot extends IterativeRobot
 
     // Controllers
     private CompressorController compressorController;
-    private DriveTrainController driveTrainController;
+    //private DriveTrainController driveTrainController;
+    //private DefenseArmController defenseArmController;
+    //private ShooterController shooterController;
+    //private IntakeController intakeController;
+    //private ClimbingArmController climbingArmController;
 
     // DipSwitches for selecting autonomous mode
     private DigitalInput dipSwitchA;
@@ -62,23 +74,36 @@ public class Robot extends IterativeRobot
      * the robot is first powered on.  It will be called exactly 1 time.
      */
     public void robotInit()
-    {
+    {                               
         // create mechanism components
         this.components = new ComponentManager();
 
         // create controllers for each mechanism
         this.compressorController = new CompressorController(this.components.getCompressor());
-        this.driveTrainController = new DriveTrainController(
-            this.components.getDriveTrain(),
-            TuningConstants.DRIVETRAIN_USE_PID_DEFAULT);
+        //this.driveTrainControoler = new DriveTrainController(
+        //    this.components.getDriveTrain(),
+        //    TuningConstants.DRIVETRAIN_USE_PID_DEFAULT);
 
         // create position manager
-        this.position = new PositionManager(this.components.getDriveTrain());
+        this.position = new PositionManager(null);
 
-        SmartDashboardLogger.putString(Robot.ROBOT_STATE_LOG_KEY, "Init");
+        DashboardLogger.putString(Robot.ROBOT_STATE_LOG_KEY, "Init");
 
         this.dipSwitchA = new DigitalInput(ElectronicsConstants.AUTONOMOUS_DIP_SWITCH_A);
         this.dipSwitchB = new DigitalInput(ElectronicsConstants.AUTONOMOUS_DIP_SWITCH_B);
+
+        // Initialize the defenseArmController
+        //this.defenseArmController = new DefenseArmController(components.getDefenseArm());
+        
+        // Initialize the shooterController
+        //this.shooterController = new ShooterController(components.getShooter());
+        
+        //Initialize the intakeController
+        //this.intakeController = new IntakeController(components.getIntake());
+        
+        //Initialize the climbingArmController
+        //this.climbingArmController = new ClimbingArmController(components.getClimbingArm());
+        
     }
 
     /**
@@ -97,12 +122,32 @@ public class Robot extends IterativeRobot
             this.compressorController.stop();
         }
 
-        if (this.driveTrainController != null)
-        {
-            this.driveTrainController.stop();
-        }
-
-        SmartDashboardLogger.putString(Robot.ROBOT_STATE_LOG_KEY, "Disabled");
+        //if (this.driveTrainController != null)
+        //{
+        //    this.driveTrainController.stop();
+        //}
+        
+        //if (this.defenseArmController != null)
+        //{
+        //    this.defenseArmController.stop();
+        //}
+        
+        //if (this.intakeController != null)
+        //{
+        //    this.intakeController.stop();
+        //}
+        
+        //if(this.shooterController != null)
+        //{
+        //    this.shooterController.stop();
+        //}
+        
+        //if(this.climbingArmController != null)
+        //{
+        //    this.climbingArmController.stop();
+        //}
+        
+        DashboardLogger.putString(Robot.ROBOT_STATE_LOG_KEY, "Disabled");
     }
 
     /**
@@ -112,7 +157,7 @@ public class Robot extends IterativeRobot
     public void autonomousInit()
     {
         // reset the drivetrain component and position manager so that we consider ourself at the origin (0,0) and facing the 0 direction.
-        this.components.getDriveTrain().reset();
+        // this.components.getDriveTrain().reset();
         this.position.reset();
 
         // Find desired autonomous routine.
@@ -133,6 +178,8 @@ public class Robot extends IterativeRobot
         switch (routineSelection)
         {
             case 0://neither flipped
+                //autonomousRoutine = AutonomousPortcullisBreach();
+                //break;
             case 1://switch A flipped
             case 2://switch B flipped
             default://both flipped or can't read 
@@ -140,7 +187,7 @@ public class Robot extends IterativeRobot
                 break;
         }
 
-        SmartDashboardLogger.putNumber(Robot.AUTONOMOUS_ROUTINE_PREFERENCE_KEY, routineSelection);
+        DashboardLogger.putInteger(Robot.AUTONOMOUS_ROUTINE_PREFERENCE_KEY, routineSelection);
 
         // create autonomous driver based on our desired routine
         this.driver = new AutonomousDriver(autonomousRoutine, this.components);
@@ -148,7 +195,7 @@ public class Robot extends IterativeRobot
         this.generalInit();
 
         // log that we are in autonomous mode
-        SmartDashboardLogger.putString(Robot.ROBOT_STATE_LOG_KEY, "Autonomous");
+        DashboardLogger.putString(Robot.ROBOT_STATE_LOG_KEY, "Autonomous");
     }
 
     /**
@@ -163,7 +210,7 @@ public class Robot extends IterativeRobot
         this.generalInit();
 
         // log that we are in teleop mode
-        SmartDashboardLogger.putString(Robot.ROBOT_STATE_LOG_KEY, "Teleop");
+        DashboardLogger.putString(Robot.ROBOT_STATE_LOG_KEY, "Teleop");
     }
 
     /**
@@ -172,13 +219,17 @@ public class Robot extends IterativeRobot
     public void generalInit()
     {
         // apply the driver to the controllers
-        this.driveTrainController.setDriver(this.driver);
+        //this.driveTrainController.setDriver(this.driver);
+        //this.defenseArmController.setDriver(this.driver);
+        //this.shooterController.setDriver(this.driver);
+        //this.intakeController.setDriver(this.driver);
+        //this.climbingArmController.setDriver(this.driver);
 
         // we will run the compressor controller here because we should start it in advance...
         this.compressorController.update();
 
         // by default we want to be in Velocity PID mode whenever we start (or switch between) a periodic mode
-        this.driveTrainController.setVelocityPIDMode();
+        //this.driveTrainController.setVelocityPIDMode();
     }
 
     /**
@@ -219,7 +270,11 @@ public class Robot extends IterativeRobot
 
         // run each controller
         this.compressorController.update();
-        this.driveTrainController.update();
+        //this.driveTrainController.update();
+        //this.defenseArmController.update();        
+        //this.shooterController.update();
+        //this.intakeController.update();
+        //this.climbingArmController.update();
     }
 
     /**
@@ -230,6 +285,19 @@ public class Robot extends IterativeRobot
     private static IControlTask GetFillerRoutine()
     {
         return new WaitTask(0);
+    }
+    
+    // @author Corbin
+    // My first attempt to write an autonomous routine
+    // Should move to the portcullis, go through, spin up the shooter, and then shoot.
+    @SuppressWarnings("unused")
+    private static IControlTask autonomousPortcullisBreach() 
+    {
+        return new SequentialTask(new IControlTask[]{
+            new DriveDistanceTask(1.0),
+            new BreachPortcullisTask(),
+            new ShooterSpinUpTask(true),
+            new ShooterKickTask()}); 
     }
 }
 

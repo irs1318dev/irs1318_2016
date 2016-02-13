@@ -3,9 +3,18 @@ package org.usfirst.frc.team1318.robot.Driver;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.usfirst.frc.team1318.robot.TuningConstants;
 import org.usfirst.frc.team1318.robot.Driver.Buttons.AnalogAxis;
 import org.usfirst.frc.team1318.robot.Driver.Buttons.ButtonType;
-import org.usfirst.frc.team1318.robot.Driver.ControlTasks.DriveTimedTask;
+import org.usfirst.frc.team1318.robot.Driver.ControlTasks.BreachPortcullisTask;
+import org.usfirst.frc.team1318.robot.Driver.ControlTasks.ClimbingArmLifterUpTask;
+import org.usfirst.frc.team1318.robot.Driver.ControlTasks.ClimbingArmElbowUpTask;
+import org.usfirst.frc.team1318.robot.Driver.ControlTasks.ClimbingArmShoulderUpTask;
+import org.usfirst.frc.team1318.robot.Driver.ControlTasks.DriveDistanceTask;
+import org.usfirst.frc.team1318.robot.Driver.ControlTasks.SallyPortArcDriveTask;
+import org.usfirst.frc.team1318.robot.Driver.ControlTasks.ShooterKickTask;
+import org.usfirst.frc.team1318.robot.Driver.ControlTasks.SequentialTask;
+import org.usfirst.frc.team1318.robot.Driver.ControlTasks.ShooterSpinUpTask;
 import org.usfirst.frc.team1318.robot.Driver.Descriptions.AnalogOperationDescription;
 import org.usfirst.frc.team1318.robot.Driver.Descriptions.DigitalOperationDescription;
 import org.usfirst.frc.team1318.robot.Driver.Descriptions.MacroOperationDescription;
@@ -39,13 +48,21 @@ public abstract class Driver
                 Operation.DriveTrainShiftGearUp,
                 new DigitalOperationDescription(
                     UserInputDevice.Driver,
+<<<<<<< HEAD
                     UserInputDeviceButton.JOYSTICK_STICK_TOP_LEFT_BUTTON,
+=======
+                    UserInputDeviceButton.NONE,
+>>>>>>> testBed
                     ButtonType.Click));
             put(
                 Operation.DriveTrainShiftGearDown,
                 new DigitalOperationDescription(
                     UserInputDevice.Driver,
+<<<<<<< HEAD
                     UserInputDeviceButton.JOYSTICK_STICK_BOTTOM_LEFT_BUTTON,
+=======
+                    UserInputDeviceButton.NONE,
+>>>>>>> testBed
                     ButtonType.Click));
             put(
                 Operation.DriveTrainSimpleMode,
@@ -69,6 +86,117 @@ public abstract class Driver
                 new AnalogOperationDescription(
                     UserInputDevice.None,
                     AnalogAxis.None));
+<<<<<<< HEAD
+=======
+            // Operations for the defense arm
+            put(
+                Operation.DefenseArmFrontPosition,
+                new DigitalOperationDescription(
+                    UserInputDevice.Driver,
+                    UserInputDeviceButton.JOYSTICK_BASE_BOTTOM_LEFT_BUTTON,
+                    ButtonType.Click));
+            put(
+                Operation.DefenseArmPortcullisPosition,
+                new DigitalOperationDescription(
+                    UserInputDevice.Driver,
+                    UserInputDeviceButton.JOYSTICK_BASE_MIDDLE_LEFT_BUTTON,
+                    ButtonType.Click));
+            put(
+                Operation.DefenseArmSallyPortPosition,
+                new DigitalOperationDescription(
+                    UserInputDevice.Driver,
+                    UserInputDeviceButton.JOYSTICK_BASE_TOP_LEFT_BUTTON,
+                    ButtonType.Click));
+            put(
+                Operation.DefenseArmDrawbridgePosition,
+                new DigitalOperationDescription(
+                    UserInputDevice.Driver,
+                    UserInputDeviceButton.JOYSTICK_BASE_BOTTOM_RIGHT_BUTTON,
+                    ButtonType.Click));
+            put(
+                Operation.DefenseArmBackPosition,
+                new DigitalOperationDescription(
+                    UserInputDevice.Driver,
+                    UserInputDeviceButton.JOYSTICK_BASE_MIDDLE_RIGHT_BUTTON,
+                    ButtonType.Click));
+            put(
+                Operation.DefenseArmMoveForward,
+                new DigitalOperationDescription(
+                    UserInputDevice.Driver,
+                    UserInputDeviceButton.JOYSTICK_STICK_TOP_LEFT_BUTTON,
+                    ButtonType.Simple));
+            put(
+                Operation.DefenseArmMoveBack,
+                new DigitalOperationDescription(
+                    UserInputDevice.Driver,
+                    UserInputDeviceButton.JOYSTICK_STICK_BOTTOM_LEFT_BUTTON,
+                    ButtonType.Simple));
+            put(
+                Operation.DefenseArmTakePositionInput,
+                new DigitalOperationDescription(
+                    UserInputDevice.None,
+                    UserInputDeviceButton.NONE,
+                    ButtonType.Simple));
+            put(
+                Operation.DefenseArmSetAngle,
+                new AnalogOperationDescription(
+                    UserInputDevice.None,
+                    AnalogAxis.None));
+            put(
+                Operation.ShooterSpeed,
+                new AnalogOperationDescription(
+                    UserInputDevice.None,
+                    AnalogAxis.None));
+            put(
+                Operation.ShooterSpin,
+                new DigitalOperationDescription(
+                    UserInputDevice.None,
+                    UserInputDeviceButton.NONE,
+                    ButtonType.Click));
+            put(
+                Operation.ShooterKick,
+                new DigitalOperationDescription(
+                    UserInputDevice.None,
+                    UserInputDeviceButton.NONE,
+                    ButtonType.Click));
+            put(
+                Operation.IntakeRotatingIn,
+                new DigitalOperationDescription(
+                    UserInputDevice.Driver,
+                    UserInputDeviceButton.NONE,
+                    ButtonType.Simple));
+            put(
+                Operation.IntakeRotatingOut,
+                new DigitalOperationDescription(
+                    UserInputDevice.Driver,
+                    UserInputDeviceButton.NONE,
+                    ButtonType.Simple));
+            put(
+                Operation.IntakeExtend,
+                new DigitalOperationDescription(
+                    UserInputDevice.Driver,
+                    UserInputDeviceButton.JOYSTICK_STICK_TOP_RIGHT_BUTTON,
+                    ButtonType.Click));
+            put(
+                Operation.IntakeRetract,
+                new DigitalOperationDescription(
+                    UserInputDevice.Driver,
+                    UserInputDeviceButton.JOYSTICK_STICK_BOTTOM_RIGHT_BUTTON,
+                    ButtonType.Click));
+            put(
+                Operation.ClimbingArmExtend,
+                new DigitalOperationDescription(
+                    UserInputDevice.Driver,
+                    UserInputDeviceButton.NONE,
+                    ButtonType.Click));
+            put(
+                Operation.ClimbingArmRetract,
+                new DigitalOperationDescription(
+                    UserInputDevice.Driver,
+                    UserInputDeviceButton.NONE,
+                    ButtonType.Click));
+            
+>>>>>>> testBed
         }
     };
 
@@ -76,15 +204,100 @@ public abstract class Driver
     protected Map<MacroOperation, MacroOperationDescription> macroSchema = new HashMap<MacroOperation, MacroOperationDescription>()
     {
         {
+            // Macros for shooting distance.
             put(
-                MacroOperation.DriveDistance,
+                MacroOperation.ShootFar,
                 new MacroOperationDescription(
                     UserInputDevice.Driver,
-                    UserInputDeviceButton.JOYSTICK_BASE_BOTTOM_RIGHT_BUTTON,
-                    () -> new DriveTimedTask(20.0, 0.05, 0.05),
+                    UserInputDeviceButton.JOYSTICK_STICK_THUMB_BUTTON,
+                    () -> new SequentialTask(
+                            new IControlTask[]
+                            {
+                                new ShooterSpinUpTask(true),
+                                new ShooterKickTask()
+                            }),
                     new Operation[]
-                        { Operation.DriveTrainMoveForward, Operation.DriveTrainTurn, Operation.DriveTrainUsePositionalMode }));
-        }
+                        { Operation.ShooterSpin, Operation.ShooterSpeed, Operation.ShooterKick }));
+            put(
+                MacroOperation.ShootClose,
+                new MacroOperationDescription(
+                    UserInputDevice.Driver,
+                    UserInputDeviceButton.JOYSTICK_STICK_TRIGGER_BUTTON,
+                    () -> new SequentialTask(
+                            new IControlTask[]
+                            {
+                                new ShooterSpinUpTask(false),
+                                new ShooterKickTask()
+                            }),
+                    new Operation[]
+                        { Operation.ShooterSpin, Operation.ShooterSpeed, Operation.ShooterKick }));
+            // Portcullis breach macro.
+            put(
+                MacroOperation.BreachPortcullis,
+                new MacroOperationDescription(
+                    UserInputDevice.Driver,
+                    UserInputDeviceButton.JOYSTICK_BASE_TOP_RIGHT_BUTTON,
+                    () -> new SequentialTask(
+                        new IControlTask[]{
+                            new DriveDistanceTask(TuningConstants.PORTCULLIS_OUTER_WORKS_DISTANCE),
+                            new BreachPortcullisTask()
+                    }),
+                    new Operation[]
+                        { Operation.DriveTrainRightPosition, 
+                            Operation.DriveTrainLeftPosition, 
+                            Operation.DefenseArmFrontPosition, 
+                            Operation.DriveTrainUsePositionalMode, 
+                            Operation.DefenseArmTakePositionInput, 
+                            Operation.DefenseArmSetAngle }));
+            // Macros for the climbing arm.
+            put(
+                MacroOperation.ClimbingArmStand,
+                new MacroOperationDescription(
+                    UserInputDevice.CoDriver,
+                    UserInputDeviceButton.BUTTON_PAD_BUTTON_1,
+                    () -> new ClimbingArmElbowUpTask(true),
+                    new Operation[]{Operation.ClimbingArmElbowUp}));
+            put(
+                MacroOperation.ClimbingArmUp,
+                new MacroOperationDescription(
+                    UserInputDevice.CoDriver,
+                    UserInputDeviceButton.BUTTON_PAD_BUTTON_2,
+                    () -> new ClimbingArmShoulderUpTask(true),
+                    new Operation[]{Operation.ClimbingArmShoulderUp}));
+            put(
+                MacroOperation.ClimbingArmExtend,
+                new MacroOperationDescription(
+                    UserInputDevice.CoDriver,
+                    UserInputDeviceButton.BUTTON_PAD_BUTTON_3,
+                    () -> new ClimbingArmLifterUpTask(true),
+                    new Operation[]{Operation.ClimbingArmExtend, Operation.ClimbingArmRetract}));
+            put(
+                MacroOperation.ClimbingArmRetract,
+                new MacroOperationDescription(
+                    UserInputDevice.CoDriver,
+                    UserInputDeviceButton.BUTTON_PAD_BUTTON_4,
+                    () -> new ClimbingArmLifterUpTask(false),
+                    new Operation[]{Operation.ClimbingArmExtend, Operation.ClimbingArmRetract}));
+            
+            put(
+                MacroOperation.BreachSallyPort,
+                new MacroOperationDescription(
+                    UserInputDevice.Driver,
+                    UserInputDeviceButton.NONE,
+                    () -> new SequentialTask(
+                        new IControlTask[]
+                            {
+                                new DriveDistanceTask(TuningConstants.SALLY_PORT_BREACH_DISTANCE_PART_ONE),
+                                new SallyPortArcDriveTask(),
+                                new DriveDistanceTask(TuningConstants.SALLY_PORT_BREACH_DISTANCE_PART_THREE)
+                            }),
+                    new Operation[]{
+                        Operation.DriveTrainUsePositionalMode, 
+                        Operation.DriveTrainRightPosition, 
+                        Operation.DriveTrainLeftPosition, 
+                        Operation.DefenseArmFrontPosition,
+                    }));
+                }
     };
 
     protected final Map<Operation, OperationState> operationStateMap;
