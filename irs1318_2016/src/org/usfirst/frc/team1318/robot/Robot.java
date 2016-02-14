@@ -3,6 +3,7 @@
 import org.usfirst.frc.team1318.robot.Common.DashboardLogger;
 import org.usfirst.frc.team1318.robot.Compressor.CompressorController;
 import org.usfirst.frc.team1318.robot.DefenseArm.DefenseArmController;
+import org.usfirst.frc.team1318.robot.DriveTrain.DriveTrainController;
 import org.usfirst.frc.team1318.robot.DriveTrain.PositionManager;
 import org.usfirst.frc.team1318.robot.Driver.Driver;
 import org.usfirst.frc.team1318.robot.Driver.IControlTask;
@@ -54,12 +55,7 @@ public class Robot extends IterativeRobot
     private ComponentManager components;
 
     // Controllers
-    private CompressorController compressorController;
-    //private DriveTrainController driveTrainController;
-    //private DefenseArmController defenseArmController;
-    //private ShooterController shooterController;
-    //private IntakeController intakeController;
-    //private ClimbingArmController climbingArmController;
+    private ControllerManager controllers;
 
     // DipSwitches for selecting autonomous mode
     private DigitalInput dipSwitchA;
@@ -79,30 +75,15 @@ public class Robot extends IterativeRobot
         this.components = new ComponentManager();
 
         // create controllers for each mechanism
-        this.compressorController = new CompressorController(this.components.getCompressor());
-        //this.driveTrainControoler = new DriveTrainController(
-        //    this.components.getDriveTrain(),
-        //    TuningConstants.DRIVETRAIN_USE_PID_DEFAULT);
+        this.controllers = new ControllerManager(this.components);
 
         // create position manager
-        this.position = new PositionManager(null);
+        this.position = new PositionManager(this.components.getDriveTrain());
 
         DashboardLogger.putString(Robot.ROBOT_STATE_LOG_KEY, "Init");
 
         this.dipSwitchA = new DigitalInput(ElectronicsConstants.AUTONOMOUS_DIP_SWITCH_A);
         this.dipSwitchB = new DigitalInput(ElectronicsConstants.AUTONOMOUS_DIP_SWITCH_B);
-
-        // Initialize the defenseArmController
-        //this.defenseArmController = new DefenseArmController(components.getDefenseArm());
-        
-        // Initialize the shooterController
-        //this.shooterController = new ShooterController(components.getShooter());
-        
-        //Initialize the intakeController
-        //this.intakeController = new IntakeController(components.getIntake());
-        
-        //Initialize the climbingArmController
-        //this.climbingArmController = new ClimbingArmController(components.getClimbingArm());
         
     }
 
@@ -117,36 +98,11 @@ public class Robot extends IterativeRobot
             this.driver.stop();
         }
 
-        if (this.compressorController != null)
+        if (this.controllers != null)
         {
-            this.compressorController.stop();
+            this.controllers.stop();
         }
 
-        //if (this.driveTrainController != null)
-        //{
-        //    this.driveTrainController.stop();
-        //}
-        
-        //if (this.defenseArmController != null)
-        //{
-        //    this.defenseArmController.stop();
-        //}
-        
-        //if (this.intakeController != null)
-        //{
-        //    this.intakeController.stop();
-        //}
-        
-        //if(this.shooterController != null)
-        //{
-        //    this.shooterController.stop();
-        //}
-        
-        //if(this.climbingArmController != null)
-        //{
-        //    this.climbingArmController.stop();
-        //}
-        
         DashboardLogger.putString(Robot.ROBOT_STATE_LOG_KEY, "Disabled");
     }
 
@@ -219,17 +175,7 @@ public class Robot extends IterativeRobot
     public void generalInit()
     {
         // apply the driver to the controllers
-        //this.driveTrainController.setDriver(this.driver);
-        //this.defenseArmController.setDriver(this.driver);
-        //this.shooterController.setDriver(this.driver);
-        //this.intakeController.setDriver(this.driver);
-        //this.climbingArmController.setDriver(this.driver);
-
-        // we will run the compressor controller here because we should start it in advance...
-        this.compressorController.update();
-
-        // by default we want to be in Velocity PID mode whenever we start (or switch between) a periodic mode
-        //this.driveTrainController.setVelocityPIDMode();
+        this.controllers.setDriver(this.driver);
     }
 
     /**
@@ -269,12 +215,7 @@ public class Robot extends IterativeRobot
         this.driver.update();
 
         // run each controller
-        this.compressorController.update();
-        //this.driveTrainController.update();
-        //this.defenseArmController.update();        
-        //this.shooterController.update();
-        //this.intakeController.update();
-        //this.climbingArmController.update();
+        this.controllers.update();
     }
 
     /**

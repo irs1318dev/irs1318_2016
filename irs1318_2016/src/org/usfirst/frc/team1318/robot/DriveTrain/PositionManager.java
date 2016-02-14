@@ -1,5 +1,7 @@
 package org.usfirst.frc.team1318.robot.DriveTrain;
 
+import org.usfirst.frc.team1318.robot.HardwareConstants;
+import org.usfirst.frc.team1318.robot.Common.DashboardLogger;
 import org.usfirst.frc.team1318.robot.Common.IController;
 import org.usfirst.frc.team1318.robot.Driver.Driver;
 
@@ -64,7 +66,6 @@ public class PositionManager implements IController
     @Override
     public void update()
     {
-        /*
         // check the current distance recorded by the encoders
         double leftDistance = this.driveTrainComponent.getLeftEncoderDistance();
         double rightDistance = this.driveTrainComponent.getRightEncoderDistance();
@@ -89,10 +90,9 @@ public class PositionManager implements IController
         this.prevRightDistance = rightDistance;
         
         // log the current position and orientation
-        SmartDashboardLogger.putNumber(PositionManager.ANGLE_LOG_KEY, this.angle);
-        SmartDashboardLogger.putNumber(PositionManager.X_POSITION_LOG_KEY, this.x);
-        SmartDashboardLogger.putNumber(PositionManager.Y_POSITION_LOG_KEY, this.y);
-        */
+        DashboardLogger.putDouble(PositionManager.ANGLE_LOG_KEY, this.angle);
+        DashboardLogger.putDouble(PositionManager.X_POSITION_LOG_KEY, this.x);
+        DashboardLogger.putDouble(PositionManager.Y_POSITION_LOG_KEY, this.y);
     }
 
     /**
