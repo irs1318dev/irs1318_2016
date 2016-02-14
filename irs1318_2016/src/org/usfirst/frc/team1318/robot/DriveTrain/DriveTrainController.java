@@ -47,10 +47,8 @@ public class DriveTrainController implements IController
     public void setDriver(Driver driver)
     {
         this.driver = driver;
-    }
 
-    public void setVelocityPIDMode()
-    {
+        // switch to velocity PID mode whenever we switch controller (defense-in-depth)
         if (!this.usePID || this.usePositionalMode)
         {
             this.usePID = true;

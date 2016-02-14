@@ -21,7 +21,7 @@ public class ComponentManager
     public ComponentManager()
     {
         this.compressorComponent = new CompressorComponent();
-        //this.driveTrainComponent = new DriveTrainComponent();
+        this.driveTrainComponent = new DriveTrainComponent();
         //this.defenseArmComponent = new DefenseArmComponent();
         //this.shooterComponent = new ShooterComponent();
         //this.intakeComponent = new IntakeComponent();
