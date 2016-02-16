@@ -22,13 +22,13 @@ public class TCS34725ColorSensor
     private static final int ID_REGISTER = 0x12; // ID register (read-only)
     private static final int EXPECTED_ID = 0x44; // expected ID value for TCS34725 light sensor
     private static final int CLEAR_DATA_LOW_REGISTER = 0x14; // clear color sensor data - low byte
-    private static final int CLEAR_DATA_HIGH_REGISTER = 0x15; // clear color sensor data - high byte
+    //private static final int CLEAR_DATA_HIGH_REGISTER = 0x15; // clear color sensor data - high byte
     private static final int RED_DATA_LOW_REGISTER = 0x16; // red color sensor data - low byte
-    private static final int RED_DATA_HIGH_REGISTER = 0x17; // red color sensor data - high byte
+    //private static final int RED_DATA_HIGH_REGISTER = 0x17; // red color sensor data - high byte
     private static final int GREEN_DATA_LOW_REGISTER = 0x18; // green color sensor data - low byte
-    private static final int GREEN_DATA_HIGH_REGISTER = 0x19; // green color sensor data - high byte
+    //private static final int GREEN_DATA_HIGH_REGISTER = 0x19; // green color sensor data - high byte
     private static final int BLUE_DATA_LOW_REGISTER = 0x1A; // blue color sensor data - low byte
-    private static final int BLUE_DATA_HIGH_REGISTER = 0x1B; // blue color sensor data - high byte
+    //private static final int BLUE_DATA_HIGH_REGISTER = 0x1B; // blue color sensor data - high byte
 
     public enum IntegrationTime
     {

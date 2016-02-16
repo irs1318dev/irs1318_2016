@@ -7,8 +7,8 @@ public class VCNL4010ProximityALSensor
     private static final int ADDRESS = 0x13;
 
     private static final int COMMAND_REGISTER = 0x80; // Command register
-    private static final int COMMAND_AMBIENT_LIGHT_ON_DEMAND = 0x10; // trigger ambient light on-demand measurement
-    private static final int COMMAND_PROXIMITY_ON_DEMAND = 0x08; // trigger proximity on-demand measurement
+    //private static final int COMMAND_AMBIENT_LIGHT_ON_DEMAND = 0x10; // trigger ambient light on-demand measurement
+    //private static final int COMMAND_PROXIMITY_ON_DEMAND = 0x08; // trigger proximity on-demand measurement
     private static final int COMMAND_AMBIENT_LIGHT_ENABLE = 0x04; // enable ambient light periodic mode
     private static final int COMMAND_PROXIMITY_ENABLE = 0x02; // enable proximity periodic mode
     private static final int COMMAND_SELF_TIMED_ENABLE = 0x01; // enable self-timed (periodic) mode
@@ -17,16 +17,16 @@ public class VCNL4010ProximityALSensor
     private static final int EXPECTED_ID = 0x21; // expected ID value for VCNL4010 light sensor
 
     private static final int PROXIMITY_RATE_REGISTER = 0x82; // Proximity rate register
-    private static final int IR_LED_REGISTER = 0x83; // LED current setting for proximity mode (set it from 0 to 20d. Current = 10 x setting mA)
+    //private static final int IR_LED_REGISTER = 0x83; // LED current setting for proximity mode (set it from 0 to 20d. Current = 10 x setting mA)
 
     private static final int AMBIENT_LIGHT_SETTINGS_REGISTER = 0x84; // Ambient light settings register
     private static final int AMBIENT_LIGHT_CONTINUOUS_MODE = 0x80; // continuous conversion mode (default: off)
     private static final int AMBIENT_LIGHT_AUTO_OFFSET_MODE = 0x08; // automatic offset compensation (default: on)
 
     private static final int AMBIENT_LIGHT_RESULT_HIGH_REGISTER = 0x85; // high byte for the ambient light measurement
-    private static final int AMBIENT_LIGHT_RESULT_LOW_REGISTER = 0x86; // low byte for the ambient light measurement
+    //private static final int AMBIENT_LIGHT_RESULT_LOW_REGISTER = 0x86; // low byte for the ambient light measurement
     private static final int PROXIMITY_RESULT_HIGH_REGISTER = 0x87; // high byte for the proximity measurement
-    private static final int PROXIMITY_RESULT_LOW_REGISTER = 0x88; // low byte for the proximity measurement
+    //private static final int PROXIMITY_RESULT_LOW_REGISTER = 0x88; // low byte for the proximity measurement
 
     public enum ProximityRate
     {
