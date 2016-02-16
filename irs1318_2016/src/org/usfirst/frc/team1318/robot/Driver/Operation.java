@@ -43,5 +43,5 @@ public enum Operation
     ClimbingArmElbowUp,
     
     // Other general operations:
-    CancelMacro;
+    CancelBreachMacro;
 }

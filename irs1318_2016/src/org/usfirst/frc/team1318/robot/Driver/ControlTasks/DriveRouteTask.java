@@ -2,10 +2,10 @@ package org.usfirst.frc.team1318.robot.Driver.ControlTasks;
 
 import java.util.function.Function;
 
+import org.usfirst.frc.team1318.robot.TuningConstants;
 import org.usfirst.frc.team1318.robot.DriveTrain.DriveTrainComponent;
 import org.usfirst.frc.team1318.robot.Driver.IControlTask;
 import org.usfirst.frc.team1318.robot.Driver.Operation;
-import org.usfirst.frc.team1318.robot.Driver.Autonomous.AutonomousConstants;
 
 public class DriveRouteTask extends TimedTask implements IControlTask
 {
@@ -29,7 +29,7 @@ public class DriveRouteTask extends TimedTask implements IControlTask
     public DriveRouteTask(Function<Double, Double> left, Function<Double, Double> right, double duration)
     {
         super(duration);
-        
+
         this.leftPositionPerTime = left;
         this.rightPositionPerTime = right;
     }
@@ -58,8 +58,9 @@ public class DriveRouteTask extends TimedTask implements IControlTask
     @Override
     public void update()
     {
-        this.setAnalogOperationState(Operation.DriveTrainLeftPosition, this.startLeftDistance + this.leftPositionPerTime.apply(this.getRatioComplete()));
-        this.setAnalogOperationState(Operation.DriveTrainRightPosition, this.startRightDistance + this.rightPositionPerTime.apply(this.getRatioComplete()));
+        double t = Math.min(this.getRatioComplete(), 1.0);
+        this.setAnalogOperationState(Operation.DriveTrainLeftPosition, this.startLeftDistance + this.leftPositionPerTime.apply(t));
+        this.setAnalogOperationState(Operation.DriveTrainRightPosition, this.startRightDistance + this.rightPositionPerTime.apply(t));
     }
 
     /**
@@ -82,6 +83,10 @@ public class DriveRouteTask extends TimedTask implements IControlTask
     public void end()
     {
         super.end();
+
+        this.setAnalogOperationState(Operation.DriveTrainLeftPosition, this.endLeftDistance);
+        this.setAnalogOperationState(Operation.DriveTrainRightPosition, this.endRightDistance);
+
         this.setDigitalOperationState(Operation.DriveTrainUsePositionalMode, false);
     }
 
@@ -101,6 +106,6 @@ public class DriveRouteTask extends TimedTask implements IControlTask
 
         // return that we have completed this task if are within an acceptable distance
         // from the desired end location for both left and right. 
-        return super.hasCompleted() || (leftDelta < AutonomousConstants.DRIVETRAIN_POSITIONAL_ACCEPTABLE_DELTA && rightDelta < AutonomousConstants.DRIVETRAIN_POSITIONAL_ACCEPTABLE_DELTA);
+        return super.hasCompleted() || (leftDelta < TuningConstants.DRIVETRAIN_POSITIONAL_ACCEPTABLE_DELTA && rightDelta < TuningConstants.DRIVETRAIN_POSITIONAL_ACCEPTABLE_DELTA);
     }
 }

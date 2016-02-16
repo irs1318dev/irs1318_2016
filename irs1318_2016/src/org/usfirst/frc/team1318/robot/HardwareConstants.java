@@ -20,7 +20,6 @@ public class HardwareConstants
     public static final double DRIVETRAIN_RIGHT_PULSE_DISTANCE = Math.PI
         * HardwareConstants.DRIVETRAIN_RIGHT_WHEEL_DIAMETER / HardwareConstants.DRIVETRAIN_RIGHT_ENCODER_PULSES_PER_REVOLUTION;
 
-    // TODO update this distance (I feel like it has changed).
     public static final double DRIVETRAIN_WHEEL_SEPARATION_DISTANCE = 24.0 * 2.54;// (in centimeters)
 
     //================================================== Defense Arm =============================================================

@@ -46,9 +46,6 @@ public class BreachPortcullisTask extends ControlTaskBase
         this.desiredDTDistanceRight = this.startDTDistanceRight + TuningConstants.PORTCULLIS_BREACH_DISTANCE;
         this.desiredDTDistanceLeft = this.startDTDistanceLeft + TuningConstants.PORTCULLIS_BREACH_DISTANCE;
         
-        // Reset the defense arm
-        this.setDigitalOperationState(Operation.DefenseArmFrontPosition, true);
-        
         // Set necessary operations to true
         this.setDigitalOperationState(Operation.DriveTrainUsePositionalMode, true);
         this.setDigitalOperationState(Operation.DefenseArmTakePositionInput, true);

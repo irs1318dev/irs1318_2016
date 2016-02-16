@@ -90,16 +90,11 @@ public class TuningConstants
     
     // Sally Port Breach Macro
     // Distance robot must drive for first part of sally port breach (first drive backwards)
-    public static final double SALLY_PORT_BREACH_DISTANCE_PART_ONE = 0.0; //will be negative, as robot is driving backwards
-    // Distance for each side of the robot during the second part of the sally port breach (the arc driving)
-    public static final double SALLY_PORT_ARC_DRIVE_DISTANCE_PART_TWO_LEFT = 0.0;
-    public static final double SALLY_PORT_ARC_DRIVE_DISTANCE_PART_TWO_RIGHT = 0.0;
-    // Distance for each side of the robot during the third part of the sally port breach ()
-    public static final double SALLY_PORT_BREACH_DISTANCE_PART_THREE = 0.0; //will be negative, as robot is driving backwards
+    public static final double SALLY_PORT_OUTER_WORKS_DISTANCE = 9.0 * 2.54; // TODO: update guess
+    public static final double SALLY_PORT_BREACH_BACKWARD_ARC_RADIUS = 9.0 * 2.54; // TODO: update guess
+    public static final double SALLY_PORT_BREACH_FORWARD_ARC_RADIUS = 9.0 * 2.54; // TODO: update guess
+    public static final double SALLY_PORT_BREACH_FINAL_CHARGE_DISTANCE = 48.0 * 2.54; // TODO: update guess
 
-
-        
-    
     // Shooter constants
     public static final double SHOOTER_MAX_POWER_LEVEL = 1.0;
 
@@ -121,4 +116,9 @@ public class TuningConstants
     public static final double CLIMBING_ARM_MAX_SPEED = 0.8;
     public static final double CLIMBING_ARM_ELBOW_UP_DURATION = 2.0;
     public static final double CLIMBING_ARM_SHOULDER_UP_DURATION = 2.0;
+
+    public static final double DRIVETRAIN_POSITIONAL_ACCEPTABLE_DELTA = 2.0;
+
+    // autonomous defense arm wait until it is in the expected position
+    public static final double DEFENSE_ARM_POSITIONAL_ACCEPTABLE_DELTA = Math.PI / 16;
 }
