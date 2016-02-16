@@ -179,6 +179,12 @@ public abstract class Driver
                     UserInputDevice.Driver,
                     UserInputDeviceButton.NONE,
                     ButtonType.Click));
+            put(
+                Operation.CancelMacro,
+                new DigitalOperationDescription(
+                    UserInputDevice.CoDriver,
+                    UserInputDeviceButton.BUTTON_PAD_BUTTON_16,
+                    ButtonType.Click));
         }
     };
 
@@ -193,13 +199,17 @@ public abstract class Driver
                     UserInputDevice.Driver,
                     UserInputDeviceButton.JOYSTICK_STICK_THUMB_BUTTON,
                     () -> new SequentialTask(
-                            new IControlTask[]
-                            {
-                                new ShooterSpinUpTask(true, TuningConstants.SHOOTER_FAR_SHOT_VELOCITY),
-                                new ShooterKickTask()
-                            }),
+                        new IControlTask[]
+                        {
+                            new ShooterSpinUpTask(true, TuningConstants.SHOOTER_FAR_SHOT_VELOCITY),
+                            new ShooterKickTask(),
+                        }),
                     new Operation[]
-                        { Operation.ShooterSpin, Operation.ShooterSpeed, Operation.ShooterKick }));
+                    {
+                        Operation.ShooterSpin,
+                        Operation.ShooterSpeed,
+                        Operation.ShooterKick,
+                    }));
             put(
                 MacroOperation.ShootClose,
                 new MacroOperationDescription(
@@ -209,10 +219,14 @@ public abstract class Driver
                             new IControlTask[]
                             {
                                 new ShooterSpinUpTask(false, TuningConstants.SHOOTER_CLOSE_SHOT_VELOCITY),
-                                new ShooterKickTask()
+                                new ShooterKickTask(),
                             }),
                     new Operation[]
-                        { Operation.ShooterSpin, Operation.ShooterSpeed, Operation.ShooterKick }));
+                    {
+                        Operation.ShooterSpin,
+                        Operation.ShooterSpeed,
+                        Operation.ShooterKick,
+                    }));
             // Macros for the climbing arm.
             // 
             put(
@@ -226,7 +240,10 @@ public abstract class Driver
                             new ClimbingArmShoulderUpTask(true),
                             new ClimbingArmElbowUpTask(true)
                         }),
-                    new Operation[]{Operation.ClimbingArmElbowUp}));
+                    new Operation[]
+                    {
+                        Operation.ClimbingArmElbowUp,
+                    }));
             put(
                 MacroOperation.ClimbingArmRetract,
                 new MacroOperationDescription(
@@ -238,21 +255,32 @@ public abstract class Driver
                             new ClimbingArmShoulderUpTask(false),
                             new ClimbingArmElbowUpTask(false)
                         }),
-                    new Operation[]{Operation.ClimbingArmShoulderUp}));
+                    new Operation[]
+                    {
+                        Operation.ClimbingArmShoulderUp,
+                    }));
             put(
                 MacroOperation.ClimbingArmLifterUp,
                 new MacroOperationDescription(
                     UserInputDevice.CoDriver,
                     UserInputDeviceButton.BUTTON_PAD_BUTTON_3,
                     () -> new ClimbingArmLifterUpTask(true),
-                    new Operation[]{Operation.ClimbingArmExtend, Operation.ClimbingArmRetract}));
+                    new Operation[]
+                    {
+                        Operation.ClimbingArmExtend,
+                        Operation.ClimbingArmRetract,
+                    }));
             put(
                 MacroOperation.ClimbingArmLifterDown,
                 new MacroOperationDescription(
                     UserInputDevice.CoDriver,
                     UserInputDeviceButton.BUTTON_PAD_BUTTON_4,
                     () -> new ClimbingArmLifterUpTask(false),
-                    new Operation[]{Operation.ClimbingArmExtend, Operation.ClimbingArmRetract}));
+                    new Operation[]
+                    {
+                        Operation.ClimbingArmExtend,
+                        Operation.ClimbingArmRetract,
+                    }));
             // Portcullis breach macro.
             put(
                 MacroOperation.BreachPortcullis,
@@ -260,17 +288,21 @@ public abstract class Driver
                     UserInputDevice.CoDriver,
                     UserInputDeviceButton.BUTTON_PAD_BUTTON_5,
                     () -> new SequentialTask(
-                        new IControlTask[]{
+                        new IControlTask[]
+                        {
                             new DriveDistanceTask(TuningConstants.PORTCULLIS_OUTER_WORKS_DISTANCE),
-                            new BreachPortcullisTask()
-                    }),
+                            new BreachPortcullisTask(),
+                        }),
                     new Operation[]
-                        { Operation.DriveTrainRightPosition, 
-                            Operation.DriveTrainLeftPosition, 
-                            Operation.DefenseArmFrontPosition, 
-                            Operation.DriveTrainUsePositionalMode, 
-                            Operation.DefenseArmTakePositionInput, 
-                            Operation.DefenseArmSetAngle }));            
+                    {
+                        Operation.DriveTrainRightPosition, 
+                        Operation.DriveTrainLeftPosition, 
+                        Operation.DefenseArmFrontPosition, 
+                        Operation.DriveTrainUsePositionalMode, 
+                        Operation.DefenseArmTakePositionInput, 
+                        Operation.DefenseArmSetAngle,
+                        Operation.CancelMacro,
+                    }));            
             put(
                 MacroOperation.BreachSallyPort,
                 new MacroOperationDescription(
@@ -283,11 +315,13 @@ public abstract class Driver
                                 new DriveRouteTask((t) -> t, (t) -> t, 1.0),
                                 new DriveDistanceTask(TuningConstants.SALLY_PORT_BREACH_DISTANCE_PART_THREE)
                             }),
-                    new Operation[]{
+                    new Operation[]
+                    {
                         Operation.DriveTrainUsePositionalMode, 
                         Operation.DriveTrainRightPosition, 
                         Operation.DriveTrainLeftPosition, 
                         Operation.DefenseArmFrontPosition,
+                        Operation.CancelMacro,
                     }));
                 }
     };
