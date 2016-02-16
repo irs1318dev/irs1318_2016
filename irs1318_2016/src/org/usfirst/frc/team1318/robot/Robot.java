@@ -237,7 +237,7 @@ public class Robot extends IterativeRobot
         return new SequentialTask(new IControlTask[]{
             new DriveDistanceTask(1.0),
             new BreachPortcullisTask(),
-            new ShooterSpinUpTask(true),
+            new ShooterSpinUpTask(true, TuningConstants.SHOOTER_FAR_SHOT_VELOCITY),
             new ShooterKickTask()}); 
     }
 }

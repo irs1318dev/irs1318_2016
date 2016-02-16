@@ -11,7 +11,7 @@ import org.usfirst.frc.team1318.robot.Driver.ControlTasks.ClimbingArmLifterUpTas
 import org.usfirst.frc.team1318.robot.Driver.ControlTasks.ClimbingArmElbowUpTask;
 import org.usfirst.frc.team1318.robot.Driver.ControlTasks.ClimbingArmShoulderUpTask;
 import org.usfirst.frc.team1318.robot.Driver.ControlTasks.DriveDistanceTask;
-import org.usfirst.frc.team1318.robot.Driver.ControlTasks.SallyPortArcDriveTask;
+import org.usfirst.frc.team1318.robot.Driver.ControlTasks.DriveRouteTask;
 import org.usfirst.frc.team1318.robot.Driver.ControlTasks.ShooterKickTask;
 import org.usfirst.frc.team1318.robot.Driver.ControlTasks.SequentialTask;
 import org.usfirst.frc.team1318.robot.Driver.ControlTasks.ShooterSpinUpTask;
@@ -195,7 +195,7 @@ public abstract class Driver
                     () -> new SequentialTask(
                             new IControlTask[]
                             {
-                                new ShooterSpinUpTask(true),
+                                new ShooterSpinUpTask(true, TuningConstants.SHOOTER_FAR_SHOT_VELOCITY),
                                 new ShooterKickTask()
                             }),
                     new Operation[]
@@ -208,7 +208,7 @@ public abstract class Driver
                     () -> new SequentialTask(
                             new IControlTask[]
                             {
-                                new ShooterSpinUpTask(false),
+                                new ShooterSpinUpTask(false, TuningConstants.SHOOTER_CLOSE_SHOT_VELOCITY),
                                 new ShooterKickTask()
                             }),
                     new Operation[]
@@ -269,7 +269,7 @@ public abstract class Driver
                         new IControlTask[]
                             {
                                 new DriveDistanceTask(TuningConstants.SALLY_PORT_BREACH_DISTANCE_PART_ONE),
-                                new SallyPortArcDriveTask(),
+                                new DriveRouteTask((t) -> t, (t) -> t, 1.0),
                                 new DriveDistanceTask(TuningConstants.SALLY_PORT_BREACH_DISTANCE_PART_THREE)
                             }),
                     new Operation[]{
