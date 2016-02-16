@@ -17,24 +17,21 @@ public class ShooterComponent
 {
     private final DoubleSolenoid kicker;
     private final DoubleSolenoid hood;
-    private final Talon leftTalon;
-    private final Talon rightTalon;
+    private final Talon talon;
     private final Counter counter;
     
     public ShooterComponent() 
     {
         this.kicker = new DoubleSolenoid(ElectronicsConstants.SHOOTER_KICKER_CHANNEL_A, ElectronicsConstants.SHOOTER_KICKER_CHANNEL_B);
         this.hood = new DoubleSolenoid(ElectronicsConstants.SHOOTER_HOOD_CHANNEL_A, ElectronicsConstants.SHOOTER_HOOD_CHANNEL_B);
-        this.leftTalon = new Talon(ElectronicsConstants.SHOOTER_LEFT_TALON_CHANNEL);
-        this.rightTalon = new Talon(ElectronicsConstants.SHOOTER_RIGHT_TALON_CHANNEL);
+        this.talon = new Talon(ElectronicsConstants.SHOOTER_TALON_CHANNEL);
         this.counter = new Counter(ElectronicsConstants.SHOOTER_COUNTER_CHANNEL);
         this.counter.setUpDownCounterMode();
     }
     
     public void setMotorSpeed(double speed) 
     {
-        this.leftTalon.set(speed);
-        this.rightTalon.set(speed);
+        this.talon.set(speed);
     }
     
     public double getCounterTicks() 

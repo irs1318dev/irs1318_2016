@@ -10,8 +10,8 @@ public enum MacroOperation
     ShootClose,
     BreachSallyPort,
     // Climbing arm operations:
-    ClimbingArmStand,
-    ClimbingArmUp,
-    ClimbingArmExtend,
-    ClimbingArmRetract;
+    ClimbingArmDeploy,
+    ClimbingArmRetract,
+    ClimbingArmLifterUp,
+    ClimbingArmLifterDown;
 }
