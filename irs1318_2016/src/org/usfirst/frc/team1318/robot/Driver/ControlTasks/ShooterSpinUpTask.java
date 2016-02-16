@@ -6,13 +6,15 @@ import org.usfirst.frc.team1318.robot.Driver.Operation;
 
 public class ShooterSpinUpTask extends TimedTask implements IControlTask
 {
-    boolean distance;
+    private boolean extendHood;
+    private double shooterVelocity;
     
     // True is a far shot, false is a close shot.
-    public ShooterSpinUpTask(boolean distance)
+    public ShooterSpinUpTask(boolean extendHood, double shooterVelocity)
     {
         super(TuningConstants.SHOOTER_SPIN_UP_DURATION);
-        this.distance = distance;
+        this.extendHood = extendHood;
+        this.shooterVelocity = shooterVelocity;
     }
     
     @Override
@@ -21,17 +23,8 @@ public class ShooterSpinUpTask extends TimedTask implements IControlTask
         super.begin();
         
         this.setDigitalOperationState(Operation.ShooterSpin, true);
-        
-        if (distance)
-        {
-            this.setAnalogOperationState(Operation.ShooterSpeed, TuningConstants.SHOOTER_FAR_SHOT_VELOCITY);
-            this.setDigitalOperationState(Operation.ShooterExtendHood, true);
-        }
-        else 
-        {
-            this.setAnalogOperationState(Operation.ShooterSpeed, TuningConstants.SHOOTER_CLOSE_SHOT_VELOCITY);
-            this.setDigitalOperationState(Operation.ShooterExtendHood, false);
-        }
+        this.setAnalogOperationState(Operation.ShooterSpeed, this.shooterVelocity);
+        this.setDigitalOperationState(Operation.ShooterExtendHood, this.extendHood);
     }
     
     @Override
@@ -45,8 +38,6 @@ public class ShooterSpinUpTask extends TimedTask implements IControlTask
     @Override
     public void update()
     {
-        // TODO Auto-generated method stub
-        
     }
     
     @Override
@@ -54,5 +45,4 @@ public class ShooterSpinUpTask extends TimedTask implements IControlTask
     {
         return super.hasCompleted();
     }
-
 }
