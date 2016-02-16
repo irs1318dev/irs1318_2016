@@ -159,13 +159,13 @@ public abstract class Driver
                 Operation.IntakeExtend,
                 new DigitalOperationDescription(
                     UserInputDevice.Driver,
-                    90, // TODO front?
+                    0,
                     ButtonType.Click));
             put(
                 Operation.IntakeRetract,
                 new DigitalOperationDescription(
                     UserInputDevice.Driver,
-                    270,// TODO back?
+                    180,
                     ButtonType.Click));
             put(
                 Operation.ClimbingArmExtend,
