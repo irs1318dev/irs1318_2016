@@ -204,7 +204,9 @@ public abstract class Driver
                     UserInputDevice.CoDriver,
                     UserInputDeviceButton.BUTTON_PAD_BUTTON_1,
                     () -> SequentialTask.Sequence(
-                        new DriveDistanceTask(TuningConstants.PORTCULLIS_OUTER_WORKS_DISTANCE),
+                        ConcurrentTask.AllTasks(
+                            new DefenseArmPositionTask(HardwareConstants.DEFENSE_ARM_PORTCULLIS_POSITION),
+                            new DriveDistanceTask(TuningConstants.PORTCULLIS_OUTER_WORKS_DISTANCE)),
                         new BreachPortcullisTask()),
                     new Operation[]
                     {
