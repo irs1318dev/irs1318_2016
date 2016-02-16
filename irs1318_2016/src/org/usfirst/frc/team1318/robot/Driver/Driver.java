@@ -214,29 +214,40 @@ public abstract class Driver
                     new Operation[]
                         { Operation.ShooterSpin, Operation.ShooterSpeed, Operation.ShooterKick }));
             // Macros for the climbing arm.
+            // 
             put(
-                MacroOperation.ClimbingArmStand,
+                MacroOperation.ClimbingArmDeploy,
                 new MacroOperationDescription(
                     UserInputDevice.CoDriver,
                     UserInputDeviceButton.BUTTON_PAD_BUTTON_1,
-                    () -> new ClimbingArmElbowUpTask(true),
+                    () -> new SequentialTask(
+                        new IControlTask[]
+                        {
+                            new ClimbingArmShoulderUpTask(true),
+                            new ClimbingArmElbowUpTask(true)
+                        }),
                     new Operation[]{Operation.ClimbingArmElbowUp}));
             put(
-                MacroOperation.ClimbingArmUp,
+                MacroOperation.ClimbingArmRetract,
                 new MacroOperationDescription(
                     UserInputDevice.CoDriver,
                     UserInputDeviceButton.BUTTON_PAD_BUTTON_2,
-                    () -> new ClimbingArmShoulderUpTask(true),
+                    () -> new SequentialTask(
+                        new IControlTask[]
+                        {
+                            new ClimbingArmShoulderUpTask(false),
+                            new ClimbingArmElbowUpTask(false)
+                        }),
                     new Operation[]{Operation.ClimbingArmShoulderUp}));
             put(
-                MacroOperation.ClimbingArmExtend,
+                MacroOperation.ClimbingArmLifterUp,
                 new MacroOperationDescription(
                     UserInputDevice.CoDriver,
                     UserInputDeviceButton.BUTTON_PAD_BUTTON_3,
                     () -> new ClimbingArmLifterUpTask(true),
                     new Operation[]{Operation.ClimbingArmExtend, Operation.ClimbingArmRetract}));
             put(
-                MacroOperation.ClimbingArmRetract,
+                MacroOperation.ClimbingArmLifterDown,
                 new MacroOperationDescription(
                     UserInputDevice.CoDriver,
                     UserInputDeviceButton.BUTTON_PAD_BUTTON_4,
