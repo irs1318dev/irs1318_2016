@@ -109,8 +109,8 @@ public class TuningConstants
     public static final double SHOOTER_SPIN_UP_DURATION = 2.0;
     
     // Intake constants
-    public static final double INTAKE_IN_POWER_LEVEL = 0.4;
-    public static final double INTAKE_OUT_POWER_LEVEL = -0.4;
+    public static final double INTAKE_IN_POWER_LEVEL = 0.8;
+    public static final double INTAKE_OUT_POWER_LEVEL = -0.8;
     
     // Climbing Arm Constants
     public static final double CLIMBING_ARM_MAX_SPEED = 0.8;

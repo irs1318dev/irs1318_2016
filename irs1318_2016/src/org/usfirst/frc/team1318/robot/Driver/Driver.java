@@ -41,12 +41,12 @@ public abstract class Driver
             put(
                 Operation.DriveTrainMoveForward,
                 new AnalogOperationDescription(
-                    UserInputDevice.Driver,
+                    UserInputDevice.None, //Driver,
                     AnalogAxis.Y));
             put(
                 Operation.DriveTrainTurn,
                 new AnalogOperationDescription(
-                    UserInputDevice.Driver,
+                    UserInputDevice.None, //Driver,
                     AnalogAxis.X));
             put(
                 Operation.DriveTrainSimpleMode,
@@ -140,13 +140,19 @@ public abstract class Driver
                 new DigitalOperationDescription(
                     UserInputDevice.None,
                     UserInputDeviceButton.NONE,
-                    ButtonType.Click));
+                    ButtonType.Simple));
             put(
                 Operation.ShooterKick,
                 new DigitalOperationDescription(
                     UserInputDevice.None,
                     UserInputDeviceButton.NONE,
-                    ButtonType.Click));
+                    ButtonType.Simple));
+            put(
+                Operation.ShooterExtendHood,
+                new DigitalOperationDescription(
+                    UserInputDevice.None,
+                    UserInputDeviceButton.NONE,
+                    ButtonType.Simple));
             put(
                 Operation.IntakeRotatingIn,
                 new DigitalOperationDescription(

@@ -2,6 +2,7 @@ package org.usfirst.frc.team1318.robot.DriveTrain;
 
 import org.usfirst.frc.team1318.robot.ElectronicsConstants;
 import org.usfirst.frc.team1318.robot.HardwareConstants;
+import org.usfirst.frc.team1318.robot.Common.DashboardLogger;
 
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.Victor;
@@ -83,6 +84,7 @@ public class DriveTrainComponent
     public double getLeftEncoderDistance()
     {
         double leftDistance = -this.leftEncoder.getDistance();
+        DashboardLogger.putDouble("leftDistance", leftDistance);
         return leftDistance;
     }
 
@@ -93,6 +95,7 @@ public class DriveTrainComponent
     public double getRightEncoderDistance()
     {
         double rightDistance = this.rightEncoder.getDistance();
+        DashboardLogger.putDouble("rightDistance", rightDistance);
         return rightDistance;
     }
 

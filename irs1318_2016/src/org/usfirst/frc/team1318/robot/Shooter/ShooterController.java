@@ -12,7 +12,6 @@ import org.usfirst.frc.team1318.robot.Shooter.ShooterComponent;
  * @author Corbin
  *
  */
-
 public class ShooterController implements IController
 {
     private ShooterComponent shooter;

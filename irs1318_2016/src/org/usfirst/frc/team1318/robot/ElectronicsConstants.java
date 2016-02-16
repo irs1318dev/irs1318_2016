@@ -27,11 +27,11 @@ public class ElectronicsConstants
     public static final int DRIVETRAIN_LEFT_TALON_CHANNEL = 5;
     public static final int DRIVETRAIN_RIGHT_TALON_CHANNEL = 4;
 
-    public static final int DRIVETRAIN_RIGHT_ENCODER_CHANNEL_A = 2;
-    public static final int DRIVETRAIN_RIGHT_ENCODER_CHANNEL_B = 3;
+    public static final int DRIVETRAIN_RIGHT_ENCODER_CHANNEL_A = 0;
+    public static final int DRIVETRAIN_RIGHT_ENCODER_CHANNEL_B = 1;
 
-    public static final int DRIVETRAIN_LEFT_ENCODER_CHANNEL_A = 4;
-    public static final int DRIVETRAIN_LEFT_ENCODER_CHANNEL_B = 5;
+    public static final int DRIVETRAIN_LEFT_ENCODER_CHANNEL_A = 2;
+    public static final int DRIVETRAIN_LEFT_ENCODER_CHANNEL_B = 3;
 
     //================================================== Autonomous ==============================================================
 
@@ -56,6 +56,7 @@ public class ElectronicsConstants
     public static final int SHOOTER_HOOD_CHANNEL_B = 2;
     
     //=================================================== Intake =================================================================
+    
     public static final int INTAKE_MOTOR_CHANNEL = 3;
     public static final int INTAKE_SOLENOID_CHANNEL_A = 4;
     public static final int INTAKE_SOLENOID_CHANNEL_B = 3;
@@ -66,7 +67,8 @@ public class ElectronicsConstants
     public static final int TEST_SENSOR_IR_IN = 0;
     public static final int TEST_SENSOR_IR_OUT = 1;
     
- // ================================================= Climbing Arm =============================================================
+    // ================================================= Climbing Arm =============================================================
+
     public static final int CLIMBING_ARM_MOTOR_CHANNEL = 1;
 
     public static final int CLIMBING_ARM_SHOULDER_SOLENOID_CHANNEL_A = 7;
@@ -77,5 +79,4 @@ public class ElectronicsConstants
 
     public static final int CLIMBING_ARM_BOTTOM_LIMIT_SWITCH_CHANNEL = 0;
     public static final int CLIMBING_ARM_TOP_LIMIT_SWITCH_CHANNEL = 0;
-
 }

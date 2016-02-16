@@ -7,9 +7,8 @@ import org.usfirst.frc.team1318.robot.Driver.Operation;
 
 public class IntakeController implements IController
 {
+    private final IntakeComponent intake;
     private Driver driver;
-    private IntakeComponent intake;
-
     
     public IntakeController(IntakeComponent intake) 
     {
@@ -55,5 +54,4 @@ public class IntakeController implements IController
     {
         this.driver = driver;
     }
-
 }
