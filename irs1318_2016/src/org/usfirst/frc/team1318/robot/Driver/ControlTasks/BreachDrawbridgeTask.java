@@ -32,10 +32,6 @@ public class BreachDrawbridgeTask extends ControlTaskBase
     
     private boolean negateAngles;
     
-    public BreachDrawbridgeTask()
-    {
-    }
-    
     @Override
     public void begin()
     {
@@ -72,9 +68,9 @@ public class BreachDrawbridgeTask extends ControlTaskBase
         this.setAnalogOperationState(Operation.DriveTrainRightPosition, this.currentDTDistanceRight + desiredDistanceChange);
         this.setAnalogOperationState(Operation.DriveTrainLeftPosition, this.currentDTDistanceLeft + desiredDistanceChange);
         
-        double totalCurrentDistance = (this.currentDTDistanceLeft + this.currentDTDistanceRight)/2;
+        double avgCurrDistance = (this.currentDTDistanceLeft + this.currentDTDistanceRight)/2;
         
-        double angle = Math.acos((totalCurrentDistance + desiredDistanceChange)/(HardwareConstants.DEFENSE_ARM_LENGTH + HardwareConstants.DEFENSE_ARM_DRAWBRIDGE_EXTENSION_LENGTH));
+        double angle = Math.acos((avgCurrDistance + desiredDistanceChange)/(HardwareConstants.DEFENSE_ARM_LENGTH + HardwareConstants.DEFENSE_ARM_DRAWBRIDGE_EXTENSION_LENGTH));
         
         // If it need be negative, set the angle to negative.
         if (this.negateAngles)
@@ -110,7 +106,7 @@ public class BreachDrawbridgeTask extends ControlTaskBase
     public boolean hasCompleted()
     {
         // Return true if the desired position has been reached.
-        if (this.desiredDTDistanceLeft <= this.currentDTDistanceLeft && this.desiredDTDistanceRight <= this.currentDTDistanceRight)
+        if (this.currentDTDistanceLeft <= this.desiredDTDistanceLeft &&  this.currentDTDistanceRight <= this.desiredDTDistanceRight)
         {
             return true;
         }
