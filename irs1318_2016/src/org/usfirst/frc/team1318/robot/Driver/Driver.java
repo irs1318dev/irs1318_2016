@@ -229,12 +229,10 @@ public abstract class Driver
                             (t) -> -0.25 * Math.PI * (TuningConstants.SALLY_PORT_BREACH_BACKWARD_ARC_RADIUS + HardwareConstants.DRIVETRAIN_WHEEL_SEPARATION_DISTANCE) * t,
                             (t) -> -0.25 * Math.PI * TuningConstants.SALLY_PORT_BREACH_BACKWARD_ARC_RADIUS * t,
                             3.0),
-                        ConcurrentTask.AllTasks(
-                            new DriveRouteTask(
-                                (t) -> 0.25 * Math.PI * TuningConstants.SALLY_PORT_BREACH_FORWARD_ARC_RADIUS * t,
-                                (t) -> 0.25 * Math.PI * (TuningConstants.SALLY_PORT_BREACH_FORWARD_ARC_RADIUS + HardwareConstants.DRIVETRAIN_WHEEL_SEPARATION_DISTANCE) * t,
-                                3.0),
-                            new DefenseArmPositionTask(HardwareConstants.DEFENSE_ARM_SALLY_PORT_POSITION)),
+                        new DriveRouteTask(
+                            (t) -> 0.25 * Math.PI * TuningConstants.SALLY_PORT_BREACH_FORWARD_ARC_RADIUS * t,
+                            (t) -> 0.25 * Math.PI * (TuningConstants.SALLY_PORT_BREACH_FORWARD_ARC_RADIUS + HardwareConstants.DRIVETRAIN_WHEEL_SEPARATION_DISTANCE) * t,
+                            3.0),
                         new TurnTask(-90),
                         new DriveDistanceTask(TuningConstants.SALLY_PORT_BREACH_FINAL_CHARGE_DISTANCE)),
                     new Operation[]
