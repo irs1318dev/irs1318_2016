@@ -51,7 +51,7 @@ public abstract class Driver
             put(
                 Operation.DriveTrainSimpleMode,
                 new DigitalOperationDescription(
-                    UserInputDevice.Driver,
+                    UserInputDevice.None,
                     UserInputDeviceButton.NONE,
                     ButtonType.Toggle));
             put(
@@ -174,13 +174,13 @@ public abstract class Driver
             put(
                 Operation.ClimbingArmExtend,
                 new DigitalOperationDescription(
-                    UserInputDevice.Driver,
+                    UserInputDevice.None,
                     UserInputDeviceButton.NONE,
                     ButtonType.Click));
             put(
                 Operation.ClimbingArmRetract,
                 new DigitalOperationDescription(
-                    UserInputDevice.Driver,
+                    UserInputDevice.None,
                     UserInputDeviceButton.NONE,
                     ButtonType.Click));
             put(
@@ -195,7 +195,57 @@ public abstract class Driver
     @SuppressWarnings("serial")
     protected Map<MacroOperation, MacroOperationDescription> macroSchema = new HashMap<MacroOperation, MacroOperationDescription>()
     {
-        {
+        {            
+            // Breaching macros.
+            put(
+                MacroOperation.BreachPortcullis,
+                new MacroOperationDescription(
+                    UserInputDevice.CoDriver,
+                    UserInputDeviceButton.BUTTON_PAD_BUTTON_1,
+                    () -> SequentialTask.Sequence(
+                        new DriveDistanceTask(TuningConstants.PORTCULLIS_OUTER_WORKS_DISTANCE),
+                        new BreachPortcullisTask()),
+                    new Operation[]
+                    {
+                        Operation.DriveTrainRightPosition, 
+                        Operation.DriveTrainLeftPosition, 
+                        Operation.DefenseArmFrontPosition, 
+                        Operation.DriveTrainUsePositionalMode, 
+                        Operation.DefenseArmTakePositionInput, 
+                        Operation.DefenseArmSetAngle,
+                        Operation.CancelBreachMacro,
+                    }));
+            put(
+                MacroOperation.BreachSallyPort,
+                new MacroOperationDescription(
+                    UserInputDevice.CoDriver,
+                    UserInputDeviceButton.BUTTON_PAD_BUTTON_2,
+                    () -> SequentialTask.Sequence(
+                        ConcurrentTask.AllTasks(
+                            new DefenseArmPositionTask(HardwareConstants.DEFENSE_ARM_SALLY_PORT_POSITION),
+                            new DriveDistanceTask(TuningConstants.SALLY_PORT_OUTER_WORKS_DISTANCE)),
+                        new DefenseArmPositionTask(HardwareConstants.DEFENSE_ARM_SALLY_PORT_POSITION - Math.PI * 0.0625),
+                        new DriveRouteTask(
+                            (t) -> -0.25 * Math.PI * (TuningConstants.SALLY_PORT_BREACH_BACKWARD_ARC_RADIUS + HardwareConstants.DRIVETRAIN_WHEEL_SEPARATION_DISTANCE) * t,
+                            (t) -> -0.25 * Math.PI * TuningConstants.SALLY_PORT_BREACH_BACKWARD_ARC_RADIUS * t,
+                            3.0),
+                        ConcurrentTask.AllTasks(
+                            new DriveRouteTask(
+                                (t) -> 0.25 * Math.PI * TuningConstants.SALLY_PORT_BREACH_FORWARD_ARC_RADIUS * t,
+                                (t) -> 0.25 * Math.PI * (TuningConstants.SALLY_PORT_BREACH_FORWARD_ARC_RADIUS + HardwareConstants.DRIVETRAIN_WHEEL_SEPARATION_DISTANCE) * t,
+                                3.0),
+                            new DefenseArmPositionTask(HardwareConstants.DEFENSE_ARM_SALLY_PORT_POSITION)),
+                        new TurnTask(-90),
+                        new DriveDistanceTask(TuningConstants.SALLY_PORT_BREACH_FINAL_CHARGE_DISTANCE)),
+                    new Operation[]
+                    {
+                        Operation.DriveTrainUsePositionalMode, 
+                        Operation.DriveTrainRightPosition, 
+                        Operation.DriveTrainLeftPosition, 
+                        Operation.DefenseArmFrontPosition,
+                        Operation.CancelBreachMacro,
+                    }));
+            
             // Macros for shooting distance.
             put(
                 MacroOperation.ShootFar,
@@ -231,7 +281,7 @@ public abstract class Driver
                 MacroOperation.ClimbingArmDeploy,
                 new MacroOperationDescription(
                     UserInputDevice.CoDriver,
-                    UserInputDeviceButton.BUTTON_PAD_BUTTON_1,
+                    UserInputDeviceButton.BUTTON_PAD_BUTTON_6,
                     () -> SequentialTask.Sequence(
                         new ClimbingArmShoulderUpTask(true),
                         new ClimbingArmElbowUpTask(true)),
@@ -243,7 +293,7 @@ public abstract class Driver
                 MacroOperation.ClimbingArmRetract,
                 new MacroOperationDescription(
                     UserInputDevice.CoDriver,
-                    UserInputDeviceButton.BUTTON_PAD_BUTTON_2,
+                    UserInputDeviceButton.BUTTON_PAD_BUTTON_7,
                     () -> SequentialTask.Sequence(
                         new ClimbingArmShoulderUpTask(false),
                         new ClimbingArmElbowUpTask(false)),
@@ -255,7 +305,7 @@ public abstract class Driver
                 MacroOperation.ClimbingArmLifterUp,
                 new MacroOperationDescription(
                     UserInputDevice.CoDriver,
-                    UserInputDeviceButton.BUTTON_PAD_BUTTON_3,
+                    UserInputDeviceButton.BUTTON_PAD_BUTTON_8,
                     () -> new ClimbingArmLifterUpTask(true),
                     new Operation[]
                     {
@@ -266,62 +316,12 @@ public abstract class Driver
                 MacroOperation.ClimbingArmLifterDown,
                 new MacroOperationDescription(
                     UserInputDevice.CoDriver,
-                    UserInputDeviceButton.BUTTON_PAD_BUTTON_4,
+                    UserInputDeviceButton.BUTTON_PAD_BUTTON_9,
                     () -> new ClimbingArmLifterUpTask(false),
                     new Operation[]
                     {
                         Operation.ClimbingArmExtend,
                         Operation.ClimbingArmRetract,
-                    }));
-            
-            // Breaching macros.
-            put(
-                MacroOperation.BreachPortcullis,
-                new MacroOperationDescription(
-                    UserInputDevice.CoDriver,
-                    UserInputDeviceButton.BUTTON_PAD_BUTTON_5,
-                    () -> SequentialTask.Sequence(
-                        new DriveDistanceTask(TuningConstants.PORTCULLIS_OUTER_WORKS_DISTANCE),
-                        new BreachPortcullisTask()),
-                    new Operation[]
-                    {
-                        Operation.DriveTrainRightPosition, 
-                        Operation.DriveTrainLeftPosition, 
-                        Operation.DefenseArmFrontPosition, 
-                        Operation.DriveTrainUsePositionalMode, 
-                        Operation.DefenseArmTakePositionInput, 
-                        Operation.DefenseArmSetAngle,
-                        Operation.CancelBreachMacro,
-                    }));
-            put(
-                MacroOperation.BreachSallyPort,
-                new MacroOperationDescription(
-                    UserInputDevice.CoDriver,
-                    UserInputDeviceButton.BUTTON_PAD_BUTTON_6,
-                    () -> SequentialTask.Sequence(
-                        ConcurrentTask.AllTasks(
-                            new DefenseArmPositionTask(HardwareConstants.DEFENSE_ARM_SALLY_PORT_POSITION),
-                            new DriveDistanceTask(TuningConstants.SALLY_PORT_OUTER_WORKS_DISTANCE)),
-                        new DefenseArmPositionTask(HardwareConstants.DEFENSE_ARM_SALLY_PORT_POSITION - Math.PI * 0.0625),
-                        new DriveRouteTask(
-                            (t) -> -0.25 * Math.PI * (TuningConstants.SALLY_PORT_BREACH_BACKWARD_ARC_RADIUS + HardwareConstants.DRIVETRAIN_WHEEL_SEPARATION_DISTANCE) * t,
-                            (t) -> -0.25 * Math.PI * TuningConstants.SALLY_PORT_BREACH_BACKWARD_ARC_RADIUS * t,
-                            3.0),
-                        ConcurrentTask.AllTasks(
-                            new DriveRouteTask(
-                                (t) -> 0.25 * Math.PI * TuningConstants.SALLY_PORT_BREACH_FORWARD_ARC_RADIUS * t,
-                                (t) -> 0.25 * Math.PI * (TuningConstants.SALLY_PORT_BREACH_FORWARD_ARC_RADIUS + HardwareConstants.DRIVETRAIN_WHEEL_SEPARATION_DISTANCE) * t,
-                                3.0),
-                            new DefenseArmPositionTask(HardwareConstants.DEFENSE_ARM_SALLY_PORT_POSITION)),
-                        new TurnTask(-90),
-                        new DriveDistanceTask(TuningConstants.SALLY_PORT_BREACH_FINAL_CHARGE_DISTANCE)),
-                    new Operation[]
-                    {
-                        Operation.DriveTrainUsePositionalMode, 
-                        Operation.DriveTrainRightPosition, 
-                        Operation.DriveTrainLeftPosition, 
-                        Operation.DefenseArmFrontPosition,
-                        Operation.CancelBreachMacro,
                     }));
                 }
     };
