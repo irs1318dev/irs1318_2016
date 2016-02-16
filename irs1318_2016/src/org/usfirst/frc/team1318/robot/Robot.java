@@ -6,6 +6,8 @@ import org.usfirst.frc.team1318.robot.Driver.Driver;
 import org.usfirst.frc.team1318.robot.Driver.IControlTask;
 import org.usfirst.frc.team1318.robot.Driver.Autonomous.AutonomousDriver;
 import org.usfirst.frc.team1318.robot.Driver.ControlTasks.BreachPortcullisTask;
+import org.usfirst.frc.team1318.robot.Driver.ControlTasks.ConcurrentTask;
+import org.usfirst.frc.team1318.robot.Driver.ControlTasks.DefenseArmPositionTask;
 import org.usfirst.frc.team1318.robot.Driver.ControlTasks.DriveDistanceTask;
 import org.usfirst.frc.team1318.robot.Driver.ControlTasks.SequentialTask;
 import org.usfirst.frc.team1318.robot.Driver.ControlTasks.ShooterKickTask;
@@ -227,10 +229,13 @@ public class Robot extends IterativeRobot
     // My first attempt to write an autonomous routine
     // Should move to the portcullis, go through, spin up the shooter, and then shoot.
     @SuppressWarnings("unused")
-    private static IControlTask autonomousPortcullisBreach() 
+    private static IControlTask autonomousPortcullisBreachAndShoot() 
     {
         return new SequentialTask(new IControlTask[]{
-            new DriveDistanceTask(1.0),
+            new DriveDistanceTask(TuningConstants.MIDLINE_TO_OUTERWORKS_DISTANCE),
+            ConcurrentTask.AllTasks(
+                new DefenseArmPositionTask(HardwareConstants.DEFENSE_ARM_PORTCULLIS_POSITION),
+                new DriveDistanceTask(TuningConstants.PORTCULLIS_OUTER_WORKS_DISTANCE)),
             new BreachPortcullisTask(),
             new ShooterSpinUpTask(true, TuningConstants.SHOOTER_FAR_SHOT_VELOCITY),
             new ShooterKickTask()}); 
