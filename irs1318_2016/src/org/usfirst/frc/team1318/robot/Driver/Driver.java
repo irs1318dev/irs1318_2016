@@ -7,6 +7,7 @@ import org.usfirst.frc.team1318.robot.HardwareConstants;
 import org.usfirst.frc.team1318.robot.TuningConstants;
 import org.usfirst.frc.team1318.robot.Driver.Buttons.AnalogAxis;
 import org.usfirst.frc.team1318.robot.Driver.Buttons.ButtonType;
+import org.usfirst.frc.team1318.robot.Driver.ControlTasks.BreachDrawbridgeTask;
 import org.usfirst.frc.team1318.robot.Driver.ControlTasks.BreachPortcullisTask;
 import org.usfirst.frc.team1318.robot.Driver.ControlTasks.ClimbingArmLifterUpTask;
 import org.usfirst.frc.team1318.robot.Driver.ControlTasks.ClimbingArmElbowUpTask;
@@ -243,6 +244,23 @@ public abstract class Driver
                         Operation.DefenseArmFrontPosition,
                         Operation.CancelBreachMacro,
                     }));
+            put(
+                MacroOperation.BreachDrawbridge,
+                new MacroOperationDescription(
+                    UserInputDevice.CoDriver, 
+                    UserInputDeviceButton.BUTTON_PAD_BUTTON_2,
+                    () -> SequentialTask.Sequence(
+                        ConcurrentTask.AllTasks(
+                            new DefenseArmPositionTask(HardwareConstants.DEFENSE_ARM_DRAWBRIDGE_POSITION),
+                            new DriveDistanceTask(TuningConstants.DRAWBRIDGE_OUTER_WORKS_DISTANCE)),
+                        new BreachDrawbridgeTask()),
+                new Operation[]{
+                    Operation.DefenseArmTakePositionInput,
+                    Operation.DefenseArmSetAngle,
+                    Operation.DriveTrainUsePositionalMode,
+                    Operation.DriveTrainLeftPosition,
+                    Operation.DriveTrainRightPosition
+                }));
             
             // Macros for shooting distance.
             put(

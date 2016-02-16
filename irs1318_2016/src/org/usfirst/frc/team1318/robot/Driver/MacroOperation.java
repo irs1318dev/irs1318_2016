@@ -13,5 +13,6 @@ public enum MacroOperation
     ClimbingArmDeploy,
     ClimbingArmRetract,
     ClimbingArmLifterUp,
-    ClimbingArmLifterDown;
+    ClimbingArmLifterDown, 
+    BreachDrawbridge;
 }

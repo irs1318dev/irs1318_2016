@@ -121,4 +121,10 @@ public class TuningConstants
 
     // autonomous defense arm wait until it is in the expected position
     public static final double DEFENSE_ARM_POSITIONAL_ACCEPTABLE_DELTA = Math.PI / 16;
+
+    public static final double DRAWBRIDGE_BACKUP_DISTANCE = 0;
+
+    public static final double DRAWBRIDGE_BREACH_VELOCITY = 0;
+
+    public static final double DRAWBRIDGE_OUTER_WORKS_DISTANCE = 0.0;
 }

@@ -36,5 +36,9 @@ public class HardwareConstants
     
     public static final double DEFENSE_ARM_PULSES_PER_REVOLUTION = 2000;
     public static final double DEFENSE_ARM_TICKS_PER_RADIAN =  DEFENSE_ARM_PULSES_PER_REVOLUTION * DEFENSE_ARM_GEARING_RATIO / (2.0 * Math.PI);
-    //(Radian angle of DEFENSE ARM) * (CONSTANT) should equal the amount of ticks passed on encoder
+    
+    // The amount of ticks between the limit switch and horizontal
+    public static final double DEFENSE_ARM_THETA_OFFSET = 0.0;
+    
+    public static final double DEFENSE_ARM_DRAWBRIDGE_EXTENSION_LENGTH = 0.0;
 }
