@@ -103,6 +103,13 @@ public class DriveTrainController implements IController
         rightPower = Math.min(rightPower, 1);
         rightPower = Math.max(rightPower, -1);
 
+        // Negate the power settings if DriveTrainSwapFrontOrientation is true
+        if (this.driver.getDigital(Operation.DriveTrainSwapFrontOrientation))
+        {
+            leftPower *= -1;
+            rightPower *= -1;
+        }
+        
         // apply the power settings to the drivetrain component
         this.component.setDriveTrainPower(leftPower, rightPower);
     }

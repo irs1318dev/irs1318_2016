@@ -11,6 +11,7 @@ public enum Operation
     DriveTrainUsePositionalMode,
     DriveTrainLeftPosition,
     DriveTrainRightPosition,
+    DriveTrainSwapFrontOrientation,
     // Defense arm operations:
     DefenseArmFrontPosition,
     DefenseArmPortcullisPosition,

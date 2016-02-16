@@ -66,6 +66,12 @@ public abstract class Driver
                 new AnalogOperationDescription(
                     UserInputDevice.None,
                     AnalogAxis.None));
+            put(
+                Operation.DriveTrainSwapFrontOrientation,
+                new DigitalOperationDescription(
+                    UserInputDevice.Driver,
+                    UserInputDeviceButton.JOYSTICK_BASE_TOP_RIGHT_BUTTON,
+                    ButtonType.Toggle));
             // Operations for the defense arm
             put(
                 Operation.DefenseArmFrontPosition,
@@ -141,25 +147,25 @@ public abstract class Driver
                 Operation.IntakeRotatingIn,
                 new DigitalOperationDescription(
                     UserInputDevice.Driver,
-                    UserInputDeviceButton.NONE,
+                    UserInputDeviceButton.JOYSTICK_STICK_BOTTOM_RIGHT_BUTTON,
                     ButtonType.Simple));
             put(
                 Operation.IntakeRotatingOut,
                 new DigitalOperationDescription(
                     UserInputDevice.Driver,
-                    UserInputDeviceButton.NONE,
+                    UserInputDeviceButton.JOYSTICK_STICK_TOP_RIGHT_BUTTON,
                     ButtonType.Simple));
             put(
                 Operation.IntakeExtend,
                 new DigitalOperationDescription(
                     UserInputDevice.Driver,
-                    UserInputDeviceButton.JOYSTICK_STICK_TOP_RIGHT_BUTTON,
+                    90, // TODO front?
                     ButtonType.Click));
             put(
                 Operation.IntakeRetract,
                 new DigitalOperationDescription(
                     UserInputDevice.Driver,
-                    UserInputDeviceButton.JOYSTICK_STICK_BOTTOM_RIGHT_BUTTON,
+                    270,// TODO back?
                     ButtonType.Click));
             put(
                 Operation.ClimbingArmExtend,

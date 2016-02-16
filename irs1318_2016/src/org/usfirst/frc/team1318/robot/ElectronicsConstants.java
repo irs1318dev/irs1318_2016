@@ -50,7 +50,8 @@ public class ElectronicsConstants
     
     //=================================================== Shooter ===================================================================
     
-    public static final int SHOOTER_MOTOR_CHANNEL = 0;
+    public static final int SHOOTER_LEFT_TALON_CHANNEL = 2;
+    public static final int SHOOTER_RIGHT_TALON_CHANNEL = 3;
     public static final int SHOOTER_COUNTER_CHANNEL = 0;
     public static final int SHOOTER_KICKER_CHANNEL_A = 0;
     public static final int SHOOTER_KICKER_CHANNEL_B = 0;
