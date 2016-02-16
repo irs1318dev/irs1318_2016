@@ -261,7 +261,8 @@ public abstract class Driver
                     Operation.DefenseArmSetAngle,
                     Operation.DriveTrainUsePositionalMode,
                     Operation.DriveTrainLeftPosition,
-                    Operation.DriveTrainRightPosition
+                    Operation.DriveTrainRightPosition,
+                    Operation.CancelBreachMacro
                 }));
             
             // Macros for shooting distance.
