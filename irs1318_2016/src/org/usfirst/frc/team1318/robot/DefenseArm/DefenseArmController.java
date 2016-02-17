@@ -2,6 +2,7 @@ package org.usfirst.frc.team1318.robot.DefenseArm;
 
 import org.usfirst.frc.team1318.robot.HardwareConstants;
 import org.usfirst.frc.team1318.robot.TuningConstants;
+import org.usfirst.frc.team1318.robot.Common.DashboardLogger;
 import org.usfirst.frc.team1318.robot.Common.IController;
 import org.usfirst.frc.team1318.robot.Common.PIDHandler;
 import org.usfirst.frc.team1318.robot.Driver.Driver;
@@ -35,7 +36,7 @@ public class DefenseArmController implements IController
 
     // Important values for PID functions
     private double desiredPosition;
-    private double startTime;
+    private double prevTime;
 
     // Constructor should initialize all of the necessary variables for the controller, and set basic values
     public DefenseArmController(DefenseArmComponent defenseArmComponent)
@@ -49,7 +50,7 @@ public class DefenseArmController implements IController
 
         this.timer = new Timer();
         this.timer.start();
-        this.startTime = this.timer.get();
+        this.prevTime = this.timer.get();
     }
 
     @Override
@@ -68,13 +69,16 @@ public class DefenseArmController implements IController
 
         // Set the current time using the timer
         double currentTime = this.timer.get();
+        double deltaT = currentTime - this.prevTime;
+        DashboardLogger.putDouble("deltaT", deltaT);
 
         // Booleans to make sure that the arm doesn't break itself against its boundaries
         boolean enforceNonNegative = false;
         boolean enforceNonPositive = false;
 
         // Set current distance of the encoder, and create zeroOffset and motorValue
-        double currentEncoderDistance = this.defenseArm.getEncoderTicks();
+        this.defenseArm.getEncoderTicks();
+        double currentEncoderAngle = this.defenseArm.getEncoderAngle();
         double zeroOffset;
         double motorValue;
 
@@ -128,7 +132,7 @@ public class DefenseArmController implements IController
         // update zeroOffset, and set the appropriate boolean to false
         if (isAtFront)
         {
-            this.defenseArm.setZeroOffset(currentEncoderDistance);
+            this.defenseArm.setZeroOffset(currentEncoderAngle);
             this.movingToFront = false;
             enforceNonNegative = true;
         }
@@ -159,21 +163,23 @@ public class DefenseArmController implements IController
             {
                 if (this.driver.getDigital(Operation.DefenseArmMoveForward))
                 {
-                    this.desiredPosition = currentEncoderDistance - zeroOffset;
-                    this.desiredPosition -= TuningConstants.DEFENSE_ARM_MAX_VELOCITY * (currentTime - this.startTime);
+                    //this.desiredPosition = currentEncoderAngle - zeroOffset;
+                    this.desiredPosition -= TuningConstants.DEFENSE_ARM_MAX_VELOCITY * deltaT;
                     this.movingToFront = false;
                     this.movingToBack = false;
                 }
                 else if (this.driver.getDigital(Operation.DefenseArmMoveBack))
                 {
-                    this.desiredPosition = currentEncoderDistance - zeroOffset;
-                    this.desiredPosition += TuningConstants.DEFENSE_ARM_MAX_VELOCITY * (currentTime - this.startTime);
+                    //this.desiredPosition = currentEncoderAngle - zeroOffset;
+                    this.desiredPosition += TuningConstants.DEFENSE_ARM_MAX_VELOCITY * deltaT;
                     this.movingToFront = false;
                     this.movingToBack = false;
                 }
-
-                motorValue = this.pidHandler.calculatePosition(zeroOffset + this.desiredPosition, this.defenseArm.getEncoderTicks());
+                
+                motorValue = this.pidHandler.calculatePosition(zeroOffset + this.desiredPosition, currentEncoderAngle);
             }
+            
+            DashboardLogger.putDouble("desired position", this.desiredPosition);
         }
         else
         {
@@ -205,6 +211,8 @@ public class DefenseArmController implements IController
         }
 
         this.defenseArm.setSpeed(motorValue);
+        
+        this.prevTime = currentTime;
     }
 
     @Override

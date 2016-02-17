@@ -25,8 +25,8 @@ public class ShooterComponent
         this.kicker = new DoubleSolenoid(ElectronicsConstants.SHOOTER_KICKER_CHANNEL_A, ElectronicsConstants.SHOOTER_KICKER_CHANNEL_B);
         this.hood = new DoubleSolenoid(ElectronicsConstants.SHOOTER_HOOD_CHANNEL_A, ElectronicsConstants.SHOOTER_HOOD_CHANNEL_B);
         this.talon = new Talon(ElectronicsConstants.SHOOTER_TALON_CHANNEL);
-        this.counter = null;//new Counter(ElectronicsConstants.SHOOTER_COUNTER_CHANNEL);
-        //this.counter.setUpDownCounterMode();
+        this.counter = new Counter(ElectronicsConstants.SHOOTER_COUNTER_CHANNEL);
+        this.counter.setUpDownCounterMode();
     }
     
     public void setMotorSpeed(double speed) 
@@ -36,7 +36,7 @@ public class ShooterComponent
     
     public double getCounterRate() 
     {
-        return 0;//this.counter.getRate();
+        return this.counter.getRate();
     }
     
     public void kick(boolean up)

@@ -74,7 +74,7 @@ public abstract class Driver
             put(
                 Operation.DriveTrainSwapFrontOrientation,
                 new DigitalOperationDescription(
-                    UserInputDevice.Driver,
+                    UserInputDevice.None,//Driver,
                     UserInputDeviceButton.JOYSTICK_BASE_TOP_RIGHT_BUTTON,
                     ButtonType.Toggle));
             // Operations for the defense arm
@@ -145,9 +145,9 @@ public abstract class Driver
             put(
                 Operation.ShooterKick,
                 new DigitalOperationDescription(
-                    UserInputDevice.None,
-                    UserInputDeviceButton.NONE,
-                    ButtonType.Simple));
+                    UserInputDevice.Driver,
+                    UserInputDeviceButton.JOYSTICK_BASE_TOP_RIGHT_BUTTON,
+                    ButtonType.Toggle));
             put(
                 Operation.ShooterExtendHood,
                 new DigitalOperationDescription(
@@ -194,13 +194,13 @@ public abstract class Driver
                 Operation.EnablePID,
                 new DigitalOperationDescription(
                     UserInputDevice.CoDriver,
-                    UserInputDeviceButton.BUTTON_PAD_BUTTON_11,
+                    UserInputDeviceButton.BUTTON_PAD_BUTTON_12,
                     ButtonType.Click));
             put(
                 Operation.DisablePID,
                 new DigitalOperationDescription(
                     UserInputDevice.CoDriver,
-                    UserInputDeviceButton.BUTTON_PAD_BUTTON_12,
+                    UserInputDeviceButton.BUTTON_PAD_BUTTON_11,
                     ButtonType.Click));
             put(
                 Operation.CancelBreachMacro,
@@ -220,7 +220,7 @@ public abstract class Driver
                 MacroOperation.BreachPortcullis,
                 new MacroOperationDescription(
                     UserInputDevice.CoDriver,
-                    UserInputDeviceButton.BUTTON_PAD_BUTTON_1,
+                    UserInputDeviceButton.BUTTON_PAD_BUTTON_2,
                     () -> SequentialTask.Sequence(
                         ConcurrentTask.AllTasks(
                             new DefenseArmPositionTask(HardwareConstants.DEFENSE_ARM_PORTCULLIS_POSITION),
@@ -240,7 +240,7 @@ public abstract class Driver
                 MacroOperation.BreachSallyPort,
                 new MacroOperationDescription(
                     UserInputDevice.CoDriver,
-                    UserInputDeviceButton.BUTTON_PAD_BUTTON_2,
+                    UserInputDeviceButton.BUTTON_PAD_BUTTON_3,
                     () -> SequentialTask.Sequence(
                         ConcurrentTask.AllTasks(
                             new DefenseArmPositionTask(HardwareConstants.DEFENSE_ARM_SALLY_PORT_POSITION),
@@ -270,7 +270,7 @@ public abstract class Driver
                 MacroOperation.BreachDrawbridge,
                 new MacroOperationDescription(
                     UserInputDevice.CoDriver, 
-                    UserInputDeviceButton.BUTTON_PAD_BUTTON_3,
+                    UserInputDeviceButton.BUTTON_PAD_BUTTON_4,
                     () -> SequentialTask.Sequence(
                         ConcurrentTask.AllTasks(
                             new DefenseArmPositionTask(HardwareConstants.DEFENSE_ARM_DRAWBRIDGE_POSITION),
@@ -302,6 +302,8 @@ public abstract class Driver
                         Operation.ShooterSpeed,
                         Operation.ShooterKick,
                         Operation.ShooterExtendHood,
+                        Operation.IntakeRotatingIn,
+                        Operation.IntakeRotatingOut,
                     }));
             put(
                 MacroOperation.ShootClose,
@@ -317,6 +319,8 @@ public abstract class Driver
                         Operation.ShooterSpeed,
                         Operation.ShooterKick,
                         Operation.ShooterExtendHood,
+                        Operation.IntakeRotatingIn,
+                        Operation.IntakeRotatingOut,
                     }));
             
             // Macros for the climbing arm.

@@ -49,8 +49,11 @@ public class ShooterController implements IController
             // Zero if we're not spinning...
             this.shooter.setMotorSpeed(0.0);
         }
-        
-        boolean kick = this.driver.getDigital(Operation.ShooterKick);
+
+        boolean kick = this.driver.getDigital(Operation.ShooterKick)
+            || !this.driver.getDigital(Operation.IntakeRotatingIn)
+            || !this.driver.getDigital(Operation.IntakeRotatingOut);
+
         if (kick)
         {
             this.shooter.kick(true);

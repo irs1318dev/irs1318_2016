@@ -25,15 +25,15 @@ public class HardwareConstants
     //================================================== Defense Arm =============================================================
 
     public static final double DEFENSE_ARM_FRONT_POSITION = 0;
-    public static final double DEFENSE_ARM_PORTCULLIS_POSITION = 0;
-    public static final double DEFENSE_ARM_DRAWBRIDGE_POSITION = 0;
-    public static final double DEFENSE_ARM_SALLY_PORT_POSITION = 0;
-    public static final double DEFENSE_ARM_BACK_POSITION = 0;
+    public static final double DEFENSE_ARM_PORTCULLIS_POSITION = -Math.PI/32.0;
+    public static final double DEFENSE_ARM_SALLY_PORT_POSITION = Math.PI/4.0;
+    public static final double DEFENSE_ARM_DRAWBRIDGE_POSITION = Math.PI/2.0;
+    public static final double DEFENSE_ARM_BACK_POSITION = Math.PI;
 
     public static final double DEFENSE_ARM_LENGTH = 24.5;
-    public static final double DEFENSE_ARM_GEARING_RATIO = 20.0/15.0;
+    public static final double DEFENSE_ARM_GEARING_RATIO = 28.0/15.0;
 
-    public static final double DEFENSE_ARM_PULSES_PER_REVOLUTION = 2000;
+    public static final double DEFENSE_ARM_PULSES_PER_REVOLUTION = 500;
     public static final double DEFENSE_ARM_TICKS_PER_RADIAN = DEFENSE_ARM_PULSES_PER_REVOLUTION * DEFENSE_ARM_GEARING_RATIO / (2.0 * Math.PI);
     public static final double DEFENSE_ARM_PULSE_DISTANCE = 1.0 / DEFENSE_ARM_TICKS_PER_RADIAN;
 

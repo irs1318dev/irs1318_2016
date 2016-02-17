@@ -43,7 +43,7 @@ public class DefenseArmComponent
      */
     public void setSpeed(double speed)
     {
-        this.talon.set(speed);
+        this.talon.set(-speed);
     }
 
     /**
@@ -52,9 +52,20 @@ public class DefenseArmComponent
      */
     public int getEncoderTicks()
     {
-        int ticks = this.encoder.get();
+        int ticks = -this.encoder.get();
         DashboardLogger.putInteger("battle_axe ticks", ticks);
         return ticks;
+    }
+
+    /**
+     * Get Encoder angle
+     * @return the current angle of the encoder on the Defense Arm
+     */
+    public double getEncoderAngle()
+    {
+        double angle = -this.encoder.getDistance();
+        DashboardLogger.putDouble("battle_axe angle", angle);
+        return angle;
     }
 
     /**

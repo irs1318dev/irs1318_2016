@@ -63,13 +63,13 @@ public class TuningConstants
     public static final double DRIVETRAIN_REVERSE_LEFT_SCALE_FACTOR = 1.17;//moving backwards
 
     // Defense arm max velocity (angular)
-    public static final double DEFENSE_ARM_MAX_VELOCITY = Math.PI / 16.0;
+    public static final double DEFENSE_ARM_MAX_VELOCITY = Math.PI / 4.0;
 
     // Defense arm power level for when PID is disabled
     public static final double DEFENSE_ARM_OVERRIDE_POWER_LEVEL = 0.5;
 
     // Defense arm PID values
-    public static final double DEFENSE_ARM_POSITION_PID_KP_DEFAULT = 0.5;
+    public static final double DEFENSE_ARM_POSITION_PID_KP_DEFAULT = 4.0;
     public static final double DEFENSE_ARM_POSITION_PID_KI_DEFAULT = 0.0;
     public static final double DEFENSE_ARM_POSITION_PID_KD_DEFAULT = 0.0;
     public static final double DEFENSE_ARM_POSITION_PID_KF_DEFAULT = 0.0;
@@ -81,9 +81,9 @@ public class TuningConstants
 
     // Distance Robot must travel to breach portcullis
     public static final double PORTCULLIS_BREACH_DISTANCE = 2 * HardwareConstants.DEFENSE_ARM_LENGTH;
-    public static final double START_TO_OUTER_WORKS_DISTANCE = 74.0 * 2.54;
+    public static final double START_TO_OUTER_WORKS_DISTANCE = 24.0 * 2.54;//74.0 * 2.54;
     // Distance from the outerworks edge to where the robot needs to be to start opening the portcullis
-    public static final double PORTCULLIS_OUTER_WORKS_DISTANCE = 9.0 * 2.54;
+    public static final double PORTCULLIS_OUTER_WORKS_DISTANCE = -9.0 * 2.54;
     
     // Distance Robot must travel to breach portcullis
     public static final double PORTCULLIS_BREACH_VELOCITY = 10.0; // cm/s
@@ -104,9 +104,9 @@ public class TuningConstants
     public static final double SHOOTER_VELOCITY_PID_KF_DEFAULT = 1.0;
 
     public static final double SHOOTER_FAR_SHOT_VELOCITY = 0.85;
-    public static final double SHOOTER_CLOSE_SHOT_VELOCITY = 0.65;
+    public static final double SHOOTER_CLOSE_SHOT_VELOCITY = 0.675;
     public static final double SHOOTER_FIRE_DURATION = 1.5;
-    public static final double SHOOTER_SPIN_UP_DURATION = 2.0;
+    public static final double SHOOTER_SPIN_UP_DURATION = 3.0;
     
     // Intake constants
     public static final double INTAKE_IN_POWER_LEVEL = 0.8;
