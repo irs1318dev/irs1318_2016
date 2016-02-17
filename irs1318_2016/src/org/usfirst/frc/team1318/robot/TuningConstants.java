@@ -14,14 +14,14 @@ public class TuningConstants
     public static final boolean DRIVETRAIN_USE_PID_DEFAULT = true;
 
     // Velocity PID (right)
-    public static final double DRIVETRAIN_VELOCITY_PID_RIGHT_KP_DEFAULT = 0.03;
+    public static final double DRIVETRAIN_VELOCITY_PID_RIGHT_KP_DEFAULT = 0.0;//3;
     public static final double DRIVETRAIN_VELOCITY_PID_RIGHT_KI_DEFAULT = 0.0;
     public static final double DRIVETRAIN_VELOCITY_PID_RIGHT_KD_DEFAULT = 0.0;
     public static final double DRIVETRAIN_VELOCITY_PID_RIGHT_KF_DEFAULT = 0.5;
     public static final double DRIVETRAIN_VELOCITY_PID_RIGHT_KS_DEFAULT = 100.0;
 
     // Velocity PID (left)
-    public static final double DRIVETRAIN_VELOCITY_PID_LEFT_KP_DEFAULT = 0.03;
+    public static final double DRIVETRAIN_VELOCITY_PID_LEFT_KP_DEFAULT = 0.0;//3;
     public static final double DRIVETRAIN_VELOCITY_PID_LEFT_KI_DEFAULT = 0.0;
     public static final double DRIVETRAIN_VELOCITY_PID_LEFT_KD_DEFAULT = 0.0;
     public static final double DRIVETRAIN_VELOCITY_PID_LEFT_KF_DEFAULT = 0.5;
@@ -98,13 +98,13 @@ public class TuningConstants
     // Shooter constants
     public static final double SHOOTER_MAX_POWER_LEVEL = 1.0;
 
-    public static final double SHOOTER_VELOCITY_PID_KP_DEFAULT = 0.03;
+    public static final double SHOOTER_VELOCITY_PID_KP_DEFAULT = 0.0;
     public static final double SHOOTER_VELOCITY_PID_KI_DEFAULT = 0.0;
     public static final double SHOOTER_VELOCITY_PID_KD_DEFAULT = 0.0;
-    public static final double SHOOTER_VELOCITY_PID_KF_DEFAULT = 0.5;
+    public static final double SHOOTER_VELOCITY_PID_KF_DEFAULT = 1.0;
 
-    public static final double SHOOTER_FAR_SHOT_VELOCITY = 1.0;
-    public static final double SHOOTER_CLOSE_SHOT_VELOCITY = 0.5;
+    public static final double SHOOTER_FAR_SHOT_VELOCITY = 0.85;
+    public static final double SHOOTER_CLOSE_SHOT_VELOCITY = 0.65;
     public static final double SHOOTER_FIRE_DURATION = 1.5;
     public static final double SHOOTER_SPIN_UP_DURATION = 2.0;
     

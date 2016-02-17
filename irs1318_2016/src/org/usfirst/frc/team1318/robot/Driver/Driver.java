@@ -42,12 +42,12 @@ public abstract class Driver
             put(
                 Operation.DriveTrainMoveForward,
                 new AnalogOperationDescription(
-                    UserInputDevice.None, //Driver,
+                    UserInputDevice.Driver,
                     AnalogAxis.Y));
             put(
                 Operation.DriveTrainTurn,
                 new AnalogOperationDescription(
-                    UserInputDevice.None, //Driver,
+                    UserInputDevice.Driver,
                     AnalogAxis.X));
             put(
                 Operation.DriveTrainSimpleMode,
@@ -285,6 +285,7 @@ public abstract class Driver
                         Operation.ShooterSpin,
                         Operation.ShooterSpeed,
                         Operation.ShooterKick,
+                        Operation.ShooterExtendHood,
                     }));
             put(
                 MacroOperation.ShootClose,
@@ -299,6 +300,7 @@ public abstract class Driver
                         Operation.ShooterSpin,
                         Operation.ShooterSpeed,
                         Operation.ShooterKick,
+                        Operation.ShooterExtendHood,
                     }));
             
             // Macros for the climbing arm.
