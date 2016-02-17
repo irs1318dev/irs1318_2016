@@ -103,10 +103,11 @@ public class TuningConstants
     public static final double SHOOTER_VELOCITY_PID_KD_DEFAULT = 0.0;
     public static final double SHOOTER_VELOCITY_PID_KF_DEFAULT = 1.0;
 
-    public static final double SHOOTER_FAR_SHOT_VELOCITY = 0.85;
     public static final double SHOOTER_CLOSE_SHOT_VELOCITY = 0.675; //0.525;
-    public static final double SHOOTER_FIRE_DURATION = 1.0;
+    public static final double SHOOTER_FAR_SHOT_VELOCITY = 0.85;
+    public static final double SHOOTER_LOWER_KICKER_DURATION = 1.0;
     public static final double SHOOTER_SPIN_UP_DURATION = 3.0;
+    public static final double SHOOTER_FIRE_DURATION = 1.0;
     
     // Intake constants
     public static final double INTAKE_IN_POWER_LEVEL = 0.8;

@@ -16,8 +16,9 @@ import org.usfirst.frc.team1318.robot.Driver.ControlTasks.ConcurrentTask;
 import org.usfirst.frc.team1318.robot.Driver.ControlTasks.DefenseArmPositionTask;
 import org.usfirst.frc.team1318.robot.Driver.ControlTasks.DriveDistanceTask;
 import org.usfirst.frc.team1318.robot.Driver.ControlTasks.DriveRouteTask;
-import org.usfirst.frc.team1318.robot.Driver.ControlTasks.ShooterKickTask;
 import org.usfirst.frc.team1318.robot.Driver.ControlTasks.SequentialTask;
+import org.usfirst.frc.team1318.robot.Driver.ControlTasks.ShooterLowerKickerTask;
+import org.usfirst.frc.team1318.robot.Driver.ControlTasks.ShooterKickTask;
 import org.usfirst.frc.team1318.robot.Driver.ControlTasks.ShooterSpinUpTask;
 import org.usfirst.frc.team1318.robot.Driver.ControlTasks.TurnTask;
 import org.usfirst.frc.team1318.robot.Driver.Descriptions.AnalogOperationDescription;
@@ -294,6 +295,7 @@ public abstract class Driver
                     UserInputDevice.Driver,
                     UserInputDeviceButton.JOYSTICK_STICK_THUMB_BUTTON,
                     () -> SequentialTask.Sequence(
+                        new ShooterLowerKickerTask(),
                         new ShooterSpinUpTask(true, TuningConstants.SHOOTER_FAR_SHOT_VELOCITY),
                         new ShooterKickTask()),
                     new Operation[]
@@ -311,8 +313,9 @@ public abstract class Driver
                     UserInputDevice.Driver,
                     UserInputDeviceButton.JOYSTICK_STICK_TRIGGER_BUTTON,
                     () -> SequentialTask.Sequence(
-                            new ShooterSpinUpTask(false, TuningConstants.SHOOTER_CLOSE_SHOT_VELOCITY),
-                            new ShooterKickTask()),
+                        new ShooterLowerKickerTask(),
+                        new ShooterSpinUpTask(false, TuningConstants.SHOOTER_CLOSE_SHOT_VELOCITY),
+                        new ShooterKickTask()),
                     new Operation[]
                     {
                         Operation.ShooterSpin,
@@ -325,6 +328,19 @@ public abstract class Driver
             
             // Macros for the climbing arm.
             put(
+                MacroOperation.ClimbingArmRetract,
+                new MacroOperationDescription(
+                    UserInputDevice.CoDriver,
+                    UserInputDeviceButton.BUTTON_PAD_BUTTON_6,
+                    () -> SequentialTask.Sequence(
+                        new ClimbingArmElbowUpTask(false),
+                        new ClimbingArmShoulderUpTask(false)),
+                    new Operation[]
+                    {
+                        Operation.ClimbingArmElbowUp,
+                        Operation.ClimbingArmShoulderUp,
+                    }));
+            put(
                 MacroOperation.ClimbingArmDeploy,
                 new MacroOperationDescription(
                     UserInputDevice.CoDriver,
@@ -332,19 +348,6 @@ public abstract class Driver
                     () -> SequentialTask.Sequence(
                         new ClimbingArmShoulderUpTask(true),
                         new ClimbingArmElbowUpTask(true)),
-                    new Operation[]
-                    {
-                        Operation.ClimbingArmElbowUp,
-                        Operation.ClimbingArmShoulderUp,
-                    }));
-            put(
-                MacroOperation.ClimbingArmRetract,
-                new MacroOperationDescription(
-                    UserInputDevice.CoDriver,
-                    UserInputDeviceButton.BUTTON_PAD_BUTTON_6,
-                    () -> SequentialTask.Sequence(
-                        new ClimbingArmShoulderUpTask(false),
-                        new ClimbingArmElbowUpTask(false)),
                     new Operation[]
                     {
                         Operation.ClimbingArmElbowUp,
