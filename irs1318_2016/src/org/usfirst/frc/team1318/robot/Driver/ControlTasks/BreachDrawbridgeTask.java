@@ -63,14 +63,22 @@ public class BreachDrawbridgeTask extends ControlTaskBase
         this.currentDTDistanceLeft = this.driveTrain.getLeftEncoderDistance();
         this.currentDTDistanceRight = this.driveTrain.getRightEncoderDistance();
         
+        // Change in position for the drive train this cycle.
         double desiredDistanceChange = TuningConstants.DRAWBRIDGE_BREACH_VELOCITY * timeElapsed;
         
+        // Set the new desired distance for the drive train.
         this.setAnalogOperationState(Operation.DriveTrainRightPosition, this.currentDTDistanceRight + desiredDistanceChange);
         this.setAnalogOperationState(Operation.DriveTrainLeftPosition, this.currentDTDistanceLeft + desiredDistanceChange);
         
-        double avgCurrDistance = (this.currentDTDistanceLeft + this.currentDTDistanceRight)/2;
+        // The length of the triangle for each side of the drive train. 
+        double sideDistanceLeft = this.startDTDistanceLeft - (this.currentDTDistanceLeft + desiredDistanceChange);
+        double sideDistanceRight = this.startDTDistanceRight - (this.currentDTDistanceRight + desiredDistanceChange);
         
-        double angle = Math.acos((avgCurrDistance + desiredDistanceChange)/(HardwareConstants.DEFENSE_ARM_LENGTH + HardwareConstants.DEFENSE_ARM_DRAWBRIDGE_EXTENSION_LENGTH));
+        // The length of the side of the triangle in avg. 
+        double sideLength = (sideDistanceLeft + sideDistanceRight)/2;
+        
+        // Calculate the new desired angle for the defense arm using the new desired position for the drivetrain.
+        double angle = Math.acos(sideLength/(HardwareConstants.DEFENSE_ARM_LENGTH + HardwareConstants.DEFENSE_ARM_DRAWBRIDGE_EXTENSION_LENGTH));
         
         // If it need be negative, set the angle to negative.
         if (this.negateAngles)

@@ -124,7 +124,7 @@ public class TuningConstants
 
     public static final double DRAWBRIDGE_BACKUP_DISTANCE = 0.0;
 
-    public static final double DRAWBRIDGE_BREACH_VELOCITY = 0.0;
+    public static final double DRAWBRIDGE_BREACH_VELOCITY = -0.5;
 
     public static final double DRAWBRIDGE_OUTER_WORKS_DISTANCE = 0.0;
 
