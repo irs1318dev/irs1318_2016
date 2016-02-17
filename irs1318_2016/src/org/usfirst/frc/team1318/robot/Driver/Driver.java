@@ -192,16 +192,28 @@ public abstract class Driver
                     UserInputDeviceButton.NONE,
                     ButtonType.Click));
             put(
+                Operation.DisablePID,
+                new DigitalOperationDescription(
+                    UserInputDevice.CoDriver,
+                    UserInputDeviceButton.BUTTON_PAD_BUTTON_11,
+                    ButtonType.Click));
+            put(
                 Operation.EnablePID,
                 new DigitalOperationDescription(
                     UserInputDevice.CoDriver,
                     UserInputDeviceButton.BUTTON_PAD_BUTTON_12,
                     ButtonType.Click));
             put(
-                Operation.DisablePID,
+                Operation.DefenseArmIgnoreSensors,
                 new DigitalOperationDescription(
                     UserInputDevice.CoDriver,
-                    UserInputDeviceButton.BUTTON_PAD_BUTTON_11,
+                    UserInputDeviceButton.BUTTON_PAD_BUTTON_13,
+                    ButtonType.Click));
+            put(
+                Operation.DefenseArmUseSensors,
+                new DigitalOperationDescription(
+                    UserInputDevice.CoDriver,
+                    UserInputDeviceButton.BUTTON_PAD_BUTTON_14,
                     ButtonType.Click));
             put(
                 Operation.CancelBreachMacro,

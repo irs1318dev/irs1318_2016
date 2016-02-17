@@ -232,7 +232,7 @@ public class Robot extends IterativeRobot
     private static IControlTask autonomousPortcullisBreachAndShoot() 
     {
         return new SequentialTask(new IControlTask[]{
-            new DriveDistanceTask(TuningConstants.MIDLINE_TO_OUTERWORKS_DISTANCE),
+            new DriveDistanceTask(TuningConstants.START_TO_OUTER_WORKS_DISTANCE),
             ConcurrentTask.AllTasks(
                 new DefenseArmPositionTask(HardwareConstants.DEFENSE_ARM_PORTCULLIS_POSITION),
                 new DriveDistanceTask(TuningConstants.PORTCULLIS_OUTER_WORKS_DISTANCE)),

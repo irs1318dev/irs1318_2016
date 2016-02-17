@@ -27,8 +27,9 @@ public class DefenseArmController implements IController
     private PIDHandler pidHandler;
     private Timer timer;
 
-    // State of PID (enabled or not)
+    // State of PID/Sensors (enabled or not)
     private boolean usePID;
+    private boolean useSensors;
 
     // Current function the arm may be performing
     private boolean movingToFront;
@@ -45,6 +46,8 @@ public class DefenseArmController implements IController
 
         this.usePID = true;
         this.createPIDHandler();
+
+        this.useSensors = TuningConstants.DEFENSE_ARM_USE_SENSORS_DEFAULT;
 
         this.desiredPosition = HardwareConstants.DEFENSE_ARM_FRONT_POSITION;
 
@@ -67,10 +70,18 @@ public class DefenseArmController implements IController
             this.createPIDHandler();
         }
 
+        if (this.driver.getDigital(Operation.DefenseArmIgnoreSensors))
+        {
+            this.useSensors = false;
+        }
+        else if (this.driver.getDigital(Operation.DefenseArmUseSensors))
+        {
+            this.useSensors = true;
+        }
+
         // Set the current time using the timer
         double currentTime = this.timer.get();
         double deltaT = currentTime - this.prevTime;
-        DashboardLogger.putDouble("deltaT", deltaT);
 
         // Booleans to make sure that the arm doesn't break itself against its boundaries
         boolean enforceNonNegative = false;
@@ -124,25 +135,28 @@ public class DefenseArmController implements IController
             this.movingToBack = false;
         }
         
-        // TODO: remove!!
-        this.movingToFront = false;
-        this.movingToBack = false;
-
-        // Check to see if the arm is at the front of the robot, 
-        // update zeroOffset, and set the appropriate boolean to false
-        if (isAtFront)
+        // If we are ignoring the sensors, ignore movingToFront/movingToBack, and safety enforcement...
+        if (this.useSensors)
         {
-            this.defenseArm.setZeroOffset(currentEncoderAngle);
             this.movingToFront = false;
-            enforceNonNegative = true;
-        }
-
-        // Check to see if the arm is at the back of the robot, 
-        // and set the appropriate boolean to false
-        if (isAtBack)
-        {
-            this.movingToBack = false;            
-            enforceNonPositive = true;
+            this.movingToBack = false;
+    
+            // Check to see if the arm is at the front of the robot, 
+            // update zeroOffset, and set the appropriate boolean to false
+            if (isAtFront)
+            {
+                this.defenseArm.setZeroOffset(currentEncoderAngle);
+                this.movingToFront = false;
+                enforceNonNegative = true;
+            }
+    
+            // Check to see if the arm is at the back of the robot, 
+            // and set the appropriate boolean to false
+            if (isAtBack)
+            {
+                this.movingToBack = false;            
+                enforceNonPositive = true;
+            }
         }
 
         // Sets the desiredPosition based on several possible inputs

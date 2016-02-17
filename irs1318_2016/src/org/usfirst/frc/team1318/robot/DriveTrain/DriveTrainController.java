@@ -1,6 +1,7 @@
 package org.usfirst.frc.team1318.robot.DriveTrain;
 
 import org.usfirst.frc.team1318.robot.TuningConstants;
+import org.usfirst.frc.team1318.robot.Common.DashboardLogger;
 import org.usfirst.frc.team1318.robot.Common.IController;
 import org.usfirst.frc.team1318.robot.Common.PIDHandler;
 import org.usfirst.frc.team1318.robot.Driver.Driver;
@@ -245,6 +246,9 @@ public class DriveTrainController implements IController
         leftVelocityGoal = leftVelocityGoal * TuningConstants.DRIVETRAIN_MAX_POWER_LEVEL;
         rightVelocityGoal = rightVelocityGoal * TuningConstants.DRIVETRAIN_MAX_POWER_LEVEL;
 
+        DashboardLogger.putDouble("drivetrain.leftVelocityGoal", leftVelocityGoal);
+        DashboardLogger.putDouble("drivetrain.rightVelocityGoal", rightVelocityGoal);
+
         // convert velocity goal to power level...
         double leftPower;
         double rightPower;
@@ -289,6 +293,9 @@ public class DriveTrainController implements IController
         // read the encoder velocity just in case we want it output in smart dashboard
         this.component.getLeftEncoderVelocity();
         this.component.getRightEncoderVelocity();
+
+        DashboardLogger.putDouble("drivetrain.leftPositionGoal", leftPosition);
+        DashboardLogger.putDouble("drivetrain.rightPositionGoal", rightPosition);
 
         double leftPower;
         double rightPower;

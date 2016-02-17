@@ -23,6 +23,8 @@ public enum Operation
     DefenseArmMoveForward,
     DefenseArmTakePositionInput,
     DefenseArmSetAngle,
+    DefenseArmUseSensors,
+    DefenseArmIgnoreSensors,
     
     // Shooter operations:
     ShooterSpeed,
