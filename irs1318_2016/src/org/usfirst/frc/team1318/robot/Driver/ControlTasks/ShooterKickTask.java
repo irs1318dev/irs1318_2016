@@ -20,7 +20,7 @@ public class ShooterKickTask extends TimedTask implements IControlTask
     public void begin()
     {
         super.begin();
-        this.setDigitalOperationState(Operation.ShooterKick, true);
+        this.setDigitalOperationState(Operation.ShooterLowerKicker, false);
     }
     
     @Override
@@ -28,13 +28,11 @@ public class ShooterKickTask extends TimedTask implements IControlTask
     {
         super.stop();
         this.setDigitalOperationState(Operation.ShooterSpin, false);
-        this.setDigitalOperationState(Operation.ShooterKick, false);
     }
 
     @Override
     public void end()
     {
-        this.setDigitalOperationState(Operation.ShooterKick, false);
         this.setDigitalOperationState(Operation.ShooterSpin, false);
         this.setDigitalOperationState(Operation.ShooterExtendHood, false);
     }

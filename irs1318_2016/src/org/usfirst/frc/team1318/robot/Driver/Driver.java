@@ -74,7 +74,7 @@ public abstract class Driver
             put(
                 Operation.DriveTrainSwapFrontOrientation,
                 new DigitalOperationDescription(
-                    UserInputDevice.None,//Driver,
+                    UserInputDevice.Driver,
                     UserInputDeviceButton.JOYSTICK_BASE_TOP_RIGHT_BUTTON,
                     ButtonType.Toggle));
             // Operations for the defense arm
@@ -143,10 +143,10 @@ public abstract class Driver
                     UserInputDeviceButton.NONE,
                     ButtonType.Simple));
             put(
-                Operation.ShooterKick,
+                Operation.ShooterLowerKicker,
                 new DigitalOperationDescription(
-                    UserInputDevice.Driver,
-                    UserInputDeviceButton.JOYSTICK_BASE_TOP_RIGHT_BUTTON,
+                    UserInputDevice.None,
+                    UserInputDeviceButton.NONE,
                     ButtonType.Toggle));
             put(
                 Operation.ShooterExtendHood,
@@ -300,7 +300,7 @@ public abstract class Driver
                     {
                         Operation.ShooterSpin,
                         Operation.ShooterSpeed,
-                        Operation.ShooterKick,
+                        Operation.ShooterLowerKicker,
                         Operation.ShooterExtendHood,
                         Operation.IntakeRotatingIn,
                         Operation.IntakeRotatingOut,
@@ -317,7 +317,7 @@ public abstract class Driver
                     {
                         Operation.ShooterSpin,
                         Operation.ShooterSpeed,
-                        Operation.ShooterKick,
+                        Operation.ShooterLowerKicker,
                         Operation.ShooterExtendHood,
                         Operation.IntakeRotatingIn,
                         Operation.IntakeRotatingOut,

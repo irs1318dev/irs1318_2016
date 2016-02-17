@@ -64,6 +64,7 @@ public class DriveTrainComponent
     public double getLeftEncoderVelocity()
     {
         double leftVelocity = -this.leftEncoder.getRate();
+        DashboardLogger.putDouble("leftVelocity", leftVelocity);
         return leftVelocity;
     }
 
@@ -74,6 +75,7 @@ public class DriveTrainComponent
     public double getRightEncoderVelocity()
     {
         double rightVelocity = this.rightEncoder.getRate();
+        DashboardLogger.putDouble("rightVelocity", rightVelocity);
         return rightVelocity;
     }
 
@@ -106,6 +108,7 @@ public class DriveTrainComponent
     public int getLeftEncoderTicks()
     {
         int leftTicks = -this.leftEncoder.get();
+        DashboardLogger.putDouble("leftTicks", leftTicks);
         return leftTicks;
     }
 
@@ -116,6 +119,7 @@ public class DriveTrainComponent
     public int getRightEncoderTicks()
     {
         int rightTicks = this.rightEncoder.get();
+        DashboardLogger.putDouble("rightTicks", rightTicks);
         return rightTicks;
     }
 

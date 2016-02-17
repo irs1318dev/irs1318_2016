@@ -105,7 +105,7 @@ public class TuningConstants
 
     public static final double SHOOTER_FAR_SHOT_VELOCITY = 0.85;
     public static final double SHOOTER_CLOSE_SHOT_VELOCITY = 0.675; //0.525;
-    public static final double SHOOTER_FIRE_DURATION = 1.5;
+    public static final double SHOOTER_FIRE_DURATION = 1.0;
     public static final double SHOOTER_SPIN_UP_DURATION = 3.0;
     
     // Intake constants

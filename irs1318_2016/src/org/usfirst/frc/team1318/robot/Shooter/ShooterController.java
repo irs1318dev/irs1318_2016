@@ -50,17 +50,18 @@ public class ShooterController implements IController
             this.shooter.setMotorSpeed(0.0);
         }
 
-        boolean kick = this.driver.getDigital(Operation.ShooterKick)
-            || !this.driver.getDigital(Operation.IntakeRotatingIn)
-            || !this.driver.getDigital(Operation.IntakeRotatingOut);
+        // lower the kicker whenever we are rotating in or out, or when we are performing a shot macro
+        boolean lowerKicker = this.driver.getDigital(Operation.ShooterLowerKicker)
+            || this.driver.getDigital(Operation.IntakeRotatingIn)
+            || this.driver.getDigital(Operation.IntakeRotatingOut);
 
-        if (kick)
+        if (lowerKicker)
         {
-            this.shooter.kick(true);
+            this.shooter.kick(false);
         }
         else 
         {
-            this.shooter.kick(false);
+            this.shooter.kick(true);
         }
         
         boolean hood = this.driver.getDigital(Operation.ShooterExtendHood);

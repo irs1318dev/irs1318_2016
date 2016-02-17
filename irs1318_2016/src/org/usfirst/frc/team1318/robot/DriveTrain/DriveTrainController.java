@@ -113,13 +113,6 @@ public class DriveTrainController implements IController
         leftPower = Math.max(leftPower, -1);
         rightPower = Math.min(rightPower, 1);
         rightPower = Math.max(rightPower, -1);
-
-        // Negate the power settings if DriveTrainSwapFrontOrientation is true
-        if (this.driver.getDigital(Operation.DriveTrainSwapFrontOrientation))
-        {
-            leftPower *= -1;
-            rightPower *= -1;
-        }
         
         // apply the power settings to the drivetrain component
         this.component.setDriveTrainPower(leftPower, rightPower);
@@ -212,33 +205,40 @@ public class DriveTrainController implements IController
 
         // get the X and Y values from the operator.  We expect these to be between -1.0 and 1.0,
         // with this value representing the forward velocity percentage and right turn percentage (of max speed)
-        double xVelocity = this.driver.getAnalog(Operation.DriveTrainTurn);
-        double yVelocity = this.driver.getAnalog(Operation.DriveTrainMoveForward);
+        double turnAmount = this.driver.getAnalog(Operation.DriveTrainTurn);
+        double forwardVelocity = this.driver.getAnalog(Operation.DriveTrainMoveForward);
+
+        // Negate the x and y if DriveTrainSwapFrontOrientation is true
+        if (this.driver.getDigital(Operation.DriveTrainSwapFrontOrientation))
+        {
+            turnAmount *= -1;
+            forwardVelocity *= -1;
+        }
 
         // adjust for joystick deadzone
-        xVelocity = this.adjustForDeadZone(xVelocity, TuningConstants.DRIVETRAIN_X_DEAD_ZONE);
-        yVelocity = this.adjustForDeadZone(yVelocity, TuningConstants.DRIVETRAIN_Y_DEAD_ZONE);
+        turnAmount = this.adjustForDeadZone(turnAmount, TuningConstants.DRIVETRAIN_X_DEAD_ZONE);
+        forwardVelocity = this.adjustForDeadZone(forwardVelocity, TuningConstants.DRIVETRAIN_Y_DEAD_ZONE);
 
         // adjust the intensity of the input
         if (simpleDriveModeEnabled)
         {
-            if (Math.abs(yVelocity) < Math.abs(xVelocity))
+            if (Math.abs(forwardVelocity) < Math.abs(turnAmount))
             {
                 // in-place turn
-                leftVelocityGoal = xVelocity;
-                rightVelocityGoal = -xVelocity;
+                leftVelocityGoal = turnAmount;
+                rightVelocityGoal = -turnAmount;
             }
             else
             {
                 // forward/backward
-                leftVelocityGoal = yVelocity;
-                rightVelocityGoal = yVelocity;
+                leftVelocityGoal = forwardVelocity;
+                rightVelocityGoal = forwardVelocity;
             }
         }
         else
         {
-            leftVelocityGoal = (TuningConstants.DRIVETRAIN_K1 * yVelocity) + (TuningConstants.DRIVETRAIN_K2 * xVelocity);
-            rightVelocityGoal = (TuningConstants.DRIVETRAIN_K1 * yVelocity) + (-TuningConstants.DRIVETRAIN_K2 * xVelocity);
+            leftVelocityGoal = (TuningConstants.DRIVETRAIN_K1 * forwardVelocity) + (TuningConstants.DRIVETRAIN_K2 * turnAmount);
+            rightVelocityGoal = (TuningConstants.DRIVETRAIN_K1 * forwardVelocity) + (-TuningConstants.DRIVETRAIN_K2 * turnAmount);
         }
 
         // decrease the desired velocity based on the configured max power level

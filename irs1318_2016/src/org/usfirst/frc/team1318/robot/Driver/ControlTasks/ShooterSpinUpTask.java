@@ -25,6 +25,7 @@ public class ShooterSpinUpTask extends TimedTask implements IControlTask
         this.setDigitalOperationState(Operation.ShooterSpin, true);
         this.setAnalogOperationState(Operation.ShooterSpeed, this.shooterVelocity);
         this.setDigitalOperationState(Operation.ShooterExtendHood, this.extendHood);
+        this.setDigitalOperationState(Operation.ShooterLowerKicker, true);
     }
     
     @Override
@@ -41,6 +42,7 @@ public class ShooterSpinUpTask extends TimedTask implements IControlTask
         this.setDigitalOperationState(Operation.ShooterSpin, true);
         this.setAnalogOperationState(Operation.ShooterSpeed, this.shooterVelocity);
         this.setDigitalOperationState(Operation.ShooterExtendHood, this.extendHood);
+        this.setDigitalOperationState(Operation.ShooterLowerKicker, true);
     }
     
     @Override
