@@ -43,8 +43,8 @@ public class ElectronicsConstants
     public static final int DEFENSE_ARM_MOTOR_CHANNEL = 0;
     public static final int DEFENSE_ARM_FRONT_LIMIT_SWITCH_CHANNEL = 0;
     public static final int DEFENSE_ARM_BACK_LIMIT_SWITCH_CHANNEL = 0;
-    public static final int DEFENSE_ARM_ENCODER_CHANNEL_A = 0;
-    public static final int DEFENSE_ARM_ENCODER_CHANNEL_B = 0;
+    public static final int DEFENSE_ARM_ENCODER_CHANNEL_A = 4;
+    public static final int DEFENSE_ARM_ENCODER_CHANNEL_B = 5;
     
     //=================================================== Shooter ===================================================================
     

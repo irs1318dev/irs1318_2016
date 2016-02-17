@@ -2,10 +2,12 @@ package org.usfirst.frc.team1318.robot.DefenseArm;
 
 import org.usfirst.frc.team1318.robot.ElectronicsConstants;
 import org.usfirst.frc.team1318.robot.HardwareConstants;
+import org.usfirst.frc.team1318.robot.Common.DashboardLogger;
 
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.Talon;
+
 /**
  * Component for the defense arm mechanism.
  * @author Corbin
@@ -28,8 +30,8 @@ public class DefenseArmComponent
     {
         this.talon = new Talon(ElectronicsConstants.DEFENSE_ARM_MOTOR_CHANNEL);
         this.encoder = new Encoder(ElectronicsConstants.DEFENSE_ARM_ENCODER_CHANNEL_A, ElectronicsConstants.DEFENSE_ARM_ENCODER_CHANNEL_B);
-        this.frontLimitSwitch = new DigitalInput(ElectronicsConstants.DEFENSE_ARM_FRONT_LIMIT_SWITCH_CHANNEL);
-        this.backLimitSwitch = new DigitalInput(ElectronicsConstants.DEFENSE_ARM_BACK_LIMIT_SWITCH_CHANNEL);
+        this.frontLimitSwitch = null;//new DigitalInput(ElectronicsConstants.DEFENSE_ARM_FRONT_LIMIT_SWITCH_CHANNEL);
+        this.backLimitSwitch = null;//new DigitalInput(ElectronicsConstants.DEFENSE_ARM_BACK_LIMIT_SWITCH_CHANNEL);
 
         this.encoder.setDistancePerPulse(HardwareConstants.DEFENSE_ARM_PULSE_DISTANCE);
         this.zeroOffset = 0.0;
@@ -50,7 +52,9 @@ public class DefenseArmComponent
      */
     public int getEncoderTicks()
     {
-        return this.encoder.get();
+        int ticks = this.encoder.get();
+        DashboardLogger.putInteger("battle_axe ticks", ticks);
+        return ticks;
     }
 
     /**
@@ -59,6 +63,11 @@ public class DefenseArmComponent
      */
     public boolean getFrontLimitSwitch()
     {
+        if (this.frontLimitSwitch == null)
+        {
+            return false;
+        }
+        
         return this.frontLimitSwitch.get();
     }
 
@@ -68,6 +77,11 @@ public class DefenseArmComponent
      */
     public boolean getBackLimitSwitch()
     {
+        if (this.backLimitSwitch == null)
+        {
+            return false;
+        }
+        
         return this.backLimitSwitch.get();
     }
 
@@ -88,5 +102,4 @@ public class DefenseArmComponent
     {
         this.zeroOffset = zeroOffset;
     }
-
 }

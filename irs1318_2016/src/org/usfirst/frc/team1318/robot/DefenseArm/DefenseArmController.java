@@ -55,6 +55,17 @@ public class DefenseArmController implements IController
     @Override
     public void update()
     {
+        if (this.driver.getDigital(Operation.EnablePID))
+        {
+            this.usePID = true;
+            this.createPIDHandler();
+        }
+        else if (this.driver.getDigital(Operation.DisablePID))
+        {
+            this.usePID = false;
+            this.createPIDHandler();
+        }
+
         // Set the current time using the timer
         double currentTime = this.timer.get();
 
@@ -108,6 +119,10 @@ public class DefenseArmController implements IController
             this.movingToFront = false;
             this.movingToBack = false;
         }
+        
+        // TODO: remove!!
+        this.movingToFront = false;
+        this.movingToBack = false;
 
         // Check to see if the arm is at the front of the robot, 
         // update zeroOffset, and set the appropriate boolean to false

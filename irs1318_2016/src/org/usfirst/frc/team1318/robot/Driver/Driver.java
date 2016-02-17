@@ -191,6 +191,18 @@ public abstract class Driver
                     UserInputDeviceButton.NONE,
                     ButtonType.Click));
             put(
+                Operation.EnablePID,
+                new DigitalOperationDescription(
+                    UserInputDevice.CoDriver,
+                    UserInputDeviceButton.BUTTON_PAD_BUTTON_11,
+                    ButtonType.Click));
+            put(
+                Operation.DisablePID,
+                new DigitalOperationDescription(
+                    UserInputDevice.CoDriver,
+                    UserInputDeviceButton.BUTTON_PAD_BUTTON_12,
+                    ButtonType.Click));
+            put(
                 Operation.CancelBreachMacro,
                 new DigitalOperationDescription(
                     UserInputDevice.CoDriver,
@@ -246,28 +258,32 @@ public abstract class Driver
                         new DriveDistanceTask(TuningConstants.SALLY_PORT_BREACH_FINAL_CHARGE_DISTANCE)),
                     new Operation[]
                     {
-                        Operation.DriveTrainUsePositionalMode, 
-                        Operation.DriveTrainRightPosition, 
-                        Operation.DriveTrainLeftPosition, 
+                        Operation.DriveTrainUsePositionalMode,
+                        Operation.DriveTrainRightPosition,
+                        Operation.DriveTrainLeftPosition,
                         Operation.DefenseArmFrontPosition,
+                        Operation.DefenseArmTakePositionInput,
+                        Operation.DefenseArmSetAngle,
                         Operation.CancelBreachMacro,
                     }));
             put(
                 MacroOperation.BreachDrawbridge,
                 new MacroOperationDescription(
                     UserInputDevice.CoDriver, 
-                    UserInputDeviceButton.BUTTON_PAD_BUTTON_2,
+                    UserInputDeviceButton.BUTTON_PAD_BUTTON_3,
                     () -> SequentialTask.Sequence(
                         ConcurrentTask.AllTasks(
                             new DefenseArmPositionTask(HardwareConstants.DEFENSE_ARM_DRAWBRIDGE_POSITION),
                             new DriveDistanceTask(TuningConstants.DRAWBRIDGE_OUTER_WORKS_DISTANCE)),
                         new BreachDrawbridgeTask()),
-                new Operation[]{
-                    Operation.DefenseArmTakePositionInput,
-                    Operation.DefenseArmSetAngle,
+                new Operation[]
+                {
                     Operation.DriveTrainUsePositionalMode,
                     Operation.DriveTrainLeftPosition,
                     Operation.DriveTrainRightPosition,
+                    Operation.DefenseArmFrontPosition,
+                    Operation.DefenseArmTakePositionInput,
+                    Operation.DefenseArmSetAngle,
                     Operation.CancelBreachMacro
                 }));
             
@@ -308,24 +324,26 @@ public abstract class Driver
                 MacroOperation.ClimbingArmDeploy,
                 new MacroOperationDescription(
                     UserInputDevice.CoDriver,
-                    UserInputDeviceButton.BUTTON_PAD_BUTTON_6,
+                    UserInputDeviceButton.BUTTON_PAD_BUTTON_7,
                     () -> SequentialTask.Sequence(
                         new ClimbingArmShoulderUpTask(true),
                         new ClimbingArmElbowUpTask(true)),
                     new Operation[]
                     {
                         Operation.ClimbingArmElbowUp,
+                        Operation.ClimbingArmShoulderUp,
                     }));
             put(
                 MacroOperation.ClimbingArmRetract,
                 new MacroOperationDescription(
                     UserInputDevice.CoDriver,
-                    UserInputDeviceButton.BUTTON_PAD_BUTTON_7,
+                    UserInputDeviceButton.BUTTON_PAD_BUTTON_6,
                     () -> SequentialTask.Sequence(
                         new ClimbingArmShoulderUpTask(false),
                         new ClimbingArmElbowUpTask(false)),
                     new Operation[]
                     {
+                        Operation.ClimbingArmElbowUp,
                         Operation.ClimbingArmShoulderUp,
                     }));
             put(

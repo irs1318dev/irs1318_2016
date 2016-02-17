@@ -64,6 +64,17 @@ public class DriveTrainController implements IController
     @Override
     public void update()
     {
+        if (this.driver.getDigital(Operation.EnablePID))
+        {
+            this.usePID = true;
+            this.createPIDHandler();
+        }
+        else if (this.driver.getDigital(Operation.DisablePID))
+        {
+            this.usePID = false;
+            this.createPIDHandler();
+        }
+        
         // check our desired PID mode
         boolean newUsePositionalMode = this.driver.getDigital(Operation.DriveTrainUsePositionalMode);
         if (newUsePositionalMode != this.usePositionalMode)

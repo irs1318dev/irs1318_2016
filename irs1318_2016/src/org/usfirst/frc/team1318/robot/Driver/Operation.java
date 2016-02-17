@@ -43,5 +43,7 @@ public enum Operation
     ClimbingArmElbowUp,
     
     // Other general operations:
+    EnablePID,
+    DisablePID,
     CancelBreachMacro;
 }
