@@ -1,5 +1,7 @@
 package org.usfirst.frc.team1318.robot.Compressor;
 
+import org.usfirst.frc.team1318.robot.ElectronicsConstants;
+
 import edu.wpi.first.wpilibj.Compressor;
 
 /**
@@ -21,7 +23,7 @@ public class CompressorComponent
      */
     public CompressorComponent()
     {
-        this.compressor = new Compressor();
+        this.compressor = new Compressor(ElectronicsConstants.PCM_B_MODULE);
         //
         //        this.digitalPressureSensor = new DigitalInput(0);
 

@@ -48,7 +48,7 @@ public class ElectronicsConstants
     
     //=================================================== Shooter ===================================================================
     
-    public static final int SHOOTER_TALON_CHANNEL = 2;
+    public static final int SHOOTER_TALON_CHANNEL = 1;
     public static final int SHOOTER_COUNTER_CHANNEL = 0;
     public static final int SHOOTER_KICKER_CHANNEL_A = 6;
     public static final int SHOOTER_KICKER_CHANNEL_B = 1;
@@ -69,7 +69,7 @@ public class ElectronicsConstants
     
     // ================================================= Climbing Arm =============================================================
 
-    public static final int CLIMBING_ARM_MOTOR_CHANNEL = 1;
+    public static final int CLIMBING_ARM_MOTOR_CHANNEL = 2;
 
     public static final int CLIMBING_ARM_SHOULDER_SOLENOID_CHANNEL_A = 7;
     public static final int CLIMBING_ARM_SHOULDER_SOLENOID_CHANNEL_B = 0;

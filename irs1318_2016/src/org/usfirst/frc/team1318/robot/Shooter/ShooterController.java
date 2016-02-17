@@ -1,6 +1,7 @@
 package org.usfirst.frc.team1318.robot.Shooter;
 
 import org.usfirst.frc.team1318.robot.TuningConstants;
+import org.usfirst.frc.team1318.robot.Common.DashboardLogger;
 import org.usfirst.frc.team1318.robot.Common.IController;
 import org.usfirst.frc.team1318.robot.Common.PIDHandler;
 import org.usfirst.frc.team1318.robot.Driver.Driver;
@@ -21,20 +22,22 @@ public class ShooterController implements IController
     public ShooterController(ShooterComponent shooter) 
     {
         this.shooter = shooter;
-        createPIDHandler();
+        this.createPIDHandler();
     }
 
     @Override
     public void update()
     {
-        if (this.driver.getDigital(Operation.ShooterSpin))
+        boolean spin = this.driver.getDigital(Operation.ShooterSpin);
+
+        // The actual velocity of the shooter wheel
+        double currentTicks = this.shooter.getCounterRate();
+        
+        // The velocity set in the analog operation
+        double velocityGoal = this.driver.getAnalog(Operation.ShooterSpeed);
+            
+        if (spin)
         {
-            // The actual velocity of the shooter wheel
-            double currentTicks = this.shooter.getCounterTicks();
-            
-            // The velocity set in the analog operaton
-            double velocityGoal = this.driver.getAnalog(Operation.ShooterSpeed);
-            
             // Calculate the power required to reach the velocity goal     
             double power = this.PID.calculateVelocity(velocityGoal, currentTicks);
             
@@ -47,7 +50,8 @@ public class ShooterController implements IController
             this.shooter.setMotorSpeed(0.0);
         }
         
-        if (this.driver.getDigital(Operation.ShooterKick))
+        boolean kick = this.driver.getDigital(Operation.ShooterKick);
+        if (kick)
         {
             this.shooter.kick(true);
         }
@@ -56,7 +60,8 @@ public class ShooterController implements IController
             this.shooter.kick(false);
         }
         
-        if (this.driver.getDigital(Operation.ShooterExtendHood))
+        boolean hood = this.driver.getDigital(Operation.ShooterExtendHood);
+        if (hood)
         {
             this.shooter.hood(true);
         }

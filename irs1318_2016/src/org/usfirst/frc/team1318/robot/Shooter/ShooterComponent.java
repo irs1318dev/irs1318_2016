@@ -34,7 +34,7 @@ public class ShooterComponent
         this.talon.set(speed);
     }
     
-    public double getCounterTicks() 
+    public double getCounterRate() 
     {
         return 0;//this.counter.getRate();
     }
