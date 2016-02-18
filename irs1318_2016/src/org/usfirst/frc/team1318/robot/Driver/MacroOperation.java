@@ -2,17 +2,19 @@ package org.usfirst.frc.team1318.robot.Driver;
 
 public enum MacroOperation
 {
-    DriveDistance,
-    // Portcullis operations:
-    BreachPortcullis,
     // Shooter operations:
     ShootFar,
     ShootClose,
-    BreachSallyPort,
+
+    // Breach operations:
+    BreachPortcullis,
+    BreachSallyPort, 
+    BreachDrawbridge,
+    BreachNothing,
+
     // Climbing arm operations:
     ClimbingArmDeploy,
     ClimbingArmRetract,
     ClimbingArmLifterUp,
-    ClimbingArmLifterDown, 
-    BreachDrawbridge;
+    ClimbingArmLifterDown;
 }

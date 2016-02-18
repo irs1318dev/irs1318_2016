@@ -17,7 +17,7 @@ public class DefenseArmPositionTask extends ControlTaskBase implements IControlT
      */
     public DefenseArmPositionTask(double desiredAngle)
     {
-        this.desiredAngleTicks = desiredAngle * HardwareConstants.DEFENSE_ARM_TICKS_PER_RADIAN;
+        this.desiredAngleTicks = desiredAngle;
     }
 
     /**
@@ -65,7 +65,7 @@ public class DefenseArmPositionTask extends ControlTaskBase implements IControlT
     @Override
     public boolean hasCompleted()
     {
-        double delta = Math.abs(this.desiredAngleTicks - (this.defenseArm.getEncoderTicks() - this.defenseArm.getZeroOffset())); 
+        double delta = Math.abs(this.desiredAngleTicks - (this.defenseArm.getEncoderAngle() - this.defenseArm.getZeroAngleOffset())); 
         return delta < TuningConstants.DEFENSE_ARM_POSITIONAL_ACCEPTABLE_DELTA;
     }
 }

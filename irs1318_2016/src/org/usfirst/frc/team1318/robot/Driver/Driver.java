@@ -299,6 +299,19 @@ public abstract class Driver
                     Operation.DefenseArmSetAngle,
                     Operation.CancelBreachMacro
                 }));
+            put(
+                MacroOperation.BreachNothing,
+                new MacroOperationDescription(
+                    UserInputDevice.CoDriver, 
+                    UserInputDeviceButton.BUTTON_PAD_BUTTON_5,
+                    () -> new DriveDistanceTask(12.0 * 2.54),
+                new Operation[]
+                {
+                    Operation.DriveTrainUsePositionalMode,
+                    Operation.DriveTrainLeftPosition,
+                    Operation.DriveTrainRightPosition,
+                    Operation.CancelBreachMacro
+                }));
             
             // Macros for shooting distance.
             put(

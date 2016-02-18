@@ -91,13 +91,13 @@ public class DefenseArmController implements IController
         this.defenseArm.getEncoderTicks();
         double currentEncoderAngle = this.defenseArm.getEncoderAngle();
         double zeroOffset;
-        double motorValue;
+        double motorValue = 0.0;
 
         // Get the values of the front and back limit switches
         boolean isAtFront = this.defenseArm.getFrontLimitSwitch();
         boolean isAtBack = this.defenseArm.getBackLimitSwitch();
 
-        // Operation check for the portcullis macro        
+        // Operation check for the portcullis macro
         if (this.driver.getDigital(Operation.DefenseArmTakePositionInput))
         {
             this.desiredPosition = this.driver.getAnalog(Operation.DefenseArmSetAngle);
@@ -136,7 +136,7 @@ public class DefenseArmController implements IController
         }
         
         // If we are ignoring the sensors, ignore movingToFront/movingToBack, and safety enforcement...
-        if (this.useSensors)
+        if (!this.useSensors)
         {
             this.movingToFront = false;
             this.movingToBack = false;
@@ -160,9 +160,10 @@ public class DefenseArmController implements IController
         }
 
         // Sets the desiredPosition based on several possible inputs
-        zeroOffset = this.defenseArm.getZeroOffset();
+        zeroOffset = this.defenseArm.getZeroAngleOffset();
 
         // Logic for moving the defense arm forward and backward manually
+        DashboardLogger.putBoolean("defenseArm.usePID", this.usePID);
         if (this.usePID)
         {
             if (this.movingToFront)
@@ -193,7 +194,8 @@ public class DefenseArmController implements IController
                 motorValue = this.pidHandler.calculatePosition(zeroOffset + this.desiredPosition, currentEncoderAngle);
             }
             
-            DashboardLogger.putDouble("desired position", this.desiredPosition);
+            DashboardLogger.putDouble("defenseArm.desiredPosition", this.desiredPosition);
+            DashboardLogger.putDouble("defenseArm.motorValue", motorValue);
         }
         else
         {

@@ -14,28 +14,28 @@ public class TuningConstants
     public static final boolean DRIVETRAIN_USE_PID_DEFAULT = true;
 
     // Velocity PID (right)
-    public static final double DRIVETRAIN_VELOCITY_PID_RIGHT_KP_DEFAULT = 0.03;
+    public static final double DRIVETRAIN_VELOCITY_PID_RIGHT_KP_DEFAULT = 0.0;//1;
     public static final double DRIVETRAIN_VELOCITY_PID_RIGHT_KI_DEFAULT = 0.0;
     public static final double DRIVETRAIN_VELOCITY_PID_RIGHT_KD_DEFAULT = 0.0;
     public static final double DRIVETRAIN_VELOCITY_PID_RIGHT_KF_DEFAULT = 0.5;
     public static final double DRIVETRAIN_VELOCITY_PID_RIGHT_KS_DEFAULT = 100.0;
 
     // Velocity PID (left)
-    public static final double DRIVETRAIN_VELOCITY_PID_LEFT_KP_DEFAULT = 0.03;
+    public static final double DRIVETRAIN_VELOCITY_PID_LEFT_KP_DEFAULT = 0.0;//1;
     public static final double DRIVETRAIN_VELOCITY_PID_LEFT_KI_DEFAULT = 0.0;
     public static final double DRIVETRAIN_VELOCITY_PID_LEFT_KD_DEFAULT = 0.0;
     public static final double DRIVETRAIN_VELOCITY_PID_LEFT_KF_DEFAULT = 0.5;
     public static final double DRIVETRAIN_VELOCITY_PID_LEFT_KS_DEFAULT = 100.0;
 
     // Position PID (right)
-    public static final double DRIVETRAIN_POSITION_PID_RIGHT_KP_DEFAULT = 0.2;
-    public static final double DRIVETRAIN_POSITION_PID_RIGHT_KI_DEFAULT = 0.0;
+    public static final double DRIVETRAIN_POSITION_PID_RIGHT_KP_DEFAULT = 0.3;
+    public static final double DRIVETRAIN_POSITION_PID_RIGHT_KI_DEFAULT = 0.05;
     public static final double DRIVETRAIN_POSITION_PID_RIGHT_KD_DEFAULT = 0.0;
     public static final double DRIVETRAIN_POSITION_PID_RIGHT_KF_DEFAULT = 0.0;
 
     // Position PID (left)
-    public static final double DRIVETRAIN_POSITION_PID_LEFT_KP_DEFAULT = 0.2;
-    public static final double DRIVETRAIN_POSITION_PID_LEFT_KI_DEFAULT = 0.0;
+    public static final double DRIVETRAIN_POSITION_PID_LEFT_KP_DEFAULT = 0.3;
+    public static final double DRIVETRAIN_POSITION_PID_LEFT_KI_DEFAULT = 0.05;
     public static final double DRIVETRAIN_POSITION_PID_LEFT_KD_DEFAULT = 0.0;
     public static final double DRIVETRAIN_POSITION_PID_LEFT_KF_DEFAULT = 0.0;
 
@@ -114,10 +114,10 @@ public class TuningConstants
     // Distance Robot must travel to breach portcullis
     public static final double PORTCULLIS_BREACH_DISTANCE = 2 * HardwareConstants.DEFENSE_ARM_LENGTH;
     // Distance from the outerworks edge to where the robot needs to be to start opening the portcullis
-    public static final double PORTCULLIS_OUTER_WORKS_DISTANCE = -9.0 * 2.54;
+    public static final double PORTCULLIS_OUTER_WORKS_DISTANCE = 9.0 * 2.54;
 
     // Distance Robot must travel to breach portcullis
-    public static final double PORTCULLIS_BREACH_VELOCITY = 10.0; // cm/s
+    public static final double PORTCULLIS_BREACH_VELOCITY = 50.0; // cm/s
 
     //----- SallyPort -----
 
@@ -135,6 +135,6 @@ public class TuningConstants
 
     //================================================== Autonomous ==============================================================
 
-    public static final double DRIVETRAIN_POSITIONAL_ACCEPTABLE_DELTA = 2.0;
-    public static final double DEFENSE_ARM_POSITIONAL_ACCEPTABLE_DELTA = Math.PI / 16;
+    public static final double DRIVETRAIN_POSITIONAL_ACCEPTABLE_DELTA = 0.2;
+    public static final double DEFENSE_ARM_POSITIONAL_ACCEPTABLE_DELTA = Math.PI / 64;
 }

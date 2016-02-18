@@ -71,6 +71,9 @@ public abstract class MoveDistanceTaskBase extends ControlTaskBase implements IC
     @Override
     public void end()
     {
+        this.setDigitalOperationState(Operation.DriveTrainUsePositionalMode, false);
+        this.setAnalogOperationState(Operation.DriveTrainLeftPosition, 0.0);
+        this.setAnalogOperationState(Operation.DriveTrainRightPosition, 0.0);
     }
 
     /**

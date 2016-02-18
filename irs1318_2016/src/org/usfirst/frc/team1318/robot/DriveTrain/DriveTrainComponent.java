@@ -50,6 +50,9 @@ public class DriveTrainComponent
      */
     public void setDriveTrainPower(double leftPower, double rightPower)
     {
+        DashboardLogger.putDouble("leftPower", leftPower);
+        DashboardLogger.putDouble("rightPower", rightPower);
+
         double outLeftPower = leftPower;
         double outRightPower = -rightPower;// note: right motors are oriented facing "backwards"
 

@@ -100,7 +100,7 @@ public class DefenseArmComponent
      * Get the zero offset
      * @return the current count of zeroOffset
      */
-    public double getZeroOffset()
+    public double getZeroAngleOffset()
     {
         return this.zeroOffset;
     }

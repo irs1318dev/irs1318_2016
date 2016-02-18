@@ -110,10 +110,10 @@ public class DriveTrainController implements IController
             rightPower /= TuningConstants.DRIVETRAIN_REVERSE_RIGHT_SCALE_FACTOR;
         }
 
-        leftPower = Math.min(leftPower, 1);
-        leftPower = Math.max(leftPower, -1);
-        rightPower = Math.min(rightPower, 1);
-        rightPower = Math.max(rightPower, -1);
+        leftPower = Math.min(leftPower, 1.0);
+        leftPower = Math.max(leftPower, -1.0);
+        rightPower = Math.min(rightPower, 1.0);
+        rightPower = Math.max(rightPower, -1.0);
         
         // apply the power settings to the drivetrain component
         this.component.setDriveTrainPower(leftPower, rightPower);
