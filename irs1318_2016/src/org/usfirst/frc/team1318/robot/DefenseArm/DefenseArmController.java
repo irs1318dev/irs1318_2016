@@ -103,6 +103,7 @@ public class DefenseArmController implements IController
             this.desiredPosition = this.driver.getAnalog(Operation.DefenseArmSetAngle);
         }
 
+        
         // Check for the desire to move the arm to the front or back of the robot
         if (this.driver.getDigital(Operation.DefenseArmFrontPosition))
         {

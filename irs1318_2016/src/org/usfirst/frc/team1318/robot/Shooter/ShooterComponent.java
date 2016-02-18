@@ -1,6 +1,7 @@
 package org.usfirst.frc.team1318.robot.Shooter;
 
 import org.usfirst.frc.team1318.robot.ElectronicsConstants;
+import org.usfirst.frc.team1318.robot.Common.DashboardLogger;
 
 import edu.wpi.first.wpilibj.Counter;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
@@ -8,7 +9,7 @@ import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.Talon;
 
 /**
- * Component for the shooter mechanism. Has two talons, and one counter, 
+ * Component for the shooter mechanism. Has a talon, and one counter, 
  * a kicker that loads the ball, and an actuating hood.
  * @author Corbin
  *
@@ -26,7 +27,7 @@ public class ShooterComponent
         this.hood = new DoubleSolenoid(ElectronicsConstants.SHOOTER_HOOD_CHANNEL_A, ElectronicsConstants.SHOOTER_HOOD_CHANNEL_B);
         this.talon = new Talon(ElectronicsConstants.SHOOTER_TALON_CHANNEL);
         this.counter = new Counter(ElectronicsConstants.SHOOTER_COUNTER_CHANNEL);
-        this.counter.setUpDownCounterMode();
+        //this.counter.setUpDownCounterMode();
     }
     
     public void setMotorSpeed(double speed) 
@@ -36,9 +37,15 @@ public class ShooterComponent
     
     public double getCounterRate() 
     {
-        return this.counter.getRate();
+        double counterRate = this.counter.getRate();
+        return counterRate;
     }
     
+    /**
+     * Actuates the kicker. 
+     * 
+     * @param up - true is up, false is down
+     */
     public void kick(boolean up)
     {
         if (up)
@@ -51,6 +58,11 @@ public class ShooterComponent
         }
     }
     
+    /**
+     * Extends or retracts the hood.
+     * 
+     * @param up - true extends, false retracts
+     */
     public void hood(boolean up)
     {
         if (up)

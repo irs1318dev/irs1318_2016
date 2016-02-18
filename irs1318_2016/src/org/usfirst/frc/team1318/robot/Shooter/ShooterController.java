@@ -32,6 +32,7 @@ public class ShooterController implements IController
 
         // The actual velocity of the shooter wheel
         double currentTicks = this.shooter.getCounterRate();
+        DashboardLogger.putDouble("shooterRate", currentTicks);
         
         // The velocity set in the analog operation
         double velocityGoal = this.driver.getAnalog(Operation.ShooterSpeed);
