@@ -66,7 +66,7 @@ public class TuningConstants
     public static final double DEFENSE_ARM_MAX_VELOCITY = Math.PI / 4.0;
 
     // Defense arm power level for when PID is disabled
-    public static final double DEFENSE_ARM_OVERRIDE_POWER_LEVEL = 0.5;
+    public static final double DEFENSE_ARM_OVERRIDE_POWER_LEVEL = 0.4;
 
     // Defense arm PID values
     public static final double DEFENSE_ARM_POSITION_PID_KP_DEFAULT = 4.0;
@@ -75,7 +75,7 @@ public class TuningConstants
     public static final double DEFENSE_ARM_POSITION_PID_KF_DEFAULT = 0.0;
 
     public static final double DEFENSE_ARM_MAX_POWER_LEVEL = 0.8;
-    public static final double DEFENSE_ARM_MOVE_END_POWER_LEVEL = 0.8;
+    public static final double DEFENSE_ARM_MOVE_END_POWER_LEVEL = 0.4;
 
     //================================================== Shooter ==============================================================
 
