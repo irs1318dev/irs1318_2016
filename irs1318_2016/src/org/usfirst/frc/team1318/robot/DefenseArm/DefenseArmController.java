@@ -148,8 +148,8 @@ public class DefenseArmController implements IController
             // update front offset, and set the appropriate boolean to false
             if (isAtFront)
             {
-                this.defenseArm.setAbsoluteFrontOffset(currentEncoderAngle);
                 this.desiredPosition = HardwareConstants.DEFENSE_ARM_MAX_FRONT_POSITION;
+                this.defenseArm.setAbsoluteFrontOffset(currentEncoderAngle - this.desiredPosition);
                 this.movingToFront = false;
                 enforceNonNegative = true;
             }
@@ -158,8 +158,8 @@ public class DefenseArmController implements IController
             // and set the appropriate boolean to false
             if (isAtBack)
             {
-                this.defenseArm.setAbsoluteFrontOffset(currentEncoderAngle - HardwareConstants.DEFENSE_ARM_FULL_SWING);
                 this.desiredPosition = HardwareConstants.DEFENSE_ARM_MAX_BACK_POSITION;
+                this.defenseArm.setAbsoluteFrontOffset(currentEncoderAngle - this.desiredPosition);
                 this.movingToBack = false;
                 enforceNonPositive = true;
             }
