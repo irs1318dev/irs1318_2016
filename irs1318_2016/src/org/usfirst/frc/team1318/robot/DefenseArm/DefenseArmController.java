@@ -97,6 +97,29 @@ public class DefenseArmController implements IController
         boolean isAtFront = this.defenseArm.getFrontLimitSwitch();
         boolean isAtBack = this.defenseArm.getBackLimitSwitch();
 
+        if (this.useSensors)
+        {
+            // Check to see if the arm is at the front of the robot, 
+            // update front offset, and set the appropriate boolean to false
+            if (isAtFront)
+            {
+                this.desiredPosition = HardwareConstants.DEFENSE_ARM_MAX_FRONT_POSITION;
+                this.defenseArm.setAbsoluteFrontOffset(currentEncoderAngle - this.desiredPosition);
+                this.movingToFront = false;
+                enforceNonNegative = true;
+            }
+
+            // Check to see if the arm is at the back of the robot, 
+            // and set the appropriate boolean to false
+            if (isAtBack)
+            {
+                this.desiredPosition = HardwareConstants.DEFENSE_ARM_MAX_BACK_POSITION;
+                this.defenseArm.setAbsoluteFrontOffset(currentEncoderAngle - this.desiredPosition);
+                this.movingToBack = false;
+                enforceNonPositive = true;
+            }
+        }
+
         // Operation check for the portcullis macro
         if (this.driver.getDigital(Operation.DefenseArmTakePositionInput))
         {
@@ -142,28 +165,6 @@ public class DefenseArmController implements IController
             this.movingToFront = false;
             this.movingToBack = false;
         }
-        else
-        {
-            // Check to see if the arm is at the front of the robot, 
-            // update front offset, and set the appropriate boolean to false
-            if (isAtFront)
-            {
-                this.desiredPosition = HardwareConstants.DEFENSE_ARM_MAX_FRONT_POSITION;
-                this.defenseArm.setAbsoluteFrontOffset(currentEncoderAngle - this.desiredPosition);
-                this.movingToFront = false;
-                enforceNonNegative = true;
-            }
-
-            // Check to see if the arm is at the back of the robot, 
-            // and set the appropriate boolean to false
-            if (isAtBack)
-            {
-                this.desiredPosition = HardwareConstants.DEFENSE_ARM_MAX_BACK_POSITION;
-                this.defenseArm.setAbsoluteFrontOffset(currentEncoderAngle - this.desiredPosition);
-                this.movingToBack = false;
-                enforceNonPositive = true;
-            }
-        }
 
         // determine the front offset based on the absolute front's encoder value
         frontOffset = this.defenseArm.getAbsoluteFrontOffset();
@@ -183,15 +184,25 @@ public class DefenseArmController implements IController
             {
                 if (this.driver.getDigital(Operation.DefenseArmMoveForward))
                 {
-                    //this.desiredPosition = currentEncoderAngle - frontOffset;
-                    this.desiredPosition -= TuningConstants.DEFENSE_ARM_MAX_VELOCITY * deltaT;
+                    double adjustmentAmount = -1.0 * TuningConstants.DEFENSE_ARM_MAX_VELOCITY * deltaT;
+                    if (isAtBack)
+                    {
+                        adjustmentAmount *= 4.0;
+                    }
+
+                    this.desiredPosition += adjustmentAmount;
                     this.movingToFront = false;
                     this.movingToBack = false;
                 }
                 else if (this.driver.getDigital(Operation.DefenseArmMoveBack))
                 {
-                    //this.desiredPosition = currentEncoderAngle - frontOffset;
-                    this.desiredPosition += TuningConstants.DEFENSE_ARM_MAX_VELOCITY * deltaT;
+                    double adjustmentAmount = TuningConstants.DEFENSE_ARM_MAX_VELOCITY * deltaT;
+                    if (isAtFront)
+                    {
+                        adjustmentAmount *= 4.0;
+                    }
+
+                    this.desiredPosition += adjustmentAmount;
                     this.movingToFront = false;
                     this.movingToBack = false;
                 }

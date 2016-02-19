@@ -26,14 +26,14 @@ public class HardwareConstants
 
     public static final double DEFENSE_ARM_FULL_SWING = HardwareConstants.DEFENSE_ARM_MAX_BACK_POSITION - HardwareConstants.DEFENSE_ARM_MAX_FRONT_POSITION;
     public static final double DEFENSE_ARM_HORIZONTAL_FRONT_POSITION = 0;
-    public static final double DEFENSE_ARM_MAX_FRONT_POSITION = -Math.PI/16.0; 
+    public static final double DEFENSE_ARM_MAX_FRONT_POSITION = -Math.PI/32.0; 
     public static final double DEFENSE_ARM_PORTCULLIS_POSITION = -Math.PI/16.0;
     public static final double CHEVAL_DE_FRISE_DEFENSE_ARM_POSITION_B = Math.PI/16;
     public static final double CHEVAL_DE_FRISE_DEFENSE_ARM_POSITION_A = Math.PI/4;
     public static final double DEFENSE_ARM_SALLY_PORT_POSITION = Math.PI/4.0;
     public static final double DEFENSE_ARM_DRAWBRIDGE_POSITION = Math.PI/2.0;
     public static final double DEFENSE_ARM_HORIZONTAL_BACK_POSITION = Math.PI;
-    public static final double DEFENSE_ARM_MAX_BACK_POSITION = Math.PI * 17.0/16.0;
+    public static final double DEFENSE_ARM_MAX_BACK_POSITION = Math.PI * 33.0/32.0;
 
     public static final double DEFENSE_ARM_LENGTH = 24.5 * 2.54;
     public static final double DEFENSE_ARM_GEARING_RATIO = 28.0/15.0;
