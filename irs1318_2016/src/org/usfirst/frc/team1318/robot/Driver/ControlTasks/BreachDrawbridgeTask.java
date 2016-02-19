@@ -14,7 +14,6 @@ import edu.wpi.first.wpilibj.Timer;
  * @author Corbin_Modica
  *
  */
-
 public class BreachDrawbridgeTask extends ControlTaskBase
 {
     private double startDTDistanceRight;
@@ -59,41 +58,46 @@ public class BreachDrawbridgeTask extends ControlTaskBase
         double currTime = this.timer.get();
         double timeElapsed = currTime - this.prevTime;
         this.prevTime = currTime;
-        
+
         this.currentDTDistanceLeft = this.driveTrain.getLeftEncoderDistance();
         this.currentDTDistanceRight = this.driveTrain.getRightEncoderDistance();
-        
+
         // Change in position for the drive train this cycle.
         double desiredDistanceChange = TuningConstants.DRAWBRIDGE_BREACH_VELOCITY * timeElapsed;
-        
+
         // Set the new desired distance for the drive train.
         this.setAnalogOperationState(Operation.DriveTrainRightPosition, this.currentDTDistanceRight + desiredDistanceChange);
         this.setAnalogOperationState(Operation.DriveTrainLeftPosition, this.currentDTDistanceLeft + desiredDistanceChange);
-        
+
         // The length of the triangle for each side of the drive train. 
         double sideDistanceLeft = this.startDTDistanceLeft - (this.currentDTDistanceLeft + desiredDistanceChange);
         double sideDistanceRight = this.startDTDistanceRight - (this.currentDTDistanceRight + desiredDistanceChange);
-        
+
         // The length of the side of the triangle in avg. 
         double sideLength = (sideDistanceLeft + sideDistanceRight)/2;
-        
+
         // Calculate the new desired angle for the defense arm using the new desired position for the drivetrain.
         double angle = Math.acos(sideLength/(HardwareConstants.DEFENSE_ARM_LENGTH + HardwareConstants.DEFENSE_ARM_DRAWBRIDGE_EXTENSION_LENGTH));
-        
+
+        if (Double.isNaN(angle))
+        {
+            throw new RuntimeException("don't expect NaN angle!");
+        }
+
         // If it need be negative, set the angle to negative.
         if (this.negateAngles)
         {
             angle *= -1;
         }
-        
+
         // Check to see if the angle is zero (or very close to, as we may not hit zero every time), and if it is, make it so that the angle calculated next cycle will be negative.
         if (0.0 <= angle && angle <= (Math.PI/32))
         {
             this.negateAngles = true;
-        } 
-        
+        }
+
         // Set the angle using the calculated value, and adjusting for horizontal being 0 radians (instead of the lower limit of the defense arm).
-        this.setAnalogOperationState(Operation.DefenseArmSetAngle, angle * HardwareConstants.DEFENSE_ARM_TICKS_PER_RADIAN + HardwareConstants.DEFENSE_ARM_THETA_OFFSET);
+        this.setAnalogOperationState(Operation.DefenseArmSetAngle, angle - HardwareConstants.DEFENSE_ARM_MAX_FRONT_POSITION);
     }
 
     @Override
@@ -124,6 +128,4 @@ public class BreachDrawbridgeTask extends ControlTaskBase
             return false;
         }
     }
-    
-
 }
