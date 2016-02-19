@@ -87,10 +87,10 @@ public class DefenseArmController implements IController
         boolean enforceNonNegative = false;
         boolean enforceNonPositive = false;
 
-        // Set current distance of the encoder, and create zeroOffset and motorValue
+        // Set current distance of the encoder, and create frontOffset and motorValue
         this.defenseArm.getEncoderTicks();
         double currentEncoderAngle = this.defenseArm.getEncoderAngle();
-        double zeroOffset;
+        double frontOffset;
         double motorValue = 0.0;
 
         // Get the values of the front and back limit switches
@@ -145,7 +145,7 @@ public class DefenseArmController implements IController
         else
         {
             // Check to see if the arm is at the front of the robot, 
-            // update zeroOffset, and set the appropriate boolean to false
+            // update front offset, and set the appropriate boolean to false
             if (isAtFront)
             {
                 this.defenseArm.setAbsoluteFrontOffset(currentEncoderAngle);
@@ -166,7 +166,7 @@ public class DefenseArmController implements IController
         }
 
         // determine the zero offset based on the absolute front's encoder value, and the distance from the horizontal-zero angle
-        zeroOffset = this.defenseArm.getAbsoluteFrontOffset() - HardwareConstants.DEFENSE_ARM_MAX_FRONT_POSITION;
+        frontOffset = this.defenseArm.getAbsoluteFrontOffset();
 
         // Logic for moving the defense arm forward and backward manually
         if (this.usePID)
@@ -183,25 +183,24 @@ public class DefenseArmController implements IController
             {
                 if (this.driver.getDigital(Operation.DefenseArmMoveForward))
                 {
-                    //this.desiredPosition = currentEncoderAngle - zeroOffset;
+                    //this.desiredPosition = currentEncoderAngle - frontOffset;
                     this.desiredPosition -= TuningConstants.DEFENSE_ARM_MAX_VELOCITY * deltaT;
                     this.movingToFront = false;
                     this.movingToBack = false;
                 }
                 else if (this.driver.getDigital(Operation.DefenseArmMoveBack))
                 {
-                    //this.desiredPosition = currentEncoderAngle - zeroOffset;
+                    //this.desiredPosition = currentEncoderAngle - frontOffset;
                     this.desiredPosition += TuningConstants.DEFENSE_ARM_MAX_VELOCITY * deltaT;
                     this.movingToFront = false;
                     this.movingToBack = false;
                 }
 
                 this.desiredPosition = this.assertDesiredPositionRange(this.desiredPosition);
-                motorValue = this.pidHandler.calculatePosition(zeroOffset + this.desiredPosition, currentEncoderAngle);
+                motorValue = this.pidHandler.calculatePosition(frontOffset + this.desiredPosition, currentEncoderAngle);
             }
 
             DashboardLogger.putDouble("battle_axe desiredPosition", this.desiredPosition);
-            DashboardLogger.putDouble("battle_axe motorValue", motorValue);
         }
         else
         {
@@ -232,6 +231,7 @@ public class DefenseArmController implements IController
             motorValue = Math.min(0.0, motorValue);
         }
 
+        DashboardLogger.putDouble("battle_axe motorValue", motorValue);
         this.defenseArm.setSpeed(motorValue);
 
         this.prevTime = currentTime;
