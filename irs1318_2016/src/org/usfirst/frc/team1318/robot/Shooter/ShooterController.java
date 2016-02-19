@@ -90,10 +90,11 @@ public class ShooterController implements IController
     public void createPIDHandler() 
     {
         this.PID = new PIDHandler(
-            TuningConstants.SHOOTER_VELOCITY_PID_KP_DEFAULT, 
-            TuningConstants.SHOOTER_VELOCITY_PID_KI_DEFAULT, 
-            TuningConstants.SHOOTER_VELOCITY_PID_KD_DEFAULT, 
-            TuningConstants.SHOOTER_VELOCITY_PID_KF_DEFAULT, 
+            TuningConstants.SHOOTER_VELOCITY_PID_KP_DEFAULT,
+            TuningConstants.SHOOTER_VELOCITY_PID_KI_DEFAULT,
+            TuningConstants.SHOOTER_VELOCITY_PID_KD_DEFAULT,
+            TuningConstants.SHOOTER_VELOCITY_PID_KF_DEFAULT,
+            TuningConstants.SHOOTER_VELOCITY_PID_KS_DEFAULT,
             -TuningConstants.SHOOTER_MAX_POWER_LEVEL, 
             TuningConstants.SHOOTER_MAX_POWER_LEVEL);
     }

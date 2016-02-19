@@ -14,11 +14,11 @@ public enum Operation
     DriveTrainSwapFrontOrientation,
     
     // Defense arm operations:
-    DefenseArmFrontPosition,
-    DefenseArmPortcullisPosition,
+    DefenseArmMaxFrontPosition,
+    DefenseArmHorizontalFrontPosition,
     DefenseArmDrawbridgePosition,
     DefenseArmSallyPortPosition,
-    DefenseArmBackPosition,
+    DefenseArmMaxBackPosition,
     DefenseArmMoveBack,
     DefenseArmMoveForward,
     DefenseArmTakePositionInput,

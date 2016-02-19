@@ -169,10 +169,6 @@ public class PIDHandler
             {
                 this.integral = this.minOutput / this.ki;
             }
-            else if (this.integral == Double.NaN || this.integral == Double.NEGATIVE_INFINITY || this.integral == Double.POSITIVE_INFINITY)
-            {
-                this.integral = this.error;
-            }
             else
             {
                 this.integral += this.error;// * this.dt;

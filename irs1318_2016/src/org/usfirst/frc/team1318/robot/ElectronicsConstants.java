@@ -41,22 +41,22 @@ public class ElectronicsConstants
     //================================================= Defense Arm ===============================================================
 
     public static final int DEFENSE_ARM_MOTOR_CHANNEL = 0;
-    public static final int DEFENSE_ARM_FRONT_LIMIT_SWITCH_CHANNEL = 7;
-    public static final int DEFENSE_ARM_BACK_LIMIT_SWITCH_CHANNEL = 8;
+    public static final int DEFENSE_ARM_FRONT_LIMIT_SWITCH_CHANNEL = 6;
+    public static final int DEFENSE_ARM_BACK_LIMIT_SWITCH_CHANNEL = 7;
     public static final int DEFENSE_ARM_ENCODER_CHANNEL_A = 4;
     public static final int DEFENSE_ARM_ENCODER_CHANNEL_B = 5;
-    
+
     //=================================================== Shooter ===================================================================
-    
+
     public static final int SHOOTER_TALON_CHANNEL = 1;
-    public static final int SHOOTER_COUNTER_CHANNEL = 6;
+    public static final int SHOOTER_COUNTER_CHANNEL = 8;
     public static final int SHOOTER_KICKER_CHANNEL_A = 6;
     public static final int SHOOTER_KICKER_CHANNEL_B = 1;
     public static final int SHOOTER_HOOD_CHANNEL_A = 5;
     public static final int SHOOTER_HOOD_CHANNEL_B = 2;
-    
+
     //=================================================== Intake =================================================================
-    
+
     public static final int INTAKE_MOTOR_CHANNEL = 3;
     public static final int INTAKE_SOLENOID_CHANNEL_A = 4;
     public static final int INTAKE_SOLENOID_CHANNEL_B = 3;
@@ -67,7 +67,7 @@ public class ElectronicsConstants
 
     public static final int CLIMBING_ARM_SHOULDER_SOLENOID_CHANNEL_A = 7;
     public static final int CLIMBING_ARM_SHOULDER_SOLENOID_CHANNEL_B = 0;
-    
+
     public static final int CLIMBING_ARM_ELBOW_SOLENOID_CHANNEL_A = 0;
     public static final int CLIMBING_ARM_ELBOW_SOLENOID_CHANNEL_B = 1;
 

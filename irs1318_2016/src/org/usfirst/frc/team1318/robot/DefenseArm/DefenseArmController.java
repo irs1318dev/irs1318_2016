@@ -49,7 +49,7 @@ public class DefenseArmController implements IController
 
         this.useSensors = TuningConstants.DEFENSE_ARM_USE_SENSORS_DEFAULT;
 
-        this.desiredPosition = HardwareConstants.DEFENSE_ARM_HORIZONTAL_FRONT_POSITION;
+        this.desiredPosition = TuningConstants.DEFENSE_ARM_STARTING_POSITION_DEFAULT;
 
         this.timer = new Timer();
         this.timer.start();
@@ -105,21 +105,21 @@ public class DefenseArmController implements IController
         }
 
         // Check for the desire to move the arm to the front or back of the robot
-        if (this.driver.getDigital(Operation.DefenseArmFrontPosition))
+        if (this.driver.getDigital(Operation.DefenseArmMaxFrontPosition))
         {
-            this.desiredPosition = HardwareConstants.DEFENSE_ARM_HORIZONTAL_FRONT_POSITION;
+            this.desiredPosition = HardwareConstants.DEFENSE_ARM_MAX_FRONT_POSITION;
             this.movingToFront = true;
             this.movingToBack = false;
         }
-        else if (this.driver.getDigital(Operation.DefenseArmBackPosition))
+        else if (this.driver.getDigital(Operation.DefenseArmMaxBackPosition))
         {
-            this.desiredPosition = HardwareConstants.DEFENSE_ARM_HORIZONTAL_BACK_POSITION;
+            this.desiredPosition = HardwareConstants.DEFENSE_ARM_MAX_BACK_POSITION;
             this.movingToFront = false;
             this.movingToBack = true;
         }
-        else if (this.driver.getDigital(Operation.DefenseArmPortcullisPosition))
+        else if (this.driver.getDigital(Operation.DefenseArmHorizontalFrontPosition))
         {
-            this.desiredPosition = HardwareConstants.DEFENSE_ARM_PORTCULLIS_POSITION;
+            this.desiredPosition = HardwareConstants.DEFENSE_ARM_HORIZONTAL_FRONT_POSITION;
             this.movingToFront = false;
             this.movingToBack = false;
         }
@@ -165,7 +165,7 @@ public class DefenseArmController implements IController
             }
         }
 
-        // determine the zero offset based on the absolute front's encoder value, and the distance from the horizontal-zero angle
+        // determine the front offset based on the absolute front's encoder value
         frontOffset = this.defenseArm.getAbsoluteFrontOffset();
 
         // Logic for moving the defense arm forward and backward manually
@@ -221,14 +221,14 @@ public class DefenseArmController implements IController
             this.movingToBack = false;
         }
 
-        if (enforceNonNegative)
+        if (enforceNonNegative && motorValue < 0.0)
         {
-            motorValue = Math.max(0.0, motorValue);
+            motorValue = 0.0;
         }
 
-        if (enforceNonPositive)
+        if (enforceNonPositive && motorValue > 0.0)
         {
-            motorValue = Math.min(0.0, motorValue);
+            motorValue = 0.0;
         }
 
         DashboardLogger.putDouble("battle_axe motorValue", motorValue);

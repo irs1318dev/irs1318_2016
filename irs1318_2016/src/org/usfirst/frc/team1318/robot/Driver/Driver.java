@@ -80,13 +80,13 @@ public abstract class Driver
                     ButtonType.Toggle));
             // Operations for the defense arm
             put(
-                Operation.DefenseArmFrontPosition,
+                Operation.DefenseArmMaxFrontPosition,
                 new DigitalOperationDescription(
                     UserInputDevice.Driver,
                     UserInputDeviceButton.JOYSTICK_BASE_BOTTOM_LEFT_BUTTON,
                     ButtonType.Click));
             put(
-                Operation.DefenseArmPortcullisPosition,
+                Operation.DefenseArmHorizontalFrontPosition,
                 new DigitalOperationDescription(
                     UserInputDevice.Driver,
                     UserInputDeviceButton.JOYSTICK_BASE_MIDDLE_LEFT_BUTTON,
@@ -104,7 +104,7 @@ public abstract class Driver
                     UserInputDeviceButton.JOYSTICK_BASE_BOTTOM_RIGHT_BUTTON,
                     ButtonType.Click));
             put(
-                Operation.DefenseArmBackPosition,
+                Operation.DefenseArmMaxBackPosition,
                 new DigitalOperationDescription(
                     UserInputDevice.Driver,
                     UserInputDeviceButton.JOYSTICK_BASE_MIDDLE_RIGHT_BUTTON,
@@ -243,7 +243,7 @@ public abstract class Driver
                     {
                         Operation.DriveTrainRightPosition, 
                         Operation.DriveTrainLeftPosition, 
-                        Operation.DefenseArmFrontPosition, 
+                        Operation.DefenseArmMaxFrontPosition, 
                         Operation.DriveTrainUsePositionalMode, 
                         Operation.DefenseArmTakePositionInput, 
                         Operation.DefenseArmSetAngle,
@@ -274,7 +274,7 @@ public abstract class Driver
                         Operation.DriveTrainUsePositionalMode,
                         Operation.DriveTrainRightPosition,
                         Operation.DriveTrainLeftPosition,
-                        Operation.DefenseArmFrontPosition,
+                        Operation.DefenseArmMaxFrontPosition,
                         Operation.DefenseArmTakePositionInput,
                         Operation.DefenseArmSetAngle,
                         Operation.CancelBreachMacro,
@@ -294,7 +294,7 @@ public abstract class Driver
                     Operation.DriveTrainUsePositionalMode,
                     Operation.DriveTrainLeftPosition,
                     Operation.DriveTrainRightPosition,
-                    Operation.DefenseArmFrontPosition,
+                    Operation.DefenseArmMaxFrontPosition,
                     Operation.DefenseArmTakePositionInput,
                     Operation.DefenseArmSetAngle,
                     Operation.CancelBreachMacro

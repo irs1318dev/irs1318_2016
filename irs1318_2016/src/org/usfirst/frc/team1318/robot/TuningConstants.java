@@ -61,6 +61,7 @@ public class TuningConstants
     //================================================== DefenseArm ==============================================================
 
     public static final boolean DEFENSE_ARM_USE_SENSORS_DEFAULT = true;
+    public static final double DEFENSE_ARM_STARTING_POSITION_DEFAULT = Math.PI / 2.0;
 
     // Defense arm max velocity (angular)
     public static final double DEFENSE_ARM_MAX_VELOCITY = Math.PI / 4.0;
@@ -75,7 +76,7 @@ public class TuningConstants
     public static final double DEFENSE_ARM_POSITION_PID_KF_DEFAULT = 0.0;
 
     public static final double DEFENSE_ARM_MAX_POWER_LEVEL = 0.8;
-    public static final double DEFENSE_ARM_MOVE_END_POWER_LEVEL = 0.4;
+    public static final double DEFENSE_ARM_MOVE_END_POWER_LEVEL = 0.3;
 
     //================================================== Shooter ==============================================================
 
@@ -85,6 +86,7 @@ public class TuningConstants
     public static final double SHOOTER_VELOCITY_PID_KI_DEFAULT = 0.0;
     public static final double SHOOTER_VELOCITY_PID_KD_DEFAULT = 0.0;
     public static final double SHOOTER_VELOCITY_PID_KF_DEFAULT = 1.0;
+    public static final double SHOOTER_VELOCITY_PID_KS_DEFAULT = 100.0;
 
     public static final double SHOOTER_CLOSE_SHOT_VELOCITY = 0.6;
     public static final double SHOOTER_FAR_SHOT_VELOCITY = 0.85;
