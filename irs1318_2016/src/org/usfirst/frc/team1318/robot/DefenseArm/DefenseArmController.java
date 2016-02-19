@@ -233,7 +233,7 @@ public class DefenseArmController implements IController
         }
 
         this.defenseArm.setSpeed(motorValue);
-        
+
         this.prevTime = currentTime;
     }
 
