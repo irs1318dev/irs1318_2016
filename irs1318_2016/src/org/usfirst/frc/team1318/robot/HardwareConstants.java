@@ -26,6 +26,8 @@ public class HardwareConstants
 
     public static final double DEFENSE_ARM_FRONT_POSITION = 0;
     public static final double DEFENSE_ARM_PORTCULLIS_POSITION = -Math.PI/16.0;
+    public static final double CHEVAL_DE_FRISE_DEFENSE_ARM_POSITION_B = Math.PI/16;
+    public static final double CHEVAL_DE_FRISE_DEFENSE_ARM_POSITION_A = Math.PI/4;
     public static final double DEFENSE_ARM_SALLY_PORT_POSITION = Math.PI/4.0;
     public static final double DEFENSE_ARM_DRAWBRIDGE_POSITION = Math.PI/2.0;
     public static final double DEFENSE_ARM_BACK_POSITION = Math.PI;
@@ -41,4 +43,6 @@ public class HardwareConstants
     public static final double DEFENSE_ARM_THETA_OFFSET = 0.0;
 
     public static final double DEFENSE_ARM_DRAWBRIDGE_EXTENSION_LENGTH = 0.0;
+    
+
 }

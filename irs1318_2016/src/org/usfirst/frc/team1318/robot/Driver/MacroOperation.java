@@ -10,7 +10,7 @@ public enum MacroOperation
     BreachPortcullis,
     BreachSallyPort, 
     BreachDrawbridge,
-    BreachNothing,
+    BreachChevalDeFrise,
 
     // Climbing arm operations:
     ClimbingArmDeploy,

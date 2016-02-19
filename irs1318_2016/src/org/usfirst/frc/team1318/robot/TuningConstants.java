@@ -132,9 +132,15 @@ public class TuningConstants
     public static final double DRAWBRIDGE_BACKUP_DISTANCE = 0.0;
     public static final double DRAWBRIDGE_BREACH_VELOCITY = -0.5;
     public static final double DRAWBRIDGE_OUTER_WORKS_DISTANCE = 0.0;
+    
+    //----- Cheval de Frise -----
+    public static final double CHEVAL_DE_FRISE_OUTER_WORKS_DISTANCE = 0.0;
+    public static final double CHEVAL_DE_FRISE_HALF_BREACH_DISTANCE = 0.0;
+    public static final double CHEVAL_DE_FRISE_REMAINING_BREACH_DISTANCE = 0.0;
 
     //================================================== Autonomous ==============================================================
 
     public static final double DRIVETRAIN_POSITIONAL_ACCEPTABLE_DELTA = 0.2;
     public static final double DEFENSE_ARM_POSITIONAL_ACCEPTABLE_DELTA = Math.PI / 64;
+
 }

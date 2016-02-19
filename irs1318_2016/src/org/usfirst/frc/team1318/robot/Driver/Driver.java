@@ -300,16 +300,25 @@ public abstract class Driver
                     Operation.CancelBreachMacro
                 }));
             put(
-                MacroOperation.BreachNothing,
+                MacroOperation.BreachChevalDeFrise,
                 new MacroOperationDescription(
                     UserInputDevice.CoDriver, 
                     UserInputDeviceButton.BUTTON_PAD_BUTTON_5,
-                    () -> new DriveDistanceTask(12.0 * 2.54),
+                    () -> SequentialTask.Sequence(
+                        new DefenseArmPositionTask(HardwareConstants.CHEVAL_DE_FRISE_DEFENSE_ARM_POSITION_A),
+                        new DriveDistanceTask(TuningConstants.CHEVAL_DE_FRISE_OUTER_WORKS_DISTANCE),
+                        new DefenseArmPositionTask(HardwareConstants.DEFENSE_ARM_FRONT_POSITION),
+                        ConcurrentTask.AllTasks(
+                            new DriveDistanceTask(TuningConstants.CHEVAL_DE_FRISE_HALF_BREACH_DISTANCE),
+                            new DefenseArmPositionTask(HardwareConstants.CHEVAL_DE_FRISE_DEFENSE_ARM_POSITION_B)),
+                        new DriveDistanceTask(TuningConstants.CHEVAL_DE_FRISE_REMAINING_BREACH_DISTANCE)),
                 new Operation[]
                 {
                     Operation.DriveTrainUsePositionalMode,
                     Operation.DriveTrainLeftPosition,
                     Operation.DriveTrainRightPosition,
+                    Operation.DefenseArmTakePositionInput,
+                    Operation.DefenseArmSetAngle,
                     Operation.CancelBreachMacro
                 }));
             
