@@ -1,6 +1,5 @@
 package org.usfirst.frc.team1318.robot.Driver.ControlTasks;
 
-import org.usfirst.frc.team1318.robot.HardwareConstants;
 import org.usfirst.frc.team1318.robot.TuningConstants;
 import org.usfirst.frc.team1318.robot.DefenseArm.DefenseArmComponent;
 import org.usfirst.frc.team1318.robot.Driver.IControlTask;

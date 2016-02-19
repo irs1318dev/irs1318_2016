@@ -48,8 +48,6 @@ public class PIDHandler
     // other vars
     private final Timer timer;
 
-    private double prevDeltaX = 0.0;
-
     /**
      * This constructor initializes the object and sets constants to affect gain
      * 
@@ -237,7 +235,6 @@ public class PIDHandler
             double deltaX = this.measuredValue - this.prevMeasuredValue;
             double timeRatio = 0.02 / this.dt;
             this.error = this.ks * this.setpoint - deltaX * timeRatio;
-            this.prevDeltaX = deltaX * timeRatio;
 
             // calculate integral, limiting it based on MaxOutput/MinOutput
             double potentialI = this.ki * (this.integral + this.error * this.dt);

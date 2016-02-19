@@ -2,7 +2,6 @@ package org.usfirst.frc.team1318.robot;
 
 import java.util.ArrayList;
 
-import org.usfirst.frc.team1318.robot.ClimbingArm.ClimbingArmController;
 import org.usfirst.frc.team1318.robot.Common.IController;
 import org.usfirst.frc.team1318.robot.Compressor.CompressorController;
 import org.usfirst.frc.team1318.robot.DefenseArm.DefenseArmController;

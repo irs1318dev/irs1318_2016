@@ -1,7 +1,6 @@
 package org.usfirst.frc.team1318.robot.Shooter;
 
 import org.usfirst.frc.team1318.robot.ElectronicsConstants;
-import org.usfirst.frc.team1318.robot.Common.DashboardLogger;
 
 import edu.wpi.first.wpilibj.Counter;
 import edu.wpi.first.wpilibj.DoubleSolenoid;

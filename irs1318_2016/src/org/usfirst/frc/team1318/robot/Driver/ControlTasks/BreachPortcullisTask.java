@@ -1,8 +1,6 @@
 package org.usfirst.frc.team1318.robot.Driver.ControlTasks;
 
-import org.usfirst.frc.team1318.robot.HardwareConstants;
 import org.usfirst.frc.team1318.robot.TuningConstants;
-import org.usfirst.frc.team1318.robot.Common.DashboardLogger;
 import org.usfirst.frc.team1318.robot.DriveTrain.DriveTrainComponent;
 import org.usfirst.frc.team1318.robot.Driver.Operation;
 
