@@ -5,6 +5,10 @@ import org.usfirst.frc.team1318.robot.Common.DashboardLogger;
 import org.usfirst.frc.team1318.robot.Common.IController;
 import org.usfirst.frc.team1318.robot.Driver.Driver;
 
+import com.kauailabs.navx.frc.AHRS;
+
+import edu.wpi.first.wpilibj.SPI;
+
 /**
  * Position manager
  * 
@@ -15,12 +19,12 @@ import org.usfirst.frc.team1318.robot.Driver.Driver;
 public class PositionManager implements IController
 {
     // logging constants
-    public static final String ANGLE_LOG_KEY = "pos.angle";
     public static final String X_POSITION_LOG_KEY = "pos.x";
     public static final String Y_POSITION_LOG_KEY = "pos.y";
 
     // drivetrain component
     private final DriveTrainComponent driveTrainComponent;
+    private final AHRS navx;
 
     // Position coordinates
     private double x;
@@ -48,6 +52,7 @@ public class PositionManager implements IController
         this.prevRightDistance = 0.0;
 
         this.driveTrainComponent = driveTrainComponent;
+        this.navx = new AHRS(SPI.Port.kMXP);
     }
 
     /**
@@ -90,9 +95,12 @@ public class PositionManager implements IController
         this.prevRightDistance = rightDistance;
         
         // log the current position and orientation
-        DashboardLogger.putDouble(PositionManager.ANGLE_LOG_KEY, this.angle);
-        DashboardLogger.putDouble(PositionManager.X_POSITION_LOG_KEY, this.x);
-        DashboardLogger.putDouble(PositionManager.Y_POSITION_LOG_KEY, this.y);
+        DashboardLogger.putDouble("pos.odom_angle", this.getOdometryAngle());
+        DashboardLogger.putDouble("pos.odom_x", this.getOdometryX());
+        DashboardLogger.putDouble("pos.odom_y", this.getOdometryY());
+        DashboardLogger.putDouble("pos.navx_angle", this.getNavxAngle());
+        DashboardLogger.putDouble("pos.navx_x", this.getNavxX());
+        DashboardLogger.putDouble("pos.navx_y", this.getNavxY());
     }
 
     /**
@@ -107,7 +115,7 @@ public class PositionManager implements IController
      * Retrieve the current angle in degrees
      * @return the current angle in degrees
      */
-    public double getAngle()
+    public double getOdometryAngle()
     {
         return this.angle;
     }
@@ -116,7 +124,7 @@ public class PositionManager implements IController
      * Retrieve the current x position
      * @return the current x position
      */
-    public double getX()
+    public double getOdometryX()
     {
         return this.x;
     }
@@ -125,9 +133,36 @@ public class PositionManager implements IController
      * Retrieve the current y position
      * @return the current y position
      */
-    public double getY()
+    public double getOdometryY()
     {
         return this.y;
+    }
+
+    /**
+     * Retrieve the current angle in degrees
+     * @return the current angle in degrees
+     */
+    public double getNavxAngle()
+    {
+        return this.navx.getAngle();
+    }
+
+    /**
+     * Retrieve the current x position
+     * @return the current x position
+     */
+    public double getNavxX()
+    {
+        return this.navx.getDisplacementX() * 100.0;
+    }
+
+    /**
+     * Retrieve the current y position
+     * @return the current y position
+     */
+    public double getNavxY()
+    {
+        return this.navx.getDisplacementY() * 100.0;
     }
 
     /**
