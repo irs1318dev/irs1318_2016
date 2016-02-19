@@ -14,17 +14,17 @@ public class TuningConstants
     public static final boolean DRIVETRAIN_USE_PID_DEFAULT = true;
 
     // Velocity PID (right)
-    public static final double DRIVETRAIN_VELOCITY_PID_RIGHT_KP_DEFAULT = 0.0;//1;
+    public static final double DRIVETRAIN_VELOCITY_PID_RIGHT_KP_DEFAULT = 0.0275;
     public static final double DRIVETRAIN_VELOCITY_PID_RIGHT_KI_DEFAULT = 0.0;
     public static final double DRIVETRAIN_VELOCITY_PID_RIGHT_KD_DEFAULT = 0.0;
-    public static final double DRIVETRAIN_VELOCITY_PID_RIGHT_KF_DEFAULT = 0.5;
+    public static final double DRIVETRAIN_VELOCITY_PID_RIGHT_KF_DEFAULT = 0.4;
     public static final double DRIVETRAIN_VELOCITY_PID_RIGHT_KS_DEFAULT = 100.0;
 
     // Velocity PID (left)
-    public static final double DRIVETRAIN_VELOCITY_PID_LEFT_KP_DEFAULT = 0.0;//1;
+    public static final double DRIVETRAIN_VELOCITY_PID_LEFT_KP_DEFAULT = 0.0275;
     public static final double DRIVETRAIN_VELOCITY_PID_LEFT_KI_DEFAULT = 0.0;
     public static final double DRIVETRAIN_VELOCITY_PID_LEFT_KD_DEFAULT = 0.0;
-    public static final double DRIVETRAIN_VELOCITY_PID_LEFT_KF_DEFAULT = 0.5;
+    public static final double DRIVETRAIN_VELOCITY_PID_LEFT_KF_DEFAULT = 0.4;
     public static final double DRIVETRAIN_VELOCITY_PID_LEFT_KS_DEFAULT = 100.0;
 
     // Position PID (right)
@@ -40,8 +40,8 @@ public class TuningConstants
     public static final double DRIVETRAIN_POSITION_PID_LEFT_KF_DEFAULT = 0.0;
 
     // Drivetrain choices for one-stick drive
-    public static final double DRIVETRAIN_K1 = 1.5;
-    public static final double DRIVETRAIN_K2 = 0.4;
+    public static final double DRIVETRAIN_K1 = 1.4;
+    public static final double DRIVETRAIN_K2 = 0.5;
 
     public static final double DRIVETRAIN_A = 0.4;// "a" coefficient (advancing turn)
     public static final double DRIVETRAIN_B = 0.4;// "b" coefficient (in-place turn)
