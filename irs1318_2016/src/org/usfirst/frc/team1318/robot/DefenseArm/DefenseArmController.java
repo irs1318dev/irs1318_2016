@@ -148,7 +148,8 @@ public class DefenseArmController implements IController
             // update zeroOffset, and set the appropriate boolean to false
             if (isAtFront)
             {
-                this.defenseArm.setZeroOffset(currentEncoderAngle);
+                this.defenseArm.setAbsoluteFrontOffset(currentEncoderAngle);
+                this.desiredPosition = HardwareConstants.DEFENSE_ARM_MAX_FRONT_POSITION;
                 this.movingToFront = false;
                 enforceNonNegative = true;
             }
@@ -157,13 +158,15 @@ public class DefenseArmController implements IController
             // and set the appropriate boolean to false
             if (isAtBack)
             {
-                this.movingToBack = false;            
+                this.movingToBack = false;
+                this.defenseArm.setAbsoluteFrontOffset(currentEncoderAngle);
+                this.desiredPosition = Math.PI + Math.PI / 16.0;
                 enforceNonPositive = true;
             }
         }
 
-        // Sets the desiredPosition based on several possible inputs
-        zeroOffset = this.defenseArm.getZeroAngleOffset();
+        // determine the zero offset based on the absolute front's encoder value, and the distance from the horizontal-zero angle
+        zeroOffset = this.defenseArm.getAbsoluteFrontOffset() - HardwareConstants.DEFENSE_ARM_MAX_FRONT_POSITION;
 
         // Logic for moving the defense arm forward and backward manually
         if (this.usePID)
@@ -197,8 +200,8 @@ public class DefenseArmController implements IController
                 motorValue = this.pidHandler.calculatePosition(zeroOffset + this.desiredPosition, currentEncoderAngle);
             }
 
-            DashboardLogger.putDouble("defenseArm.desiredPosition", this.desiredPosition);
-            DashboardLogger.putDouble("defenseArm.motorValue", motorValue);
+            DashboardLogger.putDouble("battle_axe desiredPosition", this.desiredPosition);
+            DashboardLogger.putDouble("battle_axe motorValue", motorValue);
         }
         else
         {
@@ -221,12 +224,12 @@ public class DefenseArmController implements IController
 
         if (enforceNonNegative)
         {
-            motorValue = Math.min(0.0, motorValue);
+            motorValue = Math.max(0.0, motorValue);
         }
 
         if (enforceNonPositive)
         {
-            motorValue = Math.max(0.0, motorValue);
+            motorValue = Math.min(0.0, motorValue);
         }
 
         this.defenseArm.setSpeed(motorValue);

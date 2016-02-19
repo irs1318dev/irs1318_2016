@@ -60,7 +60,7 @@ public class TuningConstants
 
     //================================================== DefenseArm ==============================================================
 
-    public static final boolean DEFENSE_ARM_USE_SENSORS_DEFAULT = false; // TODO: replace with true once the limit switches are installed...
+    public static final boolean DEFENSE_ARM_USE_SENSORS_DEFAULT = true;
 
     // Defense arm max velocity (angular)
     public static final double DEFENSE_ARM_MAX_VELOCITY = Math.PI / 4.0;
@@ -76,8 +76,6 @@ public class TuningConstants
 
     public static final double DEFENSE_ARM_MAX_POWER_LEVEL = 0.8;
     public static final double DEFENSE_ARM_MOVE_END_POWER_LEVEL = 0.8;
-    public static final double DEFENSE_ARM_PAST_FRONT_POSITION = -1000.0;
-    public static final double DEFENSE_ARM_PAST_BACK_POSITION = 1000.0;
 
     //================================================== Shooter ==============================================================
 
@@ -88,7 +86,7 @@ public class TuningConstants
     public static final double SHOOTER_VELOCITY_PID_KD_DEFAULT = 0.0;
     public static final double SHOOTER_VELOCITY_PID_KF_DEFAULT = 1.0;
 
-    public static final double SHOOTER_CLOSE_SHOT_VELOCITY = 0.675; //0.525;
+    public static final double SHOOTER_CLOSE_SHOT_VELOCITY = 0.6;
     public static final double SHOOTER_FAR_SHOT_VELOCITY = 0.85;
     public static final double SHOOTER_LOWER_KICKER_DURATION = 0.5;
     public static final double SHOOTER_SPIN_UP_DURATION = 3.0;
@@ -142,5 +140,4 @@ public class TuningConstants
 
     public static final double DRIVETRAIN_POSITIONAL_ACCEPTABLE_DELTA = 0.2;
     public static final double DEFENSE_ARM_POSITIONAL_ACCEPTABLE_DELTA = Math.PI / 64;
-
 }

@@ -32,26 +32,23 @@ public class ShooterController implements IController
 
         // The actual velocity of the shooter wheel
         double currentRate = this.shooter.getCounterRate();
-        double currentTicks = this.shooter.getCounterTicks();
+        int currentTicks = this.shooter.getCounterTicks();
         DashboardLogger.putDouble("shooterRate", currentRate);
         DashboardLogger.putDouble("shooterTicks", currentTicks);
 
         // The velocity set in the analog operation
         double velocityGoal = this.driver.getAnalog(Operation.ShooterSpeed);
 
+        double power = 0.0;
         if (spin)
         {
             // Calculate the power required to reach the velocity goal     
-            double power = this.PID.calculateVelocity(velocityGoal, currentTicks);
+            power = this.PID.calculateVelocity(velocityGoal, currentTicks);
+        }
 
-            // Set the motor power with the calculated value
-            this.shooter.setMotorSpeed(power);
-        }
-        else 
-        {
-            // Zero if we're not spinning...
-            this.shooter.setMotorSpeed(0.0);
-        }
+        // Set the motor power with the calculated value
+        this.shooter.setMotorSpeed(power);
+        DashboardLogger.putDouble("shooterPower", power);
 
         // lower the kicker whenever we are rotating in or out, or when we are performing a shot macro
         boolean lowerKicker = this.driver.getDigital(Operation.ShooterLowerKicker)

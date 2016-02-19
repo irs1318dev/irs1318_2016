@@ -79,9 +79,8 @@ public class Robot extends IterativeRobot
 
         DashboardLogger.putString(Robot.ROBOT_STATE_LOG_KEY, "Init");
 
-        this.dipSwitchA = new DigitalInput(ElectronicsConstants.AUTONOMOUS_DIP_SWITCH_A);
-        this.dipSwitchB = new DigitalInput(ElectronicsConstants.AUTONOMOUS_DIP_SWITCH_B);
-        
+        this.dipSwitchA = null;//new DigitalInput(ElectronicsConstants.AUTONOMOUS_DIP_SWITCH_A);
+        this.dipSwitchB = null;//new DigitalInput(ElectronicsConstants.AUTONOMOUS_DIP_SWITCH_B);
     }
 
     /**
@@ -117,15 +116,15 @@ public class Robot extends IterativeRobot
         IControlTask autonomousRoutine = Robot.GetFillerRoutine();
 
         int routineSelection = 0;
-        if (this.dipSwitchA.get())
-        {
-            routineSelection += 1;
-        }
+        //if (this.dipSwitchA.get())
+        //{
+        //    routineSelection += 1;
+        //}
 
-        if (this.dipSwitchB.get())
-        {
-            routineSelection += 2;
-        }
+        //if (this.dipSwitchB.get())
+        //{
+        //    routineSelection += 2;
+        //}
 
         //select autonomous routine based on the dipswitch positions
         switch (routineSelection)

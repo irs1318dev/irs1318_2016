@@ -23,18 +23,18 @@ public class DefenseArmComponent
     private final DigitalInput frontLimitSwitch;
     private final DigitalInput backLimitSwitch;
 
-    private double zeroOffset;
+    private double absoluteFrontOffset;
 
     // General constructor for the component that initializes all of the necessary parts of the component, and sets the setpoint
     public DefenseArmComponent()
     {
         this.talon = new Talon(ElectronicsConstants.DEFENSE_ARM_MOTOR_CHANNEL);
         this.encoder = new Encoder(ElectronicsConstants.DEFENSE_ARM_ENCODER_CHANNEL_A, ElectronicsConstants.DEFENSE_ARM_ENCODER_CHANNEL_B);
-        this.frontLimitSwitch = null;//new DigitalInput(ElectronicsConstants.DEFENSE_ARM_FRONT_LIMIT_SWITCH_CHANNEL);
+        this.frontLimitSwitch = new DigitalInput(ElectronicsConstants.DEFENSE_ARM_FRONT_LIMIT_SWITCH_CHANNEL);
         this.backLimitSwitch = null;//new DigitalInput(ElectronicsConstants.DEFENSE_ARM_BACK_LIMIT_SWITCH_CHANNEL);
 
         this.encoder.setDistancePerPulse(HardwareConstants.DEFENSE_ARM_PULSE_DISTANCE);
-        this.zeroOffset = 0.0;
+        this.absoluteFrontOffset = HardwareConstants.DEFENSE_ARM_MAX_FRONT_POSITION;
     }
 
     /**
@@ -74,12 +74,9 @@ public class DefenseArmComponent
      */
     public boolean getFrontLimitSwitch()
     {
-        if (this.frontLimitSwitch == null)
-        {
-            return false;
-        }
-        
-        return this.frontLimitSwitch.get();
+        boolean frontLimitSwitch = this.frontLimitSwitch.get();
+        DashboardLogger.putBoolean("battle_axe frontLimitSwitch", frontLimitSwitch);
+        return frontLimitSwitch;
     }
 
     /**
@@ -88,29 +85,27 @@ public class DefenseArmComponent
      */
     public boolean getBackLimitSwitch()
     {
-        if (this.backLimitSwitch == null)
-        {
-            return false;
-        }
-        
-        return this.backLimitSwitch.get();
+        boolean backLimitSwitch = this.frontLimitSwitch.get();
+        DashboardLogger.putBoolean("battle_axe backLimitSwitch", backLimitSwitch);
+        return backLimitSwitch;
     }
 
     /**
-     * Get the zero offset
-     * @return the current count of zeroOffset
+     * Get the absolute front offset
+     * @return the current count of absoluteFrontOffset
      */
-    public double getZeroAngleOffset()
+    public double getAbsoluteFrontOffset()
     {
-        return this.zeroOffset;
+        DashboardLogger.putDouble("battle_axe frontOffset", this.absoluteFrontOffset);
+        return this.absoluteFrontOffset;
     }
 
     /**
-     * Set the value of zeroOffset
-     * @param zeroOffset encoder position when the arm is all the way forward
+     * Set the value of absoluteFrontOffset
+     * @param absoluteFrontOffset encoder position when the arm is all the way forward
      */
-    public void setZeroOffset(double zeroOffset)
+    public void setAbsoluteFrontOffset(double absoluteFrontOffset)
     {
-        this.zeroOffset = zeroOffset;
+        this.absoluteFrontOffset = absoluteFrontOffset;
     }
 }

@@ -64,7 +64,7 @@ public class DefenseArmPositionTask extends ControlTaskBase implements IControlT
     @Override
     public boolean hasCompleted()
     {
-        double delta = Math.abs(this.desiredAngleTicks - (this.defenseArm.getEncoderAngle() - this.defenseArm.getZeroAngleOffset())); 
+        double delta = Math.abs(this.desiredAngleTicks - (this.defenseArm.getEncoderAngle() - this.defenseArm.getAbsoluteFrontOffset())); 
         return delta < TuningConstants.DEFENSE_ARM_POSITIONAL_ACCEPTABLE_DELTA;
     }
 }

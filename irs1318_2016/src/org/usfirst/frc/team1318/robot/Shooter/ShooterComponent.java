@@ -27,6 +27,7 @@ public class ShooterComponent
         this.talon = new Talon(ElectronicsConstants.SHOOTER_TALON_CHANNEL);
         this.counter = new Counter(ElectronicsConstants.SHOOTER_COUNTER_CHANNEL);
         this.counter.setUpDownCounterMode();
+        this.counter.setDistancePerPulse(1.0);
     }
     
     public void setMotorSpeed(double speed) 

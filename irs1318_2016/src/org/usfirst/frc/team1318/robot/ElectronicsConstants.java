@@ -41,8 +41,8 @@ public class ElectronicsConstants
     //================================================= Defense Arm ===============================================================
 
     public static final int DEFENSE_ARM_MOTOR_CHANNEL = 0;
-    public static final int DEFENSE_ARM_FRONT_LIMIT_SWITCH_CHANNEL = 0;
-    public static final int DEFENSE_ARM_BACK_LIMIT_SWITCH_CHANNEL = 0;
+    public static final int DEFENSE_ARM_FRONT_LIMIT_SWITCH_CHANNEL = 7;
+    public static final int DEFENSE_ARM_BACK_LIMIT_SWITCH_CHANNEL = 8;
     public static final int DEFENSE_ARM_ENCODER_CHANNEL_A = 4;
     public static final int DEFENSE_ARM_ENCODER_CHANNEL_B = 5;
     
@@ -60,13 +60,7 @@ public class ElectronicsConstants
     public static final int INTAKE_MOTOR_CHANNEL = 3;
     public static final int INTAKE_SOLENOID_CHANNEL_A = 4;
     public static final int INTAKE_SOLENOID_CHANNEL_B = 3;
-    
-    // ================================================= Sensor test =============================================================
-    
-    public static final int TEST_SENSOR_SHARP = 0;
-    public static final int TEST_SENSOR_IR_IN = 0;
-    public static final int TEST_SENSOR_IR_OUT = 1;
-    
+
     // ================================================= Climbing Arm =============================================================
 
     public static final int CLIMBING_ARM_MOTOR_CHANNEL = 2;
