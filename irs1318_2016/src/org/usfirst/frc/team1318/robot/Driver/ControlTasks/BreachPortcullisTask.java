@@ -58,7 +58,7 @@ public class BreachPortcullisTask extends ControlTaskBase
         // Find current encoder distances
         this.currentDTDistanceRight = this.driveTrain.getRightEncoderDistance();
         this.currentDTDistanceLeft = this.driveTrain.getLeftEncoderDistance();
-        
+
         // calculate the elapsed time
         double currTime = this.timer.get();
         double timeElapsed = currTime - this.prevTime;
@@ -70,20 +70,30 @@ public class BreachPortcullisTask extends ControlTaskBase
             + distanceToTravel);
         this.setAnalogOperationState(Operation.DriveTrainLeftPosition, this.currentDTDistanceLeft
             + distanceToTravel);
-        
+
         // Find distance traveled by both right and left wheels since macro started
         double traveledRightDistance = this.currentDTDistanceRight - this.startDTDistanceRight;
         double traveledLeftDistance = this.currentDTDistanceLeft - this.startDTDistanceLeft;
-        
+
         // Find average of right and left traveled distance (both left and right should be the same theoretically);
         double traveledDistance = (traveledRightDistance + traveledLeftDistance) / 2;
-        
+
+        // determine what ratio compared to the arm length we have traveled.  If we are before our starting location
+        double traveledDistanceRatio = traveledDistance / TuningConstants.PORTCULLIS_BREACH_DISTANCE;
+        if (traveledDistanceRatio < 0.0)
+        {
+            traveledDistanceRatio = 0.0;
+        }
+        else if (traveledDistanceRatio > 1.0)
+        {
+            traveledDistanceRatio = 1.0;
+        }
+
         // Find the desired Arm Angle in radians
-        double armAngle = Math.acos((traveledDistance - HardwareConstants.DEFENSE_ARM_LENGTH)
-            / HardwareConstants.DEFENSE_ARM_LENGTH);
-        
+        double armAngle = Math.acos(2.0 * traveledDistanceRatio - 1.0);
+
         // Set the desired arm angle converted to ticks
-        this.setAnalogOperationState(Operation.DefenseArmSetAngle, armAngle * HardwareConstants.DEFENSE_ARM_TICKS_PER_RADIAN);
+        this.setAnalogOperationState(Operation.DefenseArmSetAngle, armAngle);
     }
 
     @Override
@@ -105,11 +115,6 @@ public class BreachPortcullisTask extends ControlTaskBase
     @Override
     public boolean hasCompleted()
     {
-        DashboardLogger.putDouble("currentRight", this.currentDTDistanceRight);
-        DashboardLogger.putDouble("currentLeft", this.currentDTDistanceLeft);
-        DashboardLogger.putDouble("desiredRight", this.desiredDTDistanceRight);
-        DashboardLogger.putDouble("desiredLeft", this.desiredDTDistanceLeft);
-        
         // Check that the distance the robot has traveled (with the purpose of returning true if the desired position has been met)
         return this.currentDTDistanceRight >= this.desiredDTDistanceRight && this.currentDTDistanceLeft >= this.desiredDTDistanceLeft;
     }

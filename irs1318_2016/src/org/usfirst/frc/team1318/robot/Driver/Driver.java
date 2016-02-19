@@ -307,7 +307,7 @@ public abstract class Driver
                     () -> SequentialTask.Sequence(
                         new DefenseArmPositionTask(HardwareConstants.CHEVAL_DE_FRISE_DEFENSE_ARM_POSITION_A),
                         new DriveDistanceTask(TuningConstants.CHEVAL_DE_FRISE_OUTER_WORKS_DISTANCE),
-                        new DefenseArmPositionTask(HardwareConstants.DEFENSE_ARM_FRONT_POSITION),
+                        new DefenseArmPositionTask(HardwareConstants.DEFENSE_ARM_MAX_FRONT_POSITION),
                         ConcurrentTask.AllTasks(
                             new DriveDistanceTask(TuningConstants.CHEVAL_DE_FRISE_HALF_BREACH_DISTANCE),
                             new DefenseArmPositionTask(HardwareConstants.CHEVAL_DE_FRISE_DEFENSE_ARM_POSITION_B)),

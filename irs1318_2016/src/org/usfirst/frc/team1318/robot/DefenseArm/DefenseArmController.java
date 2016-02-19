@@ -49,7 +49,7 @@ public class DefenseArmController implements IController
 
         this.useSensors = TuningConstants.DEFENSE_ARM_USE_SENSORS_DEFAULT;
 
-        this.desiredPosition = HardwareConstants.DEFENSE_ARM_FRONT_POSITION;
+        this.desiredPosition = HardwareConstants.DEFENSE_ARM_HORIZONTAL_FRONT_POSITION;
 
         this.timer = new Timer();
         this.timer.start();
@@ -100,20 +100,20 @@ public class DefenseArmController implements IController
         // Operation check for the portcullis macro
         if (this.driver.getDigital(Operation.DefenseArmTakePositionInput))
         {
-            this.desiredPosition = this.driver.getAnalog(Operation.DefenseArmSetAngle);
+            this.desiredPosition = this.assertDesiredPositionRange(
+                this.driver.getAnalog(Operation.DefenseArmSetAngle));
         }
 
-        
         // Check for the desire to move the arm to the front or back of the robot
         if (this.driver.getDigital(Operation.DefenseArmFrontPosition))
         {
-            this.desiredPosition = HardwareConstants.DEFENSE_ARM_FRONT_POSITION;
+            this.desiredPosition = HardwareConstants.DEFENSE_ARM_HORIZONTAL_FRONT_POSITION;
             this.movingToFront = true;
             this.movingToBack = false;
         }
         else if (this.driver.getDigital(Operation.DefenseArmBackPosition))
         {
-            this.desiredPosition = HardwareConstants.DEFENSE_ARM_BACK_POSITION;
+            this.desiredPosition = HardwareConstants.DEFENSE_ARM_HORIZONTAL_BACK_POSITION;
             this.movingToFront = false;
             this.movingToBack = true;
         }
@@ -135,13 +135,15 @@ public class DefenseArmController implements IController
             this.movingToFront = false;
             this.movingToBack = false;
         }
-        
+
         // If we are ignoring the sensors, ignore movingToFront/movingToBack, and safety enforcement...
         if (!this.useSensors)
         {
             this.movingToFront = false;
             this.movingToBack = false;
-    
+        }
+        else
+        {
             // Check to see if the arm is at the front of the robot, 
             // update zeroOffset, and set the appropriate boolean to false
             if (isAtFront)
@@ -150,7 +152,7 @@ public class DefenseArmController implements IController
                 this.movingToFront = false;
                 enforceNonNegative = true;
             }
-    
+
             // Check to see if the arm is at the back of the robot, 
             // and set the appropriate boolean to false
             if (isAtBack)
@@ -164,7 +166,6 @@ public class DefenseArmController implements IController
         zeroOffset = this.defenseArm.getZeroAngleOffset();
 
         // Logic for moving the defense arm forward and backward manually
-        DashboardLogger.putBoolean("defenseArm.usePID", this.usePID);
         if (this.usePID)
         {
             if (this.movingToFront)
@@ -191,10 +192,11 @@ public class DefenseArmController implements IController
                     this.movingToFront = false;
                     this.movingToBack = false;
                 }
-                
+
+                this.desiredPosition = this.assertDesiredPositionRange(this.desiredPosition);
                 motorValue = this.pidHandler.calculatePosition(zeroOffset + this.desiredPosition, currentEncoderAngle);
             }
-            
+
             DashboardLogger.putDouble("defenseArm.desiredPosition", this.desiredPosition);
             DashboardLogger.putDouble("defenseArm.motorValue", motorValue);
         }
@@ -261,6 +263,26 @@ public class DefenseArmController implements IController
         else
         {
             this.pidHandler = null;
+        }
+    }
+
+    private double assertDesiredPositionRange(double position)
+    {
+        if (position < HardwareConstants.DEFENSE_ARM_MAX_FRONT_POSITION)
+        {
+            return HardwareConstants.DEFENSE_ARM_MAX_FRONT_POSITION;
+        }
+        else if (position > HardwareConstants.DEFENSE_ARM_MAX_BACK_POSITION)
+        {
+            return HardwareConstants.DEFENSE_ARM_MAX_BACK_POSITION;
+        }
+        else if (Double.isNaN(position))
+        {
+            return 0.0;
+        }
+        else
+        {
+            return position;
         }
     }
 }
