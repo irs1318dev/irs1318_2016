@@ -18,7 +18,7 @@ public class ShooterController implements IController
     private ShooterComponent shooter;
     private Driver driver;
     private PIDHandler PID;
-    
+
     public ShooterController(ShooterComponent shooter) 
     {
         this.shooter = shooter;
@@ -31,17 +31,19 @@ public class ShooterController implements IController
         boolean spin = this.driver.getDigital(Operation.ShooterSpin);
 
         // The actual velocity of the shooter wheel
-        double currentTicks = this.shooter.getCounterRate();
-        DashboardLogger.putDouble("shooterRate", currentTicks);
-        
+        double currentRate = this.shooter.getCounterRate();
+        double currentTicks = this.shooter.getCounterTicks();
+        DashboardLogger.putDouble("shooterRate", currentRate);
+        DashboardLogger.putDouble("shooterTicks", currentTicks);
+
         // The velocity set in the analog operation
         double velocityGoal = this.driver.getAnalog(Operation.ShooterSpeed);
-            
+
         if (spin)
         {
             // Calculate the power required to reach the velocity goal     
             double power = this.PID.calculateVelocity(velocityGoal, currentTicks);
-            
+
             // Set the motor power with the calculated value
             this.shooter.setMotorSpeed(power);
         }
@@ -64,7 +66,7 @@ public class ShooterController implements IController
         {
             this.shooter.kick(true);
         }
-        
+
         boolean hood = this.driver.getDigital(Operation.ShooterExtendHood);
         if (hood)
         {
@@ -87,7 +89,7 @@ public class ShooterController implements IController
     {
         this.driver = driver;
     }
-    
+
     public void createPIDHandler() 
     {
         this.PID = new PIDHandler(
