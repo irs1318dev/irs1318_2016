@@ -109,7 +109,7 @@ public class DefenseArmController implements IController
                     this.movingToFront = false;
                 }
 
-                this.defenseArm.setAbsoluteFrontOffset(currentEncoderAngle - this.desiredPosition);
+                this.defenseArm.setAbsoluteFrontOffset(currentEncoderAngle - HardwareConstants.DEFENSE_ARM_MAX_FRONT_POSITION);
                 enforceNonNegative = true;
             }
 
@@ -123,7 +123,7 @@ public class DefenseArmController implements IController
                     this.movingToBack = false;
                 }
 
-                this.defenseArm.setAbsoluteFrontOffset(currentEncoderAngle - this.desiredPosition);
+                this.defenseArm.setAbsoluteFrontOffset(currentEncoderAngle - HardwareConstants.DEFENSE_ARM_MAX_BACK_POSITION);
                 enforceNonPositive = true;
             }
         }
