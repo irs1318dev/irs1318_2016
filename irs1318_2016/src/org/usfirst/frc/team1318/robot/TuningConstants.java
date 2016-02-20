@@ -80,6 +80,7 @@ public class TuningConstants
 
     public static final double DEFENSE_ARM_UP_FORWARD_POSITION = Math.PI / 4.0;
     public static final double DEFENSE_ARM_UP_POSITION = Math.PI / 2.0;
+    public static final double DEFENSE_ARM_OVERRIDE_AMOUNT = Math.PI/32.0;
 
     //================================================== Shooter ==============================================================
 

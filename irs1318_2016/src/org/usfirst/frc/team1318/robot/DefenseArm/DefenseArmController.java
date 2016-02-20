@@ -103,9 +103,13 @@ public class DefenseArmController implements IController
             // update front offset, and set the appropriate boolean to false
             if (isAtFront)
             {
-                this.desiredPosition = HardwareConstants.DEFENSE_ARM_MAX_FRONT_POSITION;
+                if (this.movingToFront)
+                {
+                    this.desiredPosition = HardwareConstants.DEFENSE_ARM_MAX_FRONT_POSITION;
+                    this.movingToFront = false;
+                }
+
                 this.defenseArm.setAbsoluteFrontOffset(currentEncoderAngle - this.desiredPosition);
-                this.movingToFront = false;
                 enforceNonNegative = true;
             }
 
@@ -113,9 +117,13 @@ public class DefenseArmController implements IController
             // and set the appropriate boolean to false
             if (isAtBack)
             {
-                this.desiredPosition = HardwareConstants.DEFENSE_ARM_MAX_BACK_POSITION;
+                if (this.movingToBack)
+                {
+                    this.desiredPosition = HardwareConstants.DEFENSE_ARM_MAX_BACK_POSITION;
+                    this.movingToBack = false;
+                }
+
                 this.defenseArm.setAbsoluteFrontOffset(currentEncoderAngle - this.desiredPosition);
-                this.movingToBack = false;
                 enforceNonPositive = true;
             }
         }
@@ -168,6 +176,7 @@ public class DefenseArmController implements IController
 
         // determine the front offset based on the absolute front's encoder value
         frontOffset = this.defenseArm.getAbsoluteFrontOffset();
+        double actualPosition = currentEncoderAngle - frontOffset;
 
         // Logic for moving the defense arm forward and backward manually
         if (this.usePID)
@@ -184,9 +193,10 @@ public class DefenseArmController implements IController
             {
                 if (this.driver.getDigital(Operation.DefenseArmMoveForward))
                 {
-                    if (this.movingToFront || this.movingToBack)
+                    // if we were moving to front or back or a wider range than our regular velocity, reset our source desired position to the current one
+                    if (this.movingToFront || this.movingToBack || Math.abs(this.desiredPosition - actualPosition) > TuningConstants.DEFENSE_ARM_OVERRIDE_AMOUNT)
                     {
-                        this.desiredPosition = currentEncoderAngle;
+                        this.desiredPosition = actualPosition;
                         this.movingToFront = false;
                         this.movingToBack = false;
                     }
@@ -201,7 +211,8 @@ public class DefenseArmController implements IController
                 }
                 else if (this.driver.getDigital(Operation.DefenseArmMoveBack))
                 {
-                    if (this.movingToFront || this.movingToBack)
+                    // if we were moving to front or back or a wider range than our regular velocity, reset our source desired position to the current one
+                    if (this.movingToFront || this.movingToBack || Math.abs(this.desiredPosition - actualPosition) > TuningConstants.DEFENSE_ARM_OVERRIDE_AMOUNT)
                     {
                         this.desiredPosition = currentEncoderAngle;
                         this.movingToFront = false;
