@@ -58,7 +58,16 @@ public class DriveRouteTask extends TimedTask implements IControlTask
     @Override
     public void update()
     {
-        double t = Math.min(this.getRatioComplete(), 1.0);
+        double t = this.getRatioComplete();
+        if (t > 1.0)
+        {
+            t = 1.0;
+        }
+        else if (t < 0.0)
+        {
+            t = 0.0;
+        }
+
         this.setAnalogOperationState(Operation.DriveTrainLeftPosition, this.startLeftDistance + this.leftPositionPerTime.apply(t));
         this.setAnalogOperationState(Operation.DriveTrainRightPosition, this.startRightDistance + this.rightPositionPerTime.apply(t));
     }

@@ -16,8 +16,8 @@ public enum Operation
     // Defense arm operations:
     DefenseArmMaxFrontPosition,
     DefenseArmHorizontalFrontPosition,
-    DefenseArmDrawbridgePosition,
-    DefenseArmSallyPortPosition,
+    DefenseArmUpForwardPosition,
+    DefenseArmUpPosition,
     DefenseArmMaxBackPosition,
     DefenseArmMoveBack,
     DefenseArmMoveForward,

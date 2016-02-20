@@ -233,7 +233,7 @@ public class Robot extends IterativeRobot
         return new SequentialTask(new IControlTask[]{
             new DriveDistanceTask(TuningConstants.START_TO_OUTER_WORKS_DISTANCE),
             ConcurrentTask.AllTasks(
-                new DefenseArmPositionTask(HardwareConstants.DEFENSE_ARM_PORTCULLIS_POSITION),
+                new DefenseArmPositionTask(TuningConstants.DEFENSE_ARM_PORTCULLIS_BREACH_APPROACH_POSITION),
                 new DriveDistanceTask(TuningConstants.PORTCULLIS_OUTER_WORKS_DISTANCE)),
             new BreachPortcullisTask(),
             new ShooterSpinUpTask(true, TuningConstants.SHOOTER_FAR_SHOT_VELOCITY),

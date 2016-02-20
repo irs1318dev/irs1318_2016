@@ -93,13 +93,13 @@ public abstract class Driver
                     UserInputDeviceButton.JOYSTICK_BASE_MIDDLE_LEFT_BUTTON,
                     ButtonType.Click));
             put(
-                Operation.DefenseArmSallyPortPosition,
+                Operation.DefenseArmUpForwardPosition,
                 new DigitalOperationDescription(
                     UserInputDevice.Driver,
                     UserInputDeviceButton.JOYSTICK_BASE_TOP_LEFT_BUTTON,
                     ButtonType.Click));
             put(
-                Operation.DefenseArmDrawbridgePosition,
+                Operation.DefenseArmUpPosition,
                 new DigitalOperationDescription(
                     UserInputDevice.Driver,
                     UserInputDeviceButton.JOYSTICK_BASE_BOTTOM_RIGHT_BUTTON,
@@ -237,9 +237,9 @@ public abstract class Driver
                     UserInputDeviceButton.BUTTON_PAD_BUTTON_2,
                     () -> SequentialTask.Sequence(
                         ConcurrentTask.AllTasks(
-                            new DefenseArmPositionTask(HardwareConstants.DEFENSE_ARM_PORTCULLIS_POSITION),
+                            new DefenseArmPositionTask(TuningConstants.DEFENSE_ARM_PORTCULLIS_BREACH_APPROACH_POSITION),
                             new DriveDistanceTask(TuningConstants.PORTCULLIS_OUTER_WORKS_DISTANCE)),
-                        new DefenseArmPositionTask(TuningConstants.PORTCULLIS_BREACH_ARM_ANGLE),
+                        new DefenseArmPositionTask(TuningConstants.DEFENSE_ARM_PORTCULLIS_BREACH_CAPTURE_POSITION),
                         new BreachPortcullisTask()),
                     new Operation[]
                     {
@@ -259,17 +259,17 @@ public abstract class Driver
                     () -> SequentialTask.Sequence(
                         ConcurrentTask.AllTasks(
                             new IntakePositionTask(false),
-                            new DefenseArmPositionTask(HardwareConstants.DEFENSE_ARM_SALLY_PORT_POSITION),
+                            new DefenseArmPositionTask(TuningConstants.DEFENSE_ARM_SALLY_PORT_APPROACH_POSITION),
                             new DriveDistanceTask(-TuningConstants.SALLY_PORT_OUTER_WORKS_DRIVE_DISTANCE)),
-                        new DefenseArmPositionTask(HardwareConstants.DEFENSE_ARM_SALLY_PORT_POSITION + Math.PI * 1.0/16.0),
+                        new DefenseArmPositionTask(TuningConstants.DEFENSE_ARM_SALLY_PORT_APPROACH_POSITION + Math.PI * 1.0/16.0),
                         new DriveRouteTask(
-                            (t) -> 0.25 * Math.PI * TuningConstants.SALLY_PORT_BREACH_BACKWARD_ARC_RADIUS * t,
-                            (t) -> 0.25 * Math.PI * (TuningConstants.SALLY_PORT_BREACH_BACKWARD_ARC_RADIUS + HardwareConstants.DRIVETRAIN_WHEEL_SEPARATION_DISTANCE) * t,
-                            3.0),
+                            (t) -> 0.35 * Math.PI * TuningConstants.SALLY_PORT_BREACH_BACKWARD_ARC_RADIUS * t,
+                            (t) -> 0.35 * Math.PI * (TuningConstants.SALLY_PORT_BREACH_BACKWARD_ARC_RADIUS + HardwareConstants.DRIVETRAIN_WHEEL_SEPARATION_DISTANCE) * t,
+                            2.0),
                         new DriveRouteTask(
-                            (t) -> -0.25 * Math.PI * (TuningConstants.SALLY_PORT_BREACH_FORWARD_ARC_RADIUS + HardwareConstants.DRIVETRAIN_WHEEL_SEPARATION_DISTANCE) * t,
-                            (t) -> -0.25 * Math.PI * TuningConstants.SALLY_PORT_BREACH_FORWARD_ARC_RADIUS * t,
-                            3.0),
+                            (t) -> -0.35 * Math.PI * (TuningConstants.SALLY_PORT_BREACH_FORWARD_ARC_RADIUS + HardwareConstants.DRIVETRAIN_WHEEL_SEPARATION_DISTANCE) * t,
+                            (t) -> -0.35 * Math.PI * TuningConstants.SALLY_PORT_BREACH_FORWARD_ARC_RADIUS * t,
+                            2.0),
                         new TurnTask(-90),
                         new DriveDistanceTask(TuningConstants.SALLY_PORT_BREACH_FINAL_CHARGE_DISTANCE)),
                     new Operation[]
@@ -289,8 +289,9 @@ public abstract class Driver
                     UserInputDeviceButton.BUTTON_PAD_BUTTON_4,
                     () -> SequentialTask.Sequence(
                         ConcurrentTask.AllTasks(
-                            new DefenseArmPositionTask(HardwareConstants.DEFENSE_ARM_DRAWBRIDGE_POSITION),
+                            new DefenseArmPositionTask(TuningConstants.DEFENSE_ARM_DRAWBRIDGE_APPROACH_POSITION),
                             new DriveDistanceTask(TuningConstants.DRAWBRIDGE_OUTER_WORKS_DISTANCE)),
+                        new DefenseArmPositionTask(HardwareConstants.DEFENSE_ARM_MAX_FRONT_POSITION),
                         new BreachDrawbridgeTask()),
                 new Operation[]
                 {
@@ -308,12 +309,12 @@ public abstract class Driver
                     UserInputDevice.CoDriver, 
                     UserInputDeviceButton.BUTTON_PAD_BUTTON_5,
                     () -> SequentialTask.Sequence(
-                        new DefenseArmPositionTask(HardwareConstants.CHEVAL_DE_FRISE_DEFENSE_ARM_POSITION_A),
+                        new DefenseArmPositionTask(TuningConstants.DEFENSE_ARM_CHEVAL_DE_FRISE_APPROACH_POSITION),
                         new DriveDistanceTask(TuningConstants.CHEVAL_DE_FRISE_OUTER_WORKS_DISTANCE),
                         new DefenseArmPositionTask(HardwareConstants.DEFENSE_ARM_MAX_FRONT_POSITION),
                         ConcurrentTask.AllTasks(
                             new DriveDistanceTask(TuningConstants.CHEVAL_DE_FRISE_HALF_BREACH_DISTANCE),
-                            new DefenseArmPositionTask(HardwareConstants.CHEVAL_DE_FRISE_DEFENSE_ARM_POSITION_B)),
+                            new DefenseArmPositionTask(TuningConstants.DEFENSE_ARM_CHEVAL_DE_FRISE_CAPTURE_POSITION)),
                         new DriveDistanceTask(TuningConstants.CHEVAL_DE_FRISE_REMAINING_BREACH_DISTANCE)),
                 new Operation[]
                 {

@@ -134,29 +134,29 @@ public class DefenseArmController implements IController
             this.movingToFront = true;
             this.movingToBack = false;
         }
-        else if (this.driver.getDigital(Operation.DefenseArmMaxBackPosition))
-        {
-            this.desiredPosition = HardwareConstants.DEFENSE_ARM_MAX_BACK_POSITION;
-            this.movingToFront = false;
-            this.movingToBack = true;
-        }
         else if (this.driver.getDigital(Operation.DefenseArmHorizontalFrontPosition))
         {
             this.desiredPosition = HardwareConstants.DEFENSE_ARM_HORIZONTAL_FRONT_POSITION;
             this.movingToFront = false;
             this.movingToBack = false;
         }
-        else if (this.driver.getDigital(Operation.DefenseArmDrawbridgePosition))
+        else if (this.driver.getDigital(Operation.DefenseArmUpForwardPosition))
         {
-            this.desiredPosition = HardwareConstants.DEFENSE_ARM_DRAWBRIDGE_POSITION;
+            this.desiredPosition = TuningConstants.DEFENSE_ARM_UP_FORWARD_POSITION;
             this.movingToFront = false;
             this.movingToBack = false;
         }
-        else if (this.driver.getDigital(Operation.DefenseArmSallyPortPosition))
+        else if (this.driver.getDigital(Operation.DefenseArmUpPosition))
         {
-            this.desiredPosition = HardwareConstants.DEFENSE_ARM_SALLY_PORT_POSITION;
+            this.desiredPosition = TuningConstants.DEFENSE_ARM_UP_POSITION;
             this.movingToFront = false;
             this.movingToBack = false;
+        }
+        else if (this.driver.getDigital(Operation.DefenseArmMaxBackPosition))
+        {
+            this.desiredPosition = HardwareConstants.DEFENSE_ARM_MAX_BACK_POSITION;
+            this.movingToFront = false;
+            this.movingToBack = true;
         }
 
         // If we are ignoring the sensors, ignore movingToFront/movingToBack, and safety enforcement...
@@ -184,6 +184,13 @@ public class DefenseArmController implements IController
             {
                 if (this.driver.getDigital(Operation.DefenseArmMoveForward))
                 {
+                    if (this.movingToFront || this.movingToBack)
+                    {
+                        this.desiredPosition = currentEncoderAngle;
+                        this.movingToFront = false;
+                        this.movingToBack = false;
+                    }
+
                     double adjustmentAmount = -1.0 * TuningConstants.DEFENSE_ARM_MAX_VELOCITY * deltaT;
                     if (isAtBack)
                     {
@@ -191,11 +198,16 @@ public class DefenseArmController implements IController
                     }
 
                     this.desiredPosition += adjustmentAmount;
-                    this.movingToFront = false;
-                    this.movingToBack = false;
                 }
                 else if (this.driver.getDigital(Operation.DefenseArmMoveBack))
                 {
+                    if (this.movingToFront || this.movingToBack)
+                    {
+                        this.desiredPosition = currentEncoderAngle;
+                        this.movingToFront = false;
+                        this.movingToBack = false;
+                    }
+
                     double adjustmentAmount = TuningConstants.DEFENSE_ARM_MAX_VELOCITY * deltaT;
                     if (isAtFront)
                     {
@@ -203,8 +215,6 @@ public class DefenseArmController implements IController
                     }
 
                     this.desiredPosition += adjustmentAmount;
-                    this.movingToFront = false;
-                    this.movingToBack = false;
                 }
 
                 this.desiredPosition = this.assertDesiredPositionRange(this.desiredPosition);

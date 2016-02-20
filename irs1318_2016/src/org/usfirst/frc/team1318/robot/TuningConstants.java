@@ -78,6 +78,9 @@ public class TuningConstants
     public static final double DEFENSE_ARM_MAX_POWER_LEVEL = 0.8;
     public static final double DEFENSE_ARM_MOVE_END_POWER_LEVEL = 0.3;
 
+    public static final double DEFENSE_ARM_UP_FORWARD_POSITION = Math.PI / 4.0;
+    public static final double DEFENSE_ARM_UP_POSITION = Math.PI / 2.0;
+
     //================================================== Shooter ==============================================================
 
     public static final double SHOOTER_MAX_POWER_LEVEL = 1.0;
@@ -91,7 +94,7 @@ public class TuningConstants
     public static final double SHOOTER_CLOSE_SHOT_VELOCITY = 0.6;
     public static final double SHOOTER_FAR_SHOT_VELOCITY = 0.85;
     public static final double SHOOTER_LOWER_KICKER_DURATION = 0.5;
-    public static final double SHOOTER_SPIN_UP_DURATION = 3.0;
+    public static final double SHOOTER_SPIN_UP_DURATION = 1.5;
     public static final double SHOOTER_FIRE_DURATION = 1.0;
 
     //================================================== Intake ==============================================================
@@ -111,33 +114,36 @@ public class TuningConstants
 
     //----- Portcullis -----
 
-    public static final double PORTCULLIS_BREACH_ARM_ANGLE = Math.PI * 1.0/4.0;
-    // Distance Robot must travel to breach portcullis
+    public static final double DEFENSE_ARM_PORTCULLIS_BREACH_APPROACH_POSITION = -Math.PI/32.0;
+    public static final double DEFENSE_ARM_PORTCULLIS_BREACH_CAPTURE_POSITION = Math.PI * 1.0/4.0;
     public static final double PORTCULLIS_BREACH_DISTANCE = 2 * HardwareConstants.DEFENSE_ARM_LENGTH;
-    // Distance from the outerworks edge to where the robot needs to be to start opening the portcullis
     public static final double PORTCULLIS_OUTER_WORKS_DISTANCE = 9.0 * 2.54;
-
-    // Distance Robot must travel to breach portcullis
     public static final double PORTCULLIS_BREACH_VELOCITY = 20.0; // cm/s
 
     //----- SallyPort -----
 
-    // Distance robot must drive for first part of sally port breach (first drive backwards)
     public static final double SALLY_PORT_OUTER_WORKS_DRIVE_DISTANCE = -9.0 * 2.54;
     public static final double SALLY_PORT_BREACH_BACKWARD_ARC_RADIUS = 9.0 * 2.54;
     public static final double SALLY_PORT_BREACH_FORWARD_ARC_RADIUS = 9.0 * 2.54;
     public static final double SALLY_PORT_BREACH_FINAL_CHARGE_DISTANCE = 48.0 * 2.54;
+    public static final double DEFENSE_ARM_SALLY_PORT_APPROACH_POSITION = 2.224;
+    public static final double DEFENSE_ARM_SALLY_PORT_PULL_POSITION = 2.37;
 
     //----- Drawbridge -----
 
     public static final double DRAWBRIDGE_BACKUP_DISTANCE = 0.0;
     public static final double DRAWBRIDGE_BREACH_VELOCITY = -0.5;
     public static final double DRAWBRIDGE_OUTER_WORKS_DISTANCE = 0.0;
-    
+    public static final double DEFENSE_ARM_DRAWBRIDGE_APPROACH_POSITION = Math.PI * 1.0/2.0;
+    public static final double DEFENSE_ARM_DRAWBRIDGE_CAPTURE_POSITION = Math.PI * 3.0/8.0;
+
     //----- Cheval de Frise -----
+
     public static final double CHEVAL_DE_FRISE_OUTER_WORKS_DISTANCE = 0.0;
     public static final double CHEVAL_DE_FRISE_HALF_BREACH_DISTANCE = 0.0;
     public static final double CHEVAL_DE_FRISE_REMAINING_BREACH_DISTANCE = 0.0;
+    public static final double DEFENSE_ARM_CHEVAL_DE_FRISE_APPROACH_POSITION = Math.PI/4;
+    public static final double DEFENSE_ARM_CHEVAL_DE_FRISE_CAPTURE_POSITION = HardwareConstants.DEFENSE_ARM_MAX_FRONT_POSITION;
 
     //================================================== Autonomous ==============================================================
 

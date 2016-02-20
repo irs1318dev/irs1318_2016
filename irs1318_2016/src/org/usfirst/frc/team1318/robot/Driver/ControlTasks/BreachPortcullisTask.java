@@ -15,7 +15,9 @@ public class BreachPortcullisTask extends CoordinatedDriveDefenseArmTaskBase
 
     protected double calculateArmAngle(double traveledDistanceRatio)
     {
+        final double startingAngle = TuningConstants.DEFENSE_ARM_PORTCULLIS_BREACH_CAPTURE_POSITION;
+
         // Find the desired Arm Angle in radians
-        return Math.acos(1.5 * traveledDistanceRatio - 0.5);
+        return startingAngle + traveledDistanceRatio * (Math.PI - startingAngle);
     }
 }
