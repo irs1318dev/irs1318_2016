@@ -117,7 +117,7 @@ public class TuningConstants
     public static final double PORTCULLIS_OUTER_WORKS_DISTANCE = 9.0 * 2.54;
 
     // Distance Robot must travel to breach portcullis
-    public static final double PORTCULLIS_BREACH_VELOCITY = 50.0; // cm/s
+    public static final double PORTCULLIS_BREACH_VELOCITY = 20.0; // cm/s
 
     //----- SallyPort -----
 
