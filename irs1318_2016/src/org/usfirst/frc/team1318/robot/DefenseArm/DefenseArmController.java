@@ -128,7 +128,7 @@ public class DefenseArmController implements IController
             }
         }
 
-        // Operation check for the portcullis macro
+        // If we are running a breach macro, use exact-specified positional input
         if (this.driver.getDigital(Operation.DefenseArmTakePositionInput))
         {
             this.desiredPosition = this.assertDesiredPositionRange(
