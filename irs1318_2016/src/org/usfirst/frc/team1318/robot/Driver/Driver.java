@@ -16,6 +16,7 @@ import org.usfirst.frc.team1318.robot.Driver.ControlTasks.ConcurrentTask;
 import org.usfirst.frc.team1318.robot.Driver.ControlTasks.DefenseArmPositionTask;
 import org.usfirst.frc.team1318.robot.Driver.ControlTasks.DriveDistanceTask;
 import org.usfirst.frc.team1318.robot.Driver.ControlTasks.DriveRouteTask;
+import org.usfirst.frc.team1318.robot.Driver.ControlTasks.IntakePositionTask;
 import org.usfirst.frc.team1318.robot.Driver.ControlTasks.SequentialTask;
 import org.usfirst.frc.team1318.robot.Driver.ControlTasks.ShooterLowerKickerTask;
 import org.usfirst.frc.team1318.robot.Driver.ControlTasks.ShooterKickTask;
@@ -238,6 +239,7 @@ public abstract class Driver
                         ConcurrentTask.AllTasks(
                             new DefenseArmPositionTask(HardwareConstants.DEFENSE_ARM_PORTCULLIS_POSITION),
                             new DriveDistanceTask(TuningConstants.PORTCULLIS_OUTER_WORKS_DISTANCE)),
+                        new DefenseArmPositionTask(TuningConstants.PORTCULLIS_BREACH_ARM_ANGLE),
                         new BreachPortcullisTask()),
                     new Operation[]
                     {
@@ -256,16 +258,17 @@ public abstract class Driver
                     UserInputDeviceButton.BUTTON_PAD_BUTTON_3,
                     () -> SequentialTask.Sequence(
                         ConcurrentTask.AllTasks(
+                            new IntakePositionTask(false),
                             new DefenseArmPositionTask(HardwareConstants.DEFENSE_ARM_SALLY_PORT_POSITION),
-                            new DriveDistanceTask(TuningConstants.SALLY_PORT_OUTER_WORKS_DISTANCE)),
-                        new DefenseArmPositionTask(HardwareConstants.DEFENSE_ARM_SALLY_PORT_POSITION - Math.PI * 0.0625),
+                            new DriveDistanceTask(-TuningConstants.SALLY_PORT_OUTER_WORKS_DRIVE_DISTANCE)),
+                        new DefenseArmPositionTask(HardwareConstants.DEFENSE_ARM_SALLY_PORT_POSITION + Math.PI * 1.0/16.0),
                         new DriveRouteTask(
-                            (t) -> -0.25 * Math.PI * (TuningConstants.SALLY_PORT_BREACH_BACKWARD_ARC_RADIUS + HardwareConstants.DRIVETRAIN_WHEEL_SEPARATION_DISTANCE) * t,
-                            (t) -> -0.25 * Math.PI * TuningConstants.SALLY_PORT_BREACH_BACKWARD_ARC_RADIUS * t,
+                            (t) -> 0.25 * Math.PI * TuningConstants.SALLY_PORT_BREACH_BACKWARD_ARC_RADIUS * t,
+                            (t) -> 0.25 * Math.PI * (TuningConstants.SALLY_PORT_BREACH_BACKWARD_ARC_RADIUS + HardwareConstants.DRIVETRAIN_WHEEL_SEPARATION_DISTANCE) * t,
                             3.0),
                         new DriveRouteTask(
-                            (t) -> 0.25 * Math.PI * TuningConstants.SALLY_PORT_BREACH_FORWARD_ARC_RADIUS * t,
-                            (t) -> 0.25 * Math.PI * (TuningConstants.SALLY_PORT_BREACH_FORWARD_ARC_RADIUS + HardwareConstants.DRIVETRAIN_WHEEL_SEPARATION_DISTANCE) * t,
+                            (t) -> -0.25 * Math.PI * (TuningConstants.SALLY_PORT_BREACH_FORWARD_ARC_RADIUS + HardwareConstants.DRIVETRAIN_WHEEL_SEPARATION_DISTANCE) * t,
+                            (t) -> -0.25 * Math.PI * TuningConstants.SALLY_PORT_BREACH_FORWARD_ARC_RADIUS * t,
                             3.0),
                         new TurnTask(-90),
                         new DriveDistanceTask(TuningConstants.SALLY_PORT_BREACH_FINAL_CHARGE_DISTANCE)),

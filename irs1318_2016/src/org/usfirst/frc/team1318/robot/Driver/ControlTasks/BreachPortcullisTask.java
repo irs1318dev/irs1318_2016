@@ -16,6 +16,6 @@ public class BreachPortcullisTask extends CoordinatedDriveDefenseArmTaskBase
     protected double calculateArmAngle(double traveledDistanceRatio)
     {
         // Find the desired Arm Angle in radians
-        return Math.acos(2.0 * traveledDistanceRatio - 1.0);
+        return Math.acos(1.5 * traveledDistanceRatio - 0.5);
     }
 }

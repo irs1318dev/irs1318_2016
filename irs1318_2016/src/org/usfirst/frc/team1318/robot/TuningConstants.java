@@ -111,6 +111,7 @@ public class TuningConstants
 
     //----- Portcullis -----
 
+    public static final double PORTCULLIS_BREACH_ARM_ANGLE = Math.PI * 1.0/4.0;
     // Distance Robot must travel to breach portcullis
     public static final double PORTCULLIS_BREACH_DISTANCE = 2 * HardwareConstants.DEFENSE_ARM_LENGTH;
     // Distance from the outerworks edge to where the robot needs to be to start opening the portcullis
@@ -122,10 +123,10 @@ public class TuningConstants
     //----- SallyPort -----
 
     // Distance robot must drive for first part of sally port breach (first drive backwards)
-    public static final double SALLY_PORT_OUTER_WORKS_DISTANCE = 9.0 * 2.54; // TODO: update guess
-    public static final double SALLY_PORT_BREACH_BACKWARD_ARC_RADIUS = 9.0 * 2.54; // TODO: update guess
-    public static final double SALLY_PORT_BREACH_FORWARD_ARC_RADIUS = 9.0 * 2.54; // TODO: update guess
-    public static final double SALLY_PORT_BREACH_FINAL_CHARGE_DISTANCE = 48.0 * 2.54; // TODO: update guess
+    public static final double SALLY_PORT_OUTER_WORKS_DRIVE_DISTANCE = -9.0 * 2.54;
+    public static final double SALLY_PORT_BREACH_BACKWARD_ARC_RADIUS = 9.0 * 2.54;
+    public static final double SALLY_PORT_BREACH_FORWARD_ARC_RADIUS = 9.0 * 2.54;
+    public static final double SALLY_PORT_BREACH_FINAL_CHARGE_DISTANCE = 48.0 * 2.54;
 
     //----- Drawbridge -----
 
