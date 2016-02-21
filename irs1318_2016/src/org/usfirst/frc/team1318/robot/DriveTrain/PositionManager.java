@@ -72,28 +72,34 @@ public class PositionManager implements IController
     public void update()
     {
         // check the current distance recorded by the encoders
-        double leftDistance = this.driveTrainComponent.getLeftEncoderDistance();
-        double rightDistance = this.driveTrainComponent.getRightEncoderDistance();
-        
+        double leftDistance = 0.0;
+        double rightDistance = 0.0;
+
+        if (this.driveTrainComponent != null)
+        {
+            leftDistance = this.driveTrainComponent.getLeftEncoderDistance();
+            rightDistance = this.driveTrainComponent.getRightEncoderDistance();
+        }
+
         // calculate the angle (in radians) based on the total distance traveled
         double angleR = ((leftDistance - rightDistance) / HardwareConstants.DRIVETRAIN_WHEEL_SEPARATION_DISTANCE);
-        
+
         // correct for weirdness (7 degree offset in the angle)
         angleR *= 0.979858464888405;
-        
+
         // calculate the average distance traveled
         double averagePositionChange = ((leftDistance - this.prevLeftDistance) + (rightDistance - this.prevRightDistance)) / 2;
-        
+
         // calculate the change since last time, and update our relative position
         this.x += averagePositionChange * Math.cos(angleR);
         this.y += averagePositionChange * Math.sin(angleR);
-        
+
         this.angle = (angleR * 360 / (2 * Math.PI)) % 360;
-        
+
         // record distance for next time
         this.prevLeftDistance = leftDistance;
         this.prevRightDistance = rightDistance;
-        
+
         // log the current position and orientation
         DashboardLogger.putDouble("pos.odom_angle", this.getOdometryAngle());
         DashboardLogger.putDouble("pos.odom_x", this.getOdometryX());

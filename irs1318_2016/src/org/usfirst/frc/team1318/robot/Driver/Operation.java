@@ -25,6 +25,8 @@ public enum Operation
     DefenseArmSetAngle,
     DefenseArmUseSensors,
     DefenseArmIgnoreSensors,
+    DisableDefenseArmPID, 
+    EnableDefenseArmPID,
     
     // Shooter operations:
     ShooterSpeed,

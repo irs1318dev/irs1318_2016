@@ -59,12 +59,12 @@ public class DefenseArmController implements IController
     @Override
     public void update()
     {
-        if (this.driver.getDigital(Operation.EnablePID))
+        if (this.driver.getDigital(Operation.EnablePID) || this.driver.getDigital(Operation.EnableDefenseArmPID))
         {
             this.usePID = true;
             this.createPIDHandler();
         }
-        else if (this.driver.getDigital(Operation.DisablePID))
+        else if (this.driver.getDigital(Operation.DisablePID) || this.driver.getDigital(Operation.DisableDefenseArmPID))
         {
             this.usePID = false;
             this.createPIDHandler();
