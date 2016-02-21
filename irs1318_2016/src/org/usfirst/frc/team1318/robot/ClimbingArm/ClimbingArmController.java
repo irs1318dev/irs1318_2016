@@ -9,7 +9,7 @@ public class ClimbingArmController implements IController
 {
     private ClimbingArmComponent climbingArm;
     private Driver driver;
-    
+
     public ClimbingArmController(ClimbingArmComponent climbingArm)
     {
         this.climbingArm = climbingArm;
@@ -20,28 +20,28 @@ public class ClimbingArmController implements IController
     {        
         boolean topLimitSwitch = this.climbingArm.getTopLimitSwitch();
         boolean bottomLimitSwitch = this.climbingArm.getBottomLimitSwitch();
-        
+
         // The operations for raising up and standing will probably only be used in macros, so it should be fine to have it like this
         // The toggle for the side solenoid
         if (this.driver.getDigital(Operation.ClimbingArmShoulderUp))
         {
             this.climbingArm.extendShoulderSolenoid(true);
         }
-        else
+        else if (this.driver.getDigital(Operation.ClimbingArmShoulderDown))
         {
             this.climbingArm.extendShoulderSolenoid(false);
         }
-        
+
         // The toggle for the arm solenoid
         if (this.driver.getDigital(Operation.ClimbingArmElbowUp))
         {
             this.climbingArm.extendElbowSolenoid(true);
         }
-        else
+        else if (this.driver.getDigital(Operation.ClimbingArmElbowDown))
         {
             this.climbingArm.extendElbowSolenoid(false);
         }
-        
+
         // Extend climbing arm, retract climbing arm, or stop climbing arm when appropriate
         double currentSpeed = 0.0;
         if (this.driver.getDigital(Operation.ClimbingArmExtend))
@@ -52,19 +52,19 @@ public class ClimbingArmController implements IController
         {
             currentSpeed = -TuningConstants.CLIMBING_ARM_MAX_SPEED;
         }
-        
+
         // Check to see if the nut has reached the top of the lead screw, and set the motor speed to 0 if it has.
         if (topLimitSwitch && currentSpeed > 0.0)
         {
             currentSpeed = 0.0;
         }
-        
+
         // Check to see if the nut has reached the bottom of the lead screw, and set the motor speed to 0 if it has.
         if (bottomLimitSwitch && currentSpeed < 0.0)
         {
             currentSpeed = 0.0;
         }
-        
+
         this.climbingArm.setClimbingSpeed(currentSpeed);
     }
 

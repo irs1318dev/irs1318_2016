@@ -8,12 +8,12 @@ import org.usfirst.frc.team1318.robot.Driver.Operation;
  * @author Corbin
  *
  */
-public class ClimbingArmLifterUpTask extends ControlTaskBase
+public class ClimbingArmLifterMoveTask extends ControlTaskBase
 {
     private boolean extend;
     
     // True extends, and false retracts.
-    public ClimbingArmLifterUpTask(boolean extend)
+    public ClimbingArmLifterMoveTask(boolean extend)
     {
         this.extend = extend;
     }

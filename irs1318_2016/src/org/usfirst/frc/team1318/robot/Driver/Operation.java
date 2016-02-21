@@ -44,7 +44,9 @@ public enum Operation
     ClimbingArmExtend,
     ClimbingArmRetract,
     ClimbingArmShoulderUp,
+    ClimbingArmShoulderDown,
     ClimbingArmElbowUp,
+    ClimbingArmElbowDown,
     
     // Other general operations:
     EnablePID,

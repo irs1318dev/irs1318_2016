@@ -8,12 +8,15 @@ import org.usfirst.frc.team1318.robot.Driver.Operation;
  * @author Corbin_Modica
  *
  */
-public class ClimbingArmShoulderUpTask extends TimedTask
+public class ClimbingArmShoulderTask extends TimedTask
 {
-    private boolean up;
+    private final boolean up;
 
-    // True is, well, up...
-    public ClimbingArmShoulderUpTask(boolean up)
+    /**
+     * Initialize a task that moves the climbing arm at the shoulder
+     * @param up - whether to move the climbing arm vertically up (or down)
+     */
+    public ClimbingArmShoulderTask(boolean up)
     {
         super(TuningConstants.CLIMBING_ARM_SHOULDER_UP_DURATION);
         this.up = up;
@@ -22,16 +25,10 @@ public class ClimbingArmShoulderUpTask extends TimedTask
     @Override
     public void begin()
     {
-        if (up)
-        {
-            this.setDigitalOperationState(Operation.ClimbingArmShoulderUp, true);
-        }
-        else
-        {
-            this.setDigitalOperationState(Operation.ClimbingArmShoulderUp, false);
-        }
+        this.setDigitalOperationState(Operation.ClimbingArmShoulderUp, this.up);
+        this.setDigitalOperationState(Operation.ClimbingArmShoulderDown, !this.up);
     }
-    
+
     @Override
     public void update()
     {

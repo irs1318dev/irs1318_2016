@@ -9,9 +9,9 @@ import org.usfirst.frc.team1318.robot.Driver.Buttons.AnalogAxis;
 import org.usfirst.frc.team1318.robot.Driver.Buttons.ButtonType;
 import org.usfirst.frc.team1318.robot.Driver.ControlTasks.BreachDrawbridgeTask;
 import org.usfirst.frc.team1318.robot.Driver.ControlTasks.BreachPortcullisTask;
-import org.usfirst.frc.team1318.robot.Driver.ControlTasks.ClimbingArmLifterUpTask;
-import org.usfirst.frc.team1318.robot.Driver.ControlTasks.ClimbingArmElbowUpTask;
-import org.usfirst.frc.team1318.robot.Driver.ControlTasks.ClimbingArmShoulderUpTask;
+import org.usfirst.frc.team1318.robot.Driver.ControlTasks.ClimbingArmLifterMoveTask;
+import org.usfirst.frc.team1318.robot.Driver.ControlTasks.ClimbingArmElbowTask;
+import org.usfirst.frc.team1318.robot.Driver.ControlTasks.ClimbingArmShoulderTask;
 import org.usfirst.frc.team1318.robot.Driver.ControlTasks.ConcurrentTask;
 import org.usfirst.frc.team1318.robot.Driver.ControlTasks.DefenseArmPositionTask;
 import org.usfirst.frc.team1318.robot.Driver.ControlTasks.DriveDistanceTask;
@@ -224,6 +224,30 @@ public abstract class Driver
                     UserInputDevice.None,
                     UserInputDeviceButton.NONE,
                     ButtonType.Click));
+            put(
+                Operation.ClimbingArmElbowUp,
+                new DigitalOperationDescription(
+                    UserInputDevice.None,
+                    UserInputDeviceButton.NONE,
+                    ButtonType.Click));
+            put(
+                Operation.ClimbingArmElbowDown,
+                new DigitalOperationDescription(
+                    UserInputDevice.None,
+                    UserInputDeviceButton.NONE,
+                    ButtonType.Click));
+            put(
+                Operation.ClimbingArmShoulderUp,
+                new DigitalOperationDescription(
+                    UserInputDevice.None,
+                    UserInputDeviceButton.NONE,
+                    ButtonType.Click));
+            put(
+                Operation.ClimbingArmShoulderDown,
+                new DigitalOperationDescription(
+                    UserInputDevice.None,
+                    UserInputDeviceButton.NONE,
+                    ButtonType.Click));
 
             // Operations for general stuff
             put(
@@ -411,12 +435,14 @@ public abstract class Driver
                     UserInputDevice.CoDriver,
                     UserInputDeviceButton.BUTTON_PAD_BUTTON_6,
                     () -> SequentialTask.Sequence(
-                        new ClimbingArmElbowUpTask(false),
-                        new ClimbingArmShoulderUpTask(false)),
+                        new ClimbingArmElbowTask(false),
+                        new ClimbingArmShoulderTask(false)),
                     new Operation[]
                     {
                         Operation.ClimbingArmElbowUp,
+                        Operation.ClimbingArmElbowDown,
                         Operation.ClimbingArmShoulderUp,
+                        Operation.ClimbingArmShoulderDown,
                     }));
             put(
                 MacroOperation.ClimbingArmDeploy,
@@ -424,19 +450,21 @@ public abstract class Driver
                     UserInputDevice.CoDriver,
                     UserInputDeviceButton.BUTTON_PAD_BUTTON_7,
                     () -> SequentialTask.Sequence(
-                        new ClimbingArmShoulderUpTask(true),
-                        new ClimbingArmElbowUpTask(true)),
+                        new ClimbingArmShoulderTask(true),
+                        new ClimbingArmElbowTask(true)),
                     new Operation[]
                     {
                         Operation.ClimbingArmElbowUp,
+                        Operation.ClimbingArmElbowDown,
                         Operation.ClimbingArmShoulderUp,
+                        Operation.ClimbingArmShoulderDown,
                     }));
             put(
                 MacroOperation.ClimbingArmLifterUp,
                 new MacroOperationDescription(
                     UserInputDevice.CoDriver,
                     UserInputDeviceButton.BUTTON_PAD_BUTTON_8,
-                    () -> new ClimbingArmLifterUpTask(true),
+                    () -> new ClimbingArmLifterMoveTask(true),
                     new Operation[]
                     {
                         Operation.ClimbingArmExtend,
@@ -447,7 +475,7 @@ public abstract class Driver
                 new MacroOperationDescription(
                     UserInputDevice.CoDriver,
                     UserInputDeviceButton.BUTTON_PAD_BUTTON_9,
-                    () -> new ClimbingArmLifterUpTask(false),
+                    () -> new ClimbingArmLifterMoveTask(false),
                     new Operation[]
                     {
                         Operation.ClimbingArmExtend,
