@@ -76,7 +76,7 @@ public class TuningConstants
     public static final double DEFENSE_ARM_POSITION_PID_KF_DEFAULT = 0.0;
 
     public static final double DEFENSE_ARM_MAX_POWER_LEVEL = 0.8;
-    public static final double DEFENSE_ARM_MOVE_END_POWER_LEVEL = 0.3;
+    public static final double DEFENSE_ARM_MOVE_END_POWER_LEVEL = 0.4;
 
     public static final double DEFENSE_ARM_UP_FORWARD_POSITION = Math.PI / 4.0;
     public static final double DEFENSE_ARM_UP_POSITION = Math.PI / 2.0;

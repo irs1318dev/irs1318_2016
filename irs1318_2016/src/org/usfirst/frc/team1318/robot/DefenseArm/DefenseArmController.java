@@ -30,6 +30,7 @@ public class DefenseArmController implements IController
     // State of PID/Sensors (enabled or not)
     private boolean usePID;
     private boolean useSensors;
+    private boolean hasResetFrontOffset;
 
     // Current function the arm may be performing
     private boolean movingToFront;
@@ -50,6 +51,7 @@ public class DefenseArmController implements IController
         this.useSensors = TuningConstants.DEFENSE_ARM_USE_SENSORS_DEFAULT;
 
         this.desiredPosition = TuningConstants.DEFENSE_ARM_STARTING_POSITION_DEFAULT;
+        this.hasResetFrontOffset = false;
 
         this.timer = new Timer();
         this.timer.start();
@@ -109,7 +111,12 @@ public class DefenseArmController implements IController
                     this.movingToFront = false;
                 }
 
-                this.defenseArm.setAbsoluteFrontOffset(currentEncoderAngle - HardwareConstants.DEFENSE_ARM_MAX_FRONT_POSITION);
+                if (!this.hasResetFrontOffset || this.movingToFront)
+                {
+                    this.defenseArm.setAbsoluteFrontOffset(currentEncoderAngle - HardwareConstants.DEFENSE_ARM_MAX_FRONT_POSITION);
+                    this.hasResetFrontOffset = true;
+                }
+
                 enforceNonNegative = true;
             }
 
@@ -123,7 +130,12 @@ public class DefenseArmController implements IController
                     this.movingToBack = false;
                 }
 
-                this.defenseArm.setAbsoluteFrontOffset(currentEncoderAngle - HardwareConstants.DEFENSE_ARM_MAX_BACK_POSITION);
+                if (!this.hasResetFrontOffset || this.movingToBack)
+                {
+                    this.defenseArm.setAbsoluteFrontOffset(currentEncoderAngle - HardwareConstants.DEFENSE_ARM_MAX_BACK_POSITION);
+                    this.hasResetFrontOffset = true;
+                }
+
                 enforceNonPositive = true;
             }
         }
@@ -201,13 +213,7 @@ public class DefenseArmController implements IController
                         this.movingToBack = false;
                     }
 
-                    double adjustmentAmount = -1.0 * TuningConstants.DEFENSE_ARM_MAX_VELOCITY * deltaT;
-                    if (isAtBack)
-                    {
-                        adjustmentAmount *= 4.0;
-                    }
-
-                    this.desiredPosition += adjustmentAmount;
+                    this.desiredPosition -= TuningConstants.DEFENSE_ARM_MAX_VELOCITY * deltaT;
                 }
                 else if (this.driver.getDigital(Operation.DefenseArmMoveBack))
                 {
@@ -219,13 +225,7 @@ public class DefenseArmController implements IController
                         this.movingToBack = false;
                     }
 
-                    double adjustmentAmount = TuningConstants.DEFENSE_ARM_MAX_VELOCITY * deltaT;
-                    if (isAtFront)
-                    {
-                        adjustmentAmount *= 4.0;
-                    }
-
-                    this.desiredPosition += adjustmentAmount;
+                    this.desiredPosition += TuningConstants.DEFENSE_ARM_MAX_VELOCITY * deltaT;
                 }
 
                 this.desiredPosition = this.assertDesiredPositionRange(this.desiredPosition);
