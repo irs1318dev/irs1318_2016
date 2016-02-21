@@ -11,6 +11,7 @@ import org.usfirst.frc.team1318.robot.Driver.ControlTasks.DefenseArmPositionTask
 import org.usfirst.frc.team1318.robot.Driver.ControlTasks.DriveDistanceTask;
 import org.usfirst.frc.team1318.robot.Driver.ControlTasks.SequentialTask;
 import org.usfirst.frc.team1318.robot.Driver.ControlTasks.ShooterKickTask;
+import org.usfirst.frc.team1318.robot.Driver.ControlTasks.ShooterLowerKickerTask;
 import org.usfirst.frc.team1318.robot.Driver.ControlTasks.ShooterSpinUpTask;
 import org.usfirst.frc.team1318.robot.Driver.ControlTasks.WaitTask;
 import org.usfirst.frc.team1318.robot.Driver.User.UserDriver;
@@ -236,8 +237,9 @@ public class Robot extends IterativeRobot
                 new DefenseArmPositionTask(TuningConstants.DEFENSE_ARM_PORTCULLIS_BREACH_APPROACH_POSITION),
                 new DriveDistanceTask(TuningConstants.PORTCULLIS_OUTER_WORKS_DISTANCE)),
             new BreachPortcullisTask(),
-            new ShooterSpinUpTask(true, TuningConstants.SHOOTER_FAR_SHOT_VELOCITY),
-            new ShooterKickTask()}); 
+            new ShooterLowerKickerTask(TuningConstants.SHOOTER_LOWER_KICKER_DURATION),
+            new ShooterSpinUpTask(true, TuningConstants.SHOOTER_FAR_SHOT_VELOCITY, TuningConstants.SHOOTER_SPIN_UP_DURATION),
+            new ShooterKickTask(TuningConstants.SHOOTER_FIRE_DURATION)}); 
     }
 }
 
