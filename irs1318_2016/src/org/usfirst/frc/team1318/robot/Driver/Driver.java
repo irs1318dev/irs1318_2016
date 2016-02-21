@@ -345,9 +345,9 @@ public abstract class Driver
                     UserInputDevice.Driver,
                     UserInputDeviceButton.JOYSTICK_STICK_THUMB_BUTTON,
                     () -> SequentialTask.Sequence(
-                        new ShooterLowerKickerTask(),
-                        new ShooterSpinUpTask(true, TuningConstants.SHOOTER_FAR_SHOT_VELOCITY),
-                        new ShooterKickTask()),
+                        new ShooterLowerKickerTask(TuningConstants.SHOOTER_LOWER_KICKER_DURATION),
+                        new ShooterSpinUpTask(true, TuningConstants.SHOOTER_FAR_SHOT_VELOCITY, TuningConstants.SHOOTER_SPIN_UP_DURATION),
+                        new ShooterKickTask(TuningConstants.SHOOTER_FIRE_DURATION)),
                     new Operation[]
                     {
                         Operation.ShooterSpin,
@@ -363,9 +363,9 @@ public abstract class Driver
                     UserInputDevice.Driver,
                     UserInputDeviceButton.JOYSTICK_STICK_TRIGGER_BUTTON,
                     () -> SequentialTask.Sequence(
-                        new ShooterLowerKickerTask(),
-                        new ShooterSpinUpTask(false, TuningConstants.SHOOTER_CLOSE_SHOT_VELOCITY),
-                        new ShooterKickTask()),
+                        new ShooterLowerKickerTask(TuningConstants.SHOOTER_LOWER_KICKER_DURATION),
+                        new ShooterSpinUpTask(false, TuningConstants.SHOOTER_CLOSE_SHOT_VELOCITY, TuningConstants.SHOOTER_SPIN_UP_DURATION),
+                        new ShooterKickTask(TuningConstants.SHOOTER_FIRE_DURATION)),
                     new Operation[]
                     {
                         Operation.ShooterSpin,
