@@ -4,6 +4,7 @@ public enum MacroOperation
 {
     // Shooter operations:
     ShootFar,
+    ShootMiddle,
     ShootClose,
 
     // Breach operations:

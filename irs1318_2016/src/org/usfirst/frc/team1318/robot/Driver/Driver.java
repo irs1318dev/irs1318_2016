@@ -41,6 +41,7 @@ public abstract class Driver
     protected Map<Operation, OperationDescription> operationSchema = new HashMap<Operation, OperationDescription>()
     {
         {
+            // Operations for the drive train
             put(
                 Operation.DriveTrainMoveForward,
                 new AnalogOperationDescription(
@@ -76,9 +77,10 @@ public abstract class Driver
             put(
                 Operation.DriveTrainSwapFrontOrientation,
                 new DigitalOperationDescription(
-                    UserInputDevice.Driver,
-                    UserInputDeviceButton.JOYSTICK_BASE_TOP_RIGHT_BUTTON,
+                    UserInputDevice.None,
+                    UserInputDeviceButton.NONE,
                     ButtonType.Toggle));
+
             // Operations for the defense arm
             put(
                 Operation.DefenseArmMaxFrontPosition,
@@ -134,6 +136,32 @@ public abstract class Driver
                     UserInputDevice.None,
                     AnalogAxis.None));
             put(
+                Operation.DefenseArmIgnoreSensors,
+                new DigitalOperationDescription(
+                    UserInputDevice.CoDriver,
+                    UserInputDeviceButton.BUTTON_PAD_BUTTON_13,
+                    ButtonType.Click));
+            put(
+                Operation.DefenseArmUseSensors,
+                new DigitalOperationDescription(
+                    UserInputDevice.CoDriver,
+                    UserInputDeviceButton.BUTTON_PAD_BUTTON_14,
+                    ButtonType.Click));
+            put(
+                Operation.DisableDefenseArmPID,
+                new DigitalOperationDescription(
+                    UserInputDevice.CoDriver,
+                    UserInputDeviceButton.BUTTON_PAD_BUTTON_15,
+                    ButtonType.Click));
+            put(
+                Operation.EnableDefenseArmPID,
+                new DigitalOperationDescription(
+                    UserInputDevice.CoDriver,
+                    UserInputDeviceButton.BUTTON_PAD_BUTTON_10,
+                    ButtonType.Click));
+
+            // Operations for the shooter
+            put(
                 Operation.ShooterSpeed,
                 new AnalogOperationDescription(
                     UserInputDevice.None,
@@ -156,6 +184,8 @@ public abstract class Driver
                     UserInputDevice.None,
                     UserInputDeviceButton.NONE,
                     ButtonType.Simple));
+
+            // Operations for the intake
             put(
                 Operation.IntakeRotatingIn,
                 new DigitalOperationDescription(
@@ -180,6 +210,8 @@ public abstract class Driver
                     UserInputDevice.Driver,
                     180,
                     ButtonType.Click));
+
+            // Operations for the climbing arm
             put(
                 Operation.ClimbingArmExtend,
                 new DigitalOperationDescription(
@@ -192,6 +224,8 @@ public abstract class Driver
                     UserInputDevice.None,
                     UserInputDeviceButton.NONE,
                     ButtonType.Click));
+
+            // Operations for general stuff
             put(
                 Operation.DisablePID,
                 new DigitalOperationDescription(
@@ -203,30 +237,6 @@ public abstract class Driver
                 new DigitalOperationDescription(
                     UserInputDevice.CoDriver,
                     UserInputDeviceButton.BUTTON_PAD_BUTTON_12,
-                    ButtonType.Click));
-            put(
-                Operation.DisableDefenseArmPID,
-                new DigitalOperationDescription(
-                    UserInputDevice.CoDriver,
-                    UserInputDeviceButton.BUTTON_PAD_BUTTON_15,
-                    ButtonType.Click));
-            put(
-                Operation.EnableDefenseArmPID,
-                new DigitalOperationDescription(
-                    UserInputDevice.CoDriver,
-                    UserInputDeviceButton.BUTTON_PAD_BUTTON_10,
-                    ButtonType.Click));
-            put(
-                Operation.DefenseArmIgnoreSensors,
-                new DigitalOperationDescription(
-                    UserInputDevice.CoDriver,
-                    UserInputDeviceButton.BUTTON_PAD_BUTTON_13,
-                    ButtonType.Click));
-            put(
-                Operation.DefenseArmUseSensors,
-                new DigitalOperationDescription(
-                    UserInputDevice.CoDriver,
-                    UserInputDeviceButton.BUTTON_PAD_BUTTON_14,
                     ButtonType.Click));
             put(
                 Operation.CancelBreachMacro,
@@ -337,26 +347,8 @@ public abstract class Driver
                     Operation.DefenseArmSetAngle,
                     Operation.CancelBreachMacro
                 }));
-            
+
             // Macros for shooting distance.
-            put(
-                MacroOperation.ShootFar,
-                new MacroOperationDescription(
-                    UserInputDevice.Driver,
-                    UserInputDeviceButton.JOYSTICK_STICK_THUMB_BUTTON,
-                    () -> SequentialTask.Sequence(
-                        new ShooterLowerKickerTask(TuningConstants.SHOOTER_LOWER_KICKER_DURATION),
-                        new ShooterSpinUpTask(true, TuningConstants.SHOOTER_FAR_SHOT_VELOCITY, TuningConstants.SHOOTER_SPIN_UP_DURATION),
-                        new ShooterKickTask(TuningConstants.SHOOTER_FIRE_DURATION)),
-                    new Operation[]
-                    {
-                        Operation.ShooterSpin,
-                        Operation.ShooterSpeed,
-                        Operation.ShooterLowerKicker,
-                        Operation.ShooterExtendHood,
-                        Operation.IntakeRotatingIn,
-                        Operation.IntakeRotatingOut,
-                    }));
             put(
                 MacroOperation.ShootClose,
                 new MacroOperationDescription(
@@ -375,7 +367,43 @@ public abstract class Driver
                         Operation.IntakeRotatingIn,
                         Operation.IntakeRotatingOut,
                     }));
-            
+            put(
+                MacroOperation.ShootMiddle,
+                new MacroOperationDescription(
+                    UserInputDevice.Driver,
+                    UserInputDeviceButton.JOYSTICK_BASE_TOP_RIGHT_BUTTON,
+                    () -> SequentialTask.Sequence(
+                        new ShooterLowerKickerTask(TuningConstants.SHOOTER_LOWER_KICKER_DURATION),
+                        new ShooterSpinUpTask(false, TuningConstants.SHOOTER_MIDDLE_SHOT_VELOCITY, TuningConstants.SHOOTER_SPIN_UP_DURATION),
+                        new ShooterKickTask(TuningConstants.SHOOTER_FIRE_DURATION)),
+                    new Operation[]
+                    {
+                        Operation.ShooterSpin,
+                        Operation.ShooterSpeed,
+                        Operation.ShooterLowerKicker,
+                        Operation.ShooterExtendHood,
+                        Operation.IntakeRotatingIn,
+                        Operation.IntakeRotatingOut,
+                    }));
+            put(
+                MacroOperation.ShootFar,
+                new MacroOperationDescription(
+                    UserInputDevice.Driver,
+                    UserInputDeviceButton.JOYSTICK_STICK_THUMB_BUTTON,
+                    () -> SequentialTask.Sequence(
+                        new ShooterLowerKickerTask(TuningConstants.SHOOTER_LOWER_KICKER_DURATION),
+                        new ShooterSpinUpTask(true, TuningConstants.SHOOTER_FAR_SHOT_VELOCITY, TuningConstants.SHOOTER_SPIN_UP_DURATION),
+                        new ShooterKickTask(TuningConstants.SHOOTER_FIRE_DURATION)),
+                    new Operation[]
+                    {
+                        Operation.ShooterSpin,
+                        Operation.ShooterSpeed,
+                        Operation.ShooterLowerKicker,
+                        Operation.ShooterExtendHood,
+                        Operation.IntakeRotatingIn,
+                        Operation.IntakeRotatingOut,
+                    }));
+
             // Macros for the climbing arm.
             put(
                 MacroOperation.ClimbingArmRetract,
