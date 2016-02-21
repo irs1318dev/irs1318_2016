@@ -20,11 +20,11 @@ public class ComponentManager
 
     public ComponentManager()
     {
-        this.compressorComponent = new CompressorComponent();
-        this.driveTrainComponent = new DriveTrainComponent();
-        this.defenseArmComponent = new DefenseArmComponent();
-        this.shooterComponent = new ShooterComponent();
-        this.intakeComponent = new IntakeComponent();
+        //this.compressorComponent = new CompressorComponent();
+        //this.driveTrainComponent = new DriveTrainComponent();
+        //this.defenseArmComponent = new DefenseArmComponent();
+        //this.shooterComponent = new ShooterComponent();
+        //this.intakeComponent = new IntakeComponent();
         //this.climbingArmComponent = new ClimbingArmComponent();
         this.sensorManagerComponent = new SensorManagerComponent();
     }

@@ -20,11 +20,11 @@ public class ControllerManager implements IController
     {
         this.components = components;
         this.controllerList = new ArrayList<IController>();
-        this.controllerList.add(new CompressorController(this.components.getCompressor()));
-        this.controllerList.add(new DriveTrainController(this.components.getDriveTrain(), TuningConstants.DRIVETRAIN_USE_PID_DEFAULT));
-        this.controllerList.add(new DefenseArmController(this.components.getDefenseArm()));
-        this.controllerList.add(new IntakeController(this.components.getIntake()));
-        this.controllerList.add(new ShooterController(this.components.getShooter()));
+        //this.controllerList.add(new CompressorController(this.components.getCompressor()));
+        //this.controllerList.add(new DriveTrainController(this.components.getDriveTrain(), TuningConstants.DRIVETRAIN_USE_PID_DEFAULT));
+        //this.controllerList.add(new DefenseArmController(this.components.getDefenseArm()));
+        //this.controllerList.add(new IntakeController(this.components.getIntake()));
+        //this.controllerList.add(new ShooterController(this.components.getShooter()));
         //this.controllerList.add(new ClimbingArmController(this.components.getClimbingArm()));
         this.controllerList.add(new SensorManagerController(this.components.getSensorManager()));
     }
