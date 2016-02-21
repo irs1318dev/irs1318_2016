@@ -18,7 +18,7 @@ import edu.wpi.first.wpilibj.Timer;
 public class PIDHandler
 {
     // constants
-    private static final double MinTimeStep = 0; //0.01;
+    private static final double MinTimeStep = 0.01;
     private final Double minOutput;
     private final Double maxOutput;
 
@@ -47,8 +47,6 @@ public class PIDHandler
 
     // other vars
     private final Timer timer;
-
-    private double prevDeltaX = 0.0;
 
     /**
      * This constructor initializes the object and sets constants to affect gain
@@ -173,11 +171,11 @@ public class PIDHandler
             }
             else
             {
-                this.integral += this.error; // * this.dt;
+                this.integral += this.error;// * this.dt;
             }
 
             // calculate derivative
-            this.derivative = (this.error - this.prevError); // / this.dt;
+            this.derivative = (this.error - this.prevError);// / this.dt;
 
             // store error
             this.prevError = this.error;
@@ -185,8 +183,8 @@ public class PIDHandler
             double result =
                 this.kp * this.error +      // proportional
                 this.ki * this.integral +   // integral
-                    this.kd * this.derivative + // derivative
-                    this.kf * this.setpoint;    // feed-forward
+                this.kd * this.derivative + // derivative
+                this.kf * this.setpoint;    // feed-forward
 
             if (this.maxOutput != null && result > this.maxOutput)
             {
@@ -210,8 +208,8 @@ public class PIDHandler
      * measuredValue should be in the same unit as the setpoint, basically a positive or negative percentage 
      * between -1 and 1.  This method should be called in a loop and fed feedback data and setpoint changes
      * 
-     * @param setpoint describes the goal value
-     * @param measuredValue describes the measured value
+     * @param setpoint describes the goal velocity value
+     * @param measuredValue describes the measured value, where the measured value is the ticks on the encoder
      * 
      * @return output value to be used
      */
@@ -224,24 +222,15 @@ public class PIDHandler
         this.curTime = this.timer.get();
         this.dt = this.curTime - this.prevTime;
 
-        // To prevent division by zero and over-aggressive measurement, output updates at a max of 1kHz
+        // To prevent division by zero and over-aggressive measurement, output updates at a max of 100 Hz
         if (this.dt >= PIDHandler.MinTimeStep)
         {
             this.prevTime = this.curTime;
 
-            // calculate error
+            // calculate change in ticks since our last measurement
             double deltaX = this.measuredValue - this.prevMeasuredValue;
-
-            if (this.dt > 0.002)
-            {
-                double timeRatio = 0.02 / this.dt;
-                this.error = this.ks * this.setpoint - deltaX * timeRatio;
-                this.prevDeltaX = deltaX * timeRatio;
-            }
-            else
-            {
-                this.error = this.ks * this.setpoint - this.prevDeltaX;
-            }
+            double timeRatio = 0.02 / this.dt;
+            this.error = this.ks * this.setpoint - deltaX * timeRatio;
 
             // calculate integral, limiting it based on MaxOutput/MinOutput
             double potentialI = this.ki * (this.integral + this.error * this.dt);

@@ -5,8 +5,6 @@ import org.usfirst.frc.team1318.robot.Common.IController;
 import org.usfirst.frc.team1318.robot.Driver.Driver;
 import org.usfirst.frc.team1318.robot.Driver.Operation;
 
-import edu.wpi.first.wpilibj.DigitalInput;
-
 public class ClimbingArmController implements IController
 {
     private ClimbingArmComponent climbingArm;

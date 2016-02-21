@@ -19,7 +19,7 @@ public class ClimbingArmComponent
     {
         this.motor = new Talon(ElectronicsConstants.CLIMBING_ARM_MOTOR_CHANNEL);
         this.shoulderSolenoid = new DoubleSolenoid(ElectronicsConstants.CLIMBING_ARM_SHOULDER_SOLENOID_CHANNEL_A, ElectronicsConstants.CLIMBING_ARM_SHOULDER_SOLENOID_CHANNEL_B);
-        this.elbowSolenoid = new DoubleSolenoid(ElectronicsConstants.CLIMBING_ARM_ELBOW_SOLENOID_CHANNEL_A, ElectronicsConstants.CLIMBING_ARM_ELBOW_SOLENOID_CHANNEL_B);
+        this.elbowSolenoid = new DoubleSolenoid(ElectronicsConstants.PCM_B_MODULE, ElectronicsConstants.CLIMBING_ARM_ELBOW_SOLENOID_CHANNEL_A, ElectronicsConstants.CLIMBING_ARM_ELBOW_SOLENOID_CHANNEL_B);
         this.bottomLimitSwitch = new DigitalInput(ElectronicsConstants.CLIMBING_ARM_BOTTOM_LIMIT_SWITCH_CHANNEL);
         this.topLimitSwitch = new DigitalInput(ElectronicsConstants.CLIMBING_ARM_TOP_LIMIT_SWITCH_CHANNEL);
     }

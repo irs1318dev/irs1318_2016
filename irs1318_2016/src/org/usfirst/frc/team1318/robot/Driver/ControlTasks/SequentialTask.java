@@ -28,6 +28,16 @@ public class SequentialTask extends ControlTaskBase implements IControlTask
         this.orderedTasks = new LinkedList<IControlTask>(Arrays.asList(tasks));
         this.currentTask = null;
     }
+    
+    /**
+     * Create a sequential task from one or more tasks
+     * @param tasks to create the sequence from
+     * @return sequential task
+     */
+    public static SequentialTask Sequence(IControlTask... tasks)
+    {
+        return new SequentialTask(tasks);
+    }
 
     /**
      * Initialize the task with the mapping of operations to states

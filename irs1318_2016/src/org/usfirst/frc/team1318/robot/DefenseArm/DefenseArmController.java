@@ -2,6 +2,7 @@ package org.usfirst.frc.team1318.robot.DefenseArm;
 
 import org.usfirst.frc.team1318.robot.HardwareConstants;
 import org.usfirst.frc.team1318.robot.TuningConstants;
+import org.usfirst.frc.team1318.robot.Common.DashboardLogger;
 import org.usfirst.frc.team1318.robot.Common.IController;
 import org.usfirst.frc.team1318.robot.Common.PIDHandler;
 import org.usfirst.frc.team1318.robot.Driver.Driver;
@@ -26,8 +27,9 @@ public class DefenseArmController implements IController
     private PIDHandler pidHandler;
     private Timer timer;
 
-    // State of PID (enabled or not)
+    // State of PID/Sensors (enabled or not)
     private boolean usePID;
+    private boolean useSensors;
 
     // Current function the arm may be performing
     private boolean movingToFront;
@@ -35,7 +37,7 @@ public class DefenseArmController implements IController
 
     // Important values for PID functions
     private double desiredPosition;
-    private double startTime;
+    private double prevTime;
 
     // Constructor should initialize all of the necessary variables for the controller, and set basic values
     public DefenseArmController(DefenseArmComponent defenseArmComponent)
@@ -45,89 +47,136 @@ public class DefenseArmController implements IController
         this.usePID = true;
         this.createPIDHandler();
 
-        this.desiredPosition = HardwareConstants.DEFENSE_ARM_FRONT_POSITION;
+        this.useSensors = TuningConstants.DEFENSE_ARM_USE_SENSORS_DEFAULT;
+
+        this.desiredPosition = TuningConstants.DEFENSE_ARM_STARTING_POSITION_DEFAULT;
 
         this.timer = new Timer();
         this.timer.start();
-        this.startTime = this.timer.get();
+        this.prevTime = this.timer.get();
     }
 
     @Override
     public void update()
     {
+        if (this.driver.getDigital(Operation.EnablePID))
+        {
+            this.usePID = true;
+            this.createPIDHandler();
+        }
+        else if (this.driver.getDigital(Operation.DisablePID))
+        {
+            this.usePID = false;
+            this.createPIDHandler();
+        }
+
+        if (this.driver.getDigital(Operation.DefenseArmIgnoreSensors))
+        {
+            this.useSensors = false;
+        }
+        else if (this.driver.getDigital(Operation.DefenseArmUseSensors))
+        {
+            this.useSensors = true;
+        }
+
         // Set the current time using the timer
         double currentTime = this.timer.get();
+        double deltaT = currentTime - this.prevTime;
 
         // Booleans to make sure that the arm doesn't break itself against its boundaries
         boolean enforceNonNegative = false;
         boolean enforceNonPositive = false;
 
-        // Set current distance of the encoder, and create zeroOffset and motorValue
-        double currentEncoderDistance = this.defenseArm.getEncoderTicks();
-        double zeroOffset;
-        double motorValue;
+        // Set current distance of the encoder, and create frontOffset and motorValue
+        this.defenseArm.getEncoderTicks();
+        double currentEncoderAngle = this.defenseArm.getEncoderAngle();
+        double frontOffset;
+        double motorValue = 0.0;
 
         // Get the values of the front and back limit switches
         boolean isAtFront = this.defenseArm.getFrontLimitSwitch();
         boolean isAtBack = this.defenseArm.getBackLimitSwitch();
 
-        // Operation check for the portcullis macro        
+        if (this.useSensors)
+        {
+            // Check to see if the arm is at the front of the robot, 
+            // update front offset, and set the appropriate boolean to false
+            if (isAtFront)
+            {
+                if (this.movingToFront)
+                {
+                    this.desiredPosition = HardwareConstants.DEFENSE_ARM_MAX_FRONT_POSITION;
+                    this.movingToFront = false;
+                }
+
+                this.defenseArm.setAbsoluteFrontOffset(currentEncoderAngle - HardwareConstants.DEFENSE_ARM_MAX_FRONT_POSITION);
+                enforceNonNegative = true;
+            }
+
+            // Check to see if the arm is at the back of the robot, 
+            // and set the appropriate boolean to false
+            if (isAtBack)
+            {
+                if (this.movingToBack)
+                {
+                    this.desiredPosition = HardwareConstants.DEFENSE_ARM_MAX_BACK_POSITION;
+                    this.movingToBack = false;
+                }
+
+                this.defenseArm.setAbsoluteFrontOffset(currentEncoderAngle - HardwareConstants.DEFENSE_ARM_MAX_BACK_POSITION);
+                enforceNonPositive = true;
+            }
+        }
+
+        // If we are running a breach macro, use exact-specified positional input
         if (this.driver.getDigital(Operation.DefenseArmTakePositionInput))
         {
-            this.desiredPosition = this.driver.getAnalog(Operation.DefenseArmSetAngle);
+            this.desiredPosition = this.assertDesiredPositionRange(
+                this.driver.getAnalog(Operation.DefenseArmSetAngle));
         }
 
         // Check for the desire to move the arm to the front or back of the robot
-        if (this.driver.getDigital(Operation.DefenseArmFrontPosition))
+        if (this.driver.getDigital(Operation.DefenseArmMaxFrontPosition))
         {
-            this.desiredPosition = HardwareConstants.DEFENSE_ARM_FRONT_POSITION;
+            this.desiredPosition = HardwareConstants.DEFENSE_ARM_MAX_FRONT_POSITION;
             this.movingToFront = true;
             this.movingToBack = false;
         }
-        else if (this.driver.getDigital(Operation.DefenseArmBackPosition))
+        else if (this.driver.getDigital(Operation.DefenseArmHorizontalFrontPosition))
         {
-            this.desiredPosition = HardwareConstants.DEFENSE_ARM_BACK_POSITION;
+            this.desiredPosition = HardwareConstants.DEFENSE_ARM_HORIZONTAL_FRONT_POSITION;
+            this.movingToFront = false;
+            this.movingToBack = false;
+        }
+        else if (this.driver.getDigital(Operation.DefenseArmUpForwardPosition))
+        {
+            this.desiredPosition = TuningConstants.DEFENSE_ARM_UP_FORWARD_POSITION;
+            this.movingToFront = false;
+            this.movingToBack = false;
+        }
+        else if (this.driver.getDigital(Operation.DefenseArmUpPosition))
+        {
+            this.desiredPosition = TuningConstants.DEFENSE_ARM_UP_POSITION;
+            this.movingToFront = false;
+            this.movingToBack = false;
+        }
+        else if (this.driver.getDigital(Operation.DefenseArmMaxBackPosition))
+        {
+            this.desiredPosition = HardwareConstants.DEFENSE_ARM_MAX_BACK_POSITION;
             this.movingToFront = false;
             this.movingToBack = true;
         }
-        else if (this.driver.getDigital(Operation.DefenseArmPortcullisPosition))
+
+        // If we are ignoring the sensors, ignore movingToFront/movingToBack, and safety enforcement...
+        if (!this.useSensors)
         {
-            this.desiredPosition = HardwareConstants.DEFENSE_ARM_PORTCULLIS_POSITION;
-            this.movingToFront = false;
-            this.movingToBack = false;
-        }
-        else if (this.driver.getDigital(Operation.DefenseArmDrawbridgePosition))
-        {
-            this.desiredPosition = HardwareConstants.DEFENSE_ARM_DRAWBRIDGE_POSITION;
-            this.movingToFront = false;
-            this.movingToBack = false;
-        }
-        else if (this.driver.getDigital(Operation.DefenseArmSallyPortPosition))
-        {
-            this.desiredPosition = HardwareConstants.DEFENSE_ARM_SALLY_PORT_POSITION;
             this.movingToFront = false;
             this.movingToBack = false;
         }
 
-        // Check to see if the arm is at the front of the robot, 
-        // update zeroOffset, and set the appropriate boolean to false
-        if (isAtFront)
-        {
-            this.defenseArm.setZeroOffset(currentEncoderDistance);
-            this.movingToFront = false;
-            enforceNonNegative = true;
-        }
-
-        // Check to see if the arm is at the back of the robot, 
-        // and set the appropriate boolean to false
-        if (isAtBack)
-        {
-            this.movingToBack = false;            
-            enforceNonPositive = true;
-        }
-
-        // Sets the desiredPosition based on several possible inputs
-        zeroOffset = this.defenseArm.getZeroOffset();
+        // determine the front offset based on the absolute front's encoder value
+        frontOffset = this.defenseArm.getAbsoluteFrontOffset();
+        double actualPosition = currentEncoderAngle - frontOffset;
 
         // Logic for moving the defense arm forward and backward manually
         if (this.usePID)
@@ -144,21 +193,46 @@ public class DefenseArmController implements IController
             {
                 if (this.driver.getDigital(Operation.DefenseArmMoveForward))
                 {
-                    this.desiredPosition = currentEncoderDistance - zeroOffset;
-                    this.desiredPosition -= TuningConstants.DEFENSE_ARM_MAX_VELOCITY * (currentTime - this.startTime);
-                    this.movingToFront = false;
-                    this.movingToBack = false;
+                    // if we were moving to front or back or a wider range than our regular velocity, reset our source desired position to the current one
+                    if (this.movingToFront || this.movingToBack || Math.abs(this.desiredPosition - actualPosition) > TuningConstants.DEFENSE_ARM_OVERRIDE_AMOUNT)
+                    {
+                        this.desiredPosition = actualPosition;
+                        this.movingToFront = false;
+                        this.movingToBack = false;
+                    }
+
+                    double adjustmentAmount = -1.0 * TuningConstants.DEFENSE_ARM_MAX_VELOCITY * deltaT;
+                    if (isAtBack)
+                    {
+                        adjustmentAmount *= 4.0;
+                    }
+
+                    this.desiredPosition += adjustmentAmount;
                 }
                 else if (this.driver.getDigital(Operation.DefenseArmMoveBack))
                 {
-                    this.desiredPosition = currentEncoderDistance - zeroOffset;
-                    this.desiredPosition += TuningConstants.DEFENSE_ARM_MAX_VELOCITY * (currentTime - this.startTime);
-                    this.movingToFront = false;
-                    this.movingToBack = false;
+                    // if we were moving to front or back or a wider range than our regular velocity, reset our source desired position to the current one
+                    if (this.movingToFront || this.movingToBack || Math.abs(this.desiredPosition - actualPosition) > TuningConstants.DEFENSE_ARM_OVERRIDE_AMOUNT)
+                    {
+                        this.desiredPosition = currentEncoderAngle;
+                        this.movingToFront = false;
+                        this.movingToBack = false;
+                    }
+
+                    double adjustmentAmount = TuningConstants.DEFENSE_ARM_MAX_VELOCITY * deltaT;
+                    if (isAtFront)
+                    {
+                        adjustmentAmount *= 4.0;
+                    }
+
+                    this.desiredPosition += adjustmentAmount;
                 }
 
-                motorValue = this.pidHandler.calculatePosition(zeroOffset + this.desiredPosition, this.defenseArm.getEncoderTicks());
+                this.desiredPosition = this.assertDesiredPositionRange(this.desiredPosition);
+                motorValue = this.pidHandler.calculatePosition(frontOffset + this.desiredPosition, currentEncoderAngle);
             }
+
+            DashboardLogger.putDouble("battle_axe desiredPosition", this.desiredPosition);
         }
         else
         {
@@ -179,17 +253,20 @@ public class DefenseArmController implements IController
             this.movingToBack = false;
         }
 
-        if (enforceNonNegative)
+        if (enforceNonNegative && motorValue < 0.0)
         {
-            motorValue = Math.min(0.0, motorValue);
+            motorValue = 0.0;
         }
 
-        if (enforceNonPositive)
+        if (enforceNonPositive && motorValue > 0.0)
         {
-            motorValue = Math.max(0.0, motorValue);
+            motorValue = 0.0;
         }
 
+        DashboardLogger.putDouble("battle_axe motorValue", motorValue);
         this.defenseArm.setSpeed(motorValue);
+
+        this.prevTime = currentTime;
     }
 
     @Override
@@ -221,6 +298,26 @@ public class DefenseArmController implements IController
         else
         {
             this.pidHandler = null;
+        }
+    }
+
+    private double assertDesiredPositionRange(double position)
+    {
+        if (position < HardwareConstants.DEFENSE_ARM_MAX_FRONT_POSITION)
+        {
+            return HardwareConstants.DEFENSE_ARM_MAX_FRONT_POSITION;
+        }
+        else if (position > HardwareConstants.DEFENSE_ARM_MAX_BACK_POSITION)
+        {
+            return HardwareConstants.DEFENSE_ARM_MAX_BACK_POSITION;
+        }
+        else if (Double.isNaN(position))
+        {
+            return 0.0;
+        }
+        else
+        {
+            return position;
         }
     }
 }

@@ -1,8 +1,8 @@
 package org.usfirst.frc.team1318.robot.Driver.ControlTasks;
 
+import org.usfirst.frc.team1318.robot.TuningConstants;
 import org.usfirst.frc.team1318.robot.Driver.IControlTask;
 import org.usfirst.frc.team1318.robot.Driver.Operation;
-import org.usfirst.frc.team1318.robot.Driver.Autonomous.AutonomousConstants;
 
 /**
  * Abstract class defining a task that moves the robot a certain distance using Positional PID.
@@ -71,6 +71,9 @@ public abstract class MoveDistanceTaskBase extends ControlTaskBase implements IC
     @Override
     public void end()
     {
+        this.setDigitalOperationState(Operation.DriveTrainUsePositionalMode, false);
+        this.setAnalogOperationState(Operation.DriveTrainLeftPosition, 0.0);
+        this.setAnalogOperationState(Operation.DriveTrainRightPosition, 0.0);
     }
 
     /**
@@ -89,7 +92,7 @@ public abstract class MoveDistanceTaskBase extends ControlTaskBase implements IC
 
         // return that we have completed this task if are within an acceptable distance
         // from the desired end location for both left and right. 
-        return leftDelta < AutonomousConstants.DRIVETRAIN_POSITIONAL_ACCEPTABLE_DELTA &&
-            rightDelta < AutonomousConstants.DRIVETRAIN_POSITIONAL_ACCEPTABLE_DELTA;
+        return leftDelta < TuningConstants.DRIVETRAIN_POSITIONAL_ACCEPTABLE_DELTA &&
+            rightDelta < TuningConstants.DRIVETRAIN_POSITIONAL_ACCEPTABLE_DELTA;
     }
 }

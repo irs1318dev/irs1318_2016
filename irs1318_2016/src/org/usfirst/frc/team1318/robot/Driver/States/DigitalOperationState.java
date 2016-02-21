@@ -113,9 +113,13 @@ public class DigitalOperationState extends OperationState
             {
                 buttonPressed = relevantJoystick.getPOV() == description.getUserInputDevicePovValue();
             }
-            else
+            else if (relevantButton != UserInputDeviceButton.NONE)
             {
                 buttonPressed = relevantJoystick.getRawButton(relevantButton.Value);
+            }
+            else
+            {
+                buttonPressed = false;
             }
         }
         else

@@ -41,7 +41,7 @@ public class TurnAbsoluteTask extends TimedTask
     public void update()
     {
         double xVelocity = 0;
-        double currentAngle = this.position.getAngle();
+        double currentAngle = this.position.getOdometryAngle();
 
         double currentError = this.absoluteDegrees - currentAngle;
         if (currentError < -this.acceptableError)
@@ -94,7 +94,7 @@ public class TurnAbsoluteTask extends TimedTask
             return true;
         }
 
-        double currentAngle = this.position.getAngle();
+        double currentAngle = this.position.getOdometryAngle();
         double currentError = this.absoluteDegrees - currentAngle;
         return currentError > -this.acceptableError && currentError < this.acceptableError;
     }

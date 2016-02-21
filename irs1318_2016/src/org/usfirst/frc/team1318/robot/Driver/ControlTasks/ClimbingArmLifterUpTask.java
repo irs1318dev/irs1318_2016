@@ -53,7 +53,7 @@ public class ClimbingArmLifterUpTask extends ControlTaskBase
     public boolean hasCompleted()
     {
         // If extending, checks to see if the top limit switch has been triggered.
-        if(extend)
+        if (extend)
         {
             return this.getComponents().getClimbingArm().getTopLimitSwitch();
         }

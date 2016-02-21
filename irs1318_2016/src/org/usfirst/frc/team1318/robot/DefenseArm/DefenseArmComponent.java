@@ -2,10 +2,13 @@ package org.usfirst.frc.team1318.robot.DefenseArm;
 
 import org.usfirst.frc.team1318.robot.ElectronicsConstants;
 import org.usfirst.frc.team1318.robot.HardwareConstants;
+import org.usfirst.frc.team1318.robot.TuningConstants;
+import org.usfirst.frc.team1318.robot.Common.DashboardLogger;
 
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.Talon;
+
 /**
  * Component for the defense arm mechanism.
  * @author Corbin
@@ -21,7 +24,7 @@ public class DefenseArmComponent
     private final DigitalInput frontLimitSwitch;
     private final DigitalInput backLimitSwitch;
 
-    private double zeroOffset;
+    private double absoluteFrontOffset;
 
     // General constructor for the component that initializes all of the necessary parts of the component, and sets the setpoint
     public DefenseArmComponent()
@@ -32,7 +35,7 @@ public class DefenseArmComponent
         this.backLimitSwitch = new DigitalInput(ElectronicsConstants.DEFENSE_ARM_BACK_LIMIT_SWITCH_CHANNEL);
 
         this.encoder.setDistancePerPulse(HardwareConstants.DEFENSE_ARM_PULSE_DISTANCE);
-        this.zeroOffset = 0.0;
+        this.absoluteFrontOffset = this.encoder.getDistance() - TuningConstants.DEFENSE_ARM_STARTING_POSITION_DEFAULT;
     }
 
     /**
@@ -41,7 +44,7 @@ public class DefenseArmComponent
      */
     public void setSpeed(double speed)
     {
-        this.talon.set(speed);
+        this.talon.set(-speed);
     }
 
     /**
@@ -50,7 +53,20 @@ public class DefenseArmComponent
      */
     public int getEncoderTicks()
     {
-        return this.encoder.get();
+        int ticks = -this.encoder.get();
+        DashboardLogger.putInteger("battle_axe ticks", ticks);
+        return ticks;
+    }
+
+    /**
+     * Get Encoder angle
+     * @return the current angle of the encoder on the Defense Arm
+     */
+    public double getEncoderAngle()
+    {
+        double angle = -this.encoder.getDistance();
+        DashboardLogger.putDouble("battle_axe angle", angle);
+        return angle;
     }
 
     /**
@@ -59,7 +75,9 @@ public class DefenseArmComponent
      */
     public boolean getFrontLimitSwitch()
     {
-        return this.frontLimitSwitch.get();
+        boolean frontLimitSwitch = this.frontLimitSwitch.get();
+        DashboardLogger.putBoolean("battle_axe frontLimitSwitch", frontLimitSwitch);
+        return frontLimitSwitch;
     }
 
     /**
@@ -68,25 +86,27 @@ public class DefenseArmComponent
      */
     public boolean getBackLimitSwitch()
     {
-        return this.backLimitSwitch.get();
+        boolean backLimitSwitch = this.backLimitSwitch.get();
+        DashboardLogger.putBoolean("battle_axe backLimitSwitch", backLimitSwitch);
+        return backLimitSwitch;
     }
 
     /**
-     * Get the zero offset
-     * @return the current count of zeroOffset
+     * Get the absolute front offset
+     * @return the current count of absoluteFrontOffset
      */
-    public double getZeroOffset()
+    public double getAbsoluteFrontOffset()
     {
-        return this.zeroOffset;
+        DashboardLogger.putDouble("battle_axe frontOffset", this.absoluteFrontOffset);
+        return this.absoluteFrontOffset;
     }
 
     /**
-     * Set the value of zeroOffset
-     * @param zeroOffset encoder position when the arm is all the way forward
+     * Set the value of absoluteFrontOffset
+     * @param absoluteFrontOffset encoder position when the arm is all the way forward
      */
-    public void setZeroOffset(double zeroOffset)
+    public void setAbsoluteFrontOffset(double absoluteFrontOffset)
     {
-        this.zeroOffset = zeroOffset;
+        this.absoluteFrontOffset = absoluteFrontOffset;
     }
-
 }

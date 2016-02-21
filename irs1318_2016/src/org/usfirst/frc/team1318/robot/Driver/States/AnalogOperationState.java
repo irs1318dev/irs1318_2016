@@ -1,6 +1,7 @@
 package org.usfirst.frc.team1318.robot.Driver.States;
 
 import org.usfirst.frc.team1318.robot.ComponentManager;
+import org.usfirst.frc.team1318.robot.ElectronicsConstants;
 import org.usfirst.frc.team1318.robot.Driver.Descriptions.AnalogOperationDescription;
 
 import edu.wpi.first.wpilibj.Joystick;
@@ -87,16 +88,19 @@ public class AnalogOperationState extends OperationState
         double oldValue = this.currentValue;
         if (relevantJoystick != null)
         {
+            boolean invert = false;
             switch (description.getUserInputDeviceAxis())
             {
                 case None:
                     return false;
 
                 case X:
+                    invert = ElectronicsConstants.INVERT_X_AXIS;
                     relevantAxis = AxisType.kX;
                     break;
 
                 case Y:
+                    invert = ElectronicsConstants.INVERT_Y_AXIS;
                     relevantAxis = AxisType.kY;
                     break;
 
@@ -117,6 +121,10 @@ public class AnalogOperationState extends OperationState
             }
 
             newValue = relevantJoystick.getAxis(relevantAxis);
+            if (invert)
+            {
+                newValue *= -1.0;
+            }
         }
         else
         {

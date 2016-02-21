@@ -1,6 +1,7 @@
 package org.usfirst.frc.team1318.robot.Shooter;
 
 import org.usfirst.frc.team1318.robot.TuningConstants;
+import org.usfirst.frc.team1318.robot.Common.DashboardLogger;
 import org.usfirst.frc.team1318.robot.Common.IController;
 import org.usfirst.frc.team1318.robot.Common.PIDHandler;
 import org.usfirst.frc.team1318.robot.Driver.Driver;
@@ -12,52 +13,59 @@ import org.usfirst.frc.team1318.robot.Shooter.ShooterComponent;
  * @author Corbin
  *
  */
-
 public class ShooterController implements IController
 {
     private ShooterComponent shooter;
     private Driver driver;
     private PIDHandler PID;
-    
+
     public ShooterController(ShooterComponent shooter) 
     {
         this.shooter = shooter;
-        createPIDHandler();
+        this.createPIDHandler();
     }
 
     @Override
     public void update()
     {
-        if (this.driver.getDigital(Operation.ShooterSpin))
+        boolean spin = this.driver.getDigital(Operation.ShooterSpin);
+
+        // The actual velocity of the shooter wheel
+        double currentRate = this.shooter.getCounterRate();
+        int currentTicks = this.shooter.getCounterTicks();
+        DashboardLogger.putDouble("shooterRate", currentRate);
+        DashboardLogger.putDouble("shooterTicks", currentTicks);
+
+        // The velocity set in the analog operation
+        double velocityGoal = this.driver.getAnalog(Operation.ShooterSpeed);
+
+        double power = 0.0;
+        if (spin)
         {
-            // The actual velocity of the shooter wheel
-            double currentTicks = this.shooter.getCounterTicks();
-            
-            // The velocity set in the analog operaton
-            double velocityGoal = this.driver.getAnalog(Operation.ShooterSpeed);
-            
             // Calculate the power required to reach the velocity goal     
-            double power = this.PID.calculateVelocity(velocityGoal, currentTicks);
-            
-            // Set the motor power with the calculated value
-            this.shooter.setMotorSpeed(power);
+            power = this.PID.calculateVelocity(velocityGoal, currentTicks);
         }
-        else 
-        {
-            // Zero if we're not spinning...
-            this.shooter.setMotorSpeed(0.0);
-        }
-        
-        if (this.driver.getDigital(Operation.ShooterKick))
-        {
-            this.shooter.kick(true);
-        }
-        else 
+
+        // Set the motor power with the calculated value
+        this.shooter.setMotorSpeed(power);
+        DashboardLogger.putDouble("shooterPower", power);
+
+        // lower the kicker whenever we are rotating in or out, or when we are performing a shot macro
+        boolean lowerKicker = this.driver.getDigital(Operation.ShooterLowerKicker)
+            || this.driver.getDigital(Operation.IntakeRotatingIn)
+            || this.driver.getDigital(Operation.IntakeRotatingOut);
+
+        if (lowerKicker)
         {
             this.shooter.kick(false);
         }
-        
-        if (this.driver.getDigital(Operation.ShooterExtendHood))
+        else 
+        {
+            this.shooter.kick(true);
+        }
+
+        boolean hood = this.driver.getDigital(Operation.ShooterExtendHood);
+        if (hood)
         {
             this.shooter.hood(true);
         }
@@ -78,14 +86,15 @@ public class ShooterController implements IController
     {
         this.driver = driver;
     }
-    
+
     public void createPIDHandler() 
     {
         this.PID = new PIDHandler(
-            TuningConstants.SHOOTER_VELOCITY_PID_KP_DEFAULT, 
-            TuningConstants.SHOOTER_VELOCITY_PID_KI_DEFAULT, 
-            TuningConstants.SHOOTER_VELOCITY_PID_KD_DEFAULT, 
-            TuningConstants.SHOOTER_VELOCITY_PID_KF_DEFAULT, 
+            TuningConstants.SHOOTER_VELOCITY_PID_KP_DEFAULT,
+            TuningConstants.SHOOTER_VELOCITY_PID_KI_DEFAULT,
+            TuningConstants.SHOOTER_VELOCITY_PID_KD_DEFAULT,
+            TuningConstants.SHOOTER_VELOCITY_PID_KF_DEFAULT,
+            TuningConstants.SHOOTER_VELOCITY_PID_KS_DEFAULT,
             -TuningConstants.SHOOTER_MAX_POWER_LEVEL, 
             TuningConstants.SHOOTER_MAX_POWER_LEVEL);
     }

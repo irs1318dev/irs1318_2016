@@ -1,23 +1,20 @@
  package org.usfirst.frc.team1318.robot;
 
 import org.usfirst.frc.team1318.robot.Common.DashboardLogger;
-import org.usfirst.frc.team1318.robot.Compressor.CompressorController;
-import org.usfirst.frc.team1318.robot.DefenseArm.DefenseArmController;
-import org.usfirst.frc.team1318.robot.DriveTrain.DriveTrainController;
 import org.usfirst.frc.team1318.robot.DriveTrain.PositionManager;
 import org.usfirst.frc.team1318.robot.Driver.Driver;
 import org.usfirst.frc.team1318.robot.Driver.IControlTask;
 import org.usfirst.frc.team1318.robot.Driver.Autonomous.AutonomousDriver;
 import org.usfirst.frc.team1318.robot.Driver.ControlTasks.BreachPortcullisTask;
+import org.usfirst.frc.team1318.robot.Driver.ControlTasks.ConcurrentTask;
+import org.usfirst.frc.team1318.robot.Driver.ControlTasks.DefenseArmPositionTask;
 import org.usfirst.frc.team1318.robot.Driver.ControlTasks.DriveDistanceTask;
 import org.usfirst.frc.team1318.robot.Driver.ControlTasks.SequentialTask;
 import org.usfirst.frc.team1318.robot.Driver.ControlTasks.ShooterKickTask;
+import org.usfirst.frc.team1318.robot.Driver.ControlTasks.ShooterLowerKickerTask;
 import org.usfirst.frc.team1318.robot.Driver.ControlTasks.ShooterSpinUpTask;
 import org.usfirst.frc.team1318.robot.Driver.ControlTasks.WaitTask;
 import org.usfirst.frc.team1318.robot.Driver.User.UserDriver;
-import org.usfirst.frc.team1318.robot.Intake.IntakeController;
-import org.usfirst.frc.team1318.robot.SensorManager.SensorManagerController;
-import org.usfirst.frc.team1318.robot.Shooter.ShooterController;
 
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.IterativeRobot;
@@ -83,8 +80,8 @@ public class Robot extends IterativeRobot
 
         DashboardLogger.putString(Robot.ROBOT_STATE_LOG_KEY, "Init");
 
-        this.dipSwitchA = new DigitalInput(ElectronicsConstants.AUTONOMOUS_DIP_SWITCH_A);
-        this.dipSwitchB = new DigitalInput(ElectronicsConstants.AUTONOMOUS_DIP_SWITCH_B);
+        this.dipSwitchA = null;//new DigitalInput(ElectronicsConstants.AUTONOMOUS_DIP_SWITCH_A);
+        this.dipSwitchB = null;//new DigitalInput(ElectronicsConstants.AUTONOMOUS_DIP_SWITCH_B);
     }
 
     /**
@@ -120,15 +117,15 @@ public class Robot extends IterativeRobot
         IControlTask autonomousRoutine = Robot.GetFillerRoutine();
 
         int routineSelection = 0;
-        if (this.dipSwitchA.get())
-        {
-            routineSelection += 1;
-        }
+        //if (this.dipSwitchA.get())
+        //{
+        //    routineSelection += 1;
+        //}
 
-        if (this.dipSwitchB.get())
-        {
-            routineSelection += 2;
-        }
+        //if (this.dipSwitchB.get())
+        //{
+        //    routineSelection += 2;
+        //}
 
         //select autonomous routine based on the dipswitch positions
         switch (routineSelection)
@@ -232,13 +229,17 @@ public class Robot extends IterativeRobot
     // My first attempt to write an autonomous routine
     // Should move to the portcullis, go through, spin up the shooter, and then shoot.
     @SuppressWarnings("unused")
-    private static IControlTask autonomousPortcullisBreach() 
+    private static IControlTask autonomousPortcullisBreachAndShoot() 
     {
         return new SequentialTask(new IControlTask[]{
-            new DriveDistanceTask(1.0),
+            new DriveDistanceTask(TuningConstants.START_TO_OUTER_WORKS_DISTANCE),
+            ConcurrentTask.AllTasks(
+                new DefenseArmPositionTask(TuningConstants.DEFENSE_ARM_PORTCULLIS_BREACH_APPROACH_POSITION),
+                new DriveDistanceTask(TuningConstants.PORTCULLIS_OUTER_WORKS_DISTANCE)),
             new BreachPortcullisTask(),
-            new ShooterSpinUpTask(true),
-            new ShooterKickTask()}); 
+            new ShooterLowerKickerTask(TuningConstants.SHOOTER_LOWER_KICKER_DURATION),
+            new ShooterSpinUpTask(true, TuningConstants.SHOOTER_FAR_SHOT_VELOCITY, TuningConstants.SHOOTER_SPIN_UP_DURATION),
+            new ShooterKickTask(TuningConstants.SHOOTER_FIRE_DURATION)}); 
     }
 }
 

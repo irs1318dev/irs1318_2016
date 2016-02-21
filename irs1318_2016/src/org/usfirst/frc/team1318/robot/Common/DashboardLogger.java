@@ -18,7 +18,7 @@ public class DashboardLogger
     /**
      * Default instance
      */
-    private static DashboardMode defaultMode = DashboardMode.Console;
+    private static DashboardMode defaultMode = DashboardMode.SmartDashboard;
     
     /**
      * Write a boolean to the smart dashboard

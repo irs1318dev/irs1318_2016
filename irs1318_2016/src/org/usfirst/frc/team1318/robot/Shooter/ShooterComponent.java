@@ -8,7 +8,7 @@ import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.Talon;
 
 /**
- * Component for the shooter mechanism. Has one talon, and one counter, 
+ * Component for the shooter mechanism. Has a talon, and one counter, 
  * a kicker that loads the ball, and an actuating hood.
  * @author Corbin
  *
@@ -24,9 +24,10 @@ public class ShooterComponent
     {
         this.kicker = new DoubleSolenoid(ElectronicsConstants.SHOOTER_KICKER_CHANNEL_A, ElectronicsConstants.SHOOTER_KICKER_CHANNEL_B);
         this.hood = new DoubleSolenoid(ElectronicsConstants.SHOOTER_HOOD_CHANNEL_A, ElectronicsConstants.SHOOTER_HOOD_CHANNEL_B);
-        this.talon = new Talon(ElectronicsConstants.SHOOTER_MOTOR_CHANNEL);
+        this.talon = new Talon(ElectronicsConstants.SHOOTER_TALON_CHANNEL);
         this.counter = new Counter(ElectronicsConstants.SHOOTER_COUNTER_CHANNEL);
         this.counter.setUpDownCounterMode();
+        this.counter.setDistancePerPulse(1.0);
     }
     
     public void setMotorSpeed(double speed) 
@@ -34,11 +35,23 @@ public class ShooterComponent
         this.talon.set(speed);
     }
     
-    public double getCounterTicks() 
+    public int getCounterTicks()
     {
-        return this.counter.getRate();
+        int counterTicks = this.counter.get();
+        return counterTicks;
     }
     
+    public double getCounterRate() 
+    {
+        double counterRate = this.counter.getRate();
+        return counterRate;
+    }
+    
+    /**
+     * Actuates the kicker. 
+     * 
+     * @param up - true is up, false is down
+     */
     public void kick(boolean up)
     {
         if (up)
@@ -51,6 +64,11 @@ public class ShooterComponent
         }
     }
     
+    /**
+     * Extends or retracts the hood.
+     * 
+     * @param up - true extends, false retracts
+     */
     public void hood(boolean up)
     {
         if (up)

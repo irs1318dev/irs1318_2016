@@ -11,30 +11,41 @@ public enum Operation
     DriveTrainUsePositionalMode,
     DriveTrainLeftPosition,
     DriveTrainRightPosition,
+    DriveTrainSwapFrontOrientation,
+    
     // Defense arm operations:
-    DefenseArmFrontPosition,
-    DefenseArmPortcullisPosition,
-    DefenseArmDrawbridgePosition,
-    DefenseArmSallyPortPosition,
-    DefenseArmBackPosition,
+    DefenseArmMaxFrontPosition,
+    DefenseArmHorizontalFrontPosition,
+    DefenseArmUpForwardPosition,
+    DefenseArmUpPosition,
+    DefenseArmMaxBackPosition,
     DefenseArmMoveBack,
     DefenseArmMoveForward,
     DefenseArmTakePositionInput,
     DefenseArmSetAngle,
+    DefenseArmUseSensors,
+    DefenseArmIgnoreSensors,
+    
     // Shooter operations:
     ShooterSpeed,
     ShooterSpin,
-    ShooterKick,
+    ShooterLowerKicker,
     ShooterExtendHood,
+    
     // Intake operations:
     IntakeRotatingIn,
     IntakeRotatingOut,
     IntakeExtend,
     IntakeRetract,
-    //Climbing Arm Operation
+    
+    // Climbing arm operations:
     ClimbingArmExtend,
     ClimbingArmRetract,
     ClimbingArmShoulderUp,
-    ClimbingArmElbowUp;
+    ClimbingArmElbowUp,
     
+    // Other general operations:
+    EnablePID,
+    DisablePID,
+    CancelBreachMacro;
 }
