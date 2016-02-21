@@ -90,25 +90,25 @@ public abstract class Driver
                 Operation.DefenseArmHorizontalFrontPosition,
                 new DigitalOperationDescription(
                     UserInputDevice.Driver,
-                    UserInputDeviceButton.JOYSTICK_BASE_MIDDLE_LEFT_BUTTON,
+                    UserInputDeviceButton.NONE,
                     ButtonType.Click));
             put(
                 Operation.DefenseArmUpForwardPosition,
                 new DigitalOperationDescription(
                     UserInputDevice.Driver,
-                    UserInputDeviceButton.JOYSTICK_BASE_TOP_LEFT_BUTTON,
+                    UserInputDeviceButton.JOYSTICK_BASE_MIDDLE_LEFT_BUTTON,
                     ButtonType.Click));
             put(
                 Operation.DefenseArmUpPosition,
                 new DigitalOperationDescription(
                     UserInputDevice.Driver,
-                    UserInputDeviceButton.JOYSTICK_BASE_BOTTOM_RIGHT_BUTTON,
+                    UserInputDeviceButton.JOYSTICK_BASE_TOP_LEFT_BUTTON,
                     ButtonType.Click));
             put(
                 Operation.DefenseArmMaxBackPosition,
                 new DigitalOperationDescription(
                     UserInputDevice.Driver,
-                    UserInputDeviceButton.JOYSTICK_BASE_MIDDLE_RIGHT_BUTTON,
+                    UserInputDeviceButton.JOYSTICK_BASE_BOTTOM_RIGHT_BUTTON,
                     ButtonType.Click));
             put(
                 Operation.DefenseArmMoveForward,
@@ -203,6 +203,18 @@ public abstract class Driver
                 new DigitalOperationDescription(
                     UserInputDevice.CoDriver,
                     UserInputDeviceButton.BUTTON_PAD_BUTTON_12,
+                    ButtonType.Click));
+            put(
+                Operation.DisableDefenseArmPID,
+                new DigitalOperationDescription(
+                    UserInputDevice.CoDriver,
+                    UserInputDeviceButton.BUTTON_PAD_BUTTON_15,
+                    ButtonType.Click));
+            put(
+                Operation.EnableDefenseArmPID,
+                new DigitalOperationDescription(
+                    UserInputDevice.CoDriver,
+                    UserInputDeviceButton.BUTTON_PAD_BUTTON_10,
                     ButtonType.Click));
             put(
                 Operation.DefenseArmIgnoreSensors,

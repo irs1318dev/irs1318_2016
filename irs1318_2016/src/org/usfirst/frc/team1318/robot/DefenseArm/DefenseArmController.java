@@ -59,12 +59,12 @@ public class DefenseArmController implements IController
     @Override
     public void update()
     {
-        if (this.driver.getDigital(Operation.EnablePID))
+        if (this.driver.getDigital(Operation.EnablePID) || this.driver.getDigital(Operation.EnableDefenseArmPID))
         {
             this.usePID = true;
             this.createPIDHandler();
         }
-        else if (this.driver.getDigital(Operation.DisablePID))
+        else if (this.driver.getDigital(Operation.DisablePID) || this.driver.getDigital(Operation.DisableDefenseArmPID))
         {
             this.usePID = false;
             this.createPIDHandler();
@@ -109,7 +109,7 @@ public class DefenseArmController implements IController
                     this.movingToFront = false;
                 }
 
-                this.defenseArm.setAbsoluteFrontOffset(currentEncoderAngle - this.desiredPosition);
+                this.defenseArm.setAbsoluteFrontOffset(currentEncoderAngle - HardwareConstants.DEFENSE_ARM_MAX_FRONT_POSITION);
                 enforceNonNegative = true;
             }
 
@@ -123,7 +123,7 @@ public class DefenseArmController implements IController
                     this.movingToBack = false;
                 }
 
-                this.defenseArm.setAbsoluteFrontOffset(currentEncoderAngle - this.desiredPosition);
+                this.defenseArm.setAbsoluteFrontOffset(currentEncoderAngle - HardwareConstants.DEFENSE_ARM_MAX_BACK_POSITION);
                 enforceNonPositive = true;
             }
         }
