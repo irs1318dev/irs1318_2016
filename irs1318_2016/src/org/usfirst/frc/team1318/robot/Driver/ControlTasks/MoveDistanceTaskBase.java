@@ -10,6 +10,8 @@ import org.usfirst.frc.team1318.robot.Driver.Operation;
  */
 public abstract class MoveDistanceTaskBase extends ControlTaskBase implements IControlTask
 {
+    private final boolean resetPositionalOnEnd;
+
     protected double startLeftEncoderDistance;
     protected double startRightEncoderDistance;
 
@@ -18,10 +20,11 @@ public abstract class MoveDistanceTaskBase extends ControlTaskBase implements IC
 
     /**
      * Initializes a new MoveDistanceTaskBase
-     * @param driveTrain component to use to detect our current position
+     * @param resetPositionalOnEnd
      */
-    protected MoveDistanceTaskBase()
+    protected MoveDistanceTaskBase(boolean resetPositionalOnEnd)
     {
+        this.resetPositionalOnEnd = resetPositionalOnEnd;
     }
 
     /**
@@ -71,9 +74,12 @@ public abstract class MoveDistanceTaskBase extends ControlTaskBase implements IC
     @Override
     public void end()
     {
-        this.setDigitalOperationState(Operation.DriveTrainUsePositionalMode, false);
-        this.setAnalogOperationState(Operation.DriveTrainLeftPosition, 0.0);
-        this.setAnalogOperationState(Operation.DriveTrainRightPosition, 0.0);
+        if (this.resetPositionalOnEnd)
+        {
+            this.setDigitalOperationState(Operation.DriveTrainUsePositionalMode, false);
+            this.setAnalogOperationState(Operation.DriveTrainLeftPosition, 0.0);
+            this.setAnalogOperationState(Operation.DriveTrainRightPosition, 0.0);
+        }
     }
 
     /**

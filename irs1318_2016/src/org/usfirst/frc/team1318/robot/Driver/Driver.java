@@ -284,7 +284,7 @@ public abstract class Driver
                     () -> SequentialTask.Sequence(
                         ConcurrentTask.AllTasks(
                             new DefenseArmPositionTask(TuningConstants.DEFENSE_ARM_PORTCULLIS_BREACH_APPROACH_POSITION),
-                            new DriveDistanceTask(TuningConstants.PORTCULLIS_OUTER_WORKS_DISTANCE)),
+                            new DriveDistanceTask(TuningConstants.PORTCULLIS_OUTER_WORKS_DISTANCE, false)),
                         new DefenseArmPositionTask(TuningConstants.DEFENSE_ARM_PORTCULLIS_BREACH_CAPTURE_POSITION),
                         new BreachPortcullisTask()),
                     new Operation[]
@@ -373,6 +373,7 @@ public abstract class Driver
                 }));
 
             // Macros for shooting distance.
+            
             put(
                 MacroOperation.ShootClose,
                 new MacroOperationDescription(

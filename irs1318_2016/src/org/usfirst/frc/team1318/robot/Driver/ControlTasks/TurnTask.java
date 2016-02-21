@@ -17,6 +17,8 @@ public class TurnTask extends MoveDistanceTaskBase implements IControlTask
      */
     public TurnTask(double degrees)
     {
+        super(true);
+
         this.degrees = degrees;
     }
 
