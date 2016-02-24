@@ -373,12 +373,11 @@ public abstract class Driver
                 }));
 
             // Macros for shooting distance.
-            
             put(
                 MacroOperation.ShootClose,
                 new MacroOperationDescription(
                     UserInputDevice.Driver,
-                    UserInputDeviceButton.JOYSTICK_STICK_TRIGGER_BUTTON,
+                    UserInputDeviceButton.JOYSTICK_BASE_TOP_RIGHT_BUTTON,
                     () -> SequentialTask.Sequence(
                         new ShooterLowerKickerTask(TuningConstants.SHOOTER_LOWER_KICKER_DURATION),
                         new ShooterSpinUpTask(false, TuningConstants.SHOOTER_CLOSE_SHOT_VELOCITY, TuningConstants.SHOOTER_SPIN_UP_DURATION),
@@ -396,7 +395,7 @@ public abstract class Driver
                 MacroOperation.ShootMiddle,
                 new MacroOperationDescription(
                     UserInputDevice.Driver,
-                    UserInputDeviceButton.JOYSTICK_BASE_TOP_RIGHT_BUTTON,
+                    UserInputDeviceButton.JOYSTICK_STICK_TRIGGER_BUTTON,
                     () -> SequentialTask.Sequence(
                         new ShooterLowerKickerTask(TuningConstants.SHOOTER_LOWER_KICKER_DURATION),
                         new ShooterSpinUpTask(false, TuningConstants.SHOOTER_MIDDLE_SHOT_VELOCITY, TuningConstants.SHOOTER_SPIN_UP_DURATION),
