@@ -14,16 +14,18 @@ import edu.wpi.first.wpilibj.Joystick.AxisType;
 public class AnalogOperationState extends OperationState
 {
     private double currentValue;
-    private boolean isInterrupted;
     private double interruptValue;
+    private boolean isInterrupted;
+    private boolean macroOverride;
 
     public AnalogOperationState(AnalogOperationDescription description)
     {
         super(description);
 
         this.currentValue = 0.0;
-        this.isInterrupted = false;
         this.interruptValue = 0.0;
+        this.isInterrupted = false;
+        this.macroOverride = false;
     }
 
     /**
@@ -86,7 +88,12 @@ public class AnalogOperationState extends OperationState
 
         double newValue;
         double oldValue = this.currentValue;
-        if (relevantJoystick != null)
+        // Return false if override is desired to stop the change of currentValue from what it was set to by the macro
+        if(this.macroOverride)
+        {
+            return false;
+        }
+        else if (relevantJoystick != null)
         {
             boolean invert = false;
             switch (description.getUserInputDeviceAxis())
@@ -128,7 +135,7 @@ public class AnalogOperationState extends OperationState
         }
         else
         {
-            // grab the appropriate sensor output.
+         // grab the appropriate sensor output.
             // e.g.: if (description.getSensor() == AnalogSensor.None) ...
             newValue = 0.0;
         }
@@ -146,9 +153,28 @@ public class AnalogOperationState extends OperationState
 
         return this.currentValue;
     }
+    
+    /**
+     * Set the current and interrupted value. 
+     * @param value of true sets overrideValue and interruptValue to true
+     */
+    public void setState(double value)
+    {
+        this.currentValue = value;
+        this.interruptValue = value;
+    }
 
     public void setInterruptState(double value)
     {
         this.interruptValue = value;
+    }
+    
+    /**
+     * Set the value of macroOveride (which represents the desire for a value to persist after the end of a macro)
+     * @param value of true allows the macro to override the currentValue
+     */
+    public void macroOverride(boolean value)
+    {
+        this.macroOverride = value;
     }
 }

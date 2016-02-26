@@ -18,17 +18,17 @@ public class DigitalOperationState extends OperationState
 {
     private final IButton button;
     private boolean isInterrupted;
-    private boolean interruptValue;
     private boolean macroOverride;
-    private boolean overrideValue;
+    private boolean currentValue;
+    private boolean interruptValue;
 
     public DigitalOperationState(DigitalOperationDescription description)
     {
         super(description);
 
         this.isInterrupted = false;
+        this.currentValue = false;
         this.interruptValue = false;
-        this.overrideValue = false;
         
         switch (description.getButtonType())
         {
@@ -107,39 +107,38 @@ public class DigitalOperationState extends OperationState
                 throw new RuntimeException("unexpected user input device " + description.getUserInputDevice().toString());
         }
 
-        boolean buttonPressed;
-        if (relevantJoystick != null)
+        // Return false if override is desired to stop the change of currentValue from what it was set to by the macro
+        if (this.macroOverride)
+        {
+            return false;
+        }
+        else if (relevantJoystick != null)
         {
             // find the appropriate button and grab the value from the relevant joystick
             relevantButton = description.getUserInputDeviceButton();
 
             if (relevantButton == UserInputDeviceButton.JOYSTICK_POV)
             {
-                buttonPressed = relevantJoystick.getPOV() == description.getUserInputDevicePovValue();
+                this.currentValue = relevantJoystick.getPOV() == description.getUserInputDevicePovValue();
             }
             else if (relevantButton != UserInputDeviceButton.NONE)
             {
-                buttonPressed = relevantJoystick.getRawButton(relevantButton.Value);
+                this.currentValue = relevantJoystick.getRawButton(relevantButton.Value);
             }
             else
             {
-                buttonPressed = false;
+                this.currentValue = false;
             }
-        }
-        // Set buttonPressed to the overrideValue if macroOverride is desired
-        else if (this.macroOverride)
-        {
-            buttonPressed = this.overrideValue;
         }
         else
         {
             // grab the appropriate sensor output.
             // e.g.: if (description.getSensor() == DigitalSensor.None) ...
-            buttonPressed = false;
+            this.currentValue = false;
         }
         
-        this.button.updateState(buttonPressed);
-        return buttonPressed;
+        this.button.updateState(this.currentValue);
+        return this.button.isActivated();
     }
 
     public boolean getState()
@@ -149,27 +148,27 @@ public class DigitalOperationState extends OperationState
             return this.interruptValue;
         }
 
-        return this.button.isActivated();
+        return this.currentValue;
     }
 
+    /**
+     * Set the override and interrupt state for the button.
+     * @param value of true sets overrideValue and interruptValue to true
+     */
+    public void setState(boolean value)
+    {
+        this.currentValue = value;
+        this.interruptValue = value;
+    }
+    
     public void setInterruptState(boolean value)
     {
         this.interruptValue = value;
     }
     
     /**
-     * Set the override and interrupt state for the button.
-     * @param value - the value that becomes the button's new value
-     */
-    public void setState(boolean value)
-    {
-        this.overrideValue = value;
-        this.interruptValue = value;
-    }
-    
-    /**
      * Set the value of macroOveride (which represents the desire for a value to persist after the end of a macro)
-     * @param value - the value set to macroOverride
+     * @param value of true allows the macro to override the currentValue
      */
     public void macroOverride(boolean value)
     {

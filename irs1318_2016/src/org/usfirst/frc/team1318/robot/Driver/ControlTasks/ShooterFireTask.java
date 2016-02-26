@@ -16,9 +16,25 @@ public class ShooterFireTask extends ControlTaskBase implements IControlTask
     public void begin()
     {
         this.setDigitalOperationState(Operation.ShooterLowerKicker, false);
+        
         this.hasFinished = true;
     }
-
+    
+    @Override
+    public void update()
+    {  
+        this.setDigitalOperationState(Operation.ShooterLowerKicker, false);
+        
+        this.hasFinished = true;
+    }
+    
+    @Override
+    public void stop()
+    {
+        this.setDigitalOperationState(Operation.ShooterSpin, false);
+        this.setAnalogOperationState(Operation.ShooterSpeed, 0.0);
+    }
+    
     @Override
     public void end()
     {
@@ -32,18 +48,6 @@ public class ShooterFireTask extends ControlTaskBase implements IControlTask
     public boolean hasCompleted()
     {
         return this.hasFinished;
-    }
-
-    @Override
-    public void update()
-    {   
-    }
-
-    @Override
-    public void stop()
-    {
-        this.setDigitalOperationState(Operation.ShooterSpin, false);
-        this.setAnalogOperationState(Operation.ShooterSpeed, 0.0);
     }
 
 }

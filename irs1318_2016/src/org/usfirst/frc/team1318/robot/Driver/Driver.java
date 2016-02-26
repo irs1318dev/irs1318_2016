@@ -19,8 +19,8 @@ import org.usfirst.frc.team1318.robot.Driver.ControlTasks.DriveRouteTask;
 import org.usfirst.frc.team1318.robot.Driver.ControlTasks.IntakePositionTask;
 import org.usfirst.frc.team1318.robot.Driver.ControlTasks.SequentialTask;
 import org.usfirst.frc.team1318.robot.Driver.ControlTasks.ShooterFireTask;
+import org.usfirst.frc.team1318.robot.Driver.ControlTasks.ShooterLowerKickerTimedTask;
 import org.usfirst.frc.team1318.robot.Driver.ControlTasks.ShooterLowerKickerTask;
-import org.usfirst.frc.team1318.robot.Driver.ControlTasks.ShooterKickTask;
 import org.usfirst.frc.team1318.robot.Driver.ControlTasks.ShooterSpinUpTask;
 import org.usfirst.frc.team1318.robot.Driver.ControlTasks.TurnTask;
 import org.usfirst.frc.team1318.robot.Driver.Descriptions.AnalogOperationDescription;
@@ -380,7 +380,7 @@ public abstract class Driver
                     UserInputDevice.Driver,
                     UserInputDeviceButton.JOYSTICK_BASE_TOP_RIGHT_BUTTON,
                     () -> SequentialTask.Sequence(
-                        new ShooterKickTask(false),
+                        new ShooterLowerKickerTask(false),
                         new ShooterSpinUpTask(false, TuningConstants.SHOOTER_CLOSE_SHOT_VELOCITY)),
                     new Operation[]
                     {
@@ -397,7 +397,7 @@ public abstract class Driver
                     UserInputDevice.Driver,
                     UserInputDeviceButton.JOYSTICK_BASE_MIDDLE_RIGHT_BUTTON,
                     () -> SequentialTask.Sequence(
-                        new ShooterKickTask(false),
+                        new ShooterLowerKickerTask(false),
                         new ShooterSpinUpTask(true, TuningConstants.SHOOTER_MIDDLE_SHOT_VELOCITY)),
                     new Operation[]
                     {
@@ -414,7 +414,7 @@ public abstract class Driver
                     UserInputDevice.Driver,
                     UserInputDeviceButton.JOYSTICK_BASE_BOTTOM_RIGHT_BUTTON,
                     () -> SequentialTask.Sequence(
-                        new ShooterKickTask(false), 
+                        new ShooterLowerKickerTask(false), 
                         new ShooterSpinUpTask(true, TuningConstants.SHOOTER_FAR_SHOT_VELOCITY)),
                     new Operation[]
                     {
@@ -429,7 +429,7 @@ public abstract class Driver
                 MacroOperation.Shoot,
                 new MacroOperationDescription(
                     UserInputDevice.Driver,
-                    UserInputDeviceButton.JOYSTICK_BASE_BOTTOM_RIGHT_BUTTON,
+                    UserInputDeviceButton.JOYSTICK_STICK_TRIGGER_BUTTON,
                     () -> SequentialTask.Sequence(
                         new ShooterFireTask()),
                     new Operation[]

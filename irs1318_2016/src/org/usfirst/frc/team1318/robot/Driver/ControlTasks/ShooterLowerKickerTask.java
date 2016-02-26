@@ -3,44 +3,55 @@ package org.usfirst.frc.team1318.robot.Driver.ControlTasks;
 import org.usfirst.frc.team1318.robot.Driver.IControlTask;
 import org.usfirst.frc.team1318.robot.Driver.Operation;
 
-public class ShooterLowerKickerTask extends TimedTask implements IControlTask
+/**
+ * This is a special version of the kicker that is essentially the macro version of the operation. 
+ * It is needed so that I can put it into a macroOperation sequence.
+ * @author Corbin_Modica
+ *
+ */
+public class ShooterLowerKickerTask extends ControlTaskBase implements IControlTask
 {
-    /**
-     * Lower the Shooter's kicker
-     */
-    public ShooterLowerKickerTask(double duration)
+    private boolean kick;
+    private boolean hasFinished;
+    
+    public ShooterLowerKickerTask(boolean kick)
     {
-        super(duration);
+        this.kick = kick;
+        this.hasFinished = false;
     }
-
-    @Override
-    public void update()
-    {
-    }
-
+    
     @Override
     public void begin()
     {
-        super.begin();
-        this.setDigitalOperationState(Operation.ShooterLowerKicker, true);
+        this.setCurrentAndInterruptedDigitalOperationState(Operation.ShooterLowerKicker, this.kick);
+        
+        this.hasFinished = true;
+    }
+    
+    
+    @Override
+    public void update()
+    {
+        this.setCurrentAndInterruptedDigitalOperationState(Operation.ShooterLowerKicker, this.kick);
+        
+        this.hasFinished = true;
     }
     
     @Override
     public void stop()
     {
-        super.stop();
-        this.setDigitalOperationState(Operation.ShooterLowerKicker, false);
+        this.setCurrentAndInterruptedDigitalOperationState(Operation.ShooterSpin, false);
+        this.setCurrentAndInterruptedAnalogOperationState(Operation.ShooterSpeed, 0.0);
+    }
+    
+    @Override
+    public boolean hasCompleted()
+    {
+        return this.hasFinished;
     }
 
     @Override
     public void end()
     {
     }
-    
-    @Override
-    public boolean hasCompleted()
-    {
-        return super.hasCompleted();
-    }
-
 }

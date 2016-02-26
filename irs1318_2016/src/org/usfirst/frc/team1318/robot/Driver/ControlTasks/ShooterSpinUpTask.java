@@ -5,41 +5,44 @@ import org.usfirst.frc.team1318.robot.Driver.Operation;
 
 public class ShooterSpinUpTask extends ControlTaskBase implements IControlTask
 {
-    private boolean extendHood;
     private double shooterVelocity;
+    private boolean extendHood;
     private boolean hasFinished;
 
     // True is a far shot, false is a close shot.
     public ShooterSpinUpTask(boolean extendHood, double shooterVelocity)
     {
-        this.hasFinished = false;
-        this.extendHood = extendHood;
         this.shooterVelocity = shooterVelocity;
+        this.extendHood = extendHood;
+        this.hasFinished = false;
     }
 
     @Override
     public void begin()
     {
-        this.setDigitalOperationState(Operation.ShooterSpin, true);
-        this.setAnalogOperationState(Operation.ShooterSpeed, this.shooterVelocity);
-        this.setDigitalOperationState(Operation.ShooterExtendHood, this.extendHood);
+        this.setCurrentAndInterruptedDigitalOperationState(Operation.ShooterSpin, true);
+        this.setCurrentAndInterruptedAnalogOperationState(Operation.ShooterSpeed, this.shooterVelocity);
+        this.setCurrentAndInterruptedDigitalOperationState(Operation.ShooterExtendHood, this.extendHood);
         
         this.hasFinished = true;
     }
 
-    @Override
-    public void stop()
-    {
-        this.setDigitalOperationState(Operation.ShooterSpin, false);
-        this.setAnalogOperationState(Operation.ShooterSpeed, 0.0);
-    }
-
+    // Doubt it will be called before hasCompleted(), but just in case...
     @Override
     public void update()
     {
-        this.setDigitalOperationState(Operation.ShooterSpin, true);
-        this.setAnalogOperationState(Operation.ShooterSpeed, this.shooterVelocity);
-        this.setDigitalOperationState(Operation.ShooterExtendHood, this.extendHood);
+        this.setCurrentAndInterruptedDigitalOperationState(Operation.ShooterSpin, true);
+        this.setCurrentAndInterruptedAnalogOperationState(Operation.ShooterSpeed, this.shooterVelocity);
+        this.setCurrentAndInterruptedDigitalOperationState(Operation.ShooterExtendHood, this.extendHood);
+        
+        this.hasFinished = true;
+    }
+    
+    @Override
+    public void stop()
+    {
+        this.setCurrentAndInterruptedDigitalOperationState(Operation.ShooterSpin, false);
+        this.setCurrentAndInterruptedAnalogOperationState(Operation.ShooterSpeed, 0.0);
     }
 
     @Override
