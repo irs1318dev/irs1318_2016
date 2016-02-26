@@ -65,6 +65,7 @@ public class TuningConstants
 
     // Defense arm max velocity (angular)
     public static final double DEFENSE_ARM_MAX_VELOCITY = Math.PI / 2.0;
+    public static final double DEFENSE_ARM_MOLASSES_VELOCITY = Math.PI / 8.0;
 
     // Defense arm power level for when PID is disabled
     public static final double DEFENSE_ARM_OVERRIDE_POWER_LEVEL = 0.4;

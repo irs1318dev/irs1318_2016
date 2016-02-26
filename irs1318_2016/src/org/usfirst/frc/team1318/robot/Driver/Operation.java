@@ -19,6 +19,7 @@ public enum Operation
     DefenseArmUpForwardPosition,
     DefenseArmUpPosition,
     DefenseArmMaxBackPosition,
+    DefenseArmMolassesMode,
     DefenseArmMoveBack,
     DefenseArmMoveForward,
     DefenseArmTakePositionInput,
@@ -27,6 +28,7 @@ public enum Operation
     DefenseArmIgnoreSensors,
     DisableDefenseArmPID, 
     EnableDefenseArmPID,
+    DefenseArmSetAtMiddleAngle,
     
     // Shooter operations:
     ShooterSpeed,

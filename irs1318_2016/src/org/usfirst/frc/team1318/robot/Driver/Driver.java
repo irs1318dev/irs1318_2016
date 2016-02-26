@@ -113,6 +113,12 @@ public abstract class Driver
                     UserInputDeviceButton.JOYSTICK_BASE_BOTTOM_RIGHT_BUTTON,
                     ButtonType.Click));
             put(
+                Operation.DefenseArmMolassesMode,
+                new DigitalOperationDescription(
+                    UserInputDevice.Driver,
+                    UserInputDeviceButton.JOYSTICK_BASE_MIDDLE_RIGHT_BUTTON,
+                    ButtonType.Simple));
+            put(
                 Operation.DefenseArmMoveForward,
                 new DigitalOperationDescription(
                     UserInputDevice.Driver,
@@ -150,14 +156,20 @@ public abstract class Driver
             put(
                 Operation.DisableDefenseArmPID,
                 new DigitalOperationDescription(
-                    UserInputDevice.CoDriver,
-                    UserInputDeviceButton.BUTTON_PAD_BUTTON_15,
+                    UserInputDevice.None,
+                    UserInputDeviceButton.NONE,
                     ButtonType.Click));
             put(
                 Operation.EnableDefenseArmPID,
                 new DigitalOperationDescription(
+                    UserInputDevice.None,
+                    UserInputDeviceButton.NONE,
+                    ButtonType.Click));
+            put(
+                Operation.DefenseArmSetAtMiddleAngle,
+                new DigitalOperationDescription(
                     UserInputDevice.CoDriver,
-                    UserInputDeviceButton.BUTTON_PAD_BUTTON_10,
+                    UserInputDeviceButton.BUTTON_PAD_BUTTON_15,
                     ButtonType.Click));
 
             // Operations for the shooter

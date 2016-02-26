@@ -82,6 +82,12 @@ public class DefenseArmController implements IController
             this.useSensors = true;
         }
 
+        double positionalMoveVelocity = TuningConstants.DEFENSE_ARM_MAX_VELOCITY;
+        if (this.driver.getDigital(Operation.DefenseArmMolassesMode))
+        {
+            positionalMoveVelocity = TuningConstants.DEFENSE_ARM_MOLASSES_VELOCITY;
+        }
+
         // Set the current time using the timer
         double currentTime = this.timer.get();
         double deltaT = currentTime - this.prevTime;
@@ -139,6 +145,11 @@ public class DefenseArmController implements IController
 
                 enforceNonPositive = true;
             }
+        }
+
+        if (this.driver.getDigital(Operation.DefenseArmSetAtMiddleAngle))
+        {
+            this.defenseArm.setAbsoluteFrontOffset(currentEncoderAngle - TuningConstants.DEFENSE_ARM_UP_POSITION);
         }
 
         // If we are running a breach macro, use exact-specified positional input
@@ -214,7 +225,7 @@ public class DefenseArmController implements IController
                         this.movingToBack = false;
                     }
 
-                    this.desiredPosition -= TuningConstants.DEFENSE_ARM_MAX_VELOCITY * deltaT;
+                    this.desiredPosition -= positionalMoveVelocity * deltaT;
                 }
                 else if (this.driver.getDigital(Operation.DefenseArmMoveBack))
                 {
@@ -226,7 +237,7 @@ public class DefenseArmController implements IController
                         this.movingToBack = false;
                     }
 
-                    this.desiredPosition += TuningConstants.DEFENSE_ARM_MAX_VELOCITY * deltaT;
+                    this.desiredPosition += positionalMoveVelocity * deltaT;
                 }
 
                 this.desiredPosition = this.assertDesiredPositionRange(this.desiredPosition);
