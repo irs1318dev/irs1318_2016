@@ -53,7 +53,7 @@ public class DigitalOperationState extends OperationState
     public void setIsInterrupted(boolean enable)
     {
         this.isInterrupted = enable;
-        if (enable)
+        if (!enable)
         {
             this.interruptValue = false;
         }
