@@ -19,6 +19,8 @@ public class DigitalOperationState extends OperationState
     private final IButton button;
     private boolean isInterrupted;
     private boolean interruptValue;
+    private boolean macroOverride;
+    private boolean overrideValue;
 
     public DigitalOperationState(DigitalOperationDescription description)
     {
@@ -26,6 +28,8 @@ public class DigitalOperationState extends OperationState
 
         this.isInterrupted = false;
         this.interruptValue = false;
+        this.overrideValue = false;
+        
         switch (description.getButtonType())
         {
             case Simple:
@@ -122,13 +126,18 @@ public class DigitalOperationState extends OperationState
                 buttonPressed = false;
             }
         }
+        // Set buttonPressed to the overrideValue if macroOverride is desired
+        else if (this.macroOverride)
+        {
+            buttonPressed = this.overrideValue;
+        }
         else
         {
             // grab the appropriate sensor output.
             // e.g.: if (description.getSensor() == DigitalSensor.None) ...
             buttonPressed = false;
         }
-
+        
         this.button.updateState(buttonPressed);
         return buttonPressed;
     }
@@ -146,5 +155,24 @@ public class DigitalOperationState extends OperationState
     public void setInterruptState(boolean value)
     {
         this.interruptValue = value;
+    }
+    
+    /**
+     * Set the override and interrupt state for the button.
+     * @param value - the value that becomes the button's new value
+     */
+    public void setState(boolean value)
+    {
+        this.overrideValue = value;
+        this.interruptValue = value;
+    }
+    
+    /**
+     * Set the value of macroOveride (which represents the desire for a value to persist after the end of a macro)
+     * @param value - the value set to macroOverride
+     */
+    public void macroOverride(boolean value)
+    {
+        this.macroOverride = value;
     }
 }
