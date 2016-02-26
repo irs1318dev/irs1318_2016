@@ -187,6 +187,11 @@ public class MacroOperationState extends OperationState
             // cancel task:
             this.task.stop();
             this.task = null;
+
+            for (Operation operation : this.getAffectedOperations())
+            {
+                this.operationStateMap.get(operation).setIsInterrupted(false);
+            }
         }
     }
 }

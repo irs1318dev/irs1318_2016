@@ -387,7 +387,7 @@ public abstract class Driver
             put(
                 MacroOperation.SpinClose,
                 new MacroOperationDescription(
-                    true,
+                    false,
                     UserInputDevice.Driver,
                     UserInputDeviceButton.JOYSTICK_BASE_TOP_RIGHT_BUTTON,
                     () -> SequentialTask.Sequence(
@@ -405,7 +405,7 @@ public abstract class Driver
             put(
                 MacroOperation.SpinMiddle,
                 new MacroOperationDescription(
-                    true,
+                    false,
                     UserInputDevice.Driver,
                     UserInputDeviceButton.JOYSTICK_BASE_MIDDLE_RIGHT_BUTTON,
                     () -> SequentialTask.Sequence(
@@ -423,7 +423,7 @@ public abstract class Driver
             put(
                 MacroOperation.SpinFar,
                 new MacroOperationDescription(
-                    true,
+                    false,
                     UserInputDevice.Driver,
                     UserInputDeviceButton.JOYSTICK_BASE_BOTTOM_RIGHT_BUTTON,
                     () -> SequentialTask.Sequence(
@@ -442,7 +442,7 @@ public abstract class Driver
                 MacroOperation.Shoot,
                 new MacroOperationDescription(
                     UserInputDevice.Driver,
-                    UserInputDeviceButton.JOYSTICK_STICK_THUMB_BUTTON,
+                    UserInputDeviceButton.JOYSTICK_STICK_TRIGGER_BUTTON,
                     () -> new ShooterKickerTask(TuningConstants.SHOOTER_FIRE_DURATION, false),
                     new Operation[]
                     {
