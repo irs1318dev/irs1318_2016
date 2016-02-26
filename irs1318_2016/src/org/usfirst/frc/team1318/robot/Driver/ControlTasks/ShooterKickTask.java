@@ -3,43 +3,49 @@ package org.usfirst.frc.team1318.robot.Driver.ControlTasks;
 import org.usfirst.frc.team1318.robot.Driver.IControlTask;
 import org.usfirst.frc.team1318.robot.Driver.Operation;
 
-public class ShooterKickTask extends TimedTask implements IControlTask
+/**
+ * This is a special version of the kicker that is essentially the macro version of the operation. 
+ * It is needed so that I can put it into a macroOperation sequence.
+ * @author Corbin_Modica
+ *
+ */
+public class ShooterKickTask extends ControlTaskBase implements IControlTask
 {
-    public ShooterKickTask(double duration)
+    private boolean kick;
+    private boolean hasFinished;
+    
+    public ShooterKickTask(boolean kick)
     {
-        super(duration);
+        this.kick = kick;
+        this.hasFinished = false;
     }
-
+    
+    @Override
+    public void begin()
+    {
+        this.setDigitalOperationState(Operation.ShooterLowerKicker, kick);
+        this.hasFinished = true;
+    }
+    
+    @Override
+    public boolean hasCompleted()
+    {
+        return this.hasFinished;
+    }
+    
     @Override
     public void update()
     {
     }
     
     @Override
-    public void begin()
-    {
-        super.begin();
-        this.setDigitalOperationState(Operation.ShooterLowerKicker, false);
-    }
-    
-    @Override
     public void stop()
     {
-        super.stop();
-        this.setDigitalOperationState(Operation.ShooterSpin, false);
     }
 
     @Override
     public void end()
     {
-        this.setDigitalOperationState(Operation.ShooterSpin, false);
-        this.setDigitalOperationState(Operation.ShooterExtendHood, false);
-    }
-    
-    @Override
-    public boolean hasCompleted()
-    {
-        return super.hasCompleted();
-    }
 
+    }
 }

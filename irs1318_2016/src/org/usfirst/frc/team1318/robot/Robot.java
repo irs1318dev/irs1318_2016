@@ -228,6 +228,7 @@ public class Robot extends IterativeRobot
     // @author Corbin
     // My first attempt to write an autonomous routine
     // Should move to the portcullis, go through, spin up the shooter, and then shoot.
+    /*
     @SuppressWarnings("unused")
     private static IControlTask autonomousPortcullisBreachAndShoot() 
     {
@@ -237,10 +238,11 @@ public class Robot extends IterativeRobot
                 new DefenseArmPositionTask(TuningConstants.DEFENSE_ARM_PORTCULLIS_BREACH_APPROACH_POSITION),
                 new DriveDistanceTask(TuningConstants.PORTCULLIS_OUTER_WORKS_DISTANCE)),
             new BreachPortcullisTask(),
-            new ShooterLowerKickerTask(TuningConstants.SHOOTER_LOWER_KICKER_DURATION),
-            new ShooterSpinUpTask(true, TuningConstants.SHOOTER_FAR_SHOT_VELOCITY, TuningConstants.SHOOTER_SPIN_UP_DURATION),
-            new ShooterKickTask(TuningConstants.SHOOTER_FIRE_DURATION)}); 
+            new ShooterLowerKickerTask(TuningConstants.SHOOTER_LOWER_KICKER_DURATION)
+            //new ShooterSpinUpTask(true, TuningConstants.SHOOTER_FAR_SHOT_VELOCITY, TuningConstants.SHOOTER_SPIN_UP_DURATION),
+            //new ShooterKickTask(TuningConstants.SHOOTER_FIRE_DURATION)}); 
     }
+    */
 }
 
 /*

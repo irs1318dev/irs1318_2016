@@ -3,9 +3,10 @@ package org.usfirst.frc.team1318.robot.Driver;
 public enum MacroOperation
 {
     // Shooter operations:
-    ShootFar,
-    ShootMiddle,
-    ShootClose,
+    SpinUpClose,
+    SpinUpMiddle,
+    SpinUpFar,
+    Shoot,
 
     // Breach operations:
     BreachPortcullis,

@@ -18,6 +18,7 @@ import org.usfirst.frc.team1318.robot.Driver.ControlTasks.DriveDistanceTask;
 import org.usfirst.frc.team1318.robot.Driver.ControlTasks.DriveRouteTask;
 import org.usfirst.frc.team1318.robot.Driver.ControlTasks.IntakePositionTask;
 import org.usfirst.frc.team1318.robot.Driver.ControlTasks.SequentialTask;
+import org.usfirst.frc.team1318.robot.Driver.ControlTasks.ShooterFireTask;
 import org.usfirst.frc.team1318.robot.Driver.ControlTasks.ShooterLowerKickerTask;
 import org.usfirst.frc.team1318.robot.Driver.ControlTasks.ShooterKickTask;
 import org.usfirst.frc.team1318.robot.Driver.ControlTasks.ShooterSpinUpTask;
@@ -374,14 +375,13 @@ public abstract class Driver
 
             // Macros for shooting distance.
             put(
-                MacroOperation.ShootClose,
+                MacroOperation.SpinUpClose,
                 new MacroOperationDescription(
                     UserInputDevice.Driver,
                     UserInputDeviceButton.JOYSTICK_BASE_TOP_RIGHT_BUTTON,
                     () -> SequentialTask.Sequence(
-                        new ShooterLowerKickerTask(TuningConstants.SHOOTER_LOWER_KICKER_DURATION),
-                        new ShooterSpinUpTask(false, TuningConstants.SHOOTER_CLOSE_SHOT_VELOCITY, TuningConstants.SHOOTER_SPIN_UP_DURATION),
-                        new ShooterKickTask(TuningConstants.SHOOTER_FIRE_DURATION)),
+                        new ShooterKickTask(false),
+                        new ShooterSpinUpTask(false, TuningConstants.SHOOTER_CLOSE_SHOT_VELOCITY)),
                     new Operation[]
                     {
                         Operation.ShooterSpin,
@@ -392,14 +392,13 @@ public abstract class Driver
                         Operation.IntakeRotatingOut,
                     }));
             put(
-                MacroOperation.ShootMiddle,
+                MacroOperation.SpinUpMiddle,
                 new MacroOperationDescription(
                     UserInputDevice.Driver,
-                    UserInputDeviceButton.JOYSTICK_STICK_TRIGGER_BUTTON,
+                    UserInputDeviceButton.JOYSTICK_BASE_MIDDLE_RIGHT_BUTTON,
                     () -> SequentialTask.Sequence(
-                        new ShooterLowerKickerTask(TuningConstants.SHOOTER_LOWER_KICKER_DURATION),
-                        new ShooterSpinUpTask(false, TuningConstants.SHOOTER_MIDDLE_SHOT_VELOCITY, TuningConstants.SHOOTER_SPIN_UP_DURATION),
-                        new ShooterKickTask(TuningConstants.SHOOTER_FIRE_DURATION)),
+                        new ShooterKickTask(false),
+                        new ShooterSpinUpTask(true, TuningConstants.SHOOTER_MIDDLE_SHOT_VELOCITY)),
                     new Operation[]
                     {
                         Operation.ShooterSpin,
@@ -410,14 +409,29 @@ public abstract class Driver
                         Operation.IntakeRotatingOut,
                     }));
             put(
-                MacroOperation.ShootFar,
+                MacroOperation.SpinUpFar,
                 new MacroOperationDescription(
                     UserInputDevice.Driver,
-                    UserInputDeviceButton.JOYSTICK_STICK_THUMB_BUTTON,
+                    UserInputDeviceButton.JOYSTICK_BASE_BOTTOM_RIGHT_BUTTON,
                     () -> SequentialTask.Sequence(
-                        new ShooterLowerKickerTask(TuningConstants.SHOOTER_LOWER_KICKER_DURATION),
-                        new ShooterSpinUpTask(true, TuningConstants.SHOOTER_FAR_SHOT_VELOCITY, TuningConstants.SHOOTER_SPIN_UP_DURATION),
-                        new ShooterKickTask(TuningConstants.SHOOTER_FIRE_DURATION)),
+                        new ShooterKickTask(false), 
+                        new ShooterSpinUpTask(true, TuningConstants.SHOOTER_FAR_SHOT_VELOCITY)),
+                    new Operation[]
+                    {
+                        Operation.ShooterSpin,
+                        Operation.ShooterSpeed,
+                        Operation.ShooterLowerKicker,
+                        Operation.ShooterExtendHood,
+                        Operation.IntakeRotatingIn,
+                        Operation.IntakeRotatingOut,
+                    }));
+            put(
+                MacroOperation.Shoot,
+                new MacroOperationDescription(
+                    UserInputDevice.Driver,
+                    UserInputDeviceButton.JOYSTICK_BASE_BOTTOM_RIGHT_BUTTON,
+                    () -> SequentialTask.Sequence(
+                        new ShooterFireTask()),
                     new Operation[]
                     {
                         Operation.ShooterSpin,
