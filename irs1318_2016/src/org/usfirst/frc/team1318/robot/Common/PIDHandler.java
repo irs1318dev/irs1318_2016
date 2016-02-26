@@ -29,8 +29,7 @@ public class PIDHandler
     private final double kf;        // proportion for feed-forward
     private final double ks;        // multiplicand for adjusting scale of setpoint to match scale of measured value
 
-    private final double kO;        // proportion for slowing ramp-up, applied to previous value
-    private final double kN;        // proportion for slowing ramp-up, applied to new value
+    private final ComplementaryFilter filter;
 
     // instance variables
     private double setpoint = 0.0;          // the input, desired value for
@@ -120,8 +119,7 @@ public class PIDHandler
         this.kf = kf;
         this.ks = ks;
 
-        this.kO = kO;
-        this.kN = kN;
+        this.filter = new ComplementaryFilter(kO, kN);
 
         this.minOutput = minOutput;
         this.maxOutput = maxOutput;
@@ -196,7 +194,8 @@ public class PIDHandler
             }
 
             // apply complementary filter to slow ramp-up/ramp-down
-            this.output = this.kO * this.output + this.kN * result;
+            this.filter.update(result);
+            this.output = this.filter.getValue();
             this.prevMeasuredValue = this.measuredValue;
         }
 
@@ -269,7 +268,8 @@ public class PIDHandler
             }
 
             // apply complementary filter to slow ramp-up/ramp-down
-            this.output = this.kO * this.output + this.kN * result;
+            this.filter.update(result);
+            this.output = this.filter.getValue();
             this.prevMeasuredValue = this.measuredValue;
         }
 

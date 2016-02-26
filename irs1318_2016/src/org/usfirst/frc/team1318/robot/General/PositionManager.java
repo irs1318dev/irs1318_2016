@@ -1,8 +1,9 @@
-package org.usfirst.frc.team1318.robot.DriveTrain;
+package org.usfirst.frc.team1318.robot.General;
 
 import org.usfirst.frc.team1318.robot.HardwareConstants;
 import org.usfirst.frc.team1318.robot.Common.DashboardLogger;
 import org.usfirst.frc.team1318.robot.Common.IController;
+import org.usfirst.frc.team1318.robot.DriveTrain.DriveTrainComponent;
 import org.usfirst.frc.team1318.robot.Driver.Driver;
 
 import com.kauailabs.navx.frc.AHRS;

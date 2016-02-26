@@ -3,6 +3,7 @@ package org.usfirst.frc.team1318.robot.DefenseArm;
 import org.usfirst.frc.team1318.robot.HardwareConstants;
 import org.usfirst.frc.team1318.robot.TuningConstants;
 import org.usfirst.frc.team1318.robot.Common.DashboardLogger;
+import org.usfirst.frc.team1318.robot.Common.Helpers;
 import org.usfirst.frc.team1318.robot.Common.IController;
 import org.usfirst.frc.team1318.robot.Common.PIDHandler;
 import org.usfirst.frc.team1318.robot.Driver.Driver;
@@ -303,21 +304,11 @@ public class DefenseArmController implements IController
 
     private double assertDesiredPositionRange(double position)
     {
-        if (position < HardwareConstants.DEFENSE_ARM_MAX_FRONT_POSITION)
-        {
-            return HardwareConstants.DEFENSE_ARM_MAX_FRONT_POSITION;
-        }
-        else if (position > HardwareConstants.DEFENSE_ARM_MAX_BACK_POSITION)
-        {
-            return HardwareConstants.DEFENSE_ARM_MAX_BACK_POSITION;
-        }
-        else if (Double.isNaN(position))
+        if (Double.isNaN(position))
         {
             return 0.0;
         }
-        else
-        {
-            return position;
-        }
+
+        return Helpers.EnforceRange(position, HardwareConstants.DEFENSE_ARM_MAX_FRONT_POSITION, HardwareConstants.DEFENSE_ARM_MAX_BACK_POSITION);
     }
 }

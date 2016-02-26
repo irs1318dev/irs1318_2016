@@ -1,7 +1,6 @@
  package org.usfirst.frc.team1318.robot;
 
 import org.usfirst.frc.team1318.robot.Common.DashboardLogger;
-import org.usfirst.frc.team1318.robot.DriveTrain.PositionManager;
 import org.usfirst.frc.team1318.robot.Driver.Driver;
 import org.usfirst.frc.team1318.robot.Driver.IControlTask;
 import org.usfirst.frc.team1318.robot.Driver.Autonomous.AutonomousDriver;
@@ -15,6 +14,7 @@ import org.usfirst.frc.team1318.robot.Driver.ControlTasks.ShooterLowerKickerTask
 import org.usfirst.frc.team1318.robot.Driver.ControlTasks.ShooterSpinUpTask;
 import org.usfirst.frc.team1318.robot.Driver.ControlTasks.WaitTask;
 import org.usfirst.frc.team1318.robot.Driver.User.UserDriver;
+import org.usfirst.frc.team1318.robot.General.PositionManager;
 
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.IterativeRobot;
@@ -59,9 +59,6 @@ public class Robot extends IterativeRobot
     private DigitalInput dipSwitchA;
     private DigitalInput dipSwitchB;
 
-    // Position manager - holds position information relative to our starting point
-    private PositionManager position;
-
     /**
      * Robot-wide initialization code should go here.
      * This default Robot-wide initialization code will be called when 
@@ -74,9 +71,6 @@ public class Robot extends IterativeRobot
 
         // create controllers for each mechanism
         this.controllers = new ControllerManager(this.components);
-
-        // create position manager
-        this.position = new PositionManager(this.components.getDriveTrain());
 
         DashboardLogger.putString(Robot.ROBOT_STATE_LOG_KEY, "Init");
 
@@ -109,9 +103,8 @@ public class Robot extends IterativeRobot
      */
     public void autonomousInit()
     {
-        // reset the drivetrain component and position manager so that we consider ourself at the origin (0,0) and facing the 0 direction.
-        // this.components.getDriveTrain().reset();
-        this.position.reset();
+        // reset the position manager so that we consider ourself at the origin (0,0) and facing the 0 direction.
+        this.components.getPositionManager().reset();
 
         // Find desired autonomous routine.
         IControlTask autonomousRoutine = Robot.GetFillerRoutine();
@@ -206,9 +199,6 @@ public class Robot extends IterativeRobot
      */
     public void generalPeriodic()
     {
-        // update our position
-        this.position.update();
-
         this.driver.update();
 
         // run each controller

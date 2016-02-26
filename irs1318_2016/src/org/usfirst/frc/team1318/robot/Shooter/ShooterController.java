@@ -2,10 +2,12 @@ package org.usfirst.frc.team1318.robot.Shooter;
 
 import org.usfirst.frc.team1318.robot.TuningConstants;
 import org.usfirst.frc.team1318.robot.Common.DashboardLogger;
+import org.usfirst.frc.team1318.robot.Common.Helpers;
 import org.usfirst.frc.team1318.robot.Common.IController;
 import org.usfirst.frc.team1318.robot.Common.PIDHandler;
 import org.usfirst.frc.team1318.robot.Driver.Driver;
 import org.usfirst.frc.team1318.robot.Driver.Operation;
+import org.usfirst.frc.team1318.robot.General.PowerManager;
 import org.usfirst.frc.team1318.robot.Shooter.ShooterComponent;
 
 /**
@@ -15,13 +17,17 @@ import org.usfirst.frc.team1318.robot.Shooter.ShooterComponent;
  */
 public class ShooterController implements IController
 {
-    private ShooterComponent shooter;
+    private final ShooterComponent shooter;
+    private final PowerManager powerManager;
+
     private Driver driver;
     private PIDHandler PID;
 
-    public ShooterController(ShooterComponent shooter) 
+    public ShooterController(ShooterComponent shooter, PowerManager powerManager) 
     {
         this.shooter = shooter;
+        this.powerManager = powerManager;
+
         this.createPIDHandler();
     }
 
@@ -44,6 +50,12 @@ public class ShooterController implements IController
         {
             // Calculate the power required to reach the velocity goal     
             power = this.PID.calculateVelocity(velocityGoal, currentTicks);
+
+            if (TuningConstants.SHOOTER_SCALE_BASED_ON_VOLTAGE)
+            {
+                power *= (TuningConstants.SHOOTER_VELOCITY_TUNING_VOLTAGE / this.powerManager.getVoltage());
+                power = Helpers.EnforceRange(power, -TuningConstants.SHOOTER_MAX_POWER_LEVEL, TuningConstants.SHOOTER_MAX_POWER_LEVEL);
+            }
         }
 
         // Set the motor power with the calculated value

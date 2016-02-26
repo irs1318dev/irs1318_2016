@@ -84,6 +84,9 @@ public class TuningConstants
 
     //================================================== Shooter ==============================================================
 
+    public static final boolean SHOOTER_SCALE_BASED_ON_VOLTAGE = true;
+    public static final double SHOOTER_VELOCITY_TUNING_VOLTAGE = 12.5;
+
     public static final double SHOOTER_MAX_POWER_LEVEL = 1.0;
 
     public static final double SHOOTER_VELOCITY_PID_KP_DEFAULT = 0.0;

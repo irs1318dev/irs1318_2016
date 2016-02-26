@@ -6,7 +6,7 @@ import edu.wpi.first.wpilibj.Compressor;
 
 /**
  * The compressor component class describes the electronics of the compressor and defines the abstract way to control it.
- * The electronics include a compressor, and an analog pressure sensor. 
+ * The electronics include just a compressor. 
  *  
  * @author Will
  *
@@ -15,20 +15,12 @@ public class CompressorComponent
 {
     private final Compressor compressor;
 
-    //    private AnalogInput analogPressureSensor;
-    //    private DigitalInput digitalPressureSensor;
-
     /**
      * Initializes a new CompressorComponent
      */
     public CompressorComponent()
     {
         this.compressor = new Compressor(ElectronicsConstants.PCM_B_MODULE);
-        //
-        //        this.digitalPressureSensor = new DigitalInput(0);
-
-        //        this.analogPressureSensor = new AnalogInput(
-        //            ElectronicsConstants.COMPRESSOR_ANALOG_PRESSURE_SENSOR);
     }
 
     /**
@@ -46,16 +38,4 @@ public class CompressorComponent
     {
         this.compressor.stop();
     }
-
-    /**
-     * Get the PSI in the pneumatic system
-     * @return the current PSI
-     */
-    //    public double getPSI()
-    //    {
-    //        double psi = this.analogPressureSensor.getVoltage()
-    //            * (ElectronicsConstants.COMPRESSOR_MAX_PSI / ElectronicsConstants.COMPRESSOR_MAX_VOLTAGE);
-    //
-    //        return psi;
-    //    }
 }

@@ -2,6 +2,7 @@ package org.usfirst.frc.team1318.robot.DriveTrain;
 
 import org.usfirst.frc.team1318.robot.TuningConstants;
 import org.usfirst.frc.team1318.robot.Common.DashboardLogger;
+import org.usfirst.frc.team1318.robot.Common.Helpers;
 import org.usfirst.frc.team1318.robot.Common.IController;
 import org.usfirst.frc.team1318.robot.Common.PIDHandler;
 import org.usfirst.frc.team1318.robot.Driver.Driver;
@@ -110,11 +111,9 @@ public class DriveTrainController implements IController
             rightPower /= TuningConstants.DRIVETRAIN_REVERSE_RIGHT_SCALE_FACTOR;
         }
 
-        leftPower = Math.min(leftPower, 1.0);
-        leftPower = Math.max(leftPower, -1.0);
-        rightPower = Math.min(rightPower, 1.0);
-        rightPower = Math.max(rightPower, -1.0);
-        
+        leftPower = this.applyPowerLevelRange(leftPower);
+        rightPower = this.applyPowerLevelRange(rightPower);
+
         // apply the power settings to the drivetrain component
         this.component.setDriveTrainPower(leftPower, rightPower);
     }
@@ -212,8 +211,8 @@ public class DriveTrainController implements IController
         // Negate the x and y if DriveTrainSwapFrontOrientation is true
         if (this.driver.getDigital(Operation.DriveTrainSwapFrontOrientation))
         {
-            turnAmount *= -1;
-            forwardVelocity *= -1;
+            turnAmount *= -1.0;
+            forwardVelocity *= -1.0;
         }
 
         // adjust for joystick deadzone
@@ -379,17 +378,7 @@ public class DriveTrainController implements IController
      */
     private double applyPowerLevelRange(double powerLevel)
     {
-        if (powerLevel < DriveTrainController.POWERLEVEL_MIN)
-        {
-            return DriveTrainController.POWERLEVEL_MIN;
-        }
-
-        if (powerLevel > DriveTrainController.POWERLEVEL_MAX)
-        {
-            return DriveTrainController.POWERLEVEL_MAX;
-        }
-
-        return powerLevel;
+        return Helpers.EnforceRange(powerLevel, DriveTrainController.POWERLEVEL_MIN, DriveTrainController.POWERLEVEL_MAX);
     }
 
     /**
