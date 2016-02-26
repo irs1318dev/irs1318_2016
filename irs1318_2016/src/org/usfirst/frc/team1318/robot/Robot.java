@@ -4,17 +4,8 @@ import org.usfirst.frc.team1318.robot.Common.DashboardLogger;
 import org.usfirst.frc.team1318.robot.Driver.Driver;
 import org.usfirst.frc.team1318.robot.Driver.IControlTask;
 import org.usfirst.frc.team1318.robot.Driver.Autonomous.AutonomousDriver;
-import org.usfirst.frc.team1318.robot.Driver.ControlTasks.BreachPortcullisTask;
-import org.usfirst.frc.team1318.robot.Driver.ControlTasks.ConcurrentTask;
-import org.usfirst.frc.team1318.robot.Driver.ControlTasks.DefenseArmPositionTask;
-import org.usfirst.frc.team1318.robot.Driver.ControlTasks.DriveDistanceTask;
-import org.usfirst.frc.team1318.robot.Driver.ControlTasks.SequentialTask;
-import org.usfirst.frc.team1318.robot.Driver.ControlTasks.ShooterKickTask;
-import org.usfirst.frc.team1318.robot.Driver.ControlTasks.ShooterLowerKickerTask;
-import org.usfirst.frc.team1318.robot.Driver.ControlTasks.ShooterSpinUpTask;
 import org.usfirst.frc.team1318.robot.Driver.ControlTasks.WaitTask;
 import org.usfirst.frc.team1318.robot.Driver.User.UserDriver;
-import org.usfirst.frc.team1318.robot.General.PositionManager;
 
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.IterativeRobot;
@@ -213,23 +204,6 @@ public class Robot extends IterativeRobot
     private static IControlTask GetFillerRoutine()
     {
         return new WaitTask(0);
-    }
-    
-    // @author Corbin
-    // My first attempt to write an autonomous routine
-    // Should move to the portcullis, go through, spin up the shooter, and then shoot.
-    @SuppressWarnings("unused")
-    private static IControlTask autonomousPortcullisBreachAndShoot() 
-    {
-        return new SequentialTask(new IControlTask[]{
-            new DriveDistanceTask(TuningConstants.START_TO_OUTER_WORKS_DISTANCE),
-            ConcurrentTask.AllTasks(
-                new DefenseArmPositionTask(TuningConstants.DEFENSE_ARM_PORTCULLIS_BREACH_APPROACH_POSITION),
-                new DriveDistanceTask(TuningConstants.PORTCULLIS_OUTER_WORKS_DISTANCE)),
-            new BreachPortcullisTask(),
-            new ShooterLowerKickerTask(TuningConstants.SHOOTER_LOWER_KICKER_DURATION),
-            new ShooterSpinUpTask(true, TuningConstants.SHOOTER_FAR_SHOT_VELOCITY, TuningConstants.SHOOTER_SPIN_UP_DURATION),
-            new ShooterKickTask(TuningConstants.SHOOTER_FIRE_DURATION)}); 
     }
 }
 

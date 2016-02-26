@@ -149,6 +149,11 @@ public class MacroOperationState extends OperationState
         {
             if (this.task == null)
             {
+                for (Operation operation : this.getAffectedOperations())
+                {
+                    this.operationStateMap.get(operation).setIsInterrupted(true);
+                }
+
                 // start task
                 this.task = ((MacroOperationDescription)this.getDescription()).constructTask();
                 this.task.initialize(this.operationStateMap, this.components);
@@ -161,6 +166,15 @@ public class MacroOperationState extends OperationState
                     this.task.end();
                     this.task = null;
                     this.isActive = false;
+
+                    MacroOperationDescription description = (MacroOperationDescription)this.getDescription();
+                    if (description.shouldClearInterrupt())
+                    {
+                        for (Operation operation : this.getAffectedOperations())
+                        {
+                            this.operationStateMap.get(operation).setIsInterrupted(false);
+                        }
+                    }
                 }
                 else
                 {

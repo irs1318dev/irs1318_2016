@@ -3,11 +3,14 @@ package org.usfirst.frc.team1318.robot.Driver.ControlTasks;
 import org.usfirst.frc.team1318.robot.Driver.IControlTask;
 import org.usfirst.frc.team1318.robot.Driver.Operation;
 
-public class ShooterKickTask extends TimedTask implements IControlTask
+public class ShooterKickerTask extends TimedTask implements IControlTask
 {
-    public ShooterKickTask(double duration)
+    private final boolean lower;
+
+    public ShooterKickerTask(double duration, boolean lower)
     {
         super(duration);
+        this.lower = lower;
     }
 
     @Override
@@ -19,21 +22,19 @@ public class ShooterKickTask extends TimedTask implements IControlTask
     public void begin()
     {
         super.begin();
-        this.setDigitalOperationState(Operation.ShooterLowerKicker, false);
+        this.setDigitalOperationState(Operation.ShooterLowerKicker, this.lower);
     }
     
     @Override
     public void stop()
     {
         super.stop();
-        this.setDigitalOperationState(Operation.ShooterSpin, false);
+        this.setDigitalOperationState(Operation.ShooterSpin, this.lower);
     }
 
     @Override
     public void end()
     {
-        this.setDigitalOperationState(Operation.ShooterSpin, false);
-        this.setDigitalOperationState(Operation.ShooterExtendHood, false);
     }
     
     @Override
@@ -41,5 +42,4 @@ public class ShooterKickTask extends TimedTask implements IControlTask
     {
         return super.hasCompleted();
     }
-
 }
