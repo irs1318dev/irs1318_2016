@@ -85,49 +85,49 @@ public abstract class Driver
                 Operation.DefenseArmMaxFrontPosition,
                 new DigitalOperationDescription(
                     UserInputDevice.Driver,
-                    UserInputDeviceButton.JOYSTICK_BASE_BOTTOM_LEFT_BUTTON,
+                    UserInputDeviceButton.JOYSTICK_STICK_TOP_LEFT_BUTTON,
                     ButtonType.Click));
             put(
                 Operation.DefenseArmHorizontalFrontPosition,
                 new DigitalOperationDescription(
-                    UserInputDevice.Driver,
+                    UserInputDevice.None,
                     UserInputDeviceButton.NONE,
                     ButtonType.Click));
             put(
                 Operation.DefenseArmUpForwardPosition,
                 new DigitalOperationDescription(
-                    UserInputDevice.Driver,
-                    UserInputDeviceButton.JOYSTICK_BASE_MIDDLE_LEFT_BUTTON,
+                    UserInputDevice.None,
+                    UserInputDeviceButton.NONE,
                     ButtonType.Click));
             put(
                 Operation.DefenseArmUpPosition,
                 new DigitalOperationDescription(
-                    UserInputDevice.Driver,
-                    UserInputDeviceButton.JOYSTICK_BASE_TOP_LEFT_BUTTON,
+                    UserInputDevice.None,
+                    UserInputDeviceButton.NONE,
                     ButtonType.Click));
             put(
                 Operation.DefenseArmMaxBackPosition,
                 new DigitalOperationDescription(
                     UserInputDevice.Driver,
-                    UserInputDeviceButton.JOYSTICK_BASE_BOTTOM_RIGHT_BUTTON,
+                    UserInputDeviceButton.JOYSTICK_STICK_BOTTOM_LEFT_BUTTON,
                     ButtonType.Click));
             put(
                 Operation.DefenseArmMolassesMode,
                 new DigitalOperationDescription(
                     UserInputDevice.Driver,
-                    UserInputDeviceButton.JOYSTICK_BASE_MIDDLE_RIGHT_BUTTON,
+                    UserInputDeviceButton.JOYSTICK_BASE_MIDDLE_LEFT_BUTTON,
                     ButtonType.Simple));
             put(
                 Operation.DefenseArmMoveForward,
                 new DigitalOperationDescription(
                     UserInputDevice.Driver,
-                    UserInputDeviceButton.JOYSTICK_STICK_TOP_LEFT_BUTTON,
+                    UserInputDeviceButton.JOYSTICK_BASE_TOP_LEFT_BUTTON,
                     ButtonType.Simple));
             put(
                 Operation.DefenseArmMoveBack,
                 new DigitalOperationDescription(
                     UserInputDevice.Driver,
-                    UserInputDeviceButton.JOYSTICK_STICK_BOTTOM_LEFT_BUTTON,
+                    UserInputDeviceButton.JOYSTICK_BASE_BOTTOM_LEFT_BUTTON,
                     ButtonType.Simple));
             put(
                 Operation.DefenseArmTakePositionInput,
@@ -407,7 +407,7 @@ public abstract class Driver
                 new MacroOperationDescription(
                     true,
                     UserInputDevice.Driver,
-                    UserInputDeviceButton.JOYSTICK_STICK_TRIGGER_BUTTON,
+                    UserInputDeviceButton.JOYSTICK_BASE_MIDDLE_RIGHT_BUTTON,
                     () -> SequentialTask.Sequence(
                         new ShooterKickerTask(TuningConstants.SHOOTER_LOWER_KICKER_DURATION, true),
                         new ShooterSpinUpTask(false, TuningConstants.SHOOTER_MIDDLE_SHOT_VELOCITY, TuningConstants.SHOOTER_SPIN_UP_DURATION)),
@@ -425,7 +425,7 @@ public abstract class Driver
                 new MacroOperationDescription(
                     true,
                     UserInputDevice.Driver,
-                    UserInputDeviceButton.JOYSTICK_STICK_THUMB_BUTTON,
+                    UserInputDeviceButton.JOYSTICK_BASE_BOTTOM_RIGHT_BUTTON,
                     () -> SequentialTask.Sequence(
                         new ShooterKickerTask(TuningConstants.SHOOTER_LOWER_KICKER_DURATION, true),
                         new ShooterSpinUpTask(true, TuningConstants.SHOOTER_FAR_SHOT_VELOCITY, TuningConstants.SHOOTER_SPIN_UP_DURATION)),
