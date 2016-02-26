@@ -87,6 +87,8 @@ public class DefenseArmController implements IController
         {
             positionalMoveVelocity = TuningConstants.DEFENSE_ARM_MOLASSES_VELOCITY;
         }
+        DashboardLogger.putDouble("battleAxe positionalMoveVelocity", positionalMoveVelocity);
+        
 
         // Set the current time using the timer
         double currentTime = this.timer.get();

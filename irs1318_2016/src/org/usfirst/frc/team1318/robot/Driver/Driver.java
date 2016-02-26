@@ -97,8 +97,8 @@ public abstract class Driver
             put(
                 Operation.DefenseArmUpForwardPosition,
                 new DigitalOperationDescription(
-                    UserInputDevice.Driver,
-                    UserInputDeviceButton.JOYSTICK_BASE_MIDDLE_LEFT_BUTTON,
+                    UserInputDevice.None,
+                    UserInputDeviceButton.NONE,
                     ButtonType.Click));
             put(
                 Operation.DefenseArmUpPosition,
@@ -116,7 +116,7 @@ public abstract class Driver
                 Operation.DefenseArmMolassesMode,
                 new DigitalOperationDescription(
                     UserInputDevice.Driver,
-                    UserInputDeviceButton.JOYSTICK_BASE_MIDDLE_RIGHT_BUTTON,
+                    UserInputDeviceButton.JOYSTICK_BASE_MIDDLE_LEFT_BUTTON,
                     ButtonType.Simple));
             put(
                 Operation.DefenseArmMoveForward,
