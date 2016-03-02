@@ -1,6 +1,7 @@
 package org.usfirst.frc.team1318.robot.Driver.States;
 
 import org.usfirst.frc.team1318.robot.ComponentManager;
+import org.usfirst.frc.team1318.robot.TuningConstants;
 import org.usfirst.frc.team1318.robot.Driver.UserInputDeviceButton;
 import org.usfirst.frc.team1318.robot.Driver.Buttons.ClickButton;
 import org.usfirst.frc.team1318.robot.Driver.Buttons.IButton;
@@ -41,7 +42,13 @@ public class DigitalOperationState extends OperationState
                 break;
 
             default:
-                throw new RuntimeException("unexpected button type " + description.getButtonType().toString());
+                if (TuningConstants.THROW_EXCEPTIONS)
+                {
+                    throw new RuntimeException("unexpected button type " + description.getButtonType().toString());
+                }
+
+                this.button = null;
+                break;
         }
     }
 
@@ -100,7 +107,12 @@ public class DigitalOperationState extends OperationState
                 relevantJoystick = null;
 
             default:
-                throw new RuntimeException("unexpected user input device " + description.getUserInputDevice().toString());
+                if (TuningConstants.THROW_EXCEPTIONS)
+                {
+                    throw new RuntimeException("unexpected user input device " + description.getUserInputDevice().toString());
+                }
+                
+                return false;
         }
 
         boolean buttonPressed;
@@ -145,6 +157,14 @@ public class DigitalOperationState extends OperationState
 
     public void setInterruptState(boolean value)
     {
+        if (!this.isInterrupted)
+        {
+            if (TuningConstants.THROW_EXCEPTIONS)
+            {
+                throw new RuntimeException("cannot set interrupt state for non-interrupted digital operations");
+            }
+        }
+
         this.interruptValue = value;
     }
 }

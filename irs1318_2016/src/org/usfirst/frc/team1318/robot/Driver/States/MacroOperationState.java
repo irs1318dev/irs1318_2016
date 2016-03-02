@@ -3,6 +3,7 @@ package org.usfirst.frc.team1318.robot.Driver.States;
 import java.util.Map;
 
 import org.usfirst.frc.team1318.robot.ComponentManager;
+import org.usfirst.frc.team1318.robot.TuningConstants;
 import org.usfirst.frc.team1318.robot.Driver.IControlTask;
 import org.usfirst.frc.team1318.robot.Driver.Operation;
 import org.usfirst.frc.team1318.robot.Driver.UserInputDeviceButton;
@@ -94,7 +95,12 @@ public class MacroOperationState extends OperationState
                 relevantJoystick = null;
 
             default:
-                throw new RuntimeException("unexpected user input device " + description.getUserInputDevice().toString());
+                if (TuningConstants.THROW_EXCEPTIONS)
+                {
+                    throw new RuntimeException("unexpected user input device " + description.getUserInputDevice().toString());
+                }
+
+                return false;
         }
 
         boolean buttonPressed;

@@ -1,5 +1,6 @@
 package org.usfirst.frc.team1318.robot.Driver.ControlTasks;
 
+import org.usfirst.frc.team1318.robot.TuningConstants;
 import org.usfirst.frc.team1318.robot.DriveTrain.DriveTrainComponent;
 import org.usfirst.frc.team1318.robot.Driver.Operation;
 
@@ -95,7 +96,12 @@ public abstract class CoordinatedDriveDefenseArmTaskBase extends ControlTaskBase
 
         if (Double.isNaN(armAngle))
         {
-            throw new RuntimeException("don't expect NaN angle!");
+            if (TuningConstants.THROW_EXCEPTIONS)
+            {
+                throw new RuntimeException("don't expect NaN angle!");
+            }
+
+            return;
         }
 
         // Set the desired arm angle converted to ticks

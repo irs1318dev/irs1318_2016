@@ -2,6 +2,7 @@ package org.usfirst.frc.team1318.robot.Driver.States;
 
 import org.usfirst.frc.team1318.robot.ComponentManager;
 import org.usfirst.frc.team1318.robot.ElectronicsConstants;
+import org.usfirst.frc.team1318.robot.TuningConstants;
 import org.usfirst.frc.team1318.robot.Driver.Descriptions.AnalogOperationDescription;
 
 import edu.wpi.first.wpilibj.Joystick;
@@ -81,7 +82,12 @@ public class AnalogOperationState extends OperationState
                 relevantJoystick = null;
 
             default:
-                throw new RuntimeException("unexpected user input device " + description.getUserInputDevice().toString());
+                if (TuningConstants.THROW_EXCEPTIONS)
+                {
+                    throw new RuntimeException("unexpected user input device " + description.getUserInputDevice().toString());
+                }
+                
+                return false;
         }
 
         double newValue;
@@ -117,7 +123,12 @@ public class AnalogOperationState extends OperationState
                     break;
 
                 default:
-                    throw new RuntimeException("unknown axis type " + description.getUserInputDeviceAxis());
+                    if (TuningConstants.THROW_EXCEPTIONS)
+                    {
+                        throw new RuntimeException("unknown axis type " + description.getUserInputDeviceAxis());
+                    }
+
+                    return false;
             }
 
             newValue = relevantJoystick.getAxis(relevantAxis);
@@ -149,6 +160,14 @@ public class AnalogOperationState extends OperationState
 
     public void setInterruptState(double value)
     {
+        if (!this.isInterrupted)
+        {
+            if (TuningConstants.THROW_EXCEPTIONS)
+            {
+                throw new RuntimeException("cannot set interrupt state for non-interrupted analog operations");
+            }
+        }
+
         this.interruptValue = value;
     }
 }

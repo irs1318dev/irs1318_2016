@@ -362,12 +362,22 @@ public class DriveTrainController implements IController
     {
         if (powerLevel < DriveTrainController.POWERLEVEL_MIN)
         {
-            throw new RuntimeException(side + " power level too low!");
+            if (TuningConstants.THROW_EXCEPTIONS)
+            {
+                throw new RuntimeException(side + " power level too low!");
+            }
+
+            return;
         }
 
         if (powerLevel > DriveTrainController.POWERLEVEL_MAX)
         {
-            throw new RuntimeException(side + " power level too high!");
+            if (TuningConstants.THROW_EXCEPTIONS)
+            {
+                throw new RuntimeException(side + " power level too high!");
+            }
+
+            return;
         }
     }
 

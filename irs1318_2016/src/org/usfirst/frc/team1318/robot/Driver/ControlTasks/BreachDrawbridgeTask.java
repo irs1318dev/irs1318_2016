@@ -81,7 +81,12 @@ public class BreachDrawbridgeTask extends ControlTaskBase
 
         if (Double.isNaN(angle))
         {
-            throw new RuntimeException("don't expect NaN angle!");
+            if (TuningConstants.THROW_EXCEPTIONS)
+            {
+                throw new RuntimeException("don't expect NaN angle!");
+            }
+
+            return;
         }
 
         // If it need be negative, set the angle to negative.

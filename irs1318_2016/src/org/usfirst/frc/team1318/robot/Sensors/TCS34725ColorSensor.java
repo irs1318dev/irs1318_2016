@@ -1,5 +1,7 @@
 package org.usfirst.frc.team1318.robot.Sensors;
 
+import org.usfirst.frc.team1318.robot.TuningConstants;
+
 import edu.wpi.first.wpilibj.I2C;
 
 public class TCS34725ColorSensor
@@ -166,7 +168,12 @@ public class TCS34725ColorSensor
         int id = Byte.toUnsignedInt(buffer[0]);
         if (id != EXPECTED_ID)
         {
-            throw new RuntimeException("Unexpected id: " + id);
+            if (TuningConstants.THROW_EXCEPTIONS)
+            {
+                throw new RuntimeException("Unexpected id: " + id);
+            }
+
+            return;
         }
 
         // set integration time and gain

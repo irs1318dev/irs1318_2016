@@ -544,7 +544,12 @@ public abstract class Driver
         OperationState state = this.operationStateMap.get(digitalOperation);
         if (!(state instanceof DigitalOperationState))
         {
-            throw new RuntimeException("not a digital operation!");
+            if (TuningConstants.THROW_EXCEPTIONS)
+            {
+                throw new RuntimeException("not a digital operation!");
+            }
+
+            return false;
         }
 
         DigitalOperationState digitalState = (DigitalOperationState)state;
@@ -561,7 +566,12 @@ public abstract class Driver
         OperationState state = this.operationStateMap.get(analogOperation);
         if (!(state instanceof AnalogOperationState))
         {
-            throw new RuntimeException("not an analog operation!");
+            if (TuningConstants.THROW_EXCEPTIONS)
+            {
+                throw new RuntimeException("not an analog operation!");
+            }
+
+            return 0.0;
         }
 
         AnalogOperationState analogState = (AnalogOperationState)state;
