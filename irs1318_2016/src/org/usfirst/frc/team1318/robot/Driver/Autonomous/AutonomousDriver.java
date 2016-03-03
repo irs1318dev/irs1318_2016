@@ -39,6 +39,7 @@ public class AutonomousDriver extends Driver
         for (OperationState state : this.operationStateMap.values())
         {
             state.setIsInterrupted(true);
+            //System.out.println("Current value of isInterrupted is: " + state.getIsInterrupted());
         }
     }
 
@@ -55,6 +56,7 @@ public class AutonomousDriver extends Driver
                 // if we haven't begun, begin
                 this.autonomousTask.begin();
                 this.hasBegun = true;
+                //System.out.println("Autonomous begin called.");
             }
 
             if (this.autonomousTask.hasCompleted())
@@ -62,11 +64,13 @@ public class AutonomousDriver extends Driver
                 // if we shouldn't continue, end the task
                 this.autonomousTask.end();
                 this.hasEnded = true;
+                //System.out.println("Autonomous end called.");
             }
             else
             {
                 // run the current task and apply the result to the state
                 this.autonomousTask.update();
+                //System.out.println("Autonomous update called.");
             }
         }
     }

@@ -34,6 +34,8 @@ public class DriveTimedTask extends TimedTask
         this.setDigitalOperationState(Operation.DriveTrainUsePositionalMode, false);
         this.setAnalogOperationState(Operation.DriveTrainMoveForward, this.yVelocity);
         this.setAnalogOperationState(Operation.DriveTrainTurn, this.xVelocity);
+        
+        //System.out.println("The y velocity was just set to: " + this.yVelocity);
     }
 
     /**

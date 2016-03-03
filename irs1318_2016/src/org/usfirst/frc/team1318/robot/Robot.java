@@ -4,6 +4,8 @@ import org.usfirst.frc.team1318.robot.Common.DashboardLogger;
 import org.usfirst.frc.team1318.robot.Driver.Driver;
 import org.usfirst.frc.team1318.robot.Driver.IControlTask;
 import org.usfirst.frc.team1318.robot.Driver.Autonomous.AutonomousDriver;
+import org.usfirst.frc.team1318.robot.Driver.ControlTasks.DriveDistanceTask;
+import org.usfirst.frc.team1318.robot.Driver.ControlTasks.DriveTimedTask;
 import org.usfirst.frc.team1318.robot.Driver.ControlTasks.WaitTask;
 import org.usfirst.frc.team1318.robot.Driver.User.UserDriver;
 
@@ -12,7 +14,7 @@ import edu.wpi.first.wpilibj.IterativeRobot;
 
 /**
  * Main class for the FRC 2016 Stronghold Competition
- * Robot for IRS1318 - RobotName
+ * Robot for IRS1318 - Gimli
  * 
  * 
  * The VM is configured to automatically run this class, and to call the
@@ -35,7 +37,7 @@ public class Robot extends IterativeRobot
     private static final String ROBOT_STATE_LOG_KEY = "r.s";
 
     // smartdash other constants 
-    private static final String AUTONOMOUS_ROUTINE_PREFERENCE_KEY = "a.routine";
+    private static final String AUTONOMOUS_ROUTINE_PREFERENCE_KEY = "a.routine value";
 
     // Driver.  This could either be the UserDriver (joystick) or the AutonomousDriver
     private Driver driver;
@@ -62,11 +64,11 @@ public class Robot extends IterativeRobot
 
         // create controllers for each mechanism
         this.controllers = new ControllerManager(this.components);
-
+        
+        this.dipSwitchA = new DigitalInput(ElectronicsConstants.AUTONOMOUS_DIP_SWITCH_A);
+        this.dipSwitchB = new DigitalInput(ElectronicsConstants.AUTONOMOUS_DIP_SWITCH_B);
+        
         DashboardLogger.putString(Robot.ROBOT_STATE_LOG_KEY, "Init");
-
-        this.dipSwitchA = null;//new DigitalInput(ElectronicsConstants.AUTONOMOUS_DIP_SWITCH_A);
-        this.dipSwitchB = null;//new DigitalInput(ElectronicsConstants.AUTONOMOUS_DIP_SWITCH_B);
     }
 
     /**
@@ -95,38 +97,58 @@ public class Robot extends IterativeRobot
     public void autonomousInit()
     {
         // reset the position manager so that we consider ourself at the origin (0,0) and facing the 0 direction.
-        this.components.getPositionManager().reset();
+        this.components.getPositionManager().reset();        
 
         // Find desired autonomous routine.
         IControlTask autonomousRoutine = Robot.GetFillerRoutine();
-
+                
+        DashboardLogger.putBoolean("Dipswitch in DIO 8 reads: ", this.dipSwitchA.get());
+        DashboardLogger.putBoolean("Dipswitch in DIO 9 reads: ", this.dipSwitchB.get());
+        
         int routineSelection = 0;
-        //if (this.dipSwitchA.get())
-        //{
-        //    routineSelection += 1;
-        //}
+        if (!this.dipSwitchA.get())
+        {
+            routineSelection += 1;
+        }
 
-        //if (this.dipSwitchB.get())
-        //{
-        //    routineSelection += 2;
-        //}
+        if (!this.dipSwitchB.get())
+        {
+            routineSelection += 2;
+        }
 
-        //select autonomous routine based on the dipswitch positions
+        // Select autonomous routine based on the dipswitch positions
         switch (routineSelection)
         {
-            case 0://neither flipped
-                //autonomousRoutine = AutonomousPortcullisBreach();
-                //break;
-            case 1://switch A flipped
-            case 2://switch B flipped
+            case 0://Neither switches in 
+                autonomousRoutine = Robot.GetFillerRoutine();
+                break;
+            case 1://Switch A in
+                //System.out.println("Case 0 called;");
+                autonomousRoutine = Robot.GetDriveTimedAutonomous(TuningConstants.AUTONOMOUS_TIME, 
+                    0.0,
+                    TuningConstants.DRIVETRAIN_AUTONOMOUS_SLOW_VELOCITY);
+                break;
+            case 2://Switch B in
+                //System.out.println("Case 1 called.");
+                autonomousRoutine = Robot.GetDriveTimedAutonomous(TuningConstants.AUTONOMOUS_TIME, 
+                    0.0, 
+                    TuningConstants.DRIVETRAIN_AUTONOMOUS_FAST_VELOCITY);
+                break;
+            case 3://Switches A and B in
+                //System.out.println("Case 2 called.");
+                autonomousRoutine = Robot.GetDriveDistanceAutonomous(TuningConstants.AUTONOMOUS_DEFENSE_BREACH_DISTANCE);
+                break;           
             default://both flipped or can't read 
+                //System.out.println("Default case called.");
                 autonomousRoutine = Robot.GetFillerRoutine();
                 break;
         }
 
         DashboardLogger.putInteger(Robot.AUTONOMOUS_ROUTINE_PREFERENCE_KEY, routineSelection);
+        
+        //autonomousRoutine = GetDriveTimedAutonomous(TuningConstants.AUTONOMOUS_TIME, 0.0, TuningConstants.DRIVETRAIN_AUTONOMOUS_SLOW_VELOCITY);
 
-        // create autonomous driver based on our desired routine
+        // Create autonomous driver based on our desired routine
         this.driver = new AutonomousDriver(autonomousRoutine, this.components);
 
         this.generalInit();
@@ -199,11 +221,31 @@ public class Robot extends IterativeRobot
     /**
      * Gets an autonomous routine that does nothing
      * 
-     * @return list of autonomous tasks
+     * @return very long WaitTask
      */
     private static IControlTask GetFillerRoutine()
     {
         return new WaitTask(0);
+    }
+    
+    /**
+     * Gets an autonomous routine that moves forward the specified distance 
+     * 
+     * @return DriveDistanceTask of specified distance
+     */
+    private static IControlTask GetDriveDistanceAutonomous(double distance)
+    {
+        return new DriveDistanceTask(distance);
+    }
+    
+    /**
+     * Gets an autonomous routine that moves the specified velocity for the specified time
+     * 
+     * @return DriveTimedTask of specified time, and x and y velocities
+     */
+    private static IControlTask GetDriveTimedAutonomous(double time, double xVelocity, double yVelocity)
+    {
+        return new DriveTimedTask(time, xVelocity, yVelocity);
     }
 }
 
