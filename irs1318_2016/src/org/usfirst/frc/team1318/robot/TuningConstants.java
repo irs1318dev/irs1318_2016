@@ -159,8 +159,8 @@ public class TuningConstants
     public static final double DEFENSE_ARM_POSITIONAL_ACCEPTABLE_DELTA = Math.PI / 64;
     
     // Drivetrain autonomous velocity values
-    public static final double DRIVETRAIN_AUTONOMOUS_SLOW_VELOCITY = .5;
-    public static final double DRIVETRAIN_AUTONOMOUS_FAST_VELOCITY = .7;
+    public static final double DRIVETRAIN_AUTONOMOUS_SLOW_VELOCITY = .3;
+    public static final double DRIVETRAIN_AUTONOMOUS_FAST_VELOCITY = .45;
     
     public static final double AUTONOMOUS_DEFENSE_BREACH_DISTANCE = 20 * 12 * 2.54;// Distance from start through a defense in autonomous
     public static final double AUTONOMOUS_TIME = 15.0;
