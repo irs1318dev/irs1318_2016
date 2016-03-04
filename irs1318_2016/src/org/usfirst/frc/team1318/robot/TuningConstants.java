@@ -152,6 +152,9 @@ public class TuningConstants
     public static final double CHEVAL_DE_FRISE_REMAINING_BREACH_DISTANCE = 0.0;
     public static final double DEFENSE_ARM_CHEVAL_DE_FRISE_APPROACH_POSITION = Math.PI/4;
     public static final double DEFENSE_ARM_CHEVAL_DE_FRISE_CAPTURE_POSITION = HardwareConstants.DEFENSE_ARM_MAX_FRONT_POSITION;
+    
+    //----- Lowbar -----
+    public static final double DEFENSE_ARM_LOWBAR_APPROACH_POSITION = 0.0;
 
     //================================================== Autonomous ==============================================================
 
