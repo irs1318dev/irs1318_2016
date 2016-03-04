@@ -207,8 +207,6 @@ public class DriveTrainController implements IController
         // with this value representing the forward velocity percentage and right turn percentage (of max speed)
         double turnAmount = this.driver.getAnalog(Operation.DriveTrainTurn);
         double forwardVelocity = this.driver.getAnalog(Operation.DriveTrainMoveForward);
-        
-        //System.out.println("The forward velocity gotten from the operation is: " + forwardVelocity);
 
         // Negate the x and y if DriveTrainSwapFrontOrientation is true
         if (this.driver.getDigital(Operation.DriveTrainSwapFrontOrientation))

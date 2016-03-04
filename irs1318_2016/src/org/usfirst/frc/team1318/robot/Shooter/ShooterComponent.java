@@ -25,7 +25,7 @@ public class ShooterComponent
         this.kicker = new DoubleSolenoid(ElectronicsConstants.SHOOTER_KICKER_CHANNEL_A, ElectronicsConstants.SHOOTER_KICKER_CHANNEL_B);
         this.hood = new DoubleSolenoid(ElectronicsConstants.SHOOTER_HOOD_CHANNEL_A, ElectronicsConstants.SHOOTER_HOOD_CHANNEL_B);
         this.talon = new Talon(ElectronicsConstants.SHOOTER_TALON_CHANNEL);
-        //this.counter = null;// new Counter(ElectronicsConstants.SHOOTER_COUNTER_CHANNEL);
+        //this.counter = new Counter(ElectronicsConstants.SHOOTER_COUNTER_CHANNEL);
         //this.counter.setUpDownCounterMode();
         //this.counter.setDistancePerPulse(1.0);
     }
@@ -38,13 +38,15 @@ public class ShooterComponent
     public int getCounterTicks()
     {
         //int counterTicks = this.counter.get();
-        return 0;//counterTicks;
+        //return counterTicks;
+        return 0;
     }
     
     public double getCounterRate() 
     {
         //double counterRate = this.counter.getRate();
-        return 0;//counterRate;
+        //return counterRate;
+        return 0.0;
     }
     
     /**

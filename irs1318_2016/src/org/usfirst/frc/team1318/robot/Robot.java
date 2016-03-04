@@ -36,7 +36,7 @@ public class Robot extends IterativeRobot
     // smartdash logging constants
     private static final String ROBOT_STATE_LOG_KEY = "r.s";
 
-    // smartdash other constants 
+    // smartdash other constants
     private static final String AUTONOMOUS_ROUTINE_PREFERENCE_KEY = "a.routine value";
 
     // Driver.  This could either be the UserDriver (joystick) or the AutonomousDriver
@@ -97,14 +97,14 @@ public class Robot extends IterativeRobot
     public void autonomousInit()
     {
         // reset the position manager so that we consider ourself at the origin (0,0) and facing the 0 direction.
-        this.components.getPositionManager().reset();        
+        this.components.getPositionManager().reset();
 
         // Find desired autonomous routine.
         IControlTask autonomousRoutine = Robot.GetFillerRoutine();
-                
+
         DashboardLogger.putBoolean("Dipswitch in DIO 8 reads: ", this.dipSwitchA.get());
         DashboardLogger.putBoolean("Dipswitch in DIO 9 reads: ", this.dipSwitchB.get());
-        
+
         int routineSelection = 0;
         if (!this.dipSwitchA.get())
         {
@@ -119,34 +119,36 @@ public class Robot extends IterativeRobot
         // Select autonomous routine based on the dipswitch positions
         switch (routineSelection)
         {
-            case 0://Neither switches in 
+            case 0://Neither switches in
                 autonomousRoutine = Robot.GetFillerRoutine();
                 break;
+
             case 1://Switch A in
-                //System.out.println("Case 0 called;");
-                autonomousRoutine = Robot.GetDriveTimedAutonomous(TuningConstants.AUTONOMOUS_TIME, 
+                autonomousRoutine = Robot.GetDriveTimedAutonomous(
+                    TuningConstants.AUTONOMOUS_TIME,
                     0.0,
                     TuningConstants.DRIVETRAIN_AUTONOMOUS_SLOW_VELOCITY);
+
                 break;
+
             case 2://Switch B in
-                //System.out.println("Case 1 called.");
-                autonomousRoutine = Robot.GetDriveTimedAutonomous(TuningConstants.AUTONOMOUS_TIME, 
-                    0.0, 
+                autonomousRoutine = Robot.GetDriveTimedAutonomous(
+                    TuningConstants.AUTONOMOUS_TIME,
+                    0.0,
                     TuningConstants.DRIVETRAIN_AUTONOMOUS_FAST_VELOCITY);
+
                 break;
+
             case 3://Switches A and B in
-                //System.out.println("Case 2 called.");
                 autonomousRoutine = Robot.GetDriveDistanceAutonomous(TuningConstants.AUTONOMOUS_DEFENSE_BREACH_DISTANCE);
-                break;           
+                break;
+
             default://both flipped or can't read 
-                //System.out.println("Default case called.");
                 autonomousRoutine = Robot.GetFillerRoutine();
                 break;
         }
 
         DashboardLogger.putInteger(Robot.AUTONOMOUS_ROUTINE_PREFERENCE_KEY, routineSelection);
-        
-        //autonomousRoutine = GetDriveTimedAutonomous(TuningConstants.AUTONOMOUS_TIME, 0.0, TuningConstants.DRIVETRAIN_AUTONOMOUS_SLOW_VELOCITY);
 
         // Create autonomous driver based on our desired routine
         this.driver = new AutonomousDriver(autonomousRoutine, this.components);
