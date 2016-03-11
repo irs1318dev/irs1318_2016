@@ -1,10 +1,9 @@
 package org.usfirst.frc.team1318.robot.Shooter;
 
 import org.usfirst.frc.team1318.robot.ElectronicsConstants;
-
-import edu.wpi.first.wpilibj.Counter;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
+import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.Talon;
 
 /**
@@ -18,16 +17,14 @@ public class ShooterComponent
     private final DoubleSolenoid kicker;
     private final DoubleSolenoid hood;
     private final Talon talon;
-    //private final Counter counter;
+    private final Encoder encoder;
     
     public ShooterComponent() 
     {
         this.kicker = new DoubleSolenoid(ElectronicsConstants.SHOOTER_KICKER_CHANNEL_A, ElectronicsConstants.SHOOTER_KICKER_CHANNEL_B);
         this.hood = new DoubleSolenoid(ElectronicsConstants.SHOOTER_HOOD_CHANNEL_A, ElectronicsConstants.SHOOTER_HOOD_CHANNEL_B);
         this.talon = new Talon(ElectronicsConstants.SHOOTER_TALON_CHANNEL);
-        //this.counter = new Counter(ElectronicsConstants.SHOOTER_COUNTER_CHANNEL);
-        //this.counter.setUpDownCounterMode();
-        //this.counter.setDistancePerPulse(1.0);
+        this.encoder = new Encoder(ElectronicsConstants.SHOOTER_ENCODER_CHANNEL_A, ElectronicsConstants.SHOOTER_ENCODER_CHANNEL_B);
     }
     
     public void setMotorSpeed(double speed) 
@@ -37,16 +34,15 @@ public class ShooterComponent
     
     public int getCounterTicks()
     {
-        //int counterTicks = this.counter.get();
-        //return counterTicks;
-        return 0;
+        int counterTicks = this.encoder.get();
+        return counterTicks;
     }
     
     public double getCounterRate() 
     {
-        //double counterRate = this.counter.getRate();
-        //return counterRate;
-        return 0.0;
+        double counterRate = this.encoder.getRate();
+        return counterRate;
+
     }
     
     /**

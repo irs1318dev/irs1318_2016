@@ -1,5 +1,7 @@
 package org.usfirst.frc.team1318.robot;
 
+import edu.wpi.first.wpilibj.DigitalSource;
+
 /**
  * All constants describing how the electronics are plugged together.
  * 
@@ -73,4 +75,7 @@ public class ElectronicsConstants
 
     public static final int CLIMBING_ARM_BOTTOM_LIMIT_SWITCH_CHANNEL = 0;
     public static final int CLIMBING_ARM_TOP_LIMIT_SWITCH_CHANNEL = 0;
+
+    public static final int SHOOTER_ENCODER_CHANNEL_A = 10;
+    public static final int SHOOTER_ENCODER_CHANNEL_B = 11;
 }
