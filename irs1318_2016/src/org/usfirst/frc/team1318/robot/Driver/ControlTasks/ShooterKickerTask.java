@@ -35,6 +35,7 @@ public class ShooterKickerTask extends TimedTask implements IControlTask
     @Override
     public void end()
     {
+        getComponents().getShooter().setLight(false);
     }
     
     @Override

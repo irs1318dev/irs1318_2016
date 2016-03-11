@@ -58,6 +58,7 @@ public class ElectronicsConstants
     public static final int SHOOTER_HOOD_CHANNEL_B = 2;
     public static final int SHOOTER_ENCODER_CHANNEL_A = 10;
     public static final int SHOOTER_ENCODER_CHANNEL_B = 11;
+    public static final int SHOOTER_LIGHT_PORT = 0;
 
     //=================================================== Intake =================================================================
 
@@ -77,6 +78,8 @@ public class ElectronicsConstants
 
     public static final int CLIMBING_ARM_BOTTOM_LIMIT_SWITCH_CHANNEL = 0;
     public static final int CLIMBING_ARM_TOP_LIMIT_SWITCH_CHANNEL = 0;
+
+
 
 
 }

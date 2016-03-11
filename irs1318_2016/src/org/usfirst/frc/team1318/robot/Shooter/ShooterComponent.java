@@ -5,6 +5,7 @@ import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.Talon;
+import edu.wpi.first.wpilibj.Solenoid;
 
 /**
  * Component for the shooter mechanism. Has a talon, and one counter, 
@@ -18,13 +19,16 @@ public class ShooterComponent
     private final DoubleSolenoid hood;
     private final Talon talon;
     private final Encoder encoder;
+    private final Solenoid light;
     
+    private double targetSpeed;
     public ShooterComponent() 
     {
         this.kicker = new DoubleSolenoid(ElectronicsConstants.SHOOTER_KICKER_CHANNEL_A, ElectronicsConstants.SHOOTER_KICKER_CHANNEL_B);
         this.hood = new DoubleSolenoid(ElectronicsConstants.SHOOTER_HOOD_CHANNEL_A, ElectronicsConstants.SHOOTER_HOOD_CHANNEL_B);
         this.talon = new Talon(ElectronicsConstants.SHOOTER_TALON_CHANNEL);
         this.encoder = new Encoder(ElectronicsConstants.SHOOTER_ENCODER_CHANNEL_A, ElectronicsConstants.SHOOTER_ENCODER_CHANNEL_B);
+        this.light = new Solenoid(ElectronicsConstants.SHOOTER_LIGHT_PORT);
     }
     
     public void setMotorSpeed(double speed) 
@@ -79,10 +83,15 @@ public class ShooterComponent
         }
     }
     
+    public void setLight(boolean on){
+        light.set(on);
+    }
+    
     public void stop()
     {
         this.kicker.set(Value.kOff);
         this.hood.set(Value.kOff);
         this.setMotorSpeed(0.0);
     }
+    
 }

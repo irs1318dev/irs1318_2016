@@ -107,6 +107,9 @@ public class TuningConstants
 
     public static final double SHOOTER_REVERSE_SPEED = -0.1;
     public static final double SHOOTER_REVERSE_DURATION = 0.5;
+    
+    public static final double SHOOTER_DEVIANCE = 0.1;
+    public static final double MAX_COUNTER_RATE = 100;
 
     //================================================== Intake ==============================================================
 
@@ -171,4 +174,6 @@ public class TuningConstants
     public static final double AUTONOMOUS_DEFENSE_BREACH_DISTANCE = 20 * 12 * 2.54;// Distance from start through a defense in autonomous
     public static final double AUTONOMOUS_TIME_SLOW = 8.0;
     public static final double AUTONOMOUS_TIME_FAST = 5.0;
+
+
 }
