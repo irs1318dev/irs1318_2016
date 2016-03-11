@@ -78,8 +78,7 @@ public class DriveTrainController implements IController
         }
         
         // check our desired PID mode (needed for positional mode or break mode)
-        boolean newUsePositionalMode = this.driver.getDigital(Operation.DriveTrainUsePositionalMode) 
-            || this.driver.getDigital(Operation.DriveTrainUseBreakMode);
+        boolean newUsePositionalMode = this.driver.getDigital(Operation.DriveTrainUsePositionalMode);
         if (newUsePositionalMode != this.usePositionalMode)
         {
             this.usePositionalMode = newUsePositionalMode;
@@ -285,13 +284,6 @@ public class DriveTrainController implements IController
         // get the desired left and right values from the driver.
         double leftPosition = this.driver.getAnalog(Operation.DriveTrainLeftPosition);
         double rightPosition = this.driver.getAnalog(Operation.DriveTrainRightPosition);
-
-        // Set the desired values to the current values if in break mode
-        if (this.driver.getDigital(Operation.DriveTrainUseBreakMode))
-        {
-            leftPosition = this.component.getLeftEncoderDistance();
-            rightPosition = this.component.getRightEncoderDistance();
-        }
         
         // get the current encoder distance from the component.
         double leftDistance = this.component.getLeftEncoderDistance();

@@ -25,6 +25,7 @@ public class ShooterComponent
         this.hood = new DoubleSolenoid(ElectronicsConstants.SHOOTER_HOOD_CHANNEL_A, ElectronicsConstants.SHOOTER_HOOD_CHANNEL_B);
         this.talon = new Talon(ElectronicsConstants.SHOOTER_TALON_CHANNEL);
         this.encoder = new Encoder(ElectronicsConstants.SHOOTER_ENCODER_CHANNEL_A, ElectronicsConstants.SHOOTER_ENCODER_CHANNEL_B);
+        //this.encoder.setDistance();
     }
     
     public void setMotorSpeed(double speed) 

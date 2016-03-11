@@ -12,7 +12,6 @@ public enum Operation
     DriveTrainLeftPosition,
     DriveTrainRightPosition,
     DriveTrainSwapFrontOrientation,
-    DriveTrainUseBreakMode,
     
     // Defense arm operations:
     DefenseArmMaxFrontPosition,

@@ -41,6 +41,9 @@ public class IntakeController implements IController
         {
             this.intake.setIntakeSpeed(0.0);
         }
+        
+        // Turn on the intake light if the through beam sensor is broken
+        this.intake.setIntakeLight(this.intake.getThroughBeamBroken());
     }
 
     @Override

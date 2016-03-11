@@ -17,6 +17,7 @@ import org.usfirst.frc.team1318.robot.Driver.ControlTasks.DefenseArmPositionTask
 import org.usfirst.frc.team1318.robot.Driver.ControlTasks.DriveDistanceTask;
 import org.usfirst.frc.team1318.robot.Driver.ControlTasks.DriveRouteTask;
 import org.usfirst.frc.team1318.robot.Driver.ControlTasks.IntakePositionTask;
+import org.usfirst.frc.team1318.robot.Driver.ControlTasks.PIDBrakeTask;
 import org.usfirst.frc.team1318.robot.Driver.ControlTasks.SequentialTask;
 import org.usfirst.frc.team1318.robot.Driver.ControlTasks.ShooterKickerTask;
 import org.usfirst.frc.team1318.robot.Driver.ControlTasks.ShooterSpinUpTask;
@@ -79,12 +80,6 @@ public abstract class Driver
                     UserInputDevice.None,
                     UserInputDeviceButton.NONE,
                     ButtonType.Toggle));
-            put(
-                Operation.DriveTrainUseBreakMode,
-                new DigitalOperationDescription(
-                    UserInputDevice.Driver,
-                    UserInputDeviceButton.JOYSTICK_STICK_THUMB_BUTTON,
-                    ButtonType.Simple));
 
             // Operations for the defense arm
             put(
@@ -291,104 +286,22 @@ public abstract class Driver
     @SuppressWarnings("serial")
     protected Map<MacroOperation, MacroOperationDescription> macroSchema = new HashMap<MacroOperation, MacroOperationDescription>()
     {
-        {            
-            // Breaching macros.
+        {    
+            // Break mode macro
             put(
-                MacroOperation.BreachPortcullis,
+                MacroOperation.PIDBrake,
                 new MacroOperationDescription(
-                    UserInputDevice.CoDriver,
-                    UserInputDeviceButton.BUTTON_PAD_BUTTON_2,
-                    () -> SequentialTask.Sequence(
-                        ConcurrentTask.AllTasks(
-                            new DefenseArmPositionTask(TuningConstants.DEFENSE_ARM_PORTCULLIS_BREACH_APPROACH_POSITION),
-                            new DriveDistanceTask(TuningConstants.PORTCULLIS_OUTER_WORKS_DISTANCE, false)),
-                        new DefenseArmPositionTask(TuningConstants.DEFENSE_ARM_PORTCULLIS_BREACH_CAPTURE_POSITION),
-                        new BreachPortcullisTask()),
-                    new Operation[]
-                    {
-                        Operation.DriveTrainRightPosition, 
-                        Operation.DriveTrainLeftPosition, 
-                        Operation.DefenseArmMaxFrontPosition, 
-                        Operation.DriveTrainUsePositionalMode, 
-                        Operation.DefenseArmTakePositionInput, 
-                        Operation.DefenseArmSetAngle,
-                        Operation.CancelBreachMacro,
-                    }));
-            put(
-                MacroOperation.BreachSallyPort,
-                new MacroOperationDescription(
-                    UserInputDevice.CoDriver,
-                    UserInputDeviceButton.BUTTON_PAD_BUTTON_3,
-                    () -> SequentialTask.Sequence(
-                        ConcurrentTask.AllTasks(
-                            new IntakePositionTask(false),
-                            new DefenseArmPositionTask(TuningConstants.DEFENSE_ARM_SALLY_PORT_APPROACH_POSITION),
-                            new DriveDistanceTask(-TuningConstants.SALLY_PORT_OUTER_WORKS_DRIVE_DISTANCE)),
-                        new DefenseArmPositionTask(TuningConstants.DEFENSE_ARM_SALLY_PORT_APPROACH_POSITION + Math.PI * 1.0/16.0),
-                        new DriveRouteTask(
-                            (t) -> 0.35 * Math.PI * TuningConstants.SALLY_PORT_BREACH_BACKWARD_ARC_RADIUS * t,
-                            (t) -> 0.35 * Math.PI * (TuningConstants.SALLY_PORT_BREACH_BACKWARD_ARC_RADIUS + HardwareConstants.DRIVETRAIN_WHEEL_SEPARATION_DISTANCE) * t,
-                            2.0),
-                        new DriveRouteTask(
-                            (t) -> -0.35 * Math.PI * (TuningConstants.SALLY_PORT_BREACH_FORWARD_ARC_RADIUS + HardwareConstants.DRIVETRAIN_WHEEL_SEPARATION_DISTANCE) * t,
-                            (t) -> -0.35 * Math.PI * TuningConstants.SALLY_PORT_BREACH_FORWARD_ARC_RADIUS * t,
-                            2.0),
-                        new TurnTask(-90),
-                        new DriveDistanceTask(TuningConstants.SALLY_PORT_BREACH_FINAL_CHARGE_DISTANCE)),
+                    UserInputDevice.Driver,
+                    UserInputDeviceButton.JOYSTICK_STICK_THUMB_BUTTON,
+                    ButtonType.Simple,
+                    () -> new PIDBrakeTask(),
                     new Operation[]
                     {
                         Operation.DriveTrainUsePositionalMode,
-                        Operation.DriveTrainRightPosition,
                         Operation.DriveTrainLeftPosition,
-                        Operation.DefenseArmMaxFrontPosition,
-                        Operation.DefenseArmTakePositionInput,
-                        Operation.DefenseArmSetAngle,
-                        Operation.CancelBreachMacro,
+                        Operation.DriveTrainRightPosition,
                     }));
-            put(
-                MacroOperation.BreachDrawbridge,
-                new MacroOperationDescription(
-                    UserInputDevice.CoDriver, 
-                    UserInputDeviceButton.BUTTON_PAD_BUTTON_4,
-                    () -> SequentialTask.Sequence(
-                        ConcurrentTask.AllTasks(
-                            new DefenseArmPositionTask(TuningConstants.DEFENSE_ARM_DRAWBRIDGE_APPROACH_POSITION),
-                            new DriveDistanceTask(TuningConstants.DRAWBRIDGE_OUTER_WORKS_DISTANCE)),
-                        new DefenseArmPositionTask(HardwareConstants.DEFENSE_ARM_MAX_FRONT_POSITION),
-                        new BreachDrawbridgeTask()),
-                new Operation[]
-                {
-                    Operation.DriveTrainUsePositionalMode,
-                    Operation.DriveTrainLeftPosition,
-                    Operation.DriveTrainRightPosition,
-                    Operation.DefenseArmMaxFrontPosition,
-                    Operation.DefenseArmTakePositionInput,
-                    Operation.DefenseArmSetAngle,
-                    Operation.CancelBreachMacro
-                }));
-            put(
-                MacroOperation.BreachChevalDeFrise,
-                new MacroOperationDescription(
-                    UserInputDevice.CoDriver, 
-                    UserInputDeviceButton.BUTTON_PAD_BUTTON_5,
-                    () -> SequentialTask.Sequence(
-                        new DefenseArmPositionTask(TuningConstants.DEFENSE_ARM_CHEVAL_DE_FRISE_APPROACH_POSITION),
-                        new DriveDistanceTask(TuningConstants.CHEVAL_DE_FRISE_OUTER_WORKS_DISTANCE),
-                        new DefenseArmPositionTask(HardwareConstants.DEFENSE_ARM_MAX_FRONT_POSITION),
-                        ConcurrentTask.AllTasks(
-                            new DriveDistanceTask(TuningConstants.CHEVAL_DE_FRISE_HALF_BREACH_DISTANCE),
-                            new DefenseArmPositionTask(TuningConstants.DEFENSE_ARM_CHEVAL_DE_FRISE_CAPTURE_POSITION)),
-                        new DriveDistanceTask(TuningConstants.CHEVAL_DE_FRISE_REMAINING_BREACH_DISTANCE)),
-                new Operation[]
-                {
-                    Operation.DriveTrainUsePositionalMode,
-                    Operation.DriveTrainLeftPosition,
-                    Operation.DriveTrainRightPosition,
-                    Operation.DefenseArmTakePositionInput,
-                    Operation.DefenseArmSetAngle,
-                    Operation.CancelBreachMacro
-                }));
-
+            
             // Macros for shooting distance.
             put(
                 MacroOperation.SpinClose,
@@ -396,6 +309,7 @@ public abstract class Driver
                     false,
                     UserInputDevice.Driver,
                     UserInputDeviceButton.JOYSTICK_BASE_TOP_RIGHT_BUTTON,
+                    ButtonType.Toggle,
                     () -> SequentialTask.Sequence(
                         new ShooterKickerTask(TuningConstants.SHOOTER_LOWER_KICKER_DURATION, true),
                         new ShooterSpinUpTask(false, TuningConstants.SHOOTER_CLOSE_SHOT_VELOCITY, TuningConstants.SHOOTER_SPIN_UP_DURATION)),
@@ -414,6 +328,7 @@ public abstract class Driver
                     false,
                     UserInputDevice.Driver,
                     UserInputDeviceButton.JOYSTICK_BASE_MIDDLE_RIGHT_BUTTON,
+                    ButtonType.Toggle,
                     () -> SequentialTask.Sequence(
                         new ShooterKickerTask(TuningConstants.SHOOTER_LOWER_KICKER_DURATION, true),
                         new ShooterSpinUpTask(false, TuningConstants.SHOOTER_MIDDLE_SHOT_VELOCITY, TuningConstants.SHOOTER_SPIN_UP_DURATION)),
@@ -432,6 +347,7 @@ public abstract class Driver
                     false,
                     UserInputDevice.Driver,
                     UserInputDeviceButton.JOYSTICK_BASE_BOTTOM_RIGHT_BUTTON,
+                    ButtonType.Toggle,
                     () -> SequentialTask.Sequence(
                         new ShooterKickerTask(TuningConstants.SHOOTER_LOWER_KICKER_DURATION, true),
                         new ShooterSpinUpTask(true, TuningConstants.SHOOTER_FAR_SHOT_VELOCITY, TuningConstants.SHOOTER_SPIN_UP_DURATION)),
@@ -449,6 +365,7 @@ public abstract class Driver
                 new MacroOperationDescription(
                     UserInputDevice.Driver,
                     UserInputDeviceButton.JOYSTICK_STICK_TRIGGER_BUTTON,
+                    ButtonType.Toggle,
                     () -> SequentialTask.Sequence(
                         new ShooterKickerTask(TuningConstants.SHOOTER_FIRE_DURATION, false),
                         new ShooterSpinUpTask(false, TuningConstants.SHOOTER_REVERSE_SPEED, TuningConstants.SHOOTER_REVERSE_DURATION)),
@@ -468,6 +385,7 @@ public abstract class Driver
                 new MacroOperationDescription(
                     UserInputDevice.CoDriver,
                     UserInputDeviceButton.BUTTON_PAD_BUTTON_6,
+                    ButtonType.Toggle,
                     () -> SequentialTask.Sequence(
                         new ClimbingArmElbowTask(false),
                         new ClimbingArmShoulderTask(false)),
@@ -483,6 +401,7 @@ public abstract class Driver
                 new MacroOperationDescription(
                     UserInputDevice.CoDriver,
                     UserInputDeviceButton.BUTTON_PAD_BUTTON_7,
+                    ButtonType.Toggle,
                     () -> SequentialTask.Sequence(
                         new ClimbingArmShoulderTask(true),
                         new ClimbingArmElbowTask(true)),
@@ -498,6 +417,7 @@ public abstract class Driver
                 new MacroOperationDescription(
                     UserInputDevice.CoDriver,
                     UserInputDeviceButton.BUTTON_PAD_BUTTON_8,
+                    ButtonType.Toggle,
                     () -> new ClimbingArmLifterMoveTask(true),
                     new Operation[]
                     {
@@ -509,6 +429,7 @@ public abstract class Driver
                 new MacroOperationDescription(
                     UserInputDevice.CoDriver,
                     UserInputDeviceButton.BUTTON_PAD_BUTTON_9,
+                    ButtonType.Toggle,
                     () -> new ClimbingArmLifterMoveTask(false),
                     new Operation[]
                     {

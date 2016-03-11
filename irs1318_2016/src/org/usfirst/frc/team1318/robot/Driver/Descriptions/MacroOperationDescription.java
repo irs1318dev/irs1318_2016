@@ -5,6 +5,7 @@ import java.util.function.Supplier;
 import org.usfirst.frc.team1318.robot.Driver.IControlTask;
 import org.usfirst.frc.team1318.robot.Driver.Operation;
 import org.usfirst.frc.team1318.robot.Driver.UserInputDeviceButton;
+import org.usfirst.frc.team1318.robot.Driver.Buttons.ButtonType;
 
 public class MacroOperationDescription extends OperationDescription
 {
@@ -14,60 +15,67 @@ public class MacroOperationDescription extends OperationDescription
     private final DigitalSensor sensor;
     private final Operation[] affectedOperations;
     private final Supplier<IControlTask> taskSupplier;
+    private final ButtonType buttonType;
 
     public MacroOperationDescription(
         UserInputDevice userInputDevice,
         int povValue,
+        ButtonType buttonType,
         Supplier<IControlTask> taskSupplier,
         Operation... affectedOperations)
     {
-        this(true, userInputDevice, UserInputDeviceButton.JOYSTICK_POV, povValue, DigitalSensor.None, taskSupplier, affectedOperations);
+        this(true, userInputDevice, UserInputDeviceButton.JOYSTICK_POV, povValue, DigitalSensor.None, buttonType, taskSupplier, affectedOperations);
     }
 
     public MacroOperationDescription(
         boolean clearInterrupt,
         UserInputDevice userInputDevice,
         int povValue,
+        ButtonType buttonType,
         Supplier<IControlTask> taskSupplier,
         Operation... affectedOperations)
     {
-        this(clearInterrupt, userInputDevice, UserInputDeviceButton.JOYSTICK_POV, povValue, DigitalSensor.None, taskSupplier, affectedOperations);
+        this(clearInterrupt, userInputDevice, UserInputDeviceButton.JOYSTICK_POV, povValue, DigitalSensor.None, buttonType, taskSupplier, affectedOperations);
     }
 
     public MacroOperationDescription(
         UserInputDevice userInputDevice,
         UserInputDeviceButton userInputDeviceButton,
+        ButtonType buttonType,
         Supplier<IControlTask> taskSupplier,
         Operation... affectedOperations)
     {
-        this(true, userInputDevice, userInputDeviceButton, 0, DigitalSensor.None, taskSupplier, affectedOperations);
+        this(true, userInputDevice, userInputDeviceButton, 0, DigitalSensor.None, buttonType, taskSupplier, affectedOperations);
     }
 
     public MacroOperationDescription(
         boolean clearInterrupt,
         UserInputDevice userInputDevice,
         UserInputDeviceButton userInputDeviceButton,
+        ButtonType buttonType,
         Supplier<IControlTask> taskSupplier,
         Operation... affectedOperations)
     {
-        this(clearInterrupt, userInputDevice, userInputDeviceButton, 0, DigitalSensor.None, taskSupplier, affectedOperations);
+        this(clearInterrupt, userInputDevice, userInputDeviceButton, 0, DigitalSensor.None, buttonType, taskSupplier, affectedOperations);
     }
 
     public MacroOperationDescription(
         DigitalSensor sensor,
+        ButtonType buttonType,
         Supplier<IControlTask> taskSupplier,
         Operation... affectedOperations)
     {
-        this(true, UserInputDevice.Sensor, UserInputDeviceButton.NONE, 0, sensor, taskSupplier, affectedOperations);
+        this(true, UserInputDevice.Sensor, UserInputDeviceButton.NONE, 0, sensor, buttonType, taskSupplier, affectedOperations);
     }
 
     public MacroOperationDescription(
         boolean clearInterrupt,
         DigitalSensor sensor,
+        ButtonType buttonType,
         Supplier<IControlTask> taskSupplier,
         Operation... affectedOperations)
     {
-        this(clearInterrupt, UserInputDevice.Sensor, UserInputDeviceButton.NONE, 0, sensor, taskSupplier, affectedOperations);
+        this(clearInterrupt, UserInputDevice.Sensor, UserInputDeviceButton.NONE, 0, sensor, buttonType, taskSupplier, affectedOperations);
     }
 
     private MacroOperationDescription(
@@ -76,6 +84,7 @@ public class MacroOperationDescription extends OperationDescription
         UserInputDeviceButton userInputDeviceButton,
         int povValue,
         DigitalSensor sensor,
+        ButtonType buttonType,
         Supplier<IControlTask> taskSupplier,
         Operation... affectedOperations)
     {
@@ -87,6 +96,7 @@ public class MacroOperationDescription extends OperationDescription
         this.sensor = sensor;
         this.affectedOperations = affectedOperations;
         this.taskSupplier = taskSupplier;
+        this.buttonType = buttonType;
     }
 
     public boolean shouldClearInterrupt()
@@ -107,6 +117,11 @@ public class MacroOperationDescription extends OperationDescription
     public DigitalSensor getSensor()
     {
         return this.sensor;
+    }
+    
+    public ButtonType getButtonType()
+    {
+        return this.buttonType;
     }
 
     public IControlTask constructTask()
