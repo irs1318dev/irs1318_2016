@@ -104,8 +104,8 @@ public class Robot extends IterativeRobot
         // Find desired autonomous routine.
         IControlTask autonomousRoutine = Robot.GetFillerRoutine();
 
-        DashboardLogger.putBoolean("Dipswitch in DIO 8 reads: ", this.dipSwitchA.get());
-        DashboardLogger.putBoolean("Dipswitch in DIO 9 reads: ", this.dipSwitchB.get());
+        DashboardLogger.putBoolean("Dipswitch in DIO 8 reads: ", !this.dipSwitchA.get());
+        DashboardLogger.putBoolean("Dipswitch in DIO 9 reads: ", !this.dipSwitchB.get());
 
         int routineSelection = 0;
         if (!this.dipSwitchA.get())
@@ -127,7 +127,7 @@ public class Robot extends IterativeRobot
 
             case 1://Switch A in
                 autonomousRoutine = Robot.GetDriveTimedAndDefenseArmPositionRoutine(
-                    TuningConstants.AUTONOMOUS_TIME,
+                    TuningConstants.AUTONOMOUS_TIME_SLOW,
                     0.0,
                     TuningConstants.DRIVETRAIN_AUTONOMOUS_SLOW_VELOCITY,
                     TuningConstants.DEFENSE_ARM_LOWBAR_APPROACH_POSITION);
@@ -136,16 +136,17 @@ public class Robot extends IterativeRobot
 
             case 2://Switch B in
                 autonomousRoutine = Robot.GetDriveTimeRoutine(
-                    TuningConstants.AUTONOMOUS_TIME,
+                    TuningConstants.AUTONOMOUS_TIME_SLOW,
                     0.0,
-                    TuningConstants.DRIVETRAIN_AUTONOMOUS_FAST_VELOCITY);
+                    TuningConstants.DRIVETRAIN_AUTONOMOUS_SLOW_VELOCITY);
 
                 break;
 
             case 3://Switches A and B in
-                autonomousRoutine = Robot.GetDriveDistanceAndDefenseArmPositionRoutine(
-                    TuningConstants.AUTONOMOUS_DEFENSE_BREACH_DISTANCE,
-                    TuningConstants.DEFENSE_ARM_LOWBAR_APPROACH_POSITION);
+                autonomousRoutine = Robot.GetDriveTimeRoutine(
+                    TuningConstants.AUTONOMOUS_TIME_FAST,
+                    0.0,
+                    TuningConstants.DRIVETRAIN_AUTONOMOUS_FAST_VELOCITY);
                 break;
 
             default://both flipped or can't read 

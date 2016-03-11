@@ -102,8 +102,8 @@ public abstract class Driver
             put(
                 Operation.DefenseArmUpPosition,
                 new DigitalOperationDescription(
-                    UserInputDevice.None,
-                    UserInputDeviceButton.NONE,
+                    UserInputDevice.Driver,
+                    UserInputDeviceButton.JOYSTICK_STICK_THUMB_BUTTON,
                     ButtonType.Click));
             put(
                 Operation.DefenseArmMaxBackPosition,
@@ -443,7 +443,9 @@ public abstract class Driver
                 new MacroOperationDescription(
                     UserInputDevice.Driver,
                     UserInputDeviceButton.JOYSTICK_STICK_TRIGGER_BUTTON,
-                    () -> new ShooterKickerTask(TuningConstants.SHOOTER_FIRE_DURATION, false),
+                    () -> SequentialTask.Sequence(
+                        new ShooterKickerTask(TuningConstants.SHOOTER_FIRE_DURATION, false),
+                        new ShooterSpinUpTask(false, TuningConstants.SHOOTER_REVERSE_SPEED, TuningConstants.SHOOTER_REVERSE_DURATION)),
                     new Operation[]
                     {
                         Operation.ShooterSpin,

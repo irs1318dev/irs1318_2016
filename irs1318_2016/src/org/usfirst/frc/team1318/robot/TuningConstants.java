@@ -98,12 +98,15 @@ public class TuningConstants
     public static final double SHOOTER_VELOCITY_PID_KF_DEFAULT = 1.0;
     public static final double SHOOTER_VELOCITY_PID_KS_DEFAULT = 100.0;
 
-    public static final double SHOOTER_CLOSE_SHOT_VELOCITY = 0.80;
+    public static final double SHOOTER_CLOSE_SHOT_VELOCITY = 0.7;
     public static final double SHOOTER_MIDDLE_SHOT_VELOCITY = 0.52;
     public static final double SHOOTER_FAR_SHOT_VELOCITY = 0.85;
     public static final double SHOOTER_LOWER_KICKER_DURATION = 0.5;
     public static final double SHOOTER_SPIN_UP_DURATION = 1.75;
-    public static final double SHOOTER_FIRE_DURATION = 1.0;
+    public static final double SHOOTER_FIRE_DURATION = 1.5;
+
+    public static final double SHOOTER_REVERSE_SPEED = -0.1;
+    public static final double SHOOTER_REVERSE_DURATION = 0.5;
 
     //================================================== Intake ==============================================================
 
@@ -154,7 +157,7 @@ public class TuningConstants
     public static final double DEFENSE_ARM_CHEVAL_DE_FRISE_CAPTURE_POSITION = HardwareConstants.DEFENSE_ARM_MAX_FRONT_POSITION;
     
     //----- Lowbar -----
-    public static final double DEFENSE_ARM_LOWBAR_APPROACH_POSITION = 0.0;
+    public static final double DEFENSE_ARM_LOWBAR_APPROACH_POSITION = HardwareConstants.DEFENSE_ARM_MAX_BACK_POSITION;
 
     //================================================== Autonomous ==============================================================
 
@@ -166,5 +169,6 @@ public class TuningConstants
     public static final double DRIVETRAIN_AUTONOMOUS_FAST_VELOCITY = .45;
     
     public static final double AUTONOMOUS_DEFENSE_BREACH_DISTANCE = 20 * 12 * 2.54;// Distance from start through a defense in autonomous
-    public static final double AUTONOMOUS_TIME = 15.0;
+    public static final double AUTONOMOUS_TIME_SLOW = 8.0;
+    public static final double AUTONOMOUS_TIME_FAST = 5.0;
 }

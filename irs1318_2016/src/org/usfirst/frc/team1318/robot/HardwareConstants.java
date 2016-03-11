@@ -27,8 +27,8 @@ public class HardwareConstants
     public static final double DEFENSE_ARM_FULL_SWING = HardwareConstants.DEFENSE_ARM_MAX_BACK_POSITION - HardwareConstants.DEFENSE_ARM_MAX_FRONT_POSITION;
     public static final double DEFENSE_ARM_HORIZONTAL_FRONT_POSITION = 0;
     public static final double DEFENSE_ARM_HORIZONTAL_BACK_POSITION = Math.PI;
-    public static final double DEFENSE_ARM_MAX_FRONT_POSITION = -Math.PI/32.0;;
-    public static final double DEFENSE_ARM_MAX_BACK_POSITION = Math.PI * 33.0/32.0;
+    public static final double DEFENSE_ARM_MAX_FRONT_POSITION = -Math.PI * 5.0 / 128.0;
+    public static final double DEFENSE_ARM_MAX_BACK_POSITION = Math.PI * (1.0 + 25.0/512.00) + 0.1;
     public static final double DEFENSE_ARM_LENGTH = 24.5 * 2.54;
     public static final double DEFENSE_ARM_GEARING_RATIO = 28.0/15.0;
 
