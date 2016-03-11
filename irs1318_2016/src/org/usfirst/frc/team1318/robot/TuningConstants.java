@@ -13,7 +13,7 @@ public class TuningConstants
     //================================================== DriveTrain ==============================================================
 
     // Drivetrain PID keys/default values:
-    public static final boolean DRIVETRAIN_USE_PID_DEFAULT = true;
+    public static final boolean DRIVETRAIN_USE_PID_DEFAULT = false;
 
     // Velocity PID (right)
     public static final double DRIVETRAIN_VELOCITY_PID_RIGHT_KP_DEFAULT = 0.0275;
@@ -87,16 +87,16 @@ public class TuningConstants
 
     //================================================== Shooter ==============================================================
 
-    public static final boolean SHOOTER_SCALE_BASED_ON_VOLTAGE = true;
+    public static final boolean SHOOTER_SCALE_BASED_ON_VOLTAGE = false;
     public static final double SHOOTER_VELOCITY_TUNING_VOLTAGE = 12.5;
 
     public static final double SHOOTER_MAX_POWER_LEVEL = 1.0;
 
-    public static final double SHOOTER_VELOCITY_PID_KP_DEFAULT = 0.0;
+    public static final double SHOOTER_VELOCITY_PID_KP_DEFAULT = 0.225;
     public static final double SHOOTER_VELOCITY_PID_KI_DEFAULT = 0.0;
     public static final double SHOOTER_VELOCITY_PID_KD_DEFAULT = 0.0;
-    public static final double SHOOTER_VELOCITY_PID_KF_DEFAULT = 1.0;
-    public static final double SHOOTER_VELOCITY_PID_KS_DEFAULT = 100.0;
+    public static final double SHOOTER_VELOCITY_PID_KF_DEFAULT = 0.5;
+    public static final double SHOOTER_VELOCITY_PID_KS_DEFAULT = 40.0;
 
     public static final double SHOOTER_CLOSE_SHOT_VELOCITY = 0.7;
     public static final double SHOOTER_MIDDLE_SHOT_VELOCITY = 0.52;
@@ -108,8 +108,8 @@ public class TuningConstants
     public static final double SHOOTER_REVERSE_SPEED = -0.1;
     public static final double SHOOTER_REVERSE_DURATION = 0.5;
     
-    public static final double SHOOTER_DEVIANCE = 0.1;
-    public static final double MAX_COUNTER_RATE = 100;
+    public static final double SHOOTER_DEVIANCE = 0.05;
+    public static final double SHOOTER_MAX_COUNTER_RATE = 1900;
 
     //================================================== Intake ==============================================================
 

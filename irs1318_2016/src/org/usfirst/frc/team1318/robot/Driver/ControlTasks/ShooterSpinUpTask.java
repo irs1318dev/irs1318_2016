@@ -9,7 +9,6 @@ public class ShooterSpinUpTask extends TimedTask implements IControlTask
     private boolean extendHood;
     private double shooterVelocity;
 
-    private static final double deviation = TuningConstants.SHOOTER_DEVIANCE;
     // True is a far shot, false is a close shot.
     public ShooterSpinUpTask(boolean extendHood, double shooterVelocity, double spinDuration)
     {
@@ -48,13 +47,15 @@ public class ShooterSpinUpTask extends TimedTask implements IControlTask
     @Override
     public boolean hasCompleted()
     {
-        
-        double speed = super.getComponents().getShooter().getCounterRate() / TuningConstants.MAX_COUNTER_RATE;
-        return  speed > shooterVelocity - deviation &&  speed < shooterVelocity + deviation;
+        double speed = super.getComponents().getShooter().getCounterRate() / TuningConstants.SHOOTER_MAX_COUNTER_RATE;
+        return 
+            (speed > this.shooterVelocity - TuningConstants.SHOOTER_DEVIANCE
+                && speed < this.shooterVelocity + TuningConstants.SHOOTER_DEVIANCE)
+            || super.hasCompleted();
     }
+
     @Override
-    public void end(){
-        super.getComponents().getShooter().setLight(true);
-    
+    public void end()
+    {
     }
 }

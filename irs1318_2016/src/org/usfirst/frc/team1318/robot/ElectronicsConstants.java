@@ -1,7 +1,5 @@
 package org.usfirst.frc.team1318.robot;
 
-import edu.wpi.first.wpilibj.DigitalSource;
-
 /**
  * All constants describing how the electronics are plugged together.
  * 
@@ -37,8 +35,8 @@ public class ElectronicsConstants
 
     //================================================== Autonomous ==============================================================
 
-    public static final int AUTONOMOUS_DIP_SWITCH_A = 8;
-    public static final int AUTONOMOUS_DIP_SWITCH_B = 9;
+    public static final int AUTONOMOUS_DIP_SWITCH_A = 10;
+    public static final int AUTONOMOUS_DIP_SWITCH_B = 11;
 
     //================================================= Defense Arm ===============================================================
 
@@ -56,9 +54,9 @@ public class ElectronicsConstants
     public static final int SHOOTER_KICKER_CHANNEL_B = 1;
     public static final int SHOOTER_HOOD_CHANNEL_A = 5;
     public static final int SHOOTER_HOOD_CHANNEL_B = 2;
-    public static final int SHOOTER_ENCODER_CHANNEL_A = 10;
-    public static final int SHOOTER_ENCODER_CHANNEL_B = 11;
-    public static final int SHOOTER_LIGHT_PORT = 0;
+    public static final int SHOOTER_ENCODER_CHANNEL_A = 8;
+    public static final int SHOOTER_ENCODER_CHANNEL_B = 9;
+    public static final int SHOOTER_LIGHT_PORT = 1;
 
     //=================================================== Intake =================================================================
 

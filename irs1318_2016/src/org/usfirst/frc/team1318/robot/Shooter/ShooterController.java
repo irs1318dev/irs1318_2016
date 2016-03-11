@@ -44,10 +44,15 @@ public class ShooterController implements IController
 
         // The velocity set in the analog operation
         double velocityGoal = this.driver.getAnalog(Operation.ShooterSpeed);
+        DashboardLogger.putDouble("shooterVelocityGoal", velocityGoal);
 
         double power = 0.0;
+        boolean shouldLight = false;
         if (spin)
         {
+            double speedPercentage = this.shooter.getCounterRate() / TuningConstants.SHOOTER_MAX_COUNTER_RATE;
+            shouldLight = speedPercentage > velocityGoal - TuningConstants.SHOOTER_DEVIANCE && speedPercentage < velocityGoal + TuningConstants.SHOOTER_DEVIANCE;
+
             // Calculate the power required to reach the velocity goal     
             power = this.PID.calculateVelocity(velocityGoal, currentTicks);
 
@@ -57,6 +62,8 @@ public class ShooterController implements IController
                 power = Helpers.EnforceRange(power, -TuningConstants.SHOOTER_MAX_POWER_LEVEL, TuningConstants.SHOOTER_MAX_POWER_LEVEL);
             }
         }
+
+        this.shooter.setLight(shouldLight);
 
         // Set the motor power with the calculated value
         this.shooter.setMotorSpeed(power);
