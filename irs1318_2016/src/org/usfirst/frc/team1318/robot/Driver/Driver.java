@@ -79,13 +79,19 @@ public abstract class Driver
                     UserInputDevice.None,
                     UserInputDeviceButton.NONE,
                     ButtonType.Toggle));
+            put(
+                Operation.DriveTrainUseBreakMode,
+                new DigitalOperationDescription(
+                    UserInputDevice.Driver,
+                    UserInputDeviceButton.JOYSTICK_STICK_THUMB_BUTTON,
+                    ButtonType.Simple));
 
             // Operations for the defense arm
             put(
                 Operation.DefenseArmMaxFrontPosition,
                 new DigitalOperationDescription(
-                    UserInputDevice.Driver,
-                    UserInputDeviceButton.JOYSTICK_STICK_TOP_LEFT_BUTTON,
+                    UserInputDevice.None,
+                    UserInputDeviceButton.NONE,
                     ButtonType.Click));
             put(
                 Operation.DefenseArmHorizontalFrontPosition,
@@ -102,32 +108,32 @@ public abstract class Driver
             put(
                 Operation.DefenseArmUpPosition,
                 new DigitalOperationDescription(
-                    UserInputDevice.Driver,
-                    UserInputDeviceButton.JOYSTICK_STICK_THUMB_BUTTON,
+                    UserInputDevice.None,
+                    UserInputDeviceButton.NONE,
                     ButtonType.Click));
             put(
                 Operation.DefenseArmMaxBackPosition,
                 new DigitalOperationDescription(
-                    UserInputDevice.Driver,
-                    UserInputDeviceButton.JOYSTICK_STICK_BOTTOM_LEFT_BUTTON,
+                    UserInputDevice.None,
+                    UserInputDeviceButton.NONE,
                     ButtonType.Click));
             put(
                 Operation.DefenseArmMolassesMode,
                 new DigitalOperationDescription(
-                    UserInputDevice.Driver,
-                    UserInputDeviceButton.JOYSTICK_BASE_MIDDLE_LEFT_BUTTON,
+                    UserInputDevice.None,
+                    UserInputDeviceButton.NONE,
                     ButtonType.Simple));
             put(
                 Operation.DefenseArmMoveForward,
                 new DigitalOperationDescription(
-                    UserInputDevice.Driver,
-                    UserInputDeviceButton.JOYSTICK_BASE_TOP_LEFT_BUTTON,
+                    UserInputDevice.None,
+                    UserInputDeviceButton.NONE,
                     ButtonType.Simple));
             put(
                 Operation.DefenseArmMoveBack,
                 new DigitalOperationDescription(
-                    UserInputDevice.Driver,
-                    UserInputDeviceButton.JOYSTICK_BASE_BOTTOM_LEFT_BUTTON,
+                    UserInputDevice.None,
+                    UserInputDeviceButton.NONE,
                     ButtonType.Simple));
             put(
                 Operation.DefenseArmTakePositionInput,
@@ -143,14 +149,14 @@ public abstract class Driver
             put(
                 Operation.DefenseArmIgnoreSensors,
                 new DigitalOperationDescription(
-                    UserInputDevice.CoDriver,
-                    UserInputDeviceButton.BUTTON_PAD_BUTTON_13,
+                    UserInputDevice.None,
+                    UserInputDeviceButton.NONE,
                     ButtonType.Click));
             put(
                 Operation.DefenseArmUseSensors,
                 new DigitalOperationDescription(
-                    UserInputDevice.CoDriver,
-                    UserInputDeviceButton.BUTTON_PAD_BUTTON_14,
+                    UserInputDevice.None,
+                    UserInputDeviceButton.NONE,
                     ButtonType.Click));
             put(
                 Operation.DisableDefenseArmPID,
@@ -167,8 +173,8 @@ public abstract class Driver
             put(
                 Operation.DefenseArmSetAtMiddleAngle,
                 new DigitalOperationDescription(
-                    UserInputDevice.CoDriver,
-                    UserInputDeviceButton.BUTTON_PAD_BUTTON_15,
+                    UserInputDevice.None,
+                    UserInputDeviceButton.NONE,
                     ButtonType.Click));
 
             // Operations for the shooter
