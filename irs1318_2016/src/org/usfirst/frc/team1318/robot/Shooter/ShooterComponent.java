@@ -29,6 +29,7 @@ public class ShooterComponent
         this.talon = new Talon(ElectronicsConstants.SHOOTER_TALON_CHANNEL);
         this.encoder = new Encoder(ElectronicsConstants.SHOOTER_ENCODER_CHANNEL_A, ElectronicsConstants.SHOOTER_ENCODER_CHANNEL_B);
         this.light = new Solenoid(ElectronicsConstants.SHOOTER_LIGHT_PORT);
+
     }
     
     public void setMotorSpeed(double speed) 

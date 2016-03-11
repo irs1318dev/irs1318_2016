@@ -57,11 +57,6 @@ public class ShooterController implements IController
                 power = Helpers.EnforceRange(power, -TuningConstants.SHOOTER_MAX_POWER_LEVEL, TuningConstants.SHOOTER_MAX_POWER_LEVEL);
             }
         }
-        //else if (this.driver.getDigital(Operation.IntakeRotatingIn)
-        //    || this.driver.getDigital(Operation.IntakeRotatingOut))
-        //{
-        //    power = TuningConstants.SHOOTER_REVERSE_SPEED;
-        //}
 
         // Set the motor power with the calculated value
         this.shooter.setMotorSpeed(power);

@@ -8,11 +8,8 @@ public enum MacroOperation
     SpinClose,
     Shoot,
 
-    // Breach operations:
-    BreachPortcullis,
-    BreachSallyPort, 
-    BreachDrawbridge,
-    BreachChevalDeFrise,
+    // Brake operation:
+    PIDBrake,
 
     // Climbing arm operations:
     ClimbingArmDeploy,
