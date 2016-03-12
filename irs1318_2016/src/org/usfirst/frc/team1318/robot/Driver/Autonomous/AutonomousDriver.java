@@ -3,7 +3,6 @@ package org.usfirst.frc.team1318.robot.Driver.Autonomous;
 import org.usfirst.frc.team1318.robot.ComponentManager;
 import org.usfirst.frc.team1318.robot.Driver.Driver;
 import org.usfirst.frc.team1318.robot.Driver.IControlTask;
-import org.usfirst.frc.team1318.robot.Driver.Operation;
 import org.usfirst.frc.team1318.robot.Driver.States.OperationState;
 
 /**

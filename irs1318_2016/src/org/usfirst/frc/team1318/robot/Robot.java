@@ -4,8 +4,6 @@ import org.usfirst.frc.team1318.robot.Common.DashboardLogger;
 import org.usfirst.frc.team1318.robot.Driver.Driver;
 import org.usfirst.frc.team1318.robot.Driver.IControlTask;
 import org.usfirst.frc.team1318.robot.Driver.Autonomous.AutonomousDriver;
-import org.usfirst.frc.team1318.robot.Driver.ControlTasks.ConcurrentTask;
-import org.usfirst.frc.team1318.robot.Driver.ControlTasks.DriveDistanceTask;
 import org.usfirst.frc.team1318.robot.Driver.ControlTasks.DriveTimedTask;
 import org.usfirst.frc.team1318.robot.Driver.ControlTasks.WaitTask;
 import org.usfirst.frc.team1318.robot.Driver.User.UserDriver;
@@ -231,17 +229,6 @@ public class Robot extends IterativeRobot
     private static IControlTask GetFillerRoutine()
     {
         return new WaitTask(0);
-    }
-
-    /**
-     * Gets an autonomous routine that moves forward the specified distance 
-     * 
-     * @param distance - distance to be driven forward
-     * @return DriveDistanceTask of specified distance
-     */
-    private static IControlTask GetDriveDistanceRoutine(double distance)
-    {
-        return new DriveDistanceTask(distance);
     }
 
     /**
