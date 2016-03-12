@@ -26,7 +26,7 @@ public class IntakeComponent
         this.intakeLight = new Solenoid(ElectronicsConstants.PCM_B_MODULE, ElectronicsConstants.INTAKE_LIGHT_CHANNEL);
         this.throughBeamSensor = new AnalogInput(ElectronicsConstants.INTAKE_THROUGH_BEAM_SENSOR_CHANNEL);
     }
-    
+
     // True extends the intake, false retracts it.
     public void extendOrRetract(boolean extend)
     {
@@ -39,26 +39,27 @@ public class IntakeComponent
             this.solenoid.set(Value.kReverse);
         }
     }
-    
+
     public void stop()
     {
         this.motor.set(0.0);
         this.solenoid.set(Value.kOff);
+        this.intakeLight.set(false);
     }
-    
+
     // takes a speed and sets the motor with that speed
     public void setIntakeSpeed(double speed)
     {
         this.motor.set(speed);
     }
-    
+
     public boolean getThroughBeamBroken()
     {
         boolean valueBool = (this.throughBeamSensor.getVoltage() < 2.5);
         DashboardLogger.putBoolean("Through beam broken", valueBool);
         return valueBool;
     }
-    
+
     public void setIntakeLight(boolean enable)
     {
         this.intakeLight.set(enable);

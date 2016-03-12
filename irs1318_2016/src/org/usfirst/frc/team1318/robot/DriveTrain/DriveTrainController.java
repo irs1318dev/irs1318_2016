@@ -76,7 +76,7 @@ public class DriveTrainController implements IController
             this.usePID = false;
             this.createPIDHandler();
         }
-        
+
         // check our desired PID mode (needed for positional mode or break mode)
         boolean newUsePositionalMode = this.driver.getDigital(Operation.DriveTrainUsePositionalMode);
         if (newUsePositionalMode != this.usePositionalMode)

@@ -74,24 +74,11 @@ public class ShooterController implements IController
             || this.driver.getDigital(Operation.IntakeRotatingIn)
             || this.driver.getDigital(Operation.IntakeRotatingOut);
 
-        if (lowerKicker)
-        {
-            this.shooter.kick(false);
-        }
-        else 
-        {
-            this.shooter.kick(true);
-        }
+        // control the kicker:
+        this.shooter.kick(!lowerKicker);
 
-        boolean hood = this.driver.getDigital(Operation.ShooterExtendHood);
-        if (hood)
-        {
-            this.shooter.hood(true);
-        }
-        else
-        {
-            this.shooter.hood(false);
-        }
+        boolean extendHood = this.driver.getDigital(Operation.ShooterExtendHood);
+        this.shooter.extendHood(extendHood);
     }
 
     @Override

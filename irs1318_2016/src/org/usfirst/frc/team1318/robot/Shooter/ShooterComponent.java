@@ -45,7 +45,6 @@ public class ShooterComponent
     {
         double counterRate = this.encoder.getRate();
         return counterRate;
-
     }
 
     /**
@@ -70,7 +69,7 @@ public class ShooterComponent
      * 
      * @param up - true extends, false retracts
      */
-    public void hood(boolean up)
+    public void extendHood(boolean up)
     {
         if (up)
         {
@@ -92,5 +91,6 @@ public class ShooterComponent
         this.kicker.set(Value.kOff);
         this.hood.set(Value.kOff);
         this.setMotorSpeed(0.0);
+        this.light.set(false);
     }
 }

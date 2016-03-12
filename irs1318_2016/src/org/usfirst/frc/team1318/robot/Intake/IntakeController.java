@@ -9,12 +9,12 @@ public class IntakeController implements IController
 {
     private final IntakeComponent intake;
     private Driver driver;
-    
+
     public IntakeController(IntakeComponent intake) 
     {
         this.intake = intake;
     }
-    
+
     @Override
     public void update()
     {
@@ -27,7 +27,7 @@ public class IntakeController implements IController
         {
             this.intake.extendOrRetract(false);
         }
-        
+
         // Roll the intake in, out, or not at all when appropriate
         if (this.driver.getDigital(Operation.IntakeRotatingIn))
         {
@@ -41,7 +41,7 @@ public class IntakeController implements IController
         {
             this.intake.setIntakeSpeed(0.0);
         }
-        
+
         // Turn on the intake light if the through beam sensor is broken
         this.intake.setIntakeLight(this.intake.getThroughBeamBroken());
     }
