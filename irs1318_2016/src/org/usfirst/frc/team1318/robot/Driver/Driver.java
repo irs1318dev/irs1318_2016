@@ -7,13 +7,10 @@ import org.usfirst.frc.team1318.robot.HardwareConstants;
 import org.usfirst.frc.team1318.robot.TuningConstants;
 import org.usfirst.frc.team1318.robot.Driver.Buttons.AnalogAxis;
 import org.usfirst.frc.team1318.robot.Driver.Buttons.ButtonType;
-import org.usfirst.frc.team1318.robot.Driver.ControlTasks.BreachDrawbridgeTask;
-import org.usfirst.frc.team1318.robot.Driver.ControlTasks.BreachPortcullisTask;
 import org.usfirst.frc.team1318.robot.Driver.ControlTasks.ClimbingArmLifterMoveTask;
 import org.usfirst.frc.team1318.robot.Driver.ControlTasks.ClimbingArmElbowTask;
 import org.usfirst.frc.team1318.robot.Driver.ControlTasks.ClimbingArmShoulderTask;
 import org.usfirst.frc.team1318.robot.Driver.ControlTasks.ConcurrentTask;
-import org.usfirst.frc.team1318.robot.Driver.ControlTasks.DefenseArmPositionTask;
 import org.usfirst.frc.team1318.robot.Driver.ControlTasks.DriveDistanceTask;
 import org.usfirst.frc.team1318.robot.Driver.ControlTasks.DriveRouteTask;
 import org.usfirst.frc.team1318.robot.Driver.ControlTasks.IntakePositionTask;
@@ -80,97 +77,6 @@ public abstract class Driver
                     UserInputDevice.None,
                     UserInputDeviceButton.NONE,
                     ButtonType.Toggle));
-
-            // Operations for the defense arm
-            put(
-                Operation.DefenseArmMaxFrontPosition,
-                new DigitalOperationDescription(
-                    UserInputDevice.None,
-                    UserInputDeviceButton.NONE,
-                    ButtonType.Click));
-            put(
-                Operation.DefenseArmHorizontalFrontPosition,
-                new DigitalOperationDescription(
-                    UserInputDevice.None,
-                    UserInputDeviceButton.NONE,
-                    ButtonType.Click));
-            put(
-                Operation.DefenseArmUpForwardPosition,
-                new DigitalOperationDescription(
-                    UserInputDevice.None,
-                    UserInputDeviceButton.NONE,
-                    ButtonType.Click));
-            put(
-                Operation.DefenseArmUpPosition,
-                new DigitalOperationDescription(
-                    UserInputDevice.None,
-                    UserInputDeviceButton.NONE,
-                    ButtonType.Click));
-            put(
-                Operation.DefenseArmMaxBackPosition,
-                new DigitalOperationDescription(
-                    UserInputDevice.None,
-                    UserInputDeviceButton.NONE,
-                    ButtonType.Click));
-            put(
-                Operation.DefenseArmMolassesMode,
-                new DigitalOperationDescription(
-                    UserInputDevice.None,
-                    UserInputDeviceButton.NONE,
-                    ButtonType.Simple));
-            put(
-                Operation.DefenseArmMoveForward,
-                new DigitalOperationDescription(
-                    UserInputDevice.None,
-                    UserInputDeviceButton.NONE,
-                    ButtonType.Simple));
-            put(
-                Operation.DefenseArmMoveBack,
-                new DigitalOperationDescription(
-                    UserInputDevice.None,
-                    UserInputDeviceButton.NONE,
-                    ButtonType.Simple));
-            put(
-                Operation.DefenseArmTakePositionInput,
-                new DigitalOperationDescription(
-                    UserInputDevice.None,
-                    UserInputDeviceButton.NONE,
-                    ButtonType.Simple));
-            put(
-                Operation.DefenseArmSetAngle,
-                new AnalogOperationDescription(
-                    UserInputDevice.None,
-                    AnalogAxis.None));
-            put(
-                Operation.DefenseArmIgnoreSensors,
-                new DigitalOperationDescription(
-                    UserInputDevice.None,
-                    UserInputDeviceButton.NONE,
-                    ButtonType.Click));
-            put(
-                Operation.DefenseArmUseSensors,
-                new DigitalOperationDescription(
-                    UserInputDevice.None,
-                    UserInputDeviceButton.NONE,
-                    ButtonType.Click));
-            put(
-                Operation.DisableDefenseArmPID,
-                new DigitalOperationDescription(
-                    UserInputDevice.None,
-                    UserInputDeviceButton.NONE,
-                    ButtonType.Click));
-            put(
-                Operation.EnableDefenseArmPID,
-                new DigitalOperationDescription(
-                    UserInputDevice.None,
-                    UserInputDeviceButton.NONE,
-                    ButtonType.Click));
-            put(
-                Operation.DefenseArmSetAtMiddleAngle,
-                new DigitalOperationDescription(
-                    UserInputDevice.None,
-                    UserInputDeviceButton.NONE,
-                    ButtonType.Click));
 
             // Operations for the shooter
             put(

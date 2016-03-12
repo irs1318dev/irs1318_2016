@@ -4,7 +4,6 @@ import java.util.ArrayList;
 
 import org.usfirst.frc.team1318.robot.Common.IController;
 import org.usfirst.frc.team1318.robot.Compressor.CompressorController;
-import org.usfirst.frc.team1318.robot.DefenseArm.DefenseArmController;
 import org.usfirst.frc.team1318.robot.DriveTrain.DriveTrainController;
 import org.usfirst.frc.team1318.robot.Driver.Driver;
 import org.usfirst.frc.team1318.robot.Intake.IntakeController;
@@ -23,7 +22,6 @@ public class ControllerManager implements IController
         this.controllerList.add(this.components.getPositionManager());
         this.controllerList.add(new CompressorController(this.components.getCompressor()));
         this.controllerList.add(new DriveTrainController(this.components.getDriveTrain(), TuningConstants.DRIVETRAIN_USE_PID_DEFAULT));
-        //this.controllerList.add(new DefenseArmController(this.components.getDefenseArm()));
         this.controllerList.add(new IntakeController(this.components.getIntake()));
         this.controllerList.add(new ShooterController(this.components.getShooter(), this.components.getPowerManager()));
         //this.controllerList.add(new ClimbingArmController(this.components.getClimbingArm()));

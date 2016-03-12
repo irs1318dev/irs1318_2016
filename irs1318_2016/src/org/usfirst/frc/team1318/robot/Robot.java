@@ -5,7 +5,6 @@ import org.usfirst.frc.team1318.robot.Driver.Driver;
 import org.usfirst.frc.team1318.robot.Driver.IControlTask;
 import org.usfirst.frc.team1318.robot.Driver.Autonomous.AutonomousDriver;
 import org.usfirst.frc.team1318.robot.Driver.ControlTasks.ConcurrentTask;
-import org.usfirst.frc.team1318.robot.Driver.ControlTasks.DefenseArmPositionTask;
 import org.usfirst.frc.team1318.robot.Driver.ControlTasks.DriveDistanceTask;
 import org.usfirst.frc.team1318.robot.Driver.ControlTasks.DriveTimedTask;
 import org.usfirst.frc.team1318.robot.Driver.ControlTasks.WaitTask;
@@ -126,31 +125,29 @@ public class Robot extends IterativeRobot
                 break;
 
             case 1://Switch A in
-                autonomousRoutine = Robot.GetDriveTimedAndDefenseArmPositionRoutine(
-                    TuningConstants.AUTONOMOUS_TIME_SLOW,
-                    0.0,
-                    TuningConstants.DRIVETRAIN_AUTONOMOUS_SLOW_VELOCITY,
-                    TuningConstants.DEFENSE_ARM_LOWBAR_APPROACH_POSITION);
-
-                break;
-
-            case 2://Switch B in
-                autonomousRoutine = Robot.GetDriveTimeRoutine(
+                autonomousRoutine = Robot.GetDriveTimedRoutine(
                     TuningConstants.AUTONOMOUS_TIME_SLOW,
                     0.0,
                     TuningConstants.DRIVETRAIN_AUTONOMOUS_SLOW_VELOCITY);
 
                 break;
 
-            case 3://Switches A and B in
-                autonomousRoutine = Robot.GetDriveTimeRoutine(
+            case 2://Switch B in
+                autonomousRoutine = Robot.GetDriveTimedRoutine(
                     TuningConstants.AUTONOMOUS_TIME_FAST,
                     0.0,
                     TuningConstants.DRIVETRAIN_AUTONOMOUS_FAST_VELOCITY);
+
+                break;
+
+            case 3://Switches A and B in
+                autonomousRoutine = Robot.GetFillerRoutine();
+
                 break;
 
             default://both flipped or can't read 
                 autonomousRoutine = Robot.GetFillerRoutine();
+
                 break;
         }
 
@@ -235,7 +232,7 @@ public class Robot extends IterativeRobot
     {
         return new WaitTask(0);
     }
-    
+
     /**
      * Gets an autonomous routine that moves forward the specified distance 
      * 
@@ -246,48 +243,19 @@ public class Robot extends IterativeRobot
     {
         return new DriveDistanceTask(distance);
     }
-    
-    /**
-     * Gets an autonomous routine that moves the robot forward the specified distance while putting the arm at the specified position
-     * 
-     * @param distance - distance to be driven forward
-     * @param position - desired position for the defense arm
-     * @return ConcurrentTask of the desired behaviors
-     */
-    private static IControlTask GetDriveDistanceAndDefenseArmPositionRoutine(double distance, double position)
-    {
-        return ConcurrentTask.AllTasks(new DriveDistanceTask(distance), new DefenseArmPositionTask(position));
-    }
-    
+
     /**
      * Gets an autonomous routine that moves the specified velocity for the specified time
      * 
      * @param time - time to drive forward
-     * @param xVelocity - velocity in the xto maintain while driving
+     * @param xVelocity - velocity in the x to maintain while driving
      * @param yVelocity - velocity in the y to maintain while driving
      * @return DriveTimedTask of specified time, and x and y velocities
      */
-    private static IControlTask GetDriveTimeRoutine(double time, double xVelocity, double yVelocity)
+    private static IControlTask GetDriveTimedRoutine(double time, double xVelocity, double yVelocity)
     {
         return new DriveTimedTask(time, xVelocity, yVelocity);
     }
-    
-    /**
-     * Gets an autonomous routine that moves the robot forward for the specified time with the specified velocity,
-     * while putting the arm at the specified position.
-     * 
-     * @param time - time to drive forward
-     * @param xVelocity - velocity in the xto maintain while driving
-     * @param yVelocity - velocity in the y to maintain while driving
-     * @param position - desired position for the defense arm
-     * @return ConcurrentTask of the desired behaviors
-     */
-    private static IControlTask GetDriveTimedAndDefenseArmPositionRoutine(double time, double xVelocity, double yVelocity, double position)
-    {
-        return ConcurrentTask.AllTasks(new DriveTimedTask(time, xVelocity, yVelocity), new DefenseArmPositionTask(position));
-    }
-    
-    
 }
 
 /*

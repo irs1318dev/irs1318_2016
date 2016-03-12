@@ -38,14 +38,6 @@ public class ElectronicsConstants
     public static final int AUTONOMOUS_DIP_SWITCH_A = 10;
     public static final int AUTONOMOUS_DIP_SWITCH_B = 11;
 
-    //================================================= Defense Arm ===============================================================
-
-    public static final int DEFENSE_ARM_MOTOR_CHANNEL = 0;
-    public static final int DEFENSE_ARM_FRONT_LIMIT_SWITCH_CHANNEL = 6;
-    public static final int DEFENSE_ARM_BACK_LIMIT_SWITCH_CHANNEL = 7;
-    public static final int DEFENSE_ARM_ENCODER_CHANNEL_A = 4;
-    public static final int DEFENSE_ARM_ENCODER_CHANNEL_B = 5;
-
     //=================================================== Shooter ===================================================================
 
     public static final int SHOOTER_TALON_CHANNEL = 1;
@@ -62,7 +54,7 @@ public class ElectronicsConstants
     public static final int INTAKE_MOTOR_CHANNEL = 3;
     public static final int INTAKE_LIGHT_CHANNEL = 0;
     public static final int INTAKE_THROUGH_BEAM_SENSOR_CHANNEL = 0;
-    
+
     public static final int INTAKE_SOLENOID_CHANNEL_A = 4;
     public static final int INTAKE_SOLENOID_CHANNEL_B = 3;
 
@@ -78,8 +70,4 @@ public class ElectronicsConstants
 
     public static final int CLIMBING_ARM_BOTTOM_LIMIT_SWITCH_CHANNEL = 0;
     public static final int CLIMBING_ARM_TOP_LIMIT_SWITCH_CHANNEL = 0;
-
-
-
-
 }
