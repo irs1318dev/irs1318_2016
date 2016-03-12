@@ -49,9 +49,8 @@ public class ElectronicsConstants
     //=================================================== Shooter ===================================================================
 
     public static final int SHOOTER_TALON_CHANNEL = 1;
-    //public static final int SHOOTER_COUNTER_CHANNEL = 8;
-    public static final int SHOOTER_KICKER_CHANNEL_A = 6;
-    public static final int SHOOTER_KICKER_CHANNEL_B = 1;
+    public static final int SHOOTER_KICKER_CHANNEL_A = 2;
+    public static final int SHOOTER_KICKER_CHANNEL_B = 3;
     public static final int SHOOTER_HOOD_CHANNEL_A = 5;
     public static final int SHOOTER_HOOD_CHANNEL_B = 2;
     public static final int SHOOTER_ENCODER_CHANNEL_A = 8;
@@ -61,7 +60,7 @@ public class ElectronicsConstants
     //=================================================== Intake =================================================================
 
     public static final int INTAKE_MOTOR_CHANNEL = 3;
-    public static final int INTAKE_LIGHT_CHANNEL = 0; //0 and 1 on PCM B, and 
+    public static final int INTAKE_LIGHT_CHANNEL = 0;
     public static final int INTAKE_THROUGH_BEAM_SENSOR_CHANNEL = 0;
     
     public static final int INTAKE_SOLENOID_CHANNEL_A = 4;

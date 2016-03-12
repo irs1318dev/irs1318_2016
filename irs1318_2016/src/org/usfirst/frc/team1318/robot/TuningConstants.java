@@ -103,7 +103,7 @@ public class TuningConstants
     public static final double SHOOTER_FAR_SHOT_VELOCITY = 0.85;
     public static final double SHOOTER_LOWER_KICKER_DURATION = 0.5;
     public static final double SHOOTER_SPIN_UP_DURATION = 1.75;
-    public static final double SHOOTER_FIRE_DURATION = 1.5;
+    public static final double SHOOTER_FIRE_DURATION = 0.75;
 
     public static final double SHOOTER_REVERSE_SPEED = -0.1;
     public static final double SHOOTER_REVERSE_DURATION = 0.5;
