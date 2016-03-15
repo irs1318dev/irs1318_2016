@@ -44,6 +44,7 @@ public class ShooterSpinUpTask extends TimedTask implements IControlTask
         this.setDigitalOperationState(Operation.ShooterExtendHood, this.extendHood);
     }
 
+    
     @Override
     public boolean hasCompleted()
     {

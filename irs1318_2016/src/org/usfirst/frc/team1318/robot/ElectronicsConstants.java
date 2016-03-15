@@ -55,8 +55,11 @@ public class ElectronicsConstants
     public static final int INTAKE_LIGHT_CHANNEL = 0;
     public static final int INTAKE_THROUGH_BEAM_SENSOR_CHANNEL = 0;
 
-    public static final int INTAKE_SOLENOID_CHANNEL_A = 4;
-    public static final int INTAKE_SOLENOID_CHANNEL_B = 3;
+    public static final int INTAKE_BASE_SOLENOID_CHANNEL_A = 4;
+    public static final int INTAKE_BASE_SOLENOID_CHANNEL_B = 3;
+    
+    public static final int INTAKE_EXTENSION_SOLENOID_CHANNEL_A = 4;
+    public static final int INTAKE_EXTENSION_SOLENOID_CHANNEL_B = 3;
 
     // ================================================= Climbing Arm =============================================================
 

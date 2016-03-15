@@ -18,14 +18,24 @@ public class IntakeController implements IController
     @Override
     public void update()
     {
-        // Check for intake extension desire, and extend or retract appropriately
-        if (this.driver.getDigital(Operation.IntakeExtend))
+        // Check for "intake base" extend desire, and extend or retract appropriately
+        if (this.driver.getDigital(Operation.IntakeBaseExtend))
         {
-            this.intake.extendOrRetract(true);
+            this.intake.extendOrRetractBase(true);
         }
-        else if (this.driver.getDigital(Operation.IntakeRetract))
+        else if (this.driver.getDigital(Operation.IntakeBaseRetract))
         {
-            this.intake.extendOrRetract(false);
+            this.intake.extendOrRetractBase(false);
+        }
+        
+        // Check for "intake extension" extend desire, and extend or retract appropriately
+        if (this.driver.getDigital(Operation.IntakeBaseExtend))
+        {
+            this.intake.extendOrRetractExtension(true);
+        }
+        else if (this.driver.getDigital(Operation.IntakeBaseRetract))
+        {
+            this.intake.extendOrRetractExtension(false);
         }
 
         // Roll the intake in, out, or not at all when appropriate

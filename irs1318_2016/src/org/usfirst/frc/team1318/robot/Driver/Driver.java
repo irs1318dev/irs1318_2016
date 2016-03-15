@@ -111,16 +111,28 @@ public abstract class Driver
                     UserInputDeviceButton.JOYSTICK_STICK_BOTTOM_RIGHT_BUTTON,
                     ButtonType.Simple));
             put(
-                Operation.IntakeExtend,
+                Operation.IntakeBaseExtend,
                 new DigitalOperationDescription(
                     UserInputDevice.Driver,
                     0,
                     ButtonType.Click));
             put(
-                Operation.IntakeRetract,
+                Operation.IntakeBaseRetract,
                 new DigitalOperationDescription(
                     UserInputDevice.Driver,
                     180,
+                    ButtonType.Click));
+            put(
+                Operation.IntakeExtensionExtend,
+                new DigitalOperationDescription(
+                    UserInputDevice.Driver,
+                    UserInputDeviceButton.JOYSTICK_BASE_TOP_LEFT_BUTTON,
+                    ButtonType.Click));
+            put(
+                Operation.IntakeExtensionRetract,
+                new DigitalOperationDescription(
+                    UserInputDevice.Driver,
+                    UserInputDeviceButton.JOYSTICK_BASE_MIDDLE_LEFT_BUTTON,
                     ButtonType.Click));
 
             // Operations for the climbing arm
@@ -165,7 +177,7 @@ public abstract class Driver
             put(
                 Operation.DisablePID,
                 new DigitalOperationDescription(
-                    UserInputDevice.CoDriver,
+                    UserInputDevice.CoDriver,   
                     UserInputDeviceButton.BUTTON_PAD_BUTTON_11,
                     ButtonType.Click));
             put(
