@@ -29,11 +29,11 @@ public class IntakeController implements IController
         }
         
         // Check for "intake extension" extend desire, and extend or retract appropriately
-        if (this.driver.getDigital(Operation.IntakeBaseExtend))
+        if (this.driver.getDigital(Operation.IntakeExtensionExtend))
         {
             this.intake.extendOrRetractExtension(true);
         }
-        else if (this.driver.getDigital(Operation.IntakeBaseRetract))
+        else if (this.driver.getDigital(Operation.IntakeExtensionRetract))
         {
             this.intake.extendOrRetractExtension(false);
         }

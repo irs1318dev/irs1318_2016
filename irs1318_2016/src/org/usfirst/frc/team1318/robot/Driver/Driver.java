@@ -271,6 +271,8 @@ public abstract class Driver
                         Operation.ShooterExtendHood,
                         Operation.IntakeRotatingIn,
                         Operation.IntakeRotatingOut,
+                        Operation.IntakeBaseExtend,
+                        Operation.IntakeBaseRetract,
                     }));
             put(
                 MacroOperation.Shoot,
