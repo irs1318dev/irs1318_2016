@@ -75,7 +75,8 @@ public class TuningConstants
 
     public static final double SHOOTER_CLOSE_SHOT_VELOCITY = 0.7;
     public static final double SHOOTER_MIDDLE_SHOT_VELOCITY = 0.52;
-    public static final double SHOOTER_FAR_SHOT_VELOCITY = 0.95;
+    public static final double SHOOTER_FAR_SHOT_VELOCITY = 0.7;
+   
     public static final double SHOOTER_LOWER_KICKER_DURATION = 0.5;
     public static final double SHOOTER_SPIN_UP_DURATION = 1.75;
     public static final double SHOOTER_FIRE_DURATION = 0.75;
@@ -99,6 +100,7 @@ public class TuningConstants
     //================================================== Stinger ==============================================================
 
     public static final double STINGER_MAX_VELOCTIY = 0.25;
+    public static final double STINGER_SLOW_BACK_VELOCTIY = -0.1;
 
     //================================================== Breach Macros ==============================================================
 

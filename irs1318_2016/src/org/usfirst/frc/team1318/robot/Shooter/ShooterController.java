@@ -51,7 +51,7 @@ public class ShooterController implements IController
         if (spin)
         {
             double speedPercentage = this.shooter.getCounterRate() / TuningConstants.SHOOTER_MAX_COUNTER_RATE;
-            shouldLight = speedPercentage > velocityGoal - TuningConstants.SHOOTER_DEVIANCE && speedPercentage < velocityGoal + TuningConstants.SHOOTER_DEVIANCE;
+            shouldLight = velocityGoal != 0.0 && speedPercentage > velocityGoal - TuningConstants.SHOOTER_DEVIANCE && speedPercentage < velocityGoal + TuningConstants.SHOOTER_DEVIANCE;
 
             // Calculate the power required to reach the velocity goal     
             power = this.PID.calculateVelocity(velocityGoal, currentTicks);

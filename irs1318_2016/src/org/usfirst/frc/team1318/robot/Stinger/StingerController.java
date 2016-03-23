@@ -27,7 +27,7 @@ public class StingerController implements IController
        }
        else
        {
-           this.stinger.setMotor(0.0);
+           this.stinger.setMotor(TuningConstants.STINGER_SLOW_BACK_VELOCTIY);
        }
     }
 
