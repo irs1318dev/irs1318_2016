@@ -4,7 +4,9 @@ import org.usfirst.frc.team1318.robot.Common.DashboardLogger;
 import org.usfirst.frc.team1318.robot.Driver.Driver;
 import org.usfirst.frc.team1318.robot.Driver.IControlTask;
 import org.usfirst.frc.team1318.robot.Driver.Autonomous.AutonomousDriver;
+import org.usfirst.frc.team1318.robot.Driver.ControlTasks.ConcurrentTask;
 import org.usfirst.frc.team1318.robot.Driver.ControlTasks.DriveTimedTask;
+import org.usfirst.frc.team1318.robot.Driver.ControlTasks.IntakeExtendTask;
 import org.usfirst.frc.team1318.robot.Driver.ControlTasks.WaitTask;
 import org.usfirst.frc.team1318.robot.Driver.User.UserDriver;
 
@@ -241,7 +243,7 @@ public class Robot extends IterativeRobot
      */
     private static IControlTask GetDriveTimedRoutine(double time, double xVelocity, double yVelocity)
     {
-        return new DriveTimedTask(time, xVelocity, yVelocity);
+        return ConcurrentTask.AllTasks(new IntakeExtendTask(0.5, true), new DriveTimedTask(time, xVelocity, yVelocity));
     }
 }
 
