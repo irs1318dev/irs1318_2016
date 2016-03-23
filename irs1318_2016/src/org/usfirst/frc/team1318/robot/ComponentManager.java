@@ -7,6 +7,7 @@ import org.usfirst.frc.team1318.robot.General.PositionManager;
 import org.usfirst.frc.team1318.robot.General.PowerManager;
 import org.usfirst.frc.team1318.robot.Intake.IntakeComponent;
 import org.usfirst.frc.team1318.robot.Shooter.ShooterComponent;
+import org.usfirst.frc.team1318.robot.Stinger.StingerComponent;
 
 public class ComponentManager
 {
@@ -15,6 +16,7 @@ public class ComponentManager
     private ShooterComponent shooterComponent;
     private IntakeComponent intakeComponent;
     private ClimbingArmComponent climbingArmComponent;
+    private StingerComponent stingerComponent;
 
     private PowerManager powerManager;
     private PositionManager positionManager;
@@ -25,6 +27,7 @@ public class ComponentManager
         this.driveTrainComponent = new DriveTrainComponent();
         this.shooterComponent = new ShooterComponent();
         this.intakeComponent = new IntakeComponent();
+        this.stingerComponent = new StingerComponent();
         //this.climbingArmComponent = new ClimbingArmComponent();
 
         this.powerManager = new PowerManager();
@@ -64,5 +67,10 @@ public class ComponentManager
     public PositionManager getPositionManager()
     {
         return this.positionManager;
+    }
+    
+    public StingerComponent getStingerComponent()
+    {
+        return this.stingerComponent;
     }
 }

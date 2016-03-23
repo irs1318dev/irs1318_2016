@@ -103,8 +103,8 @@ public class Robot extends IterativeRobot
         // Find desired autonomous routine.
         IControlTask autonomousRoutine = Robot.GetFillerRoutine();
 
-        DashboardLogger.putBoolean("Dipswitch in DIO 8 reads: ", !this.dipSwitchA.get());
-        DashboardLogger.putBoolean("Dipswitch in DIO 9 reads: ", !this.dipSwitchB.get());
+        DashboardLogger.putBoolean("Dipswitch in DIO 10 reads: ", !this.dipSwitchA.get());
+        DashboardLogger.putBoolean("Dipswitch in DIO 11 reads: ", !this.dipSwitchB.get());
 
         int routineSelection = 0;
         if (!this.dipSwitchA.get())

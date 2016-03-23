@@ -14,13 +14,13 @@ public class IntakePositionTask extends ControlTaskBase
     @Override
     public void begin()
     {
-        this.setDigitalOperationState(Operation.IntakeBaseExtend, this.extend);
+        this.setDigitalOperationState(Operation.IntakeExtend, this.extend);
     }
 
     @Override
     public void update()
     {
-        this.setDigitalOperationState(Operation.IntakeBaseExtend, this.extend);
+        this.setDigitalOperationState(Operation.IntakeExtend, this.extend);
     }
 
     @Override
@@ -31,7 +31,7 @@ public class IntakePositionTask extends ControlTaskBase
     @Override
     public void end()
     {
-        this.setDigitalOperationState(Operation.IntakeBaseExtend, this.extend);
+        this.setDigitalOperationState(Operation.IntakeExtend, this.extend);
     }
 
     @Override

@@ -12,6 +12,7 @@ import org.usfirst.frc.team1318.robot.Driver.ControlTasks.ClimbingArmShoulderTas
 import org.usfirst.frc.team1318.robot.Driver.ControlTasks.PIDBrakeTask;
 import org.usfirst.frc.team1318.robot.Driver.ControlTasks.SequentialTask;
 import org.usfirst.frc.team1318.robot.Driver.ControlTasks.ShooterKickerTask;
+import org.usfirst.frc.team1318.robot.Driver.ControlTasks.ShooterSpinDownTask;
 import org.usfirst.frc.team1318.robot.Driver.ControlTasks.ShooterSpinUpTask;
 import org.usfirst.frc.team1318.robot.Driver.ControlTasks.IntakeExtendTask;
 import org.usfirst.frc.team1318.robot.Driver.Descriptions.AnalogOperationDescription;
@@ -82,8 +83,8 @@ public abstract class Driver
             put(
                 Operation.ShooterSpin,
                 new DigitalOperationDescription(
-                    UserInputDevice.None,
-                    UserInputDeviceButton.NONE,
+                    UserInputDevice.Driver,
+                    UserInputDeviceButton.JOYSTICK_STICK_TOP_RIGHT_BUTTON,
                     ButtonType.Simple));
             put(
                 Operation.ShooterLowerKicker,
@@ -112,28 +113,16 @@ public abstract class Driver
                     UserInputDeviceButton.JOYSTICK_STICK_BOTTOM_RIGHT_BUTTON,
                     ButtonType.Simple));
             put(
-                Operation.IntakeBaseExtend,
+                Operation.IntakeExtend,
                 new DigitalOperationDescription(
                     UserInputDevice.Driver,
                     0,
                     ButtonType.Click));
             put(
-                Operation.IntakeBaseRetract,
+                Operation.IntakeRetract,
                 new DigitalOperationDescription(
                     UserInputDevice.Driver,
                     180,
-                    ButtonType.Click));
-            put(
-                Operation.IntakeExtensionExtend,
-                new DigitalOperationDescription(
-                    UserInputDevice.Driver,
-                    UserInputDeviceButton.JOYSTICK_BASE_TOP_LEFT_BUTTON,
-                    ButtonType.Click));
-            put(
-                Operation.IntakeExtensionRetract,
-                new DigitalOperationDescription(
-                    UserInputDevice.Driver,
-                    UserInputDeviceButton.JOYSTICK_BASE_MIDDLE_LEFT_BUTTON,
                     ButtonType.Click));
 
             // Operations for the climbing arm
@@ -193,6 +182,20 @@ public abstract class Driver
                     UserInputDevice.CoDriver,
                     UserInputDeviceButton.BUTTON_PAD_BUTTON_16,
                     ButtonType.Click));
+
+            // Stinger operations
+            put(
+                Operation.StingerIn,
+                new DigitalOperationDescription(
+                    UserInputDevice.Driver,
+                    UserInputDeviceButton.JOYSTICK_BASE_TOP_LEFT_BUTTON,
+                    ButtonType.Simple));
+            put(
+                Operation.StingerOut,
+                new DigitalOperationDescription(
+                    UserInputDevice.Driver,
+                    UserInputDeviceButton.JOYSTICK_BASE_MIDDLE_LEFT_BUTTON,
+                    ButtonType.Simple));
         }
     };
 
@@ -273,8 +276,8 @@ public abstract class Driver
                         Operation.ShooterExtendHood,
                         Operation.IntakeRotatingIn,
                         Operation.IntakeRotatingOut,
-                        Operation.IntakeBaseExtend,
-                        Operation.IntakeBaseRetract,
+                        Operation.IntakeExtend,
+                        Operation.IntakeRetract,
                     }));
             put(
                 MacroOperation.Shoot,
@@ -284,7 +287,7 @@ public abstract class Driver
                     ButtonType.Toggle,
                     () -> SequentialTask.Sequence(
                         new ShooterKickerTask(TuningConstants.SHOOTER_FIRE_DURATION, false),
-                        new ShooterSpinUpTask(false, TuningConstants.SHOOTER_REVERSE_SPEED, TuningConstants.SHOOTER_REVERSE_DURATION)),
+                        new ShooterSpinDownTask(TuningConstants.SHOOTER_REVERSE_DURATION)),
                     new Operation[]
                     {
                         Operation.ShooterSpin,
@@ -293,6 +296,8 @@ public abstract class Driver
                         Operation.ShooterExtendHood,
                         Operation.IntakeRotatingIn,
                         Operation.IntakeRotatingOut,
+                        Operation.IntakeExtend,
+                        Operation.IntakeRetract,
                     }));
 
             // Macros for the climbing arm.

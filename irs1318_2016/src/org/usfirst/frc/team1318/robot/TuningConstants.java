@@ -80,7 +80,6 @@ public class TuningConstants
     public static final double SHOOTER_SPIN_UP_DURATION = 1.75;
     public static final double SHOOTER_FIRE_DURATION = 0.75;
 
-    public static final double SHOOTER_REVERSE_SPEED = -0.1;
     public static final double SHOOTER_REVERSE_DURATION = 0.5;
     
     public static final double SHOOTER_DEVIANCE = 0.025;
@@ -97,6 +96,10 @@ public class TuningConstants
     public static final double CLIMBING_ARM_ELBOW_UP_DURATION = 2.0;
     public static final double CLIMBING_ARM_SHOULDER_UP_DURATION = 2.0;
 
+    //================================================== Stinger ==============================================================
+
+    public static final double STINGER_MAX_VELOCTIY = 0.25;
+
     //================================================== Breach Macros ==============================================================
 
     public static final double START_TO_OUTER_WORKS_DISTANCE = 24.0 * 2.54;//74.0 * 2.54;
@@ -112,6 +115,4 @@ public class TuningConstants
     public static final double AUTONOMOUS_DEFENSE_BREACH_DISTANCE = 20 * 12 * 2.54;// Distance from start through a defense in autonomous
     public static final double AUTONOMOUS_TIME_SLOW = 8.0;
     public static final double AUTONOMOUS_TIME_FAST = 5.0;
-
-
 }

@@ -12,20 +12,16 @@ import edu.wpi.first.wpilibj.Talon;
 public class IntakeComponent
 {
     private final Talon motor;
-    private final DoubleSolenoid intakeBaseSolenoid;
-    private final DoubleSolenoid intakeExtensionSolenoid;
+    private final DoubleSolenoid intakeSolenoid;
     private final Solenoid intakeLight;
     private final AnalogInput throughBeamSensor;
 
     public IntakeComponent() 
     {
         this.motor = new Talon(ElectronicsConstants.INTAKE_MOTOR_CHANNEL);
-        this.intakeBaseSolenoid = new DoubleSolenoid(
-            ElectronicsConstants.INTAKE_BASE_SOLENOID_CHANNEL_A,
-            ElectronicsConstants.INTAKE_BASE_SOLENOID_CHANNEL_B);
-        this.intakeExtensionSolenoid = new DoubleSolenoid(
-            ElectronicsConstants.INTAKE_EXTENSION_SOLENOID_CHANNEL_A, 
-            ElectronicsConstants.INTAKE_EXTENSION_SOLENOID_CHANNEL_B);
+        this.intakeSolenoid = new DoubleSolenoid(
+            ElectronicsConstants.INTAKE_SOLENOID_CHANNEL_A,
+            ElectronicsConstants.INTAKE_SOLENOID_CHANNEL_B);
         this.intakeLight = new Solenoid(ElectronicsConstants.PCM_B_MODULE, ElectronicsConstants.INTAKE_LIGHT_CHANNEL);
         this.throughBeamSensor = new AnalogInput(ElectronicsConstants.INTAKE_THROUGH_BEAM_SENSOR_CHANNEL);
     }
@@ -34,38 +30,22 @@ public class IntakeComponent
      * Extend or retract the "base" part of the intake
      * @param extend - true extends
      */
-    public void extendOrRetractBase(boolean extend)
+    public void extendOrRetract(boolean extend)
     {
         if (extend)
         {
-            this.intakeBaseSolenoid.set(Value.kForward);
+            this.intakeSolenoid.set(Value.kForward);
         }
         else
         {
-            this.intakeBaseSolenoid.set(Value.kReverse);
-        }
-    }
-    
-    /**
-     * Extend or retract the "feet" extension of the intake
-     * @param extend - true extends
-     */
-    public void extendOrRetractExtension(boolean extend)
-    {
-        if(extend)
-        {
-            this.intakeExtensionSolenoid.set(Value.kForward);
-        }
-        else
-        {
-            this.intakeExtensionSolenoid.set(Value.kReverse);
+            this.intakeSolenoid.set(Value.kReverse);
         }
     }
 
     public void stop()
     {
         this.motor.set(0.0);
-        this.intakeBaseSolenoid.set(Value.kOff);
+        this.intakeSolenoid.set(Value.kOff);
         this.intakeLight.set(false);
     }
 

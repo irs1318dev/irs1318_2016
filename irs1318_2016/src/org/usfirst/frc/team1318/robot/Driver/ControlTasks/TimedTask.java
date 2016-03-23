@@ -63,7 +63,18 @@ public abstract class TimedTask extends ControlTaskBase implements IControlTask
      */
     protected double getRatioComplete()
     {
-        return (this.timer.get() - this.startTime) / this.duration;
+        double ratioComplete = (this.timer.get() - this.startTime) / this.duration;
+
+        if (ratioComplete < 0.0)
+        {
+            return 0.0;
+        }
+        else if (ratioComplete > 1.0)
+        {
+            return 1.0;
+        }
+
+        return ratioComplete;
     }
 
     /**

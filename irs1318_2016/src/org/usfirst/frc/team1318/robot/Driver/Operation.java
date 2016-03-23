@@ -39,10 +39,8 @@ public enum Operation
     // Intake operations:
     IntakeRotatingIn,
     IntakeRotatingOut,
-    IntakeBaseExtend,
-    IntakeBaseRetract,
-    IntakeExtensionExtend,
-    IntakeExtensionRetract,
+    IntakeExtend,
+    IntakeRetract,
     
     // Climbing arm operations:
     ClimbingArmExtend,
@@ -55,5 +53,9 @@ public enum Operation
     // Other general operations:
     EnablePID,
     DisablePID,
-    CancelBreachMacro;
+    CancelBreachMacro,
+    
+    //Stinger Operations
+    StingerOut,
+    StingerIn;
 }
