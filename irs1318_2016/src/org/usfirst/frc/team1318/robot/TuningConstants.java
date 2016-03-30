@@ -99,8 +99,8 @@ public class TuningConstants
 
     //================================================== Stinger ==============================================================
 
-    public static final double STINGER_MAX_VELOCTIY = 0.25;
-    public static final double STINGER_SLOW_BACK_VELOCTIY = -0.1;
+    public static final double STINGER_MAX_VELOCTIY = 0.5;
+    public static final double STINGER_SLOW_BACK_VELOCTIY = 0.275;
 
     //================================================== Breach Macros ==============================================================
 
@@ -115,6 +115,6 @@ public class TuningConstants
     public static final double DRIVETRAIN_AUTONOMOUS_FAST_VELOCITY = .45;
     
     public static final double AUTONOMOUS_DEFENSE_BREACH_DISTANCE = 20 * 12 * 2.54;// Distance from start through a defense in autonomous
-    public static final double AUTONOMOUS_TIME_SLOW = 8.0;
-    public static final double AUTONOMOUS_TIME_FAST = 5.0;
+    public static final double AUTONOMOUS_TIME_SLOW = 4.0;
+    public static final double AUTONOMOUS_TIME_FAST = 3.0;
 }
