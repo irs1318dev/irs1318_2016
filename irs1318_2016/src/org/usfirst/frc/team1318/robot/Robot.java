@@ -5,8 +5,15 @@ import org.usfirst.frc.team1318.robot.Driver.Driver;
 import org.usfirst.frc.team1318.robot.Driver.IControlTask;
 import org.usfirst.frc.team1318.robot.Driver.Autonomous.AutonomousDriver;
 import org.usfirst.frc.team1318.robot.Driver.ControlTasks.ConcurrentTask;
+import org.usfirst.frc.team1318.robot.Driver.ControlTasks.DriveDistanceTask;
+import org.usfirst.frc.team1318.robot.Driver.ControlTasks.DriveRouteTask;
 import org.usfirst.frc.team1318.robot.Driver.ControlTasks.DriveTimedTask;
 import org.usfirst.frc.team1318.robot.Driver.ControlTasks.IntakeExtendTask;
+import org.usfirst.frc.team1318.robot.Driver.ControlTasks.SequentialTask;
+import org.usfirst.frc.team1318.robot.Driver.ControlTasks.ShooterKickerTask;
+import org.usfirst.frc.team1318.robot.Driver.ControlTasks.ShooterSpinDownTask;
+import org.usfirst.frc.team1318.robot.Driver.ControlTasks.ShooterSpinUpTask;
+import org.usfirst.frc.team1318.robot.Driver.ControlTasks.TurnTask;
 import org.usfirst.frc.team1318.robot.Driver.ControlTasks.WaitTask;
 import org.usfirst.frc.team1318.robot.Driver.User.UserDriver;
 
@@ -244,6 +251,82 @@ public class Robot extends IterativeRobot
     private static IControlTask GetDriveTimedRoutine(double time, double xVelocity, double yVelocity)
     {
         return ConcurrentTask.AllTasks(new IntakeExtendTask(0.5, true), new DriveTimedTask(time, xVelocity, yVelocity));
+    }
+
+    /**
+     * Gets an auto routine that moves through a defense, spins the wheel, and then shoots. 
+     * 
+     * @return the relevant task
+     */
+    private static IControlTask GetDriveStraightAndShootDistanceRoutine()
+    {
+        return SequentialTask.Sequence(
+            ConcurrentTask.AllTasks(
+                new IntakeExtendTask(TuningConstants.SHOOTER_LOWER_KICKER_DURATION, true),
+                new DriveDistanceTask(578.0)),
+            new ShooterKickerTask(TuningConstants.SHOOTER_LOWER_KICKER_DURATION, true),
+            new ShooterSpinUpTask(true, TuningConstants.SHOOTER_FAR_SHOT_VELOCITY, TuningConstants.SHOOTER_SPIN_UP_DURATION),
+            new ShooterKickerTask(TuningConstants.SHOOTER_FIRE_DURATION, false),
+            new ShooterSpinDownTask(TuningConstants.SHOOTER_REVERSE_DURATION));
+    }
+
+    /**
+     * Gets an auto routine that moves through a defense, spins the wheel, and then shoots. 
+     * 
+     * @return the relevant task
+     */
+    private static IControlTask GetDriveStraightAndShootRouteRoutine()
+    {
+        return SequentialTask.Sequence(
+            ConcurrentTask.AllTasks(
+                new IntakeExtendTask(TuningConstants.SHOOTER_LOWER_KICKER_DURATION, true),
+                new DriveRouteTask(
+                    (timeRatio) -> timeRatio * 578.0,
+                    (timeRatio) -> timeRatio * 578.0,
+                    15.0)),
+            new ShooterKickerTask(TuningConstants.SHOOTER_LOWER_KICKER_DURATION, true),
+            new ShooterSpinUpTask(true, TuningConstants.SHOOTER_FAR_SHOT_VELOCITY, TuningConstants.SHOOTER_SPIN_UP_DURATION),
+            new ShooterKickerTask(TuningConstants.SHOOTER_FIRE_DURATION, false),
+            new ShooterSpinDownTask(TuningConstants.SHOOTER_REVERSE_DURATION));
+    }
+
+    /**
+     * Gets an auto routine that moves through the defense, spins the wheel, and then shoots. 
+     * 
+     * @return the relevant task
+     */
+    private static IControlTask GetDriveStraightAndTurnAndShootDistanceRoutine()
+    {
+        return SequentialTask.Sequence(
+            ConcurrentTask.AllTasks(
+                new IntakeExtendTask(TuningConstants.SHOOTER_LOWER_KICKER_DURATION, true),
+                new DriveDistanceTask(578.0)),
+            new TurnTask(60.0),
+            new ShooterKickerTask(TuningConstants.SHOOTER_LOWER_KICKER_DURATION, true),
+            new ShooterSpinUpTask(true, TuningConstants.SHOOTER_FAR_SHOT_VELOCITY, TuningConstants.SHOOTER_SPIN_UP_DURATION),
+            new ShooterKickerTask(TuningConstants.SHOOTER_FIRE_DURATION, false),
+            new ShooterSpinDownTask(TuningConstants.SHOOTER_REVERSE_DURATION));
+    }
+
+    /**
+     * Gets an auto routine that moves through the defense, spins the wheel, and then shoots. 
+     * 
+     * @return the relevant task
+     */
+    private static IControlTask GetDriveStraightAndTurnAndShootRouteRoutine()
+    {
+        return SequentialTask.Sequence(
+            ConcurrentTask.AllTasks(
+                new IntakeExtendTask(TuningConstants.SHOOTER_LOWER_KICKER_DURATION, true),
+                new DriveRouteTask(
+                    (timeRatio) -> timeRatio * 578.0,
+                    (timeRatio) -> timeRatio * 578.0,
+                    15.0)),
+            new TurnTask(60.0),
+            new ShooterKickerTask(TuningConstants.SHOOTER_LOWER_KICKER_DURATION, true),
+            new ShooterSpinUpTask(true, TuningConstants.SHOOTER_FAR_SHOT_VELOCITY, TuningConstants.SHOOTER_SPIN_UP_DURATION),
+            new ShooterKickerTask(TuningConstants.SHOOTER_FIRE_DURATION, false),
+            new ShooterSpinDownTask(TuningConstants.SHOOTER_REVERSE_DURATION));
     }
 }
 
