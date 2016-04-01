@@ -108,7 +108,7 @@ public class TuningConstants
 
     //================================================== Autonomous ==============================================================
 
-    public static final double DRIVETRAIN_POSITIONAL_ACCEPTABLE_DELTA = 0.5;
+    public static final double DRIVETRAIN_POSITIONAL_ACCEPTABLE_DELTA = 1.0;
     
     // Drivetrain autonomous velocity values
     public static final double DRIVETRAIN_AUTONOMOUS_SLOW_VELOCITY = .3;

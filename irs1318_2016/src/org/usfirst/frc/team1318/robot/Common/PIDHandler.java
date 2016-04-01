@@ -29,7 +29,8 @@ public class PIDHandler
     private final double kf;        // proportion for feed-forward
     private final double ks;        // multiplicand for adjusting scale of setpoint to match scale of measured value
 
-    private final ComplementaryFilter filter;
+    private final ComplementaryFilter errorFilter;
+    private final ComplementaryFilter outputFilter;
 
     // instance variables
     private double setpoint = 0.0;          // the input, desired value for
@@ -113,13 +114,35 @@ public class PIDHandler
      */
     public PIDHandler(double kp, double ki, double kd, double kf, double ks, double kO, double kN, Double minOutput, Double maxOutput)
     {
+        this(kp, ki, kd, kf, ks, kO, kN, 0.0, 1.0, minOutput, maxOutput);
+    }
+
+    /**
+     * This constructor initializes the object and sets constants to affect gain.
+     * This utilizes a complementary filter to slow ramp-up/ramp-down.
+     * 
+     * @param kp scalar for proportional component
+     * @param ki scalar for integral component
+     * @param kd scalar for derivative component
+     * @param kf scalar for feed-forward control
+     * @param ks scalar for adjusting scale difference between measured value and setpoint value
+     * @param kO scalar for output complementary filter multiplier
+     * @param kN scalar for output complementary filter multiplier
+     * @param kEO scalar for error complementary filter multiplier
+     * @param kEN scalar for error complementary filter multiplier
+     * @param minOutput indicates the minimum output value acceptable, or null
+     * @param maxOutput indicates the maximum output value acceptable, or null
+     */
+    public PIDHandler(double kp, double ki, double kd, double kf, double ks, double kO, double kN, double kEO, double kEN, Double minOutput, Double maxOutput)
+    {
         this.ki = ki;
         this.kd = kd;
         this.kp = kp;
         this.kf = kf;
         this.ks = ks;
 
-        this.filter = new ComplementaryFilter(kO, kN);
+        this.errorFilter = new ComplementaryFilter(kEO, kEN);
+        this.outputFilter = new ComplementaryFilter(kO, kN);
 
         this.minOutput = minOutput;
         this.maxOutput = maxOutput;
@@ -127,7 +150,6 @@ public class PIDHandler
         this.timer = new Timer();
         this.timer.start();
         this.prevTime = this.timer.get();
-
     }
 
     /**
@@ -155,7 +177,8 @@ public class PIDHandler
             this.prevTime = this.curTime;
 
             // calculate error
-            this.error = this.setpoint - this.measuredValue;
+            this.errorFilter.update(this.setpoint - this.measuredValue);
+            this.error = this.errorFilter.getValue();
 
             // calculate integral, limiting it based on MaxOutput/MinOutput
             double potentialI = this.ki * (this.integral + this.error * this.dt);
@@ -194,8 +217,8 @@ public class PIDHandler
             }
 
             // apply complementary filter to slow ramp-up/ramp-down
-            this.filter.update(result);
-            this.output = this.filter.getValue();
+            this.outputFilter.update(result);
+            this.output = this.outputFilter.getValue();
             this.prevMeasuredValue = this.measuredValue;
         }
 
@@ -229,7 +252,9 @@ public class PIDHandler
             // calculate change in ticks since our last measurement
             double deltaX = this.measuredValue - this.prevMeasuredValue;
             double timeRatio = 0.02 / this.dt;
-            this.error = this.ks * this.setpoint - deltaX * timeRatio;
+
+            this.errorFilter.update(this.ks * this.setpoint - deltaX * timeRatio);
+            this.error = this.errorFilter.getValue();
 
             // calculate integral, limiting it based on MaxOutput/MinOutput
             double potentialI = this.ki * (this.integral + this.error * this.dt);
@@ -268,8 +293,8 @@ public class PIDHandler
             }
 
             // apply complementary filter to slow ramp-up/ramp-down
-            this.filter.update(result);
-            this.output = this.filter.getValue();
+            this.outputFilter.update(result);
+            this.output = this.outputFilter.getValue();
             this.prevMeasuredValue = this.measuredValue;
         }
 

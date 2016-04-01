@@ -27,6 +27,6 @@ public class ComplementaryFilter
     
     public void update(double value)
     {
-        this.currentValue = this.currentValue * kO + value * kN;
+        this.currentValue = this.currentValue * this.kO + value * this.kN;
     }
 }

@@ -22,14 +22,15 @@ public class IntakeExtendTask extends TimedTask implements IControlTask
     public void begin()
     {
         super.begin();
-        if (lower)
+        if (this.lower)
         {
-            this.setDigitalOperationState(Operation.IntakeExtend, this.lower);
+            this.setDigitalOperationState(Operation.IntakeExtend, true);
+            this.setDigitalOperationState(Operation.IntakeRetract, false);
         }
         else 
         {
-            this.setDigitalOperationState(Operation.IntakeRetract, this.lower);
-
+            this.setDigitalOperationState(Operation.IntakeExtend, false);
+            this.setDigitalOperationState(Operation.IntakeRetract, true);
         }
     }
     
@@ -42,6 +43,8 @@ public class IntakeExtendTask extends TimedTask implements IControlTask
     @Override
     public void end()
     {
+        this.setDigitalOperationState(Operation.IntakeExtend, false);
+        this.setDigitalOperationState(Operation.IntakeRetract, false);
     }
     
     @Override
