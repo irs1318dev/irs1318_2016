@@ -336,10 +336,22 @@ public class Robot extends IterativeRobot
             new DriveDistanceTask(TuningConstants.START_TO_OUTER_WORKS_DISTANCE)),
             ConcurrentTask.AllTasks(
                 new StingerTask(TuningConstants.AUTONOMOUS_CHEVAL_BREACH_TIME),
-                new DriveDistanceTask(TuningConstants.AUTONOMOUS_CHEVAL_BREACH_TIME))
+                new DriveDistanceTask(TuningConstants.AUTONOMOUS_CHEVAL_BREACH_DISTANCE))
             );
     }
+    
+    private static IControlTask GetPortcullisRoutine(){
+        return SequentialTask.Sequence(
+            new DriveDistanceTask(TuningConstants.START_TO_OUTER_WORKS_DISTANCE),
+            ConcurrentTask.AllTasks(
+                new StingerTask(TuningConstants.AUTONOMOUS_PORTCULLIS_BREACH_TIME),
+                new DriveDistanceTask(TuningConstants.AUTONOMOUS_PORTCULLIS_BREACH_DISTANCE)
+            )
+       );
+    
+    }
 }
+
 
 /*
 
