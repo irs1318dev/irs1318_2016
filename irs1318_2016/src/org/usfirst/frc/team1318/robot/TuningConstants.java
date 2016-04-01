@@ -117,4 +117,12 @@ public class TuningConstants
     public static final double AUTONOMOUS_DEFENSE_BREACH_DISTANCE = 20 * 12 * 2.54;// Distance from start through a defense in autonomous
     public static final double AUTONOMOUS_TIME_SLOW = 4.0;
     public static final double AUTONOMOUS_TIME_FAST = 3.0;
+    
+    // Cheval De Frise values
+    public static final double AUTONOMOUS_CHEVAL_BREACH_TIME = 3;
+    public static final double AUTONOMOUS_CHEVAL_BREACH_DISTANCE = 500;
+    
+    //Portcullis values
+    public static final double AUTONOMOUS_PORTCULLIS_BREACH_TIME = 3;
+    public static final double AUTONOMOUS_PORTCULLIS_BREACH_DISTANCE = 500;
 }

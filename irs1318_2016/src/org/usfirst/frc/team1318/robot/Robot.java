@@ -14,6 +14,7 @@ import org.usfirst.frc.team1318.robot.Driver.ControlTasks.SequentialTask;
 import org.usfirst.frc.team1318.robot.Driver.ControlTasks.ShooterKickerTask;
 import org.usfirst.frc.team1318.robot.Driver.ControlTasks.ShooterSpinDownTask;
 import org.usfirst.frc.team1318.robot.Driver.ControlTasks.ShooterSpinUpTask;
+import org.usfirst.frc.team1318.robot.Driver.ControlTasks.StingerTask;
 import org.usfirst.frc.team1318.robot.Driver.ControlTasks.TurnTask;
 import org.usfirst.frc.team1318.robot.Driver.ControlTasks.WaitTask;
 import org.usfirst.frc.team1318.robot.Driver.User.UserDriver;
@@ -333,7 +334,26 @@ public class Robot extends IterativeRobot
             new ShooterKickerTask(TuningConstants.SHOOTER_FIRE_DURATION, false),
             new ShooterSpinDownTask(TuningConstants.SHOOTER_REVERSE_DURATION));
     }
-    
+
+    private static IControlTask GetChevalDeFriseRoutine()
+    {
+        return SequentialTask.Sequence(ConcurrentTask.AllTasks(
+            new IntakeExtendTask(TuningConstants.SHOOTER_LOWER_KICKER_DURATION, true),
+            new DriveDistanceTask(TuningConstants.START_TO_OUTER_WORKS_DISTANCE)),
+            ConcurrentTask.AllTasks(
+                new StingerTask(TuningConstants.AUTONOMOUS_CHEVAL_BREACH_TIME),
+                new DriveDistanceTask(TuningConstants.AUTONOMOUS_CHEVAL_BREACH_DISTANCE)));
+    }
+
+    private static IControlTask GetPortcullisRoutine()
+    {
+        return SequentialTask.Sequence(
+            new DriveDistanceTask(TuningConstants.START_TO_OUTER_WORKS_DISTANCE),
+            ConcurrentTask.AllTasks(
+                new StingerTask(TuningConstants.AUTONOMOUS_PORTCULLIS_BREACH_TIME),
+                new DriveDistanceTask(TuningConstants.AUTONOMOUS_PORTCULLIS_BREACH_DISTANCE)));
+    }
+
     private static IControlTask GetDriveStraightAndTurnAndShootCloseRouteRoutine()
     {
         return SequentialTask.Sequence(
