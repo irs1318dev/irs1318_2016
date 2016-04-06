@@ -104,7 +104,8 @@ public class TuningConstants
 
     //================================================== Breach Macros ==============================================================
 
-    public static final double START_TO_OUTER_WORKS_DISTANCE = 24.0 * 2.54;//74.0 * 2.54;
+    public static final double START_TO_PORTCULLIS_DISTANCE = 24.0 * 2.54;//74.0 * 2.54;
+    public static final double START_TO_CHEVAL_DE_FRISE_DISTANCE = 24.0 * 2.54;//74.0 * 2.54;
 
     //================================================== Autonomous ==============================================================
 

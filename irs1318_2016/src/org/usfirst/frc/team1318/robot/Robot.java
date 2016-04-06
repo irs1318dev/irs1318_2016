@@ -335,23 +335,46 @@ public class Robot extends IterativeRobot
             new ShooterSpinDownTask(TuningConstants.SHOOTER_REVERSE_DURATION));
     }
 
-    private static IControlTask GetChevalDeFriseRoutine()
-    {
-        return SequentialTask.Sequence(ConcurrentTask.AllTasks(
-            new IntakeExtendTask(TuningConstants.SHOOTER_LOWER_KICKER_DURATION, true),
-            new DriveDistanceTask(TuningConstants.START_TO_OUTER_WORKS_DISTANCE)),
-            ConcurrentTask.AllTasks(
-                new StingerTask(TuningConstants.AUTONOMOUS_CHEVAL_BREACH_TIME),
-                new DriveDistanceTask(TuningConstants.AUTONOMOUS_CHEVAL_BREACH_DISTANCE)));
-    }
-
-    private static IControlTask GetPortcullisRoutine()
+    private static IControlTask GetChevalDeFriseRouteAndShootRoutine()
     {
         return SequentialTask.Sequence(
-            new DriveDistanceTask(TuningConstants.START_TO_OUTER_WORKS_DISTANCE),
             ConcurrentTask.AllTasks(
-                new StingerTask(TuningConstants.AUTONOMOUS_PORTCULLIS_BREACH_TIME),
-                new DriveDistanceTask(TuningConstants.AUTONOMOUS_PORTCULLIS_BREACH_DISTANCE)));
+                new IntakeExtendTask(TuningConstants.SHOOTER_LOWER_KICKER_DURATION, true),
+                new DriveRouteTask(
+                    (timeRatio) -> timeRatio * TuningConstants.START_TO_CHEVAL_DE_FRISE_DISTANCE,
+                    (timeRatio) -> timeRatio * TuningConstants.START_TO_CHEVAL_DE_FRISE_DISTANCE,
+                    2.0)),
+            new StingerTask(TuningConstants.AUTONOMOUS_CHEVAL_BREACH_TIME, true),
+            new DriveRouteTask(
+                (timeRatio) -> timeRatio * 715.0,
+                (timeRatio) -> timeRatio * 715.0,
+                7.0),
+            new ShooterKickerTask(TuningConstants.SHOOTER_LOWER_KICKER_DURATION, true),
+            new ShooterSpinUpTask(false, TuningConstants.SHOOTER_MIDDLE_SHOT_VELOCITY, TuningConstants.SHOOTER_SPIN_UP_DURATION),
+            new ShooterKickerTask(TuningConstants.SHOOTER_FIRE_DURATION, false),
+            new ShooterSpinDownTask(TuningConstants.SHOOTER_REVERSE_DURATION));
+    }
+
+    private static IControlTask GetPortcullisRouteAndShootRoutine()
+    {
+        return SequentialTask.Sequence(
+            ConcurrentTask.AllTasks(
+                new IntakeExtendTask(TuningConstants.SHOOTER_LOWER_KICKER_DURATION, true),
+                new StingerTask(TuningConstants.AUTONOMOUS_CHEVAL_BREACH_TIME, true),
+            SequentialTask.Sequence(
+                new DriveRouteTask(
+                    (timeRatio) -> timeRatio * TuningConstants.START_TO_PORTCULLIS_DISTANCE,
+                    (timeRatio) -> timeRatio * TuningConstants.START_TO_PORTCULLIS_DISTANCE,
+                    2.0)),
+                new StingerTask(TuningConstants.AUTONOMOUS_CHEVAL_BREACH_TIME, false),
+                new DriveRouteTask(
+                    (timeRatio) -> timeRatio * 715.0,
+                    (timeRatio) -> timeRatio * 715.0,
+                    7.0),
+                new ShooterKickerTask(TuningConstants.SHOOTER_LOWER_KICKER_DURATION, true),
+                new ShooterSpinUpTask(false, TuningConstants.SHOOTER_MIDDLE_SHOT_VELOCITY, TuningConstants.SHOOTER_SPIN_UP_DURATION),
+                new ShooterKickerTask(TuningConstants.SHOOTER_FIRE_DURATION, false),
+                new ShooterSpinDownTask(TuningConstants.SHOOTER_REVERSE_DURATION)));
     }
 
     private static IControlTask GetDriveStraightAndTurnAndShootCloseRouteRoutine()

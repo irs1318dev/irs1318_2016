@@ -1,26 +1,29 @@
 
 package org.usfirst.frc.team1318.robot.Driver.ControlTasks;
 
+import org.usfirst.frc.team1318.robot.Driver.IControlTask;
 import org.usfirst.frc.team1318.robot.Driver.Operation;
 
 import edu.wpi.first.wpilibj.Timer;
 
 /**
- * Stinger Macro, used to put stinger down or up
+ * Stinger Macro, used to put stinger in or out for a duration
  * @author Preston
  *
  */
-public class StingerTask extends TimedTask
+public class StingerTask extends TimedTask implements IControlTask
 {
     
-    
+    private boolean out;
     /**
      * Initializes a new StingerTask
      * @param duration to perform the task in seconds
+     * @param out - true puts the stinger out, false puts it in
      */
-    public StingerTask(double duration)
+    public StingerTask(double duration, boolean out)
     {
         super(duration);
+        this.out = out;
     }
 
     @Override
@@ -28,9 +31,28 @@ public class StingerTask extends TimedTask
     {
         super.begin();
         
-        this.setDigitalOperationState(Operation.StingerOut, true);
+        if (out)
+        {
+            this.setDigitalOperationState(Operation.StingerOut, true); 
+        }
+        else
+        {
+            this.setDigitalOperationState(Operation.StingerIn, true);
+        }
     }
-
+    
+    @Override
+    public void update()
+    {      
+        if (out)
+        {
+            this.setDigitalOperationState(Operation.StingerOut, true); 
+        }
+        else
+        {
+            this.setDigitalOperationState(Operation.StingerIn, true);
+        }
+    }
     
     /*
      * Cancel the current task and clear control changes
@@ -52,10 +74,5 @@ public class StingerTask extends TimedTask
        super.end();
        
        this.setDigitalOperationState(Operation.StingerIn, true);
-    }
-
-    @Override
-    public void update()
-    {      
     }
 }
