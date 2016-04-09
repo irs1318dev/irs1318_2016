@@ -88,8 +88,8 @@ public class TuningConstants
 
     //================================================== Intake ==============================================================
 
-    public static final double INTAKE_IN_POWER_LEVEL = 0.8;
-    public static final double INTAKE_OUT_POWER_LEVEL = -0.8;
+    public static final double INTAKE_IN_POWER_LEVEL = 0.9;
+    public static final double INTAKE_OUT_POWER_LEVEL = -0.9;
 
     //================================================== ClimbingArm ==============================================================
 
@@ -100,7 +100,7 @@ public class TuningConstants
     //================================================== Stinger ==============================================================
 
     public static final double STINGER_MAX_VELOCTIY = 0.5;
-    public static final double STINGER_SLOW_BACK_VELOCTIY = 0.275;
+    public static final double STINGER_SLOW_BACK_VELOCTIY = -0.275;
 
     //================================================== Breach Macros ==============================================================
 

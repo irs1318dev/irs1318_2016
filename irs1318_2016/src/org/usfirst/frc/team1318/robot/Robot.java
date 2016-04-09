@@ -61,6 +61,7 @@ public class Robot extends IterativeRobot
     // DipSwitches for selecting autonomous mode
     private DigitalInput dipSwitchA;
     private DigitalInput dipSwitchB;
+    private DigitalInput dipSwitchC;
 
     /**
      * Robot-wide initialization code should go here.
@@ -77,7 +78,7 @@ public class Robot extends IterativeRobot
         
         this.dipSwitchA = new DigitalInput(ElectronicsConstants.AUTONOMOUS_DIP_SWITCH_A);
         this.dipSwitchB = new DigitalInput(ElectronicsConstants.AUTONOMOUS_DIP_SWITCH_B);
-        
+        this.dipSwitchC = new DigitalInput(ElectronicsConstants.AUTONOMOUS_DIP_SWITCH_C);
         DashboardLogger.putString(Robot.ROBOT_STATE_LOG_KEY, "Init");
     }
 
@@ -114,6 +115,8 @@ public class Robot extends IterativeRobot
 
         DashboardLogger.putBoolean("Dipswitch in DIO 10 reads: ", !this.dipSwitchA.get());
         DashboardLogger.putBoolean("Dipswitch in DIO 11 reads: ", !this.dipSwitchB.get());
+        DashboardLogger.putBoolean("Dipswitch in DIO 12 reads: ", !this.dipSwitchC.get());
+        
 
         int routineSelection = 0;
         if (!this.dipSwitchA.get())
@@ -125,7 +128,12 @@ public class Robot extends IterativeRobot
         {
             routineSelection += 2;
         }
-
+        
+        if (!this.dipSwitchC.get())
+        {
+            routineSelection += 4;
+        }
+        
         // Select autonomous routine based on the dipswitch positions
         switch (routineSelection)
         {
@@ -138,7 +146,6 @@ public class Robot extends IterativeRobot
                     TuningConstants.AUTONOMOUS_TIME_SLOW,
                     0.0,
                     TuningConstants.DRIVETRAIN_AUTONOMOUS_SLOW_VELOCITY);
-
                 break;
 
             case 2://Switch B flipped
@@ -146,15 +153,29 @@ public class Robot extends IterativeRobot
                     TuningConstants.AUTONOMOUS_TIME_FAST,
                     0.0,
                     TuningConstants.DRIVETRAIN_AUTONOMOUS_FAST_VELOCITY);
-
                 break;
 
             case 3://Switches A and B flipped
+                autonomousRoutine = Robot.GetPortcullisBreachRouteRoutine();
+                break;
+                
+            case 4://Switches C flipped
                 autonomousRoutine = Robot.GetDriveStraightAndTurnAndShootCloseRouteRoutine();
-
+                break;
+                
+            case 5://Switches A and C flipped
+                autonomousRoutine = Robot.GetChevalDeFriseBreachRouteRoutine();
+                break;
+                
+            case 6://Switches B and C flipped
+                autonomousRoutine = Robot.GetFillerRoutine();
+                break;
+                
+            case 7://Switches A and B and C flipped
+                autonomousRoutine = Robot.GetDriveStraightAndTurnAndReaproachAndShootCloseRouteRoutine();
                 break;
 
-            default://both flipped or can't read 
+            default://CANT READ
                 autonomousRoutine = Robot.GetFillerRoutine();
 
                 break;
@@ -252,7 +273,11 @@ public class Robot extends IterativeRobot
      */
     private static IControlTask GetDriveTimedRoutine(double time, double xVelocity, double yVelocity)
     {
-        return ConcurrentTask.AllTasks(new IntakeExtendTask(0.5, true), new DriveTimedTask(time, xVelocity, yVelocity));
+        return SequentialTask.Sequence(
+            new WaitTask(8.0),
+            ConcurrentTask.AllTasks(
+                new IntakeExtendTask(0.5, true),
+                new DriveTimedTask(time, xVelocity, yVelocity)));
     }
 
     /**
@@ -321,8 +346,8 @@ public class Robot extends IterativeRobot
             ConcurrentTask.AllTasks(
                 new IntakeExtendTask(TuningConstants.SHOOTER_LOWER_KICKER_DURATION, true),
                 new DriveRouteTask(
-                    (timeRatio) -> timeRatio * 715.0,
-                    (timeRatio) -> timeRatio * 715.0,
+                    (timeRatio) -> timeRatio * 550.0,
+                    (timeRatio) -> timeRatio * 550.0,
                     7.0)),
             new TurnTask(65.0),
             new DriveRouteTask(
@@ -377,22 +402,120 @@ public class Robot extends IterativeRobot
                 new ShooterSpinDownTask(TuningConstants.SHOOTER_REVERSE_DURATION)));
     }
 
+    private static IControlTask GetChevalDeFriseBreachRouteRoutine()
+    {
+        return SequentialTask.Sequence(
+            ConcurrentTask.AllTasks(
+                new IntakeExtendTask(TuningConstants.SHOOTER_LOWER_KICKER_DURATION, true),
+                new DriveRouteTask(
+                    (timeRatio) -> timeRatio < 0.9 ? timeRatio / 0.9 * 136.0 : 136.0,
+                    (timeRatio) -> timeRatio < 0.9 ? timeRatio / 0.9 * 136.0 : 136.0,
+                    2.0)),
+            new StingerTask(1.0, true),
+            ConcurrentTask.AllTasks(
+                new StingerTask(1.0, true),
+                new DriveRouteTask(
+                    (timeRatio) -> timeRatio < 0.9 ? timeRatio / 0.9 * 350.0 : 350.0,
+                    (timeRatio) -> timeRatio < 0.9 ? timeRatio / 0.9 * 350.0 : 350.0,
+                    5.0)));
+    }
+
+    private static IControlTask GetPortcullisBreachRouteRoutine()
+    {
+        return SequentialTask.Sequence(
+            ConcurrentTask.AllTasks(
+                new IntakeExtendTask(0.5, true),
+                new StingerTask(0.5, true)),
+            SequentialTask.Sequence(
+                ConcurrentTask.AllTasks(
+                    new DriveRouteTask(
+                        (timeRatio) -> timeRatio < 0.9 ? timeRatio / 0.9 * 250.0 : 250.0,
+                        (timeRatio) -> timeRatio < 0.9 ? timeRatio / 0.9 * 250.0 : 250.0,
+                        2.5),
+                    new StingerTask(2.5, true)),
+                new DriveRouteTask(
+                    (timeRatio) -> timeRatio < 0.9 ? timeRatio / 0.9 * 250.0 : 250.0,
+                    (timeRatio) -> timeRatio < 0.9 ? timeRatio / 0.9 * 250.0 : 250.0,
+                    2.5)),
+            new StingerTask(1.0, false));
+    }
+
     private static IControlTask GetDriveStraightAndTurnAndShootCloseRouteRoutine()
     {
         return SequentialTask.Sequence(
             ConcurrentTask.AllTasks(
                 new IntakeExtendTask(TuningConstants.SHOOTER_LOWER_KICKER_DURATION, true),
                 new DriveRouteTask(
-                    (timeRatio) -> timeRatio < 0.9 ? timeRatio / 0.9 * 710.0 : 710.0,
-                    (timeRatio) -> timeRatio < 0.9 ? timeRatio / 0.9 * 710.0 : 710.0,
-                    7.0)), // 7.0
+                    (timeRatio) -> timeRatio < 0.9 ? timeRatio / 0.9 * 585.0 : 585.0, //525.0
+                    (timeRatio) -> timeRatio < 0.9 ? timeRatio / 0.9 * 585.0 : 585.0, //525.0
+                    7.25)), // 7.0
             ConcurrentTask.AllTasks(
-                new TurnTask(62.5),
+                SequentialTask.Sequence(
+                    new TurnTask(75.0, false), //68.0
+                    new WaitTask(0.5)),
                 new IntakeExtendTask(TuningConstants.SHOOTER_LOWER_KICKER_DURATION, false)),
             new DriveRouteTask(
-                (timeRatio) -> timeRatio < 0.9 ? timeRatio / 0.9 * 390.0 : 390.0,
-                (timeRatio) -> timeRatio < 0.9 ? timeRatio / 0.9 * 390.0 : 390.0,
-                3.0), // 3.0
+                (timeRatio) -> timeRatio < 0.9 ? timeRatio / 0.9 * 400.0 : 400.0, //420.0
+                (timeRatio) -> timeRatio < 0.9 ? timeRatio / 0.9 * 400.0 : 400.0, //420.0
+                3.25), // 3.5
+            ConcurrentTask.AnyTasks(
+                SequentialTask.Sequence(
+                    new ShooterKickerTask(TuningConstants.SHOOTER_LOWER_KICKER_DURATION, true),
+                    new ShooterSpinUpTask(false, TuningConstants.SHOOTER_CLOSE_SHOT_VELOCITY, TuningConstants.SHOOTER_SPIN_UP_DURATION),
+                    new ShooterKickerTask(TuningConstants.SHOOTER_FIRE_DURATION, false),
+                    new ShooterSpinDownTask(TuningConstants.SHOOTER_REVERSE_DURATION)),
+                new PIDBrakeTask()));
+    }
+
+    private static IControlTask GetDriveStraightAndTurnAndReaproachAndShootCloseRouteRoutine()
+    {
+        return SequentialTask.Sequence(
+            ConcurrentTask.AllTasks(
+                new IntakeExtendTask(TuningConstants.SHOOTER_LOWER_KICKER_DURATION, true),
+                new DriveRouteTask(
+                    (timeRatio) -> timeRatio < 0.9 ? timeRatio / 0.9 * 585.0 : 585.0, //525.0
+                    (timeRatio) -> timeRatio < 0.9 ? timeRatio / 0.9 * 585.0 : 585.0, //525.0
+                    7.25)), // 7.0 after adding new wait logic
+            ConcurrentTask.AllTasks(
+                SequentialTask.Sequence(
+                    new TurnTask(75.0, false), //68.0
+                    new WaitTask(0.5)),
+                new IntakeExtendTask(TuningConstants.SHOOTER_LOWER_KICKER_DURATION, false)),
+            new DriveRouteTask(
+                (timeRatio) -> timeRatio < 0.9 ? timeRatio / 0.9 * 400.0 : 400.0, //420.0
+                (timeRatio) -> timeRatio < 0.9 ? timeRatio / 0.9 * 400.0 : 400.0, //420.0
+                3.25), // 3.5, 3.0 after adding new wait logic
+            new WaitTask(0.25),
+            new DriveRouteTask(
+                (timeRatio) -> timeRatio < 0.9 ? timeRatio / 0.9 * 100.0 : 100.0,
+                (timeRatio) -> timeRatio < 0.9 ? timeRatio / 0.9 * 100.0 : 100.0,
+                0.25),
+            ConcurrentTask.AnyTasks(
+                SequentialTask.Sequence(
+                    new ShooterKickerTask(TuningConstants.SHOOTER_LOWER_KICKER_DURATION, true),
+                    new ShooterSpinUpTask(false, TuningConstants.SHOOTER_CLOSE_SHOT_VELOCITY, TuningConstants.SHOOTER_SPIN_UP_DURATION),
+                    new ShooterKickerTask(TuningConstants.SHOOTER_FIRE_DURATION, false),
+                    new ShooterSpinDownTask(TuningConstants.SHOOTER_REVERSE_DURATION)),
+                new PIDBrakeTask()));
+    }
+
+    private static IControlTask GetDriveStraightAndCurveAndShootCloseRouteRoutine()
+    {
+        return SequentialTask.Sequence(
+            ConcurrentTask.AllTasks(
+                new IntakeExtendTask(TuningConstants.SHOOTER_LOWER_KICKER_DURATION, true),
+                new DriveRouteTask(
+                    (timeRatio) -> timeRatio < 0.9 ? timeRatio / 0.9 * 300.0 : 300.0,
+                    (timeRatio) -> timeRatio < 0.9 ? timeRatio / 0.9 * 300.0 : 300.0,
+                    4.0)),
+            new DriveRouteTask(
+                (timeRatio) -> timeRatio < 0.9 ? timeRatio / 0.9 * 490.0 : 490.0,
+                (timeRatio) -> timeRatio < 0.9 ? timeRatio / 0.9 * 420.0 : 420.0,
+                4.0),
+            new DriveRouteTask(
+                (timeRatio) -> timeRatio < 0.9 ? timeRatio / 0.9 * 200.0 : 200.0,
+                (timeRatio) -> timeRatio < 0.9 ? timeRatio / 0.9 * 200.0 : 200.0,
+                3.0),
             ConcurrentTask.AnyTasks(
                 SequentialTask.Sequence(
                     new ShooterKickerTask(TuningConstants.SHOOTER_LOWER_KICKER_DURATION, true),
@@ -402,6 +525,7 @@ public class Robot extends IterativeRobot
                 new PIDBrakeTask()));
     }
 }
+
 
 /*
 

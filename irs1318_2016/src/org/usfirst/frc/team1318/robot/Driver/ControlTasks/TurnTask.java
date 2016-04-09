@@ -17,7 +17,16 @@ public class TurnTask extends MoveDistanceTaskBase implements IControlTask
      */
     public TurnTask(double degrees)
     {
-        super(true);
+        this(degrees, true);
+    }
+
+    /**
+     * Initializes a new TurnTask
+     * @param degrees from the current orientation to rotate (positive means turn right/clockwise, negative means turn left/counter-clockwise)
+     */
+    public TurnTask(double degrees, boolean resetPositionOnEnd)
+    {
+        super(resetPositionOnEnd);
 
         this.degrees = degrees;
     }

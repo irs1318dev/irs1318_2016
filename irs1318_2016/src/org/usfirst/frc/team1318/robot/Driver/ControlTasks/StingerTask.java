@@ -62,7 +62,8 @@ public class StingerTask extends TimedTask implements IControlTask
     {   
         super.stop();
         
-        this.setDigitalOperationState(Operation.StingerIn, true);
+        this.setDigitalOperationState(Operation.StingerIn, false);
+        this.setDigitalOperationState(Operation.StingerOut, false);
     }
     
     /*
@@ -72,7 +73,8 @@ public class StingerTask extends TimedTask implements IControlTask
     public void end()
     {
        super.end();
-       
-       this.setDigitalOperationState(Operation.StingerIn, true);
+
+       this.setDigitalOperationState(Operation.StingerIn, false);
+       this.setDigitalOperationState(Operation.StingerOut, false);
     }
 }

@@ -37,6 +37,7 @@ public class ElectronicsConstants
 
     public static final int AUTONOMOUS_DIP_SWITCH_A = 10;
     public static final int AUTONOMOUS_DIP_SWITCH_B = 11;
+    public static final int AUTONOMOUS_DIP_SWITCH_C = 12;
 
     //=================================================== Shooter ===================================================================
 

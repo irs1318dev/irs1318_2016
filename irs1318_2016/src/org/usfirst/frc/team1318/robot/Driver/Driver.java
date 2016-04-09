@@ -188,13 +188,13 @@ public abstract class Driver
                 Operation.StingerIn,
                 new DigitalOperationDescription(
                     UserInputDevice.Driver,
-                    UserInputDeviceButton.JOYSTICK_BASE_TOP_LEFT_BUTTON,
+                    UserInputDeviceButton.JOYSTICK_BASE_MIDDLE_LEFT_BUTTON,
                     ButtonType.Simple));
             put(
                 Operation.StingerOut,
                 new DigitalOperationDescription(
                     UserInputDevice.Driver,
-                    UserInputDeviceButton.JOYSTICK_BASE_MIDDLE_LEFT_BUTTON,
+                    UserInputDeviceButton.JOYSTICK_BASE_TOP_LEFT_BUTTON,
                     ButtonType.Simple));
         }
     };

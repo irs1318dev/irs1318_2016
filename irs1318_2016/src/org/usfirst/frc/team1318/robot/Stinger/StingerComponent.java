@@ -15,7 +15,7 @@ public class StingerComponent
     
     public void setMotor(double speed)
     {
-        this.talon.set(speed);
+        this.talon.set(-speed);
     }
     
     public void stop()
