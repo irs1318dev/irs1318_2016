@@ -475,21 +475,21 @@ public class Robot extends IterativeRobot
                 new DriveRouteTask(
                     (timeRatio) -> timeRatio < 0.9 ? timeRatio / 0.9 * 585.0 : 585.0, //525.0
                     (timeRatio) -> timeRatio < 0.9 ? timeRatio / 0.9 * 585.0 : 585.0, //525.0
-                    7.25)), // 7.0 after adding new wait logic
+                    7.0)),
             ConcurrentTask.AllTasks(
                 SequentialTask.Sequence(
                     new TurnTask(75.0, false), //68.0
-                    new WaitTask(0.5)),
+                    new WaitTask(0.3)),
                 new IntakeExtendTask(TuningConstants.SHOOTER_LOWER_KICKER_DURATION, false)),
             new DriveRouteTask(
                 (timeRatio) -> timeRatio < 0.9 ? timeRatio / 0.9 * 400.0 : 400.0, //420.0
                 (timeRatio) -> timeRatio < 0.9 ? timeRatio / 0.9 * 400.0 : 400.0, //420.0
-                3.25), // 3.5, 3.0 after adding new wait logic
-            new WaitTask(0.25),
+                3.10),
+            new WaitTask(0.70),
             new DriveRouteTask(
                 (timeRatio) -> timeRatio < 0.9 ? timeRatio / 0.9 * 100.0 : 100.0,
                 (timeRatio) -> timeRatio < 0.9 ? timeRatio / 0.9 * 100.0 : 100.0,
-                0.25),
+                0.70),
             ConcurrentTask.AnyTasks(
                 SequentialTask.Sequence(
                     new ShooterKickerTask(TuningConstants.SHOOTER_LOWER_KICKER_DURATION, true),
