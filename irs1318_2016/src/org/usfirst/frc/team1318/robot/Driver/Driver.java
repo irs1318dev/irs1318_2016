@@ -6,9 +6,6 @@ import java.util.Map;
 import org.usfirst.frc.team1318.robot.TuningConstants;
 import org.usfirst.frc.team1318.robot.Driver.Buttons.AnalogAxis;
 import org.usfirst.frc.team1318.robot.Driver.Buttons.ButtonType;
-import org.usfirst.frc.team1318.robot.Driver.ControlTasks.ClimbingArmLifterMoveTask;
-import org.usfirst.frc.team1318.robot.Driver.ControlTasks.ClimbingArmElbowTask;
-import org.usfirst.frc.team1318.robot.Driver.ControlTasks.ClimbingArmShoulderTask;
 import org.usfirst.frc.team1318.robot.Driver.ControlTasks.PIDBrakeTask;
 import org.usfirst.frc.team1318.robot.Driver.ControlTasks.SequentialTask;
 import org.usfirst.frc.team1318.robot.Driver.ControlTasks.ShooterKickerTask;
@@ -125,39 +122,39 @@ public abstract class Driver
                     180,
                     ButtonType.Click));
 
-            // Operations for the climbing arm
+            // Operations for the climber
             put(
-                Operation.ClimbingArmExtend,
+                Operation.ClimberWinchExtend,
                 new DigitalOperationDescription(
                     UserInputDevice.None,
                     UserInputDeviceButton.NONE,
                     ButtonType.Click));
             put(
-                Operation.ClimbingArmRetract,
+                Operation.ClimberWinchRetract,
                 new DigitalOperationDescription(
                     UserInputDevice.None,
                     UserInputDeviceButton.NONE,
                     ButtonType.Click));
             put(
-                Operation.ClimbingArmElbowUp,
+                Operation.ClimberHookExtend,
                 new DigitalOperationDescription(
                     UserInputDevice.None,
                     UserInputDeviceButton.NONE,
                     ButtonType.Click));
             put(
-                Operation.ClimbingArmElbowDown,
+                Operation.ClimberHookRetract,
                 new DigitalOperationDescription(
                     UserInputDevice.None,
                     UserInputDeviceButton.NONE,
                     ButtonType.Click));
             put(
-                Operation.ClimbingArmShoulderUp,
+                Operation.ClimberArmUp,
                 new DigitalOperationDescription(
                     UserInputDevice.None,
                     UserInputDeviceButton.NONE,
                     ButtonType.Click));
             put(
-                Operation.ClimbingArmShoulderDown,
+                Operation.ClimberArmDown,
                 new DigitalOperationDescription(
                     UserInputDevice.None,
                     UserInputDeviceButton.NONE,
@@ -299,7 +296,7 @@ public abstract class Driver
                         Operation.IntakeExtend,
                         Operation.IntakeRetract,
                     }));
-
+            /*
             // Macros for the climbing arm.
             put(
                 MacroOperation.ClimbingArmRetract,
@@ -357,6 +354,7 @@ public abstract class Driver
                         Operation.ClimbingArmExtend,
                         Operation.ClimbingArmRetract,
                     }));
+                    */
                 }
     };
 

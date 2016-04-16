@@ -26,7 +26,7 @@ public class ControllerManager implements IController
         this.controllerList.add(new IntakeController(this.components.getIntake()));
         this.controllerList.add(new ShooterController(this.components.getShooter(), this.components.getPowerManager()));
         this.controllerList.add(new StingerController(this.components.getStingerComponent()));
-        //this.controllerList.add(new ClimbingArmController(this.components.getClimbingArm()));
+        //this.controllerList.add(new ClimberController(this.components.getClimberComponent()));
     }
 
     @Override

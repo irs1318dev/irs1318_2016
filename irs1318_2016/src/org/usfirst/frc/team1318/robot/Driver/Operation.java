@@ -43,12 +43,12 @@ public enum Operation
     IntakeRetract,
     
     // Climbing arm operations:
-    ClimbingArmExtend,
-    ClimbingArmRetract,
-    ClimbingArmShoulderUp,
-    ClimbingArmShoulderDown,
-    ClimbingArmElbowUp,
-    ClimbingArmElbowDown,
+    ClimberWinchExtend,
+    ClimberWinchRetract,
+    ClimberHookExtend,
+    ClimberHookRetract,
+    ClimberArmUp,
+    ClimberArmDown,
     
     // Other general operations:
     EnablePID,
