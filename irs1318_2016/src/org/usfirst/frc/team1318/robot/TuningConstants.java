@@ -91,12 +91,15 @@ public class TuningConstants
     public static final double INTAKE_IN_POWER_LEVEL = 0.9;
     public static final double INTAKE_OUT_POWER_LEVEL = -0.9;
 
-    //================================================== ClimbingArm ==============================================================
+    //================================================== Climber ==============================================================
 
     public static final double CLIMBER_WINCH_MAX_SPEED = 0.8;
     public static final double CLIMBER_HOOK_MAX_SPEED = 0.8;
-    public static final double CLIMBING_ARM_ELBOW_UP_DURATION = 2.0;
-    public static final double CLIMBING_ARM_SHOULDER_UP_DURATION = 2.0;
+    public static final double CLIMBER_ENCODER_DISTANCE_PER_PULSE = 0.0;
+    public static final double CLIMBER_ACCEPTABLE_DELTA = 0.0;
+    public static final double CLIMBER_FIRE_DURATION = 0.0;
+    public static final double CLIMBER_CLIMB_DURATION = 0.0;
+    public static final double CLIMBER_CLIMB_DISTANCE = 0.0;
 
     //================================================== Stinger ==============================================================
 
@@ -127,4 +130,5 @@ public class TuningConstants
     //Portcullis values
     public static final double AUTONOMOUS_PORTCULLIS_BREACH_TIME = 3;
     public static final double AUTONOMOUS_PORTCULLIS_BREACH_DISTANCE = 500;
+
 }

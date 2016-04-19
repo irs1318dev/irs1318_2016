@@ -22,6 +22,8 @@ public class ShooterController implements IController
 
     private Driver driver;
     private PIDHandler PID;
+    
+    private boolean activateTargetingLight = false;
 
     public ShooterController(ShooterComponent shooter, PowerManager powerManager) 
     {
@@ -63,7 +65,19 @@ public class ShooterController implements IController
             }
         }
 
-        this.shooter.setLight(shouldLight);
+        this.shooter.setReadyLight(shouldLight);
+        
+        // Track the desire to activate / deactivate the targeting light
+        if (this.driver.getDigital(Operation.ActivateTargetingLight))
+        {
+            this.activateTargetingLight = true;
+        }
+        else if (this.driver.getDigital(Operation.DeactivateTargetingLight))
+        {
+            this.activateTargetingLight = false;
+        }
+        
+        this.shooter.setTargetingLight(this.activateTargetingLight);
 
         // Set the motor power with the calculated value
         this.shooter.setMotorSpeed(power);

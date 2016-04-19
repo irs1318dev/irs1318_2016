@@ -9,7 +9,7 @@ import edu.wpi.first.wpilibj.Solenoid;
 
 /**
  * Component for the shooter mechanism. Has a talon, and one counter, 
- * a kicker that loads the ball, and an actuating hood.
+ * a kicker that loads the ball, an actuating hood, a targeting light, and a light to show when it is ready to fire.
  * @author Corbin
  *
  */
@@ -19,7 +19,8 @@ public class ShooterComponent
     private final DoubleSolenoid hood;
     private final Talon talon;
     private final Encoder encoder;
-    private final Solenoid light;
+    private final Solenoid readyLight;
+    private final Solenoid targetingLight;
 
     public ShooterComponent() 
     {
@@ -27,7 +28,8 @@ public class ShooterComponent
         this.hood = new DoubleSolenoid(ElectronicsConstants.SHOOTER_HOOD_CHANNEL_A, ElectronicsConstants.SHOOTER_HOOD_CHANNEL_B);
         this.talon = new Talon(ElectronicsConstants.SHOOTER_TALON_CHANNEL);
         this.encoder = new Encoder(ElectronicsConstants.SHOOTER_ENCODER_CHANNEL_A, ElectronicsConstants.SHOOTER_ENCODER_CHANNEL_B);
-        this.light = new Solenoid(ElectronicsConstants.PCM_B_MODULE, ElectronicsConstants.SHOOTER_LIGHT_PORT);
+        this.readyLight = new Solenoid(ElectronicsConstants.PCM_B_MODULE, ElectronicsConstants.SHOOTER_READY_LIGHT_PORT);
+        this.targetingLight = new Solenoid(ElectronicsConstants.PCM_B_MODULE, ElectronicsConstants.SHOOTER_TARGETING_LIGHT_PORT);
     }
 
     public void setMotorSpeed(double speed) 
@@ -81,9 +83,14 @@ public class ShooterComponent
         }
     }
 
-    public void setLight(boolean on)
+    public void setReadyLight(boolean on)
     {
-        this.light.set(on);
+        this.readyLight.set(on);
+    }
+
+    public void setTargetingLight(boolean on)
+    {
+        this.targetingLight.set(on);
     }
 
     public void stop()
@@ -91,6 +98,7 @@ public class ShooterComponent
         this.kicker.set(Value.kOff);
         this.hood.set(Value.kOff);
         this.setMotorSpeed(0.0);
-        this.light.set(false);
+        this.readyLight.set(false);
+        this.targetingLight.set(false);
     }
 }

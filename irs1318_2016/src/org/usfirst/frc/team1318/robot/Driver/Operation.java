@@ -35,6 +35,8 @@ public enum Operation
     ShooterSpin,
     ShooterLowerKicker,
     ShooterExtendHood,
+    ActivateTargetingLight,
+    DeactivateTargetingLight,
     
     // Intake operations:
     IntakeRotatingIn,
@@ -44,9 +46,9 @@ public enum Operation
     
     // Climbing arm operations:
     ClimberWinchExtend,
-    ClimberWinchRetract,
-    ClimberHookExtend,
-    ClimberHookRetract,
+    ClimberWinchSpeed,
+    ClimberFiringPinExtend,
+    ClimberFiringPinRetract,
     ClimberArmUp,
     ClimberArmDown,
     

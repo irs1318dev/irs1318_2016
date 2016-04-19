@@ -12,8 +12,7 @@ public enum MacroOperation
     PIDBrake,
 
     // Climbing arm operations:
-    ClimbingArmDeploy,
-    ClimbingArmRetract,
-    ClimbingArmLifterUp,
-    ClimbingArmLifterDown;
+    ClimberArmDeploy,
+    ClimberArmRetract,
+    ClimberScale;
 }

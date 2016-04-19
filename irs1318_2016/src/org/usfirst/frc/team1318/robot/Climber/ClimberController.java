@@ -1,4 +1,4 @@
-package org.usfirst.frc.team1318.robot.ClimbingArm;
+package org.usfirst.frc.team1318.robot.Climber;
 
 import org.usfirst.frc.team1318.robot.TuningConstants;
 import org.usfirst.frc.team1318.robot.Common.IController;
@@ -32,27 +32,23 @@ public class ClimberController implements IController
         double currentWinchSpeed = 0.0;
         if (this.driver.getDigital(Operation.ClimberWinchExtend))
         {
-            currentWinchSpeed = TuningConstants.CLIMBER_WINCH_MAX_SPEED;
-        }
-        else if (this.driver.getDigital(Operation.ClimberWinchRetract))
-        {
-            currentWinchSpeed = -TuningConstants.CLIMBER_WINCH_MAX_SPEED;
+            currentWinchSpeed = this.driver.getAnalog(Operation.ClimberWinchSpeed);
         }
         
         this.climbingArm.setWinchSpeed(currentWinchSpeed);
         
         // Set the speed of the hook according to desire
         double currentHookSpeed = 0.0;
-        if (this.driver.getDigital(Operation.ClimberHookExtend))
+        if (this.driver.getDigital(Operation.ClimberFiringPinExtend))
         {
             currentHookSpeed = TuningConstants.CLIMBER_HOOK_MAX_SPEED;
         }
-        else if (this.driver.getDigital(Operation.ClimberHookRetract))
+        else if (this.driver.getDigital(Operation.ClimberFiringPinRetract))
         {
             currentHookSpeed = -TuningConstants.CLIMBER_HOOK_MAX_SPEED;
         }
         
-        this.climbingArm.setHookSpeed(currentHookSpeed);
+        this.climbingArm.setFiringPinSpeed(currentHookSpeed);
     }
 
     @Override

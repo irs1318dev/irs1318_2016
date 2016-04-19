@@ -48,7 +48,8 @@ public class ElectronicsConstants
     public static final int SHOOTER_HOOD_CHANNEL_B = 2;
     public static final int SHOOTER_ENCODER_CHANNEL_A = 8;
     public static final int SHOOTER_ENCODER_CHANNEL_B = 9;
-    public static final int SHOOTER_LIGHT_PORT = 1;
+    public static final int SHOOTER_READY_LIGHT_PORT = 1;
+    public static final int SHOOTER_TARGETING_LIGHT_PORT = 2;
 
     //=================================================== Intake =================================================================
 
@@ -59,13 +60,16 @@ public class ElectronicsConstants
     public static final int INTAKE_SOLENOID_CHANNEL_A = 4;
     public static final int INTAKE_SOLENOID_CHANNEL_B = 3;
 
-    //================================================= Climbing Arm =============================================================
+    //================================================= Climber =============================================================
 
     public static final int CLIMBER_WINCH_MOTOR_CHANNEL = 2;
-    public static final int CLIMBER_HOOK_MOTOR_CHANNEL = 2;
+    public static final int CLIMBER_FIRING_PIN_MOTOR_CHANNEL = 2;
 
     public static final int CLIMBER_ARM_SOLENOID_CHANNEL_A = 7;
     public static final int CLIMBER_ARM_SOLENOID_CHANNEL_B = 0;
+    
+    public static final int CLIMBER_ENCODER_CHANNEL_A = 0;
+    public static final int CLIMBER_ENCODER_CHANNEL_B = 0;
 
     //================================================== Stinger ==================================================
     public static final int STINGER_MOTOR_CHANNEL = 0;

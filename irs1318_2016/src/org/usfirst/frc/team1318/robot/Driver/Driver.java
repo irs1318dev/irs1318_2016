@@ -11,6 +11,8 @@ import org.usfirst.frc.team1318.robot.Driver.ControlTasks.SequentialTask;
 import org.usfirst.frc.team1318.robot.Driver.ControlTasks.ShooterKickerTask;
 import org.usfirst.frc.team1318.robot.Driver.ControlTasks.ShooterSpinDownTask;
 import org.usfirst.frc.team1318.robot.Driver.ControlTasks.ShooterSpinUpTask;
+import org.usfirst.frc.team1318.robot.Driver.ControlTasks.ClimberClimbTask;
+import org.usfirst.frc.team1318.robot.Driver.ControlTasks.ClimberFireTask;
 import org.usfirst.frc.team1318.robot.Driver.ControlTasks.IntakeExtendTask;
 import org.usfirst.frc.team1318.robot.Driver.Descriptions.AnalogOperationDescription;
 import org.usfirst.frc.team1318.robot.Driver.Descriptions.DigitalOperationDescription;
@@ -95,6 +97,12 @@ public abstract class Driver
                     UserInputDevice.None,
                     UserInputDeviceButton.NONE,
                     ButtonType.Simple));
+            put(
+                Operation.ActivateTargetingLight,
+                new DigitalOperationDescription(
+                    UserInputDevice.Driver,
+                    UserInputDeviceButton.JOYSTICK_BASE_BOTTOM_LEFT_BUTTON,
+                    ButtonType.Toggle));
 
             // Operations for the intake
             put(
@@ -130,19 +138,18 @@ public abstract class Driver
                     UserInputDeviceButton.NONE,
                     ButtonType.Click));
             put(
-                Operation.ClimberWinchRetract,
+                Operation.ClimberWinchSpeed,
+                new AnalogOperationDescription(
+                    UserInputDevice.None,
+                    AnalogAxis.None));
+            put(
+                Operation.ClimberFiringPinExtend,
                 new DigitalOperationDescription(
                     UserInputDevice.None,
                     UserInputDeviceButton.NONE,
                     ButtonType.Click));
             put(
-                Operation.ClimberHookExtend,
-                new DigitalOperationDescription(
-                    UserInputDevice.None,
-                    UserInputDeviceButton.NONE,
-                    ButtonType.Click));
-            put(
-                Operation.ClimberHookRetract,
+                Operation.ClimberFiringPinRetract,
                 new DigitalOperationDescription(
                     UserInputDevice.None,
                     UserInputDeviceButton.NONE,
@@ -150,8 +157,8 @@ public abstract class Driver
             put(
                 Operation.ClimberArmUp,
                 new DigitalOperationDescription(
-                    UserInputDevice.None,
-                    UserInputDeviceButton.NONE,
+                    UserInputDevice.Driver,
+                    UserInputDeviceButton.JOYSTICK_STICK_BOTTOM_LEFT_BUTTON,
                     ButtonType.Click));
             put(
                 Operation.ClimberArmDown,
@@ -296,24 +303,24 @@ public abstract class Driver
                         Operation.IntakeExtend,
                         Operation.IntakeRetract,
                     }));
-            /*
-            // Macros for the climbing arm.
+            
+            // Macros for the climber.
             put(
-                MacroOperation.ClimbingArmRetract,
+                MacroOperation.ClimberScale,
                 new MacroOperationDescription(
-                    UserInputDevice.CoDriver,
-                    UserInputDeviceButton.BUTTON_PAD_BUTTON_6,
-                    ButtonType.Toggle,
+                    UserInputDevice.Driver,
+                    UserInputDeviceButton.JOYSTICK_STICK_TOP_LEFT_BUTTON,
+                    ButtonType.Click,
                     () -> SequentialTask.Sequence(
-                        new ClimbingArmElbowTask(false),
-                        new ClimbingArmShoulderTask(false)),
+                        new ClimberFireTask(TuningConstants.CLIMBER_FIRE_DURATION),
+                        new ClimberClimbTask(TuningConstants.CLIMBER_CLIMB_DURATION, TuningConstants.CLIMBER_CLIMB_DISTANCE)),
                     new Operation[]
-                    {
-                        Operation.ClimbingArmElbowUp,
-                        Operation.ClimbingArmElbowDown,
-                        Operation.ClimbingArmShoulderUp,
-                        Operation.ClimbingArmShoulderDown,
-                    }));
+                        {
+                            Operation.ClimberWinchExtend,
+                            Operation.ClimberWinchSpeed,
+                            Operation.ClimberFiringPinExtend,
+                        })); 
+            /*
             put(
                 MacroOperation.ClimbingArmDeploy,
                 new MacroOperationDescription(

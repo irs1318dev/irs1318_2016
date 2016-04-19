@@ -36,7 +36,7 @@ public class ShooterSpinUpTask extends TimedTask implements IControlTask
         super.stop();
         this.setDigitalOperationState(Operation.ShooterSpin, false);
         this.setAnalogOperationState(Operation.ShooterSpeed, 0.0);
-        super.getComponents().getShooter().setLight(false);
+        super.getComponents().getShooter().setReadyLight(false);
     }
 
     @Override

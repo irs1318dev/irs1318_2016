@@ -1,6 +1,6 @@
 package org.usfirst.frc.team1318.robot;
 
-import org.usfirst.frc.team1318.robot.ClimbingArm.ClimberComponent;
+import org.usfirst.frc.team1318.robot.Climber.ClimberComponent;
 import org.usfirst.frc.team1318.robot.Compressor.CompressorComponent;
 import org.usfirst.frc.team1318.robot.DriveTrain.DriveTrainComponent;
 import org.usfirst.frc.team1318.robot.General.PositionManager;
