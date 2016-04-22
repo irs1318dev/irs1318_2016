@@ -49,7 +49,7 @@ public class ElectronicsConstants
     public static final int SHOOTER_ENCODER_CHANNEL_A = 8;
     public static final int SHOOTER_ENCODER_CHANNEL_B = 9;
     public static final int SHOOTER_READY_LIGHT_PORT = 1;
-    public static final int SHOOTER_TARGETING_LIGHT_PORT = 2;
+    public static final int SHOOTER_TARGETING_LIGHT_PORT = 4;
 
     //=================================================== Intake =================================================================
 
