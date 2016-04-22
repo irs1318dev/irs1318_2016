@@ -99,10 +99,9 @@ public abstract class Driver
                     ButtonType.Simple));
             put(
                 Operation.ActivateTargetingLight,
-                new DigitalOperationDescription(
+                new AnalogOperationDescription(
                     UserInputDevice.Driver,
-                    UserInputDeviceButton.JOYSTICK_BASE_BOTTOM_LEFT_BUTTON,
-                    ButtonType.Toggle));
+                    AnalogAxis.Throttle));
 
             // Operations for the intake
             put(
@@ -149,22 +148,16 @@ public abstract class Driver
                     UserInputDeviceButton.NONE,
                     ButtonType.Click));
             put(
-                Operation.ClimberFiringPinRetract,
-                new DigitalOperationDescription(
-                    UserInputDevice.None,
-                    UserInputDeviceButton.NONE,
-                    ButtonType.Click));
-            put(
                 Operation.ClimberArmUp,
                 new DigitalOperationDescription(
                     UserInputDevice.Driver,
-                    UserInputDeviceButton.JOYSTICK_STICK_BOTTOM_LEFT_BUTTON,
+                    UserInputDeviceButton.JOYSTICK_STICK_TOP_LEFT_BUTTON,
                     ButtonType.Click));
             put(
                 Operation.ClimberArmDown,
                 new DigitalOperationDescription(
                     UserInputDevice.None,
-                    UserInputDeviceButton.NONE,
+                    UserInputDeviceButton.JOYSTICK_STICK_BOTTOM_LEFT_BUTTON,
                     ButtonType.Click));
 
             // Operations for general stuff
@@ -309,7 +302,7 @@ public abstract class Driver
                 MacroOperation.ClimberScale,
                 new MacroOperationDescription(
                     UserInputDevice.Driver,
-                    UserInputDeviceButton.JOYSTICK_STICK_TOP_LEFT_BUTTON,
+                    UserInputDeviceButton.JOYSTICK_BASE_BOTTOM_LEFT_BUTTON,
                     ButtonType.Click,
                     () -> SequentialTask.Sequence(
                         new ClimberFireTask(TuningConstants.CLIMBER_FIRE_DURATION),

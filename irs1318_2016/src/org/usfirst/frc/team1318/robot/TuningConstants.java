@@ -85,6 +85,8 @@ public class TuningConstants
     
     public static final double SHOOTER_DEVIANCE = 0.025;
     public static final double SHOOTER_MAX_COUNTER_RATE = 2000;
+    
+    public static final double SHOOTER_TARGETING_LIGHT_ACTIVATION_THRESHOLD = 0.5;
 
     //================================================== Intake ==============================================================
 
@@ -95,11 +97,11 @@ public class TuningConstants
 
     public static final double CLIMBER_WINCH_MAX_SPEED = 0.8;
     public static final double CLIMBER_HOOK_MAX_SPEED = 0.8;
-    public static final double CLIMBER_ENCODER_DISTANCE_PER_PULSE = 0.0;
-    public static final double CLIMBER_ACCEPTABLE_DELTA = 0.0;
-    public static final double CLIMBER_FIRE_DURATION = 0.0;
-    public static final double CLIMBER_CLIMB_DURATION = 0.0;
-    public static final double CLIMBER_CLIMB_DISTANCE = 0.0;
+    public static final double CLIMBER_ENCODER_DISTANCE_PER_PULSE = 1.0;
+    public static final double CLIMBER_ACCEPTABLE_DELTA = 0.025;
+    public static final double CLIMBER_FIRE_DURATION = 0.5;
+    public static final double CLIMBER_CLIMB_DURATION = 9.0;
+    public static final double CLIMBER_CLIMB_DISTANCE = 1000.0;
 
     //================================================== Stinger ==============================================================
 

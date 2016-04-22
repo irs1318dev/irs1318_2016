@@ -68,22 +68,16 @@ public class ClimberClimbTask extends TimedTask implements IControlTask
     @Override
     public boolean hasCompleted()
     {
-        // Check if the time has elapsed
-        super.hasCompleted();
-        
-        // Check if the current distance is within the acceptable error for the desired distance 
-        if (this.currentDistance >= this.desiredDistance - this.desiredDistance * TuningConstants.CLIMBER_ACCEPTABLE_DELTA
-            || this.currentDistance <= this.desiredDistance + this.desiredDistance * TuningConstants.CLIMBER_ACCEPTABLE_DELTA)
-        {
-            return true;
-        }
-        
-        if (!this.hasArmExtended)
-        {
-            return true;
-        }
-        // Return false if neither conditions are met
-        return false;
+        //Return true if:
+        return 
+            // The total time interval has elapsed
+            super.hasCompleted() 
+            // The climber at or within a small amount of error of the desired point
+            || (this.currentDistance >= this.desiredDistance - this.desiredDistance * TuningConstants.CLIMBER_ACCEPTABLE_DELTA)
+            // The climber is at or over the desired climb distance
+            || (this.currentDistance <= this.desiredDistance + this.desiredDistance)
+            // The arm is down. This makes the macro end, and stops it from taking control of the robot until the time has elapsed.
+            || (!this.hasArmExtended);
     }
 
 }

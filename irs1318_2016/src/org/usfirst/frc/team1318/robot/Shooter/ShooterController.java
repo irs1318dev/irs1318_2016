@@ -67,14 +67,16 @@ public class ShooterController implements IController
 
         this.shooter.setReadyLight(shouldLight);
         
-        // Track the desire to activate / deactivate the targeting light
-        if (this.driver.getDigital(Operation.ActivateTargetingLight))
+        // Track the desire to activate / deactivate the targeting light using the specified activation threshold
+        double throttleValue = this.driver.getAnalog(Operation.ActivateTargetingLight);
+        
+        if (throttleValue >= TuningConstants.SHOOTER_TARGETING_LIGHT_ACTIVATION_THRESHOLD)
         {
-            this.activateTargetingLight = true;
+            this.shooter.setTargetingLight(true);
         }
-        else if (this.driver.getDigital(Operation.DeactivateTargetingLight))
+        else
         {
-            this.activateTargetingLight = false;
+            this.shooter.setTargetingLight(false);
         }
         
         this.shooter.setTargetingLight(this.activateTargetingLight);

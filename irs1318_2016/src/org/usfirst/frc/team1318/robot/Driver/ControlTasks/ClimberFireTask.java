@@ -27,13 +27,8 @@ public class ClimberFireTask extends TimedTask implements IControlTask
     @Override
     public boolean hasCompleted()
     {
-        super.hasCompleted();
-        
-        if(!this.hasArmExtended)
-        {
-            return true;
-        }
-        
-        return false;
+        // Return true if the time has elapsed, or if the arm is not extended. 
+        // The arm is here to make the macro end early if the arm is down, and thus not take up all of the time.
+        return super.hasCompleted() || !this.hasArmExtended;
     }
 }

@@ -43,10 +43,6 @@ public class ClimberController implements IController
         {
             currentHookSpeed = TuningConstants.CLIMBER_HOOK_MAX_SPEED;
         }
-        else if (this.driver.getDigital(Operation.ClimberFiringPinRetract))
-        {
-            currentHookSpeed = -TuningConstants.CLIMBER_HOOK_MAX_SPEED;
-        }
         
         this.climbingArm.setFiringPinSpeed(currentHookSpeed);
     }
