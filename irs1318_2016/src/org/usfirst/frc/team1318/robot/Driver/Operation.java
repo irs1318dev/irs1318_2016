@@ -48,6 +48,7 @@ public enum Operation
     ClimberWinchExtend,
     ClimberWinchSpeed,
     ClimberFiringPinExtend,
+    ClimberFiringPinRetract,
     ClimberArmUp,
     ClimberArmDown,
     

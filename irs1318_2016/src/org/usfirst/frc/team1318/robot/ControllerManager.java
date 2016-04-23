@@ -2,6 +2,7 @@ package org.usfirst.frc.team1318.robot;
 
 import java.util.ArrayList;
 
+import org.usfirst.frc.team1318.robot.Climber.ClimberController;
 import org.usfirst.frc.team1318.robot.Common.IController;
 import org.usfirst.frc.team1318.robot.Compressor.CompressorController;
 import org.usfirst.frc.team1318.robot.DriveTrain.DriveTrainController;
@@ -26,7 +27,7 @@ public class ControllerManager implements IController
         this.controllerList.add(new IntakeController(this.components.getIntake()));
         this.controllerList.add(new ShooterController(this.components.getShooter(), this.components.getPowerManager()));
         this.controllerList.add(new StingerController(this.components.getStingerComponent()));
-        //this.controllerList.add(new ClimberController(this.components.getClimberComponent()));
+        this.controllerList.add(new ClimberController(this.components.getClimberComponent()));
     }
 
     @Override

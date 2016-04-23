@@ -144,20 +144,26 @@ public abstract class Driver
             put(
                 Operation.ClimberFiringPinExtend,
                 new DigitalOperationDescription(
-                    UserInputDevice.None,
-                    UserInputDeviceButton.NONE,
+                    UserInputDevice.Driver,
+                    UserInputDeviceButton.JOYSTICK_STICK_TOP_LEFT_BUTTON,
+                    ButtonType.Click));
+            put(
+                Operation.ClimberFiringPinRetract,
+                new DigitalOperationDescription(
+                    UserInputDevice.Driver,
+                    UserInputDeviceButton.JOYSTICK_STICK_BOTTOM_LEFT_BUTTON,
                     ButtonType.Click));
             put(
                 Operation.ClimberArmUp,
                 new DigitalOperationDescription(
-                    UserInputDevice.Driver,
-                    UserInputDeviceButton.JOYSTICK_STICK_TOP_LEFT_BUTTON,
+                    UserInputDevice.None,
+                    UserInputDeviceButton.NONE,
                     ButtonType.Click));
             put(
                 Operation.ClimberArmDown,
                 new DigitalOperationDescription(
                     UserInputDevice.None,
-                    UserInputDeviceButton.JOYSTICK_STICK_BOTTOM_LEFT_BUTTON,
+                    UserInputDeviceButton.NONE,
                     ButtonType.Click));
 
             // Operations for general stuff

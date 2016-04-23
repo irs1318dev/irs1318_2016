@@ -18,29 +18,32 @@ import edu.wpi.first.wpilibj.Talon;
 
 public class ClimberComponent
 {
-    private final Talon winch;
-    private final Talon firingPin;
-    private final DoubleSolenoid arm;
+    private Talon winch;
+    private DoubleSolenoid firingPin;
+    private DoubleSolenoid arm;
     private boolean isArmExtended;
     private Encoder encoder;
     
     public ClimberComponent()
     {
         this.winch = new Talon(ElectronicsConstants.CLIMBER_WINCH_MOTOR_CHANNEL);
-        this.firingPin = new Talon(ElectronicsConstants.CLIMBER_FIRING_PIN_MOTOR_CHANNEL);
-        this.arm = new DoubleSolenoid(
-            ElectronicsConstants.CLIMBER_ARM_SOLENOID_CHANNEL_A, 
-            ElectronicsConstants.CLIMBER_ARM_SOLENOID_CHANNEL_B);
-        this.encoder = new Encoder(ElectronicsConstants.CLIMBER_ENCODER_CHANNEL_A, ElectronicsConstants.CLIMBER_ENCODER_CHANNEL_B);
-        this.encoder.setDistancePerPulse(TuningConstants.CLIMBER_ENCODER_DISTANCE_PER_PULSE);
+        this.firingPin = new DoubleSolenoid(
+            ElectronicsConstants.PCM_A_MODULE, 
+            ElectronicsConstants.CLIMBER_FIRING_PIN_CHANNEL_A, 
+            ElectronicsConstants.CLIMBER_FIRING_PIN_CHANNEL_B);
+        //this.arm = new DoubleSolenoid(
+        //    ElectronicsConstants.CLIMBER_ARM_SOLENOID_CHANNEL_A, 
+        //    ElectronicsConstants.CLIMBER_ARM_SOLENOID_CHANNEL_B);
+        //this.encoder = new Encoder(ElectronicsConstants.CLIMBER_ENCODER_CHANNEL_A, ElectronicsConstants.CLIMBER_ENCODER_CHANNEL_B);
+        //this.encoder.setDistancePerPulse(TuningConstants.CLIMBER_ENCODER_DISTANCE_PER_PULSE);
         this.isArmExtended = false;
     }
     
     public void stop()
     {
-        this.winch.set(0.0);
-        this.firingPin.set(0.0);
-        this.arm.set(Value.kOff);
+        //this.winch.set(0.0);
+        //this.firingPin.set(0.0);
+        //this.arm.set(Value.kOff);
     }
     
     // Takes a speed and sets the winch with that speed
@@ -50,9 +53,16 @@ public class ClimberComponent
     }
     
     // Takes a speed and sets that to the firing pin
-    public void setFiringPinSpeed(double motorSpeed)
+    public void setFiringPin(boolean extend)
     {
-        this.firingPin.set(motorSpeed);
+        if (extend)
+        {
+            this.firingPin.set(Value.kForward);
+        }
+        else
+        {
+            this.firingPin.set(Value.kReverse);
+        }
     }
     
     // Return the value (in ticks) of the encoder
