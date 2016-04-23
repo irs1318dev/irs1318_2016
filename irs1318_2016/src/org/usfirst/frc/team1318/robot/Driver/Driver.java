@@ -97,11 +97,6 @@ public abstract class Driver
                     UserInputDevice.None,
                     UserInputDeviceButton.NONE,
                     ButtonType.Simple));
-            put(
-                Operation.ActivateTargetingLight,
-                new AnalogOperationDescription(
-                    UserInputDevice.Driver,
-                    AnalogAxis.Throttle));
 
             // Operations for the intake
             put(
@@ -145,13 +140,13 @@ public abstract class Driver
                 Operation.ClimberFiringPinExtend,
                 new DigitalOperationDescription(
                     UserInputDevice.Driver,
-                    UserInputDeviceButton.JOYSTICK_STICK_TOP_LEFT_BUTTON,
+                    UserInputDeviceButton.NONE,
                     ButtonType.Click));
             put(
                 Operation.ClimberFiringPinRetract,
                 new DigitalOperationDescription(
                     UserInputDevice.Driver,
-                    UserInputDeviceButton.JOYSTICK_STICK_BOTTOM_LEFT_BUTTON,
+                    UserInputDeviceButton.NONE,
                     ButtonType.Click));
             put(
                 Operation.ClimberArmUp,

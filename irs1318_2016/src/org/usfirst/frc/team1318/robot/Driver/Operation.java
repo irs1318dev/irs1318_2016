@@ -35,8 +35,6 @@ public enum Operation
     ShooterSpin,
     ShooterLowerKicker,
     ShooterExtendHood,
-    ActivateTargetingLight,
-    DeactivateTargetingLight,
     
     // Intake operations:
     IntakeRotatingIn,

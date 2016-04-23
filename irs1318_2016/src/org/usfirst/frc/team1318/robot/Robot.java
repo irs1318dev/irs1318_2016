@@ -156,7 +156,7 @@ public class Robot extends IterativeRobot
                 break;
 
             case 3://Switches A and B flipped
-                autonomousRoutine = Robot.GetPortcullisBreachRouteRoutine();
+                autonomousRoutine = Robot.GetPortcullisRouteAndShootRoutine();
                 break;
                 
             case 4://Switches C flipped
@@ -478,7 +478,11 @@ public class Robot extends IterativeRobot
                     7.0)),
             ConcurrentTask.AllTasks(
                 SequentialTask.Sequence(
-                    new TurnTask(75.0, false), //68.0
+                    new DriveRouteTask(
+                        (timeRatio) -> timeRatio < 0.9 ? timeRatio / 0.9 * 100.0 : 100.0, //420.0
+                        (timeRatio) -> timeRatio < 0.9 ? timeRatio / 0.9 * 0.0 : 0.0, //420.0
+                        .75),
+                    //new TurnTask(75.0, false), //68.0
                     new WaitTask(0.3)),
                 new IntakeExtendTask(TuningConstants.SHOOTER_LOWER_KICKER_DURATION, false)),
             new DriveRouteTask(
