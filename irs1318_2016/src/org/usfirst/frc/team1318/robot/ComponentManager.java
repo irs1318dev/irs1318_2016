@@ -28,7 +28,7 @@ public class ComponentManager
         this.shooterComponent = new ShooterComponent();
         this.intakeComponent = new IntakeComponent();
         this.stingerComponent = new StingerComponent();
-        this.climberComponent = new ClimberComponent();
+        //this.climberComponent = new ClimberComponent();
 
         this.powerManager = new PowerManager();
         this.positionManager = new PositionManager(this.driveTrainComponent);

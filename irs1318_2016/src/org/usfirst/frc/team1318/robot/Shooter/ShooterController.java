@@ -66,22 +66,6 @@ public class ShooterController implements IController
         }
 
         this.shooter.setReadyLight(shouldLight);
-        
-        // Track the desire to activate / deactivate the targeting light using the specified activation threshold
-        double throttleValue = this.driver.getAnalog(Operation.ActivateTargetingLight);
-        
-        DashboardLogger.putDouble("Throttle value", throttleValue);
-        
-        if (throttleValue >= TuningConstants.SHOOTER_TARGETING_LIGHT_ACTIVATION_THRESHOLD)
-        {
-            this.shooter.setTargetingLight(true);
-        }
-        else
-        {
-            this.shooter.setTargetingLight(false);
-        }
-        
-        this.shooter.setTargetingLight(this.activateTargetingLight);
 
         // Set the motor power with the calculated value
         this.shooter.setMotorSpeed(power);

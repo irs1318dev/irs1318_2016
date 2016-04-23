@@ -20,7 +20,6 @@ public class ShooterComponent
     private final Talon talon;
     private final Encoder encoder;
     private final Solenoid readyLight;
-    private Solenoid targetingLight;
 
     public ShooterComponent() 
     {
@@ -30,7 +29,6 @@ public class ShooterComponent
         this.talon = new Talon(ElectronicsConstants.SHOOTER_TALON_CHANNEL);
         this.encoder = new Encoder(ElectronicsConstants.SHOOTER_ENCODER_CHANNEL_A, ElectronicsConstants.SHOOTER_ENCODER_CHANNEL_B);
         this.readyLight = new Solenoid(ElectronicsConstants.PCM_B_MODULE, ElectronicsConstants.SHOOTER_READY_LIGHT_PORT);
-        //this.targetingLight = new Solenoid(ElectronicsConstants.PCM_B_MODULE, ElectronicsConstants.SHOOTER_TARGETING_LIGHT_PORT);
     }
 
     public void setMotorSpeed(double speed) 
@@ -89,17 +87,11 @@ public class ShooterComponent
         this.readyLight.set(on);
     }
 
-    public void setTargetingLight(boolean on)
-    {
-        //this.targetingLight.set(on);
-    }
-
     public void stop()
     {
         this.kicker.set(Value.kOff);
         this.hood.set(Value.kOff);
         this.setMotorSpeed(0.0);
         this.readyLight.set(false);
-        //this.targetingLight.set(false);
     }
 }
