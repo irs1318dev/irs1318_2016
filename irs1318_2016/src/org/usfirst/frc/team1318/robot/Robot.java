@@ -156,7 +156,8 @@ public class Robot extends IterativeRobot
                 break;
 
             case 3://Switches A and B flipped
-                autonomousRoutine = Robot.GetPortcullisRouteAndShootRoutine();
+                //autonomousRoutine = Robot.GetPortcullisRouteAndShootRoutine();
+                autonomousRoutine = Robot.GetPortcullisBreachRouteRoutine();
                 break;
                 
             case 4://Switches C flipped
@@ -168,7 +169,7 @@ public class Robot extends IterativeRobot
                 break;
                 
             case 6://Switches B and C flipped
-                autonomousRoutine = Robot.GetFillerRoutine();
+                autonomousRoutine = Robot.GetDriveStraightAndCurveAndShootCloseRouteRoutine();
                 break;
                 
             case 7://Switches A and B and C flipped
@@ -479,15 +480,15 @@ public class Robot extends IterativeRobot
             ConcurrentTask.AllTasks(
                 SequentialTask.Sequence(
                     new DriveRouteTask(
-                        (timeRatio) -> timeRatio < 0.9 ? timeRatio / 0.9 * 100.0 : 100.0, //420.0
+                        (timeRatio) -> timeRatio < 0.9 ? timeRatio / 0.9 * 95.0 : 95.0, //420.0
                         (timeRatio) -> timeRatio < 0.9 ? timeRatio / 0.9 * 0.0 : 0.0, //420.0
                         .75),
                     //new TurnTask(75.0, false), //68.0
                     new WaitTask(0.3)),
                 new IntakeExtendTask(TuningConstants.SHOOTER_LOWER_KICKER_DURATION, false)),
             new DriveRouteTask(
-                (timeRatio) -> timeRatio < 0.9 ? timeRatio / 0.9 * 400.0 : 400.0, //420.0
-                (timeRatio) -> timeRatio < 0.9 ? timeRatio / 0.9 * 400.0 : 400.0, //420.0
+                (timeRatio) -> timeRatio < 0.9 ? timeRatio / 0.9 * 400.0 : 400.0, //400
+                (timeRatio) -> timeRatio < 0.9 ? timeRatio / 0.9 * 400.0 : 400.0, //400
                 3.10),
             new WaitTask(0.70),
             new DriveRouteTask(
@@ -509,16 +510,16 @@ public class Robot extends IterativeRobot
             ConcurrentTask.AllTasks(
                 new IntakeExtendTask(TuningConstants.SHOOTER_LOWER_KICKER_DURATION, true),
                 new DriveRouteTask(
-                    (timeRatio) -> timeRatio < 0.9 ? timeRatio / 0.9 * 300.0 : 300.0,
-                    (timeRatio) -> timeRatio < 0.9 ? timeRatio / 0.9 * 300.0 : 300.0,
+                    (timeRatio) -> timeRatio < 0.9 ? timeRatio / 0.9 * 175.0 : 175.0, //250.0
+                    (timeRatio) -> timeRatio < 0.9 ? timeRatio / 0.9 * 175.0 : 175.0, //250.0
                     4.0)),
             new DriveRouteTask(
-                (timeRatio) -> timeRatio < 0.9 ? timeRatio / 0.9 * 490.0 : 490.0,
-                (timeRatio) -> timeRatio < 0.9 ? timeRatio / 0.9 * 420.0 : 420.0,
+                (timeRatio) -> timeRatio < 0.9 ? timeRatio / 0.9 * 500.0 : 500.0, //490.0
+                (timeRatio) -> timeRatio < 0.9 ? timeRatio / 0.9 * 420.0 : 420.0, //420.0
                 4.0),
             new DriveRouteTask(
-                (timeRatio) -> timeRatio < 0.9 ? timeRatio / 0.9 * 200.0 : 200.0,
-                (timeRatio) -> timeRatio < 0.9 ? timeRatio / 0.9 * 200.0 : 200.0,
+                (timeRatio) -> timeRatio < 0.9 ? timeRatio / 0.9 * 200.0 : 200.0, //200.0
+                (timeRatio) -> timeRatio < 0.9 ? timeRatio / 0.9 * 200.0 : 200.0, //200.0
                 3.0),
             ConcurrentTask.AnyTasks(
                 SequentialTask.Sequence(

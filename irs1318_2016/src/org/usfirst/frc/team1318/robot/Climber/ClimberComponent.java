@@ -27,13 +27,16 @@ public class ClimberComponent
     public ClimberComponent()
     {
         this.winch = new Talon(ElectronicsConstants.CLIMBER_WINCH_MOTOR_CHANNEL);
+        /*
         this.firingPin = new DoubleSolenoid(
             ElectronicsConstants.PCM_A_MODULE, 
             ElectronicsConstants.CLIMBER_FIRING_PIN_CHANNEL_A, 
             ElectronicsConstants.CLIMBER_FIRING_PIN_CHANNEL_B);
-        //this.arm = new DoubleSolenoid(
-        //    ElectronicsConstants.CLIMBER_ARM_SOLENOID_CHANNEL_A, 
-        //    ElectronicsConstants.CLIMBER_ARM_SOLENOID_CHANNEL_B);
+        this.arm = new DoubleSolenoid(
+            ElectronicsConstants.PCM_A_MODULE,
+            ElectronicsConstants.CLIMBER_ARM_SOLENOID_CHANNEL_A, 
+            ElectronicsConstants.CLIMBER_ARM_SOLENOID_CHANNEL_B);
+        */
         //this.encoder = new Encoder(ElectronicsConstants.CLIMBER_ENCODER_CHANNEL_A, ElectronicsConstants.CLIMBER_ENCODER_CHANNEL_B);
         //this.encoder.setDistancePerPulse(TuningConstants.CLIMBER_ENCODER_DISTANCE_PER_PULSE);
         this.isArmExtended = false;

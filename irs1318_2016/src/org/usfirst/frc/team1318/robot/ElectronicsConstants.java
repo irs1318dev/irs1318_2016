@@ -65,11 +65,11 @@ public class ElectronicsConstants
     public static final int CLIMBER_WINCH_MOTOR_CHANNEL = 2;
     public static final int CLIMBER_FIRING_PIN_MOTOR_CHANNEL = 2;
 
-    public static final int CLIMBER_ARM_SOLENOID_CHANNEL_A = 00;
+    public static final int CLIMBER_ARM_SOLENOID_CHANNEL_A = 7;
     public static final int CLIMBER_ARM_SOLENOID_CHANNEL_B = 0;
     
-    public static final int CLIMBER_FIRING_PIN_CHANNEL_A = 7;
-    public static final int CLIMBER_FIRING_PIN_CHANNEL_B = 0;
+    public static final int CLIMBER_FIRING_PIN_CHANNEL_A = 1;
+    public static final int CLIMBER_FIRING_PIN_CHANNEL_B = 6;
     
     public static final int CLIMBER_ENCODER_CHANNEL_A = 0;
     public static final int CLIMBER_ENCODER_CHANNEL_B = 0;
