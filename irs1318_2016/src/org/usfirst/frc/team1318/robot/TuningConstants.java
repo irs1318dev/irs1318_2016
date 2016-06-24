@@ -65,7 +65,7 @@ public class TuningConstants
     public static final boolean SHOOTER_SCALE_BASED_ON_VOLTAGE = false;
     public static final double SHOOTER_VELOCITY_TUNING_VOLTAGE = 12.5;
 
-    public static final double SHOOTER_MAX_POWER_LEVEL = 0.5;
+    public static final double SHOOTER_MAX_POWER_LEVEL = 0.75;//0.5
 
     public static final double SHOOTER_VELOCITY_PID_KP_DEFAULT = 0.1;
     public static final double SHOOTER_VELOCITY_PID_KI_DEFAULT = 0.0;
@@ -75,7 +75,7 @@ public class TuningConstants
 
     public static final double SHOOTER_CLOSE_SHOT_VELOCITY = 0.5;
     public static final double SHOOTER_MIDDLE_SHOT_VELOCITY = 0.5;
-    public static final double SHOOTER_FAR_SHOT_VELOCITY = 0.5;
+    public static final double SHOOTER_FAR_SHOT_VELOCITY = 0.45;
    
     public static final double SHOOTER_LOWER_KICKER_DURATION = 0.5;
     public static final double SHOOTER_SPIN_UP_DURATION = 1.75;
