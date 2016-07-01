@@ -244,8 +244,9 @@ public abstract class Driver
                     UserInputDeviceButton.JOYSTICK_BASE_MIDDLE_RIGHT_BUTTON,
                     ButtonType.Toggle,
                     () -> SequentialTask.Sequence(
+                        new IntakeExtendTask(TuningConstants.SHOOTER_LOWER_KICKER_DURATION, true),
                         new ShooterKickerTask(TuningConstants.SHOOTER_LOWER_KICKER_DURATION, true),
-                        new ShooterSpinUpTask(false, TuningConstants.SHOOTER_MIDDLE_SHOT_VELOCITY, TuningConstants.SHOOTER_SPIN_UP_DURATION)),
+                        new ShooterSpinUpTask(true, TuningConstants.SHOOTER_MIDDLE_SHOT_VELOCITY, TuningConstants.SHOOTER_SPIN_UP_DURATION)),
                     new Operation[]
                     {
                         Operation.ShooterSpin,
@@ -254,6 +255,8 @@ public abstract class Driver
                         Operation.ShooterExtendHood,
                         Operation.IntakeRotatingIn,
                         Operation.IntakeRotatingOut,
+                        Operation.IntakeExtend,
+                        Operation.IntakeRetract,
                     }));
             put(
                 MacroOperation.SpinFar,
