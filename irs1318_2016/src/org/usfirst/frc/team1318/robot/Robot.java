@@ -5,7 +5,6 @@ import org.usfirst.frc.team1318.robot.Driver.Driver;
 import org.usfirst.frc.team1318.robot.Driver.IControlTask;
 import org.usfirst.frc.team1318.robot.Driver.Autonomous.AutonomousDriver;
 import org.usfirst.frc.team1318.robot.Driver.ControlTasks.ConcurrentTask;
-import org.usfirst.frc.team1318.robot.Driver.ControlTasks.DriveDistanceTask;
 import org.usfirst.frc.team1318.robot.Driver.ControlTasks.DriveRouteTask;
 import org.usfirst.frc.team1318.robot.Driver.ControlTasks.DriveTimedTask;
 import org.usfirst.frc.team1318.robot.Driver.ControlTasks.IntakeExtendTask;
@@ -281,11 +280,13 @@ public class Robot extends IterativeRobot
                 new DriveTimedTask(time, xVelocity, yVelocity)));
     }
 
+    
     /**
      * Gets an auto routine that moves through a defense, spins the wheel, and then shoots. 
      * 
      * @return the relevant task
      */
+    /*
     private static IControlTask GetDriveStraightAndShootDistanceRoutine()
     {
         return SequentialTask.Sequence(
@@ -303,6 +304,7 @@ public class Robot extends IterativeRobot
      * 
      * @return the relevant task
      */
+    /*
     private static IControlTask GetDriveStraightAndShootRouteRoutine()
     {
         return SequentialTask.Sequence(
@@ -323,6 +325,7 @@ public class Robot extends IterativeRobot
      * 
      * @return the relevant task
      */
+    /*
     private static IControlTask GetDriveStraightAndTurnAndShootDistanceRoutine()
     {
         return SequentialTask.Sequence(
@@ -341,6 +344,7 @@ public class Robot extends IterativeRobot
      * 
      * @return the relevant task
      */
+    /*
     private static IControlTask GetDriveStraightAndTurnAndShootRouteRoutine()
     {
         return SequentialTask.Sequence(
@@ -360,7 +364,8 @@ public class Robot extends IterativeRobot
             new ShooterKickerTask(TuningConstants.SHOOTER_FIRE_DURATION, false),
             new ShooterSpinDownTask(TuningConstants.SHOOTER_REVERSE_DURATION));
     }
-
+    */
+    /*
     private static IControlTask GetChevalDeFriseRouteAndShootRoutine()
     {
         return SequentialTask.Sequence(
@@ -402,7 +407,8 @@ public class Robot extends IterativeRobot
                 new ShooterKickerTask(TuningConstants.SHOOTER_FIRE_DURATION, false),
                 new ShooterSpinDownTask(TuningConstants.SHOOTER_REVERSE_DURATION)));
     }
-
+    */
+    /// end of obsolete auto routines
     private static IControlTask GetChevalDeFriseBreachRouteRoutine()
     {
         return SequentialTask.Sequence(
