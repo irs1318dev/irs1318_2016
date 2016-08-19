@@ -17,7 +17,7 @@ public class ClimberClimbTask extends TimedTask implements IControlTask
     {
         super(duration);
         this.desiredDistance = distance;
-        this.hasArmExtended = this.getComponents().getClimberComponent().getArmIsExtended();
+//        this.hasArmExtended = this.getComponents().getClimberComponent().getArmIsExtended();
     }
     
     @Override
@@ -28,7 +28,7 @@ public class ClimberClimbTask extends TimedTask implements IControlTask
             // The max speed that the climber will be traveling at the end of its distance (found by using the total distance and time
             this.maxSpeed = 2.0 * this.desiredDistance/this.duration;
         
-            this.currentDistance = this.getComponents().getClimberComponent().getEncoderDistance();
+      //      this.currentDistance = this.getComponents().getClimberComponent().getEncoderDistance();
         
             // Speed should be a linear line, so this scales it from 0% of max at time = 0 to 100% at time = duration
             this.desiredSpeed = this.maxSpeed * this.getRatioComplete();
@@ -42,7 +42,7 @@ public class ClimberClimbTask extends TimedTask implements IControlTask
     {
         if (this.hasArmExtended)
         {       
-            this.currentDistance = this.getComponents().getClimberComponent().getEncoderDistance();
+//            this.currentDistance = this.getComponents().getClimberComponent().getEncoderDistance();
         
             // Speed should be a linear line, so this scales it from 0% of max at time = 0 to 100% at time = duration
             this.desiredSpeed = this.maxSpeed * this.getRatioComplete();

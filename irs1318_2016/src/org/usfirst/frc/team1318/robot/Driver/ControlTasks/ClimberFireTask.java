@@ -10,13 +10,13 @@ public class ClimberFireTask extends TimedTask implements IControlTask
     public ClimberFireTask(double duration)
     {
         super(duration);
-        this.hasArmExtended = this.getComponents().getClimberComponent().getArmIsExtended();
+//        this.hasArmExtended = this.getComponents().getClimberComponent().getArmIsExtended();
     }
 
     @Override
     public void update()
     {
-        this.hasArmExtended = this.getComponents().getClimberComponent().getArmIsExtended();
+//        this.hasArmExtended = this.getComponents().getClimberComponent().getArmIsExtended();
         
         if (this.hasArmExtended)
         {
