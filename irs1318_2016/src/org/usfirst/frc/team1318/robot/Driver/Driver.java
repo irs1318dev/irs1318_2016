@@ -7,13 +7,13 @@ import org.usfirst.frc.team1318.robot.TuningConstants;
 import org.usfirst.frc.team1318.robot.Driver.Buttons.AnalogAxis;
 import org.usfirst.frc.team1318.robot.Driver.Buttons.ButtonType;
 import org.usfirst.frc.team1318.robot.Driver.ControlTasks.PIDBrakeTask;
-import org.usfirst.frc.team1318.robot.Driver.ControlTasks.SequentialTask;
-import org.usfirst.frc.team1318.robot.Driver.ControlTasks.ShooterKickerTask;
-import org.usfirst.frc.team1318.robot.Driver.ControlTasks.ShooterSpinDownTask;
-import org.usfirst.frc.team1318.robot.Driver.ControlTasks.ShooterSpinUpTask;
-import org.usfirst.frc.team1318.robot.Driver.ControlTasks.ClimberClimbTask;
-import org.usfirst.frc.team1318.robot.Driver.ControlTasks.ClimberFireTask;
-import org.usfirst.frc.team1318.robot.Driver.ControlTasks.IntakeExtendTask;
+//import org.usfirst.frc.team1318.robot.Driver.ControlTasks.SequentialTask;
+//import org.usfirst.frc.team1318.robot.Driver.ControlTasks.ShooterKickerTask;
+//import org.usfirst.frc.team1318.robot.Driver.ControlTasks.ShooterSpinDownTask;
+//import org.usfirst.frc.team1318.robot.Driver.ControlTasks.ShooterSpinUpTask;
+//import org.usfirst.frc.team1318.robot.Driver.ControlTasks.ClimberClimbTask;
+//import org.usfirst.frc.team1318.robot.Driver.ControlTasks.ClimberFireTask;
+//import org.usfirst.frc.team1318.robot.Driver.ControlTasks.IntakeExtendTask;
 import org.usfirst.frc.team1318.robot.Driver.Descriptions.AnalogOperationDescription;
 import org.usfirst.frc.team1318.robot.Driver.Descriptions.DigitalOperationDescription;
 import org.usfirst.frc.team1318.robot.Driver.Descriptions.MacroOperationDescription;
@@ -79,12 +79,12 @@ public abstract class Driver
                 new AnalogOperationDescription(
                     UserInputDevice.None,
                     AnalogAxis.None));
-            put(
+/*            put(
                 Operation.ShooterSpin,
                 new DigitalOperationDescription(
                     UserInputDevice.Driver,
                     UserInputDeviceButton.JOYSTICK_STICK_TOP_RIGHT_BUTTON,
-                    ButtonType.Simple));
+                    ButtonType.Simple));*/
             put(
                 Operation.ShooterLowerKicker,
                 new DigitalOperationDescription(
@@ -99,7 +99,7 @@ public abstract class Driver
                     ButtonType.Simple));
 
             // Operations for the intake
-            put(
+/*            put(
                 Operation.IntakeRotatingIn,
                 new DigitalOperationDescription(
                     UserInputDevice.Driver,
@@ -110,7 +110,7 @@ public abstract class Driver
                 new DigitalOperationDescription(
                     UserInputDevice.Driver,
                     UserInputDeviceButton.JOYSTICK_STICK_BOTTOM_RIGHT_BUTTON,
-                    ButtonType.Simple));
+                    ButtonType.Simple));*/
             put(
                 Operation.IntakeExtend,
                 new DigitalOperationDescription(
@@ -182,7 +182,7 @@ public abstract class Driver
                     ButtonType.Click));
 
             // Stinger operations
-            put(
+/*            put(
                 Operation.StingerIn,
                 new DigitalOperationDescription(
                     UserInputDevice.Driver,
@@ -193,7 +193,7 @@ public abstract class Driver
                 new DigitalOperationDescription(
                     UserInputDevice.Driver,
                     UserInputDeviceButton.JOYSTICK_BASE_TOP_LEFT_BUTTON,
-                    ButtonType.Simple));
+                    ButtonType.Simple));*/
         }
     };
 
@@ -217,7 +217,7 @@ public abstract class Driver
                     }));
             
             // Macros for shooting distance.
-            put(
+/*            put(
                 MacroOperation.SpinClose,
                 new MacroOperationDescription(
                     false,
@@ -276,8 +276,8 @@ public abstract class Driver
                         Operation.IntakeRotatingOut,
                         Operation.IntakeExtend,
                         Operation.IntakeRetract,
-                    }));
-            put(
+                    }));*/
+/*            put(
                 MacroOperation.Shoot,
                 new MacroOperationDescription(
                     UserInputDevice.Driver,
@@ -296,10 +296,10 @@ public abstract class Driver
                         Operation.IntakeRotatingOut,
                         Operation.IntakeExtend,
                         Operation.IntakeRetract,
-                    }));
+                    }));*/
             
             // Macros for the climber.
-            put(
+/*            put(
                 MacroOperation.ClimberScale,
                 new MacroOperationDescription(
                     UserInputDevice.Driver,
@@ -313,7 +313,7 @@ public abstract class Driver
                             Operation.ClimberWinchExtend,
                             Operation.ClimberWinchSpeed,
                             Operation.ClimberFiringPinExtend,
-                        })); 
+                        })); */
             /*
             put(
                 MacroOperation.ClimbingArmDeploy,

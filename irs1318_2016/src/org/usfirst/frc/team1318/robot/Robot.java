@@ -5,16 +5,16 @@ import org.usfirst.frc.team1318.robot.Driver.Driver;
 import org.usfirst.frc.team1318.robot.Driver.IControlTask;
 import org.usfirst.frc.team1318.robot.Driver.Autonomous.AutonomousDriver;
 import org.usfirst.frc.team1318.robot.Driver.ControlTasks.ConcurrentTask;
-import org.usfirst.frc.team1318.robot.Driver.ControlTasks.DriveRouteTask;
+//import org.usfirst.frc.team1318.robot.Driver.ControlTasks.DriveRouteTask;
 import org.usfirst.frc.team1318.robot.Driver.ControlTasks.DriveTimedTask;
 import org.usfirst.frc.team1318.robot.Driver.ControlTasks.IntakeExtendTask;
-import org.usfirst.frc.team1318.robot.Driver.ControlTasks.PIDBrakeTask;
+//import org.usfirst.frc.team1318.robot.Driver.ControlTasks.PIDBrakeTask;
 import org.usfirst.frc.team1318.robot.Driver.ControlTasks.SequentialTask;
-import org.usfirst.frc.team1318.robot.Driver.ControlTasks.ShooterKickerTask;
-import org.usfirst.frc.team1318.robot.Driver.ControlTasks.ShooterSpinDownTask;
-import org.usfirst.frc.team1318.robot.Driver.ControlTasks.ShooterSpinUpTask;
-import org.usfirst.frc.team1318.robot.Driver.ControlTasks.StingerTask;
-import org.usfirst.frc.team1318.robot.Driver.ControlTasks.TurnTask;
+//import org.usfirst.frc.team1318.robot.Driver.ControlTasks.ShooterKickerTask;
+//import org.usfirst.frc.team1318.robot.Driver.ControlTasks.ShooterSpinDownTask;
+//import org.usfirst.frc.team1318.robot.Driver.ControlTasks.ShooterSpinUpTask;
+//import org.usfirst.frc.team1318.robot.Driver.ControlTasks.StingerTask;
+//import org.usfirst.frc.team1318.robot.Driver.ControlTasks.TurnTask;
 import org.usfirst.frc.team1318.robot.Driver.ControlTasks.WaitTask;
 import org.usfirst.frc.team1318.robot.Driver.User.UserDriver;
 
@@ -154,7 +154,7 @@ public class Robot extends IterativeRobot
                     TuningConstants.DRIVETRAIN_AUTONOMOUS_FAST_VELOCITY);
                 break;
 
-            case 3://Switches A and B flipped
+/*            case 3://Switches A and B flipped
                 //autonomousRoutine = Robot.GetPortcullisRouteAndShootRoutine();
                 autonomousRoutine = Robot.GetPortcullisBreachRouteRoutine();
                 break;
@@ -173,7 +173,7 @@ public class Robot extends IterativeRobot
                 
             case 7://Switches A and B and C flipped
                 autonomousRoutine = Robot.GetDriveStraightAndTurnAndReaproachAndShootCloseRouteRoutine();
-                break;
+                break;*/
 
             default://CANT READ
                 autonomousRoutine = Robot.GetFillerRoutine();
@@ -409,7 +409,7 @@ public class Robot extends IterativeRobot
     }
     */
     /// end of obsolete auto routines
-    private static IControlTask GetChevalDeFriseBreachRouteRoutine()
+/*    private static IControlTask GetChevalDeFriseBreachRouteRoutine()
     {
         return SequentialTask.Sequence(
             ConcurrentTask.AllTasks(
@@ -425,9 +425,9 @@ public class Robot extends IterativeRobot
                     (timeRatio) -> timeRatio < 0.9 ? timeRatio / 0.9 * 350.0 : 350.0,
                     (timeRatio) -> timeRatio < 0.9 ? timeRatio / 0.9 * 350.0 : 350.0,
                     5.0)));
-    }
+    }*/
 
-    private static IControlTask GetPortcullisBreachRouteRoutine()
+/*    private static IControlTask GetPortcullisBreachRouteRoutine()
     {
         return SequentialTask.Sequence(
             ConcurrentTask.AllTasks(
@@ -445,9 +445,9 @@ public class Robot extends IterativeRobot
                     (timeRatio) -> timeRatio < 0.9 ? timeRatio / 0.9 * 250.0 : 250.0,
                     2.5)),
             new StingerTask(1.0, false));
-    }
+    }*/
 
-    private static IControlTask GetDriveStraightAndTurnAndShootCloseRouteRoutine()
+/*    private static IControlTask GetDriveStraightAndTurnAndShootCloseRouteRoutine()
     {
         return SequentialTask.Sequence(
             ConcurrentTask.AllTasks(
@@ -472,9 +472,9 @@ public class Robot extends IterativeRobot
                     new ShooterKickerTask(TuningConstants.SHOOTER_FIRE_DURATION, false),
                     new ShooterSpinDownTask(TuningConstants.SHOOTER_REVERSE_DURATION)),
                 new PIDBrakeTask()));
-    }
+    } */
 
-    private static IControlTask GetDriveStraightAndTurnAndReaproachAndShootCloseRouteRoutine()
+/*    private static IControlTask GetDriveStraightAndTurnAndReaproachAndShootCloseRouteRoutine()
     {
         return SequentialTask.Sequence(
             ConcurrentTask.AllTasks(
@@ -508,9 +508,9 @@ public class Robot extends IterativeRobot
                     new ShooterKickerTask(TuningConstants.SHOOTER_FIRE_DURATION, false),
                     new ShooterSpinDownTask(TuningConstants.SHOOTER_REVERSE_DURATION)),
                 new PIDBrakeTask()));
-    }
+    }*/
 
-    private static IControlTask GetDriveStraightAndCurveAndShootCloseRouteRoutine()
+/*    private static IControlTask GetDriveStraightAndCurveAndShootCloseRouteRoutine()
     {
         return SequentialTask.Sequence(
             ConcurrentTask.AllTasks(
@@ -534,7 +534,7 @@ public class Robot extends IterativeRobot
                     new ShooterKickerTask(TuningConstants.SHOOTER_FIRE_DURATION, false),
                     new ShooterSpinDownTask(TuningConstants.SHOOTER_REVERSE_DURATION)),
                 new PIDBrakeTask()));
-    }
+    }*/
 }
 
 
