@@ -11,8 +11,8 @@ import org.usfirst.frc.team1318.robot.Driver.ControlTasks.SequentialTask;
 import org.usfirst.frc.team1318.robot.Driver.ControlTasks.ShooterKickerTask;
 import org.usfirst.frc.team1318.robot.Driver.ControlTasks.ShooterSpinDownTask;
 import org.usfirst.frc.team1318.robot.Driver.ControlTasks.ShooterSpinUpTask;
-import org.usfirst.frc.team1318.robot.Driver.ControlTasks.ClimberClimbTask;
-import org.usfirst.frc.team1318.robot.Driver.ControlTasks.ClimberFireTask;
+//import org.usfirst.frc.team1318.robot.Driver.ControlTasks.ClimberClimbTask;
+//import org.usfirst.frc.team1318.robot.Driver.ControlTasks.ClimberFireTask;
 import org.usfirst.frc.team1318.robot.Driver.ControlTasks.IntakeExtendTask;
 import org.usfirst.frc.team1318.robot.Driver.Descriptions.AnalogOperationDescription;
 import org.usfirst.frc.team1318.robot.Driver.Descriptions.DigitalOperationDescription;
@@ -299,7 +299,7 @@ public abstract class Driver
                     }));
             
             // Macros for the climber.
-            put(
+/*            put(
                 MacroOperation.ClimberScale,
                 new MacroOperationDescription(
                     UserInputDevice.Driver,
@@ -313,7 +313,7 @@ public abstract class Driver
                             Operation.ClimberWinchExtend,
                             Operation.ClimberWinchSpeed,
                             Operation.ClimberFiringPinExtend,
-                        })); 
+                        })); */
             /*
             put(
                 MacroOperation.ClimbingArmDeploy,
