@@ -302,7 +302,7 @@ public abstract class Driver
                     }));
             
             // Macros for the climber.
-            put(
+/*            put(
                 MacroOperation.ClimberScale,
                 new MacroOperationDescription(
                     UserInputDevice.Driver,
@@ -316,7 +316,7 @@ public abstract class Driver
                             Operation.ClimberWinchExtend,
                             Operation.ClimberWinchSpeed,
                             Operation.ClimberFiringPinExtend,
-                        })); 
+                        })); */
             /*
             put(
                 MacroOperation.ClimbingArmDeploy,
