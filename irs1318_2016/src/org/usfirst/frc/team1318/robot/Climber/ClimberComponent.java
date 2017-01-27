@@ -1,7 +1,6 @@
 package org.usfirst.frc.team1318.robot.Climber;
 
 import org.usfirst.frc.team1318.robot.ElectronicsConstants;
-import org.usfirst.frc.team1318.robot.TuningConstants;
 
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
@@ -27,7 +26,7 @@ public class ClimberComponent
     public ClimberComponent()
     {
         this.winch = new Talon(ElectronicsConstants.CLIMBER_WINCH_MOTOR_CHANNEL);
-        /*
+        
         this.firingPin = new DoubleSolenoid(
             ElectronicsConstants.PCM_A_MODULE, 
             ElectronicsConstants.CLIMBER_FIRING_PIN_CHANNEL_A, 
@@ -36,7 +35,7 @@ public class ClimberComponent
             ElectronicsConstants.PCM_A_MODULE,
             ElectronicsConstants.CLIMBER_ARM_SOLENOID_CHANNEL_A, 
             ElectronicsConstants.CLIMBER_ARM_SOLENOID_CHANNEL_B);
-        */
+        
         //this.encoder = new Encoder(ElectronicsConstants.CLIMBER_ENCODER_CHANNEL_A, ElectronicsConstants.CLIMBER_ENCODER_CHANNEL_B);
         //this.encoder.setDistancePerPulse(TuningConstants.CLIMBER_ENCODER_DISTANCE_PER_PULSE);
         this.isArmExtended = false;
@@ -44,8 +43,8 @@ public class ClimberComponent
     
     public void stop()
     {
-        //this.winch.set(0.0);
-        //this.firingPin.set(0.0);
+        this.winch.set(0.0);
+        this.firingPin.set(Value.kOff);
         //this.arm.set(Value.kOff);
     }
     

@@ -23,7 +23,7 @@ public class ShooterController implements IController
     private Driver driver;
     private PIDHandler PID;
     
-    private boolean activateTargetingLight = false;
+    //private boolean activateTargetingLight = false;
 
     public ShooterController(ShooterComponent shooter, PowerManager powerManager) 
     {
