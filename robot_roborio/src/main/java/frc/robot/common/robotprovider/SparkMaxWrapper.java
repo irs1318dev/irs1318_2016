@@ -14,6 +14,9 @@ public class SparkMaxWrapper implements ISparkMax
     private CANDigitalInput wrappedFwdLimitSwitch;
     private CANDigitalInput wrappedRevLimitSwitch;
 
+    private SparkMaxControlMode currentMode;
+    private int currentSlot;
+
     public SparkMaxWrapper(int deviceID, SparkMaxMotorType motorType)
     {
         MotorType type = MotorType.kBrushless;
@@ -29,36 +32,52 @@ public class SparkMaxWrapper implements ISparkMax
         }
 
         this.wrappedObject = new CANSparkMax(deviceID, type);
+        this.currentMode = SparkMaxControlMode.PercentOutput;
+        this.currentSlot = 0;
     }
 
     public void setControlMode(SparkMaxControlMode mode)
     {
-        int controlMode = 0;
-        switch (mode)
-        {
-            case PercentOutput:
-                controlMode = 0;
-                break;
+        this.currentMode = mode;
+    }
 
-            case Velocity:
-                controlMode = 1;
-                break;
-
-            case Voltage:
-                controlMode = 2;
-                break;
-
-            case Position:
-                controlMode = 3;
-                break;
-        }
-
-        this.wrappedObject.setParameter(ConfigParameter.kCtrlType, controlMode);
+    public void setSelectedSlot(int slotId)
+    {
+        this.currentSlot = slotId;
     }
 
     public void set(double value)
     {
-        this.wrappedObject.set(value);
+        if (this.currentMode != SparkMaxControlMode.PercentOutput &&
+            this.pidController == null)
+        {
+            this.pidController = this.wrappedObject.getPIDController();
+        }
+
+        ControlType controlType;
+        switch (this.currentMode)
+        {
+            case PercentOutput:
+                this.wrappedObject.set(value);
+                return;
+
+            case Position:
+                controlType = ControlType.kPosition;
+                break;
+
+            case Velocity:
+                controlType = ControlType.kVelocity;
+                break;
+
+            case Voltage:
+                controlType = ControlType.kVoltage;
+                break;
+
+            default:
+                throw new RuntimeException("unexpected control mode " + this.currentMode);
+        }
+
+        this.pidController.setReference(value, controlType, this.currentSlot);
     }
 
     public void follow(ISparkMax sparkMax)
@@ -85,6 +104,12 @@ public class SparkMaxWrapper implements ISparkMax
         this.wrappedObject.setPeriodicFramePeriod(type, periodMS);
     }
 
+    public void setVelocityMeasurements(int periodMS, int windowSize)
+    {
+        this.wrappedEncoder.setAverageDepth(windowSize);
+        this.wrappedEncoder.setMeasurementPeriod(periodMS);
+    }
+
     public void setPIDF(double p, double i, double d, double f, int slotId)
     {
         if (this.pidController == null)
@@ -96,6 +121,20 @@ public class SparkMaxWrapper implements ISparkMax
         this.pidController.setI(i, slotId);
         this.pidController.setD(d, slotId);
         this.pidController.setFF(f, slotId);
+    }
+
+    public void setPIDF(double p, double i, double d, double f, double minOutput, double maxOutput, int slotId)
+    {
+        if (this.pidController == null)
+        {
+            this.pidController = this.wrappedObject.getPIDController();
+        }
+
+        this.pidController.setP(p, slotId);
+        this.pidController.setI(i, slotId);
+        this.pidController.setD(d, slotId);
+        this.pidController.setFF(f, slotId);
+        this.pidController.setOutputRange(minOutput, maxOutput);
     }
 
     public void setPIDF(double p, double i, double d, double f, int izone, int slotId)
@@ -112,7 +151,22 @@ public class SparkMaxWrapper implements ISparkMax
         this.pidController.setIZone(izone, slotId);
     }
 
-    public void setPIDFSmartMotion(double p, double i, double d, double f, int izone, int velocity, int acceleration,  int slotId)
+    public void setPIDF(double p, double i, double d, double f, int izone, double minOutput, double maxOutput, int slotId)
+    {
+        if (this.pidController == null)
+        {
+            this.pidController = this.wrappedObject.getPIDController();
+        }
+
+        this.pidController.setP(p, slotId);
+        this.pidController.setI(i, slotId);
+        this.pidController.setD(d, slotId);
+        this.pidController.setFF(f, slotId);
+        this.pidController.setIZone(izone, slotId);
+        this.pidController.setOutputRange(minOutput, maxOutput);
+    }
+
+    public void setPIDFSmartMotion(double p, double i, double d, double f, int izone, int velocity, int acceleration, int slotId)
     {
         if (this.pidController == null)
         {
@@ -128,11 +182,25 @@ public class SparkMaxWrapper implements ISparkMax
         this.pidController.setSmartMotionMaxAccel(acceleration, slotId);
     }
 
+    public void setPIDFSmartMotion(double p, double i, double d, double f, int izone, int velocity, int acceleration, double minOutput, double maxOutput, int slotId)
+    {
+        if (this.pidController == null)
+        {
+            this.pidController = this.wrappedObject.getPIDController();
+        }
+
+        this.pidController.setP(p, slotId);
+        this.pidController.setI(i, slotId);
+        this.pidController.setD(d, slotId);
+        this.pidController.setFF(f, slotId);
+        this.pidController.setIZone(izone, slotId);
+        this.pidController.setSmartMotionMaxVelocity(velocity, slotId);
+        this.pidController.setSmartMotionMaxAccel(acceleration, slotId);
+        this.pidController.setOutputRange(minOutput, maxOutput);
+    }
+
     public void setForwardLimitSwitch(boolean enabled, boolean normallyOpen)
     {
-        this.wrappedObject.setParameter(ConfigParameter.kHardLimitFwdEn, enabled);
-        this.wrappedObject.setParameter(ConfigParameter.kLimitSwitchFwdPolarity, !normallyOpen);
-
         LimitSwitchPolarity polarity = LimitSwitchPolarity.kNormallyClosed;
         if (normallyOpen)
         {
@@ -140,17 +208,29 @@ public class SparkMaxWrapper implements ISparkMax
         }
 
         this.wrappedFwdLimitSwitch = this.wrappedObject.getForwardLimitSwitch(polarity);
+        this.wrappedFwdLimitSwitch.enableLimitSwitch(enabled);
     }
 
     public void setReverseLimitSwitch(boolean enabled, boolean normallyOpen)
     {
-        this.wrappedObject.setParameter(ConfigParameter.kHardLimitRevEn, enabled);
-        this.wrappedObject.setParameter(ConfigParameter.kLimitSwitchRevPolarity, !normallyOpen);
+        LimitSwitchPolarity polarity = LimitSwitchPolarity.kNormallyClosed;
+        if (normallyOpen)
+        {
+            polarity = LimitSwitchPolarity.kNormallyOpen;
+        }
+
+        this.wrappedRevLimitSwitch = this.wrappedObject.getForwardLimitSwitch(polarity);
+        this.wrappedRevLimitSwitch.enableLimitSwitch(enabled);
     }
 
     public void setInvertOutput(boolean invert)
     {
         this.wrappedObject.setInverted(invert);
+    }
+
+    public void setInvertSensor(boolean invert)
+    {
+        this.wrappedEncoder.setInverted(invert);
     }
 
     public void setNeutralMode(MotorNeutralMode neutralMode)
@@ -175,12 +255,21 @@ public class SparkMaxWrapper implements ISparkMax
 
     public void setPosition(double position)
     {
-        this.wrappedObject.setEncPosition(position);
+        if (this.wrappedEncoder == null)
+        {
+            this.wrappedEncoder = this.wrappedObject.getEncoder();
+            if (this.wrappedEncoder == null)
+            {
+                return;
+            }
+        }
+
+        this.wrappedEncoder.setPosition(position);
     }
 
     public void reset()
     {
-        this.wrappedObject.setEncPosition(0);
+        this.setPosition(0.0);
     }
 
     public double getPosition()

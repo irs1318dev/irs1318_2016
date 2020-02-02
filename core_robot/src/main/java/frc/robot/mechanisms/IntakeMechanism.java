@@ -12,7 +12,7 @@ import frc.robot.common.robotprovider.IDoubleSolenoid;
 import frc.robot.common.robotprovider.IMotor;
 import frc.robot.common.robotprovider.IRobotProvider;
 import frc.robot.common.robotprovider.ISolenoid;
-import frc.robot.driver.Operation;
+import frc.robot.driver.DigitalOperation;
 import frc.robot.driver.common.Driver;
 
 import com.google.inject.Inject;
@@ -52,21 +52,21 @@ public class IntakeMechanism implements IMechanism
     public void update()
     {
         // Check for "intake base" extend desire, and extend or retract appropriately
-        if (this.driver.getDigital(Operation.IntakeExtend))
+        if (this.driver.getDigital(DigitalOperation.IntakeExtend))
         {
             this.intakeSolenoid.set(DoubleSolenoidValue.Forward);
         }
-        else if (this.driver.getDigital(Operation.IntakeRetract))
+        else if (this.driver.getDigital(DigitalOperation.IntakeRetract))
         {
             this.intakeSolenoid.set(DoubleSolenoidValue.Reverse);
         }
 
         // Roll the intake in, out, or not at all when appropriate
-        if (this.driver.getDigital(Operation.IntakeRotatingIn))
+        if (this.driver.getDigital(DigitalOperation.IntakeRotatingIn))
         {
             this.motor.set(TuningConstants.INTAKE_IN_POWER_LEVEL);
         }
-        else if (this.driver.getDigital(Operation.IntakeRotatingOut))
+        else if (this.driver.getDigital(DigitalOperation.IntakeRotatingOut))
         {
             this.motor.set(TuningConstants.INTAKE_OUT_POWER_LEVEL);
         }

@@ -1,7 +1,8 @@
 package frc.robot.driver.controltasks;
 
 import frc.robot.driver.common.IControlTask;
-import frc.robot.driver.Operation;
+import frc.robot.driver.AnalogOperation;
+import frc.robot.driver.DigitalOperation;
 
 public class ShooterKickerTask extends TimedTask implements IControlTask
 {
@@ -22,14 +23,14 @@ public class ShooterKickerTask extends TimedTask implements IControlTask
     public void begin()
     {
         super.begin();
-        this.setDigitalOperationState(Operation.ShooterLowerKicker, this.lower);
+        this.setDigitalOperationState(DigitalOperation.ShooterLowerKicker, this.lower);
     }
     
     @Override
     public void stop()
     {
         super.stop();
-        this.setDigitalOperationState(Operation.ShooterSpin, this.lower);
+        this.setDigitalOperationState(DigitalOperation.ShooterSpin, this.lower);
     }
 
     @Override

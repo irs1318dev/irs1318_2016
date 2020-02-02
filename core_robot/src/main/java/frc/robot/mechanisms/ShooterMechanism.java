@@ -15,7 +15,8 @@ import frc.robot.common.robotprovider.IMotor;
 import frc.robot.common.robotprovider.IRobotProvider;
 import frc.robot.common.robotprovider.ISolenoid;
 import frc.robot.common.robotprovider.ITimer;
-import frc.robot.driver.Operation;
+import frc.robot.driver.AnalogOperation;
+import frc.robot.driver.DigitalOperation;
 import frc.robot.driver.common.Driver;
 
 import com.google.inject.Inject;
@@ -79,10 +80,10 @@ public class ShooterMechanism implements IMechanism
     @Override
     public void update()
     {
-        boolean spin = this.driver.getDigital(Operation.ShooterSpin);
+        boolean spin = this.driver.getDigital(DigitalOperation.ShooterSpin);
 
         // The velocity set in the analog operation
-        double velocityGoal = this.driver.getAnalog(Operation.ShooterSpeed);
+        double velocityGoal = this.driver.getAnalog(AnalogOperation.ShooterSpeed);
         this.logger.logNumber("shooter", "velocityGoal", velocityGoal);
 
         double power = 0.0;
@@ -109,14 +110,14 @@ public class ShooterMechanism implements IMechanism
         this.logger.logNumber("shooter", "power", power);
 
         // lower the kicker whenever we are rotating in or out, or when we are performing a shot macro
-        boolean lowerKicker = this.driver.getDigital(Operation.ShooterLowerKicker)
-            || this.driver.getDigital(Operation.IntakeRotatingIn)
-            || this.driver.getDigital(Operation.IntakeRotatingOut);
+        boolean lowerKicker = this.driver.getDigital(DigitalOperation.ShooterLowerKicker)
+            || this.driver.getDigital(DigitalOperation.IntakeRotatingIn)
+            || this.driver.getDigital(DigitalOperation.IntakeRotatingOut);
 
         // control the kicker:
         this.kicker.set(lowerKicker ? DoubleSolenoidValue.Reverse : DoubleSolenoidValue.Forward);
 
-        boolean extendHood = this.driver.getDigital(Operation.ShooterExtendHood);
+        boolean extendHood = this.driver.getDigital(DigitalOperation.ShooterExtendHood);
         this.hood.set(extendHood ? DoubleSolenoidValue.Forward : DoubleSolenoidValue.Reverse);
     }
 

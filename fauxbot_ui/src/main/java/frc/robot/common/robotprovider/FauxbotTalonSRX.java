@@ -50,7 +50,7 @@ public class FauxbotTalonSRX extends FauxbotAdvancedMotorBase implements ITalonS
     {
     }
 
-    public void configureVelocityMeasurements()
+    public void configureVelocityMeasurements(int periodMS, int windowSize)
     {
     }
 
@@ -168,7 +168,7 @@ public class FauxbotTalonSRX extends FauxbotAdvancedMotorBase implements ITalonS
 
     public TalonSRXLimitSwitchStatus getLimitSwitchStatus()
     {
-        return null;
+        return new TalonSRXLimitSwitchStatus(false, false);
     }
 
     private void resetPID()

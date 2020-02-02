@@ -1,7 +1,8 @@
 package frc.robot.driver.controltasks;
 
 import frc.robot.driver.common.IControlTask;
-import frc.robot.driver.Operation;
+import frc.robot.driver.AnalogOperation;
+import frc.robot.driver.DigitalOperation;
 
 public class ClimberFireTask extends TimedTask implements IControlTask
 {
@@ -20,7 +21,7 @@ public class ClimberFireTask extends TimedTask implements IControlTask
         
         if (this.hasArmExtended)
         {
-            this.setDigitalOperationState(Operation.ClimberFiringPinExtend, true);
+            this.setDigitalOperationState(DigitalOperation.ClimberFiringPinExtend, true);
         }
     }
     

@@ -3,7 +3,8 @@ package frc.robot.driver.controltasks;
 import frc.robot.TuningConstants;
 import frc.robot.driver.common.IControlTask;
 import frc.robot.mechanisms.ShooterMechanism;
-import frc.robot.driver.Operation;
+import frc.robot.driver.AnalogOperation;
+import frc.robot.driver.DigitalOperation;
 
 public class ShooterSpinUpTask extends TimedTask implements IControlTask
 {
@@ -27,11 +28,11 @@ public class ShooterSpinUpTask extends TimedTask implements IControlTask
 
         this.shooter = this.getInjector().getInstance(ShooterMechanism.class);
 
-        this.setDigitalOperationState(Operation.ShooterSpin, true);
-        this.setAnalogOperationState(Operation.ShooterSpeed, this.shooterVelocity);
+        this.setDigitalOperationState(DigitalOperation.ShooterSpin, true);
+        this.setAnalogOperationState(AnalogOperation.ShooterSpeed, this.shooterVelocity);
         if (this.extendHood)
         {
-            this.setDigitalOperationState(Operation.IntakeExtend, true);
+            this.setDigitalOperationState(DigitalOperation.IntakeExtend, true);
         }
     }
 
@@ -39,16 +40,16 @@ public class ShooterSpinUpTask extends TimedTask implements IControlTask
     public void stop()
     {
         super.stop();
-        this.setDigitalOperationState(Operation.ShooterSpin, false);
-        this.setAnalogOperationState(Operation.ShooterSpeed, 0.0);
+        this.setDigitalOperationState(DigitalOperation.ShooterSpin, false);
+        this.setAnalogOperationState(AnalogOperation.ShooterSpeed, 0.0);
     }
 
     @Override
     public void update()
     {
-        this.setDigitalOperationState(Operation.ShooterSpin, true);
-        this.setAnalogOperationState(Operation.ShooterSpeed, this.shooterVelocity);
-        this.setDigitalOperationState(Operation.ShooterExtendHood, this.extendHood);
+        this.setDigitalOperationState(DigitalOperation.ShooterSpin, true);
+        this.setAnalogOperationState(AnalogOperation.ShooterSpeed, this.shooterVelocity);
+        this.setDigitalOperationState(DigitalOperation.ShooterExtendHood, this.extendHood);
     }
 
     

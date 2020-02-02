@@ -13,7 +13,8 @@ import frc.robot.common.robotprovider.IEncoder;
 import frc.robot.common.robotprovider.IMotor;
 import frc.robot.common.robotprovider.IRobotProvider;
 import frc.robot.common.robotprovider.ITimer;
-import frc.robot.driver.Operation;
+import frc.robot.driver.AnalogOperation;
+import frc.robot.driver.DigitalOperation;
 import frc.robot.driver.common.Driver;
 
 import com.google.inject.Inject;
@@ -208,20 +209,20 @@ public class DriveTrainMechanism implements IMechanism
     @Override
     public void update()
     {
-        if (this.driver.getDigital(Operation.EnablePID))
+        if (this.driver.getDigital(DigitalOperation.EnablePID))
         {
             this.usePID = true;
             this.createPIDHandler();
         }
-        else if (this.driver.getDigital(Operation.DisablePID))
+        else if (this.driver.getDigital(DigitalOperation.DisablePID))
         {
             this.usePID = false;
             this.createPIDHandler();
         }
 
         // check our desired PID mode (needed for positional mode or break mode)
-        boolean newUsePositionalMode = this.driver.getDigital(Operation.DriveTrainUsePositionalMode);
-        boolean newUseBrakeMode = this.driver.getDigital(Operation.DriveTrainUseBrakeMode);
+        boolean newUsePositionalMode = this.driver.getDigital(DigitalOperation.DriveTrainUsePositionalMode);
+        boolean newUseBrakeMode = this.driver.getDigital(DigitalOperation.DriveTrainUseBrakeMode);
         if (newUsePositionalMode != this.usePositionalMode ||
             newUseBrakeMode != this.useBrakeMode)
         {
@@ -364,15 +365,15 @@ public class DriveTrainMechanism implements IMechanism
         double rightVelocityGoal = 0.0;
 
         // get a value indicating that we should be in simple mode...
-        boolean simpleDriveModeEnabled = this.driver.getDigital(Operation.DriveTrainSimpleMode);
+        boolean simpleDriveModeEnabled = this.driver.getDigital(DigitalOperation.DriveTrainSimpleMode);
 
         // get the X and Y values from the operator.  We expect these to be between -1.0 and 1.0,
         // with this value representing the forward velocity percentage and right turn percentage (of max speed)
-        double turnAmount = this.driver.getAnalog(Operation.DriveTrainTurn);
-        double forwardVelocity = this.driver.getAnalog(Operation.DriveTrainMoveForward);
+        double turnAmount = this.driver.getAnalog(AnalogOperation.DriveTrainTurn);
+        double forwardVelocity = this.driver.getAnalog(AnalogOperation.DriveTrainMoveForward);
 
         // Negate the x and y if DriveTrainSwapFrontOrientation is true
-        if (this.driver.getDigital(Operation.DriveTrainSwapFrontOrientation))
+        if (this.driver.getDigital(DigitalOperation.DriveTrainSwapFrontOrientation))
         {
             turnAmount *= -1.0;
             forwardVelocity *= -1.0;
@@ -437,8 +438,8 @@ public class DriveTrainMechanism implements IMechanism
     private Setpoint calculatePositionModeSetpoint()
     {
         // get the desired left and right values from the driver.
-        double leftPositionGoal = this.driver.getAnalog(Operation.DriveTrainLeftPosition);
-        double rightPositionGoal = this.driver.getAnalog(Operation.DriveTrainRightPosition);
+        double leftPositionGoal = this.driver.getAnalog(AnalogOperation.DriveTrainLeftPosition);
+        double rightPositionGoal = this.driver.getAnalog(AnalogOperation.DriveTrainRightPosition);
 
         this.logger.logNumber(DriveTrainMechanism.LogName, "leftPositionGoal", leftPositionGoal);
         this.logger.logNumber(DriveTrainMechanism.LogName, "rightPositionGoal", rightPositionGoal);

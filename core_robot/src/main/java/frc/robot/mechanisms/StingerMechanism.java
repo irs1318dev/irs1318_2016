@@ -15,7 +15,7 @@ import frc.robot.common.robotprovider.IMotor;
 import frc.robot.common.robotprovider.IRobotProvider;
 import frc.robot.common.robotprovider.ISolenoid;
 import frc.robot.common.robotprovider.ITimer;
-import frc.robot.driver.Operation;
+import frc.robot.driver.DigitalOperation;
 import frc.robot.driver.common.Driver;
 
 import com.google.inject.Inject;
@@ -47,11 +47,11 @@ public class StingerMechanism implements IMechanism
     public void update()
     {
         double desiredVelocity;
-        if (this.driver.getDigital(Operation.StingerOut))
+        if (this.driver.getDigital(DigitalOperation.StingerOut))
         {
             desiredVelocity = TuningConstants.STINGER_MAX_VELOCTIY;
         }
-        else if (this.driver.getDigital(Operation.StingerIn))
+        else if (this.driver.getDigital(DigitalOperation.StingerIn))
         {
             desiredVelocity = -TuningConstants.STINGER_MAX_VELOCTIY;
         }

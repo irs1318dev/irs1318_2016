@@ -3,7 +3,8 @@ package frc.robot.driver.controltasks;
 import frc.robot.TuningConstants;
 import frc.robot.driver.common.IControlTask;
 import frc.robot.mechanisms.ClimberMechanism;
-import frc.robot.driver.Operation;
+import frc.robot.driver.AnalogOperation;
+import frc.robot.driver.DigitalOperation;
 
 public class ClimberClimbTask extends TimedTask implements IControlTask
 {
@@ -37,8 +38,8 @@ public class ClimberClimbTask extends TimedTask implements IControlTask
         
             // Speed should be a linear line, so this scales it from 0% of max at time = 0 to 100% at time = duration
             this.desiredSpeed = this.maxSpeed * this.getRatioComplete();
-            this.setDigitalOperationState(Operation.ClimberWinchExtend, true);
-            this.setAnalogOperationState(Operation.ClimberWinchSpeed, this.desiredSpeed);
+            this.setDigitalOperationState(DigitalOperation.ClimberWinchExtend, true);
+            this.setAnalogOperationState(AnalogOperation.ClimberWinchSpeed, this.desiredSpeed);
         }
     }
 
@@ -51,23 +52,23 @@ public class ClimberClimbTask extends TimedTask implements IControlTask
         
             // Speed should be a linear line, so this scales it from 0% of max at time = 0 to 100% at time = duration
             this.desiredSpeed = this.maxSpeed * this.getRatioComplete();
-            this.setDigitalOperationState(Operation.ClimberWinchExtend, true);
-            this.setAnalogOperationState(Operation.ClimberWinchSpeed, this.desiredSpeed);
+            this.setDigitalOperationState(DigitalOperation.ClimberWinchExtend, true);
+            this.setAnalogOperationState(AnalogOperation.ClimberWinchSpeed, this.desiredSpeed);
         }
     }
 
     @Override
     public void stop()
     {
-        this.setDigitalOperationState(Operation.ClimberWinchExtend, false);
-        this.setAnalogOperationState(Operation.ClimberWinchSpeed, 0.0);
+        this.setDigitalOperationState(DigitalOperation.ClimberWinchExtend, false);
+        this.setAnalogOperationState(AnalogOperation.ClimberWinchSpeed, 0.0);
     }
 
     @Override
     public void end()
     {
-        this.setDigitalOperationState(Operation.ClimberWinchExtend, false);
-        this.setAnalogOperationState(Operation.ClimberWinchSpeed, 0.0);   
+        this.setDigitalOperationState(DigitalOperation.ClimberWinchExtend, false);
+        this.setAnalogOperationState(AnalogOperation.ClimberWinchSpeed, 0.0);   
     }
 
     @Override

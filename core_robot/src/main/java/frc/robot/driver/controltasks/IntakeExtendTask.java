@@ -1,7 +1,8 @@
 package frc.robot.driver.controltasks;
 
 import frc.robot.driver.common.IControlTask;
-import frc.robot.driver.Operation;
+import frc.robot.driver.AnalogOperation;
+import frc.robot.driver.DigitalOperation;
 
 public class IntakeExtendTask extends TimedTask implements IControlTask
 {
@@ -24,13 +25,13 @@ public class IntakeExtendTask extends TimedTask implements IControlTask
         super.begin();
         if (this.lower)
         {
-            this.setDigitalOperationState(Operation.IntakeExtend, true);
-            this.setDigitalOperationState(Operation.IntakeRetract, false);
+            this.setDigitalOperationState(DigitalOperation.IntakeExtend, true);
+            this.setDigitalOperationState(DigitalOperation.IntakeRetract, false);
         }
         else 
         {
-            this.setDigitalOperationState(Operation.IntakeExtend, false);
-            this.setDigitalOperationState(Operation.IntakeRetract, true);
+            this.setDigitalOperationState(DigitalOperation.IntakeExtend, false);
+            this.setDigitalOperationState(DigitalOperation.IntakeRetract, true);
         }
     }
     
@@ -43,8 +44,8 @@ public class IntakeExtendTask extends TimedTask implements IControlTask
     @Override
     public void end()
     {
-        this.setDigitalOperationState(Operation.IntakeExtend, false);
-        this.setDigitalOperationState(Operation.IntakeRetract, false);
+        this.setDigitalOperationState(DigitalOperation.IntakeExtend, false);
+        this.setDigitalOperationState(DigitalOperation.IntakeRetract, false);
     }
     
     @Override

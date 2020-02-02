@@ -1,5 +1,6 @@
 package frc.robot.driver.common;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
@@ -22,15 +23,15 @@ import com.google.inject.Injector;
  */
 public class Driver
 {
+    private static final String LogName = "driver";
+
     private final IDashboardLogger logger;
 
     protected final Injector injector;
-    protected final Map<Operation, OperationState> operationStateMap;
+    protected final Map<IOperation, OperationState> operationStateMap;
     
     private final IJoystick joystickDriver;
     private final IJoystick joystickCoDriver;
-
-    private final Set<Shift> activeShifts;
 
     private final Map<Shift, ShiftDescription> shiftMap;
     private final Map<MacroOperation, IMacroOperationState> macroStateMap;
@@ -54,11 +55,41 @@ public class Driver
         this.logger = logger;
         this.injector = injector;
 
-        Map<Operation, OperationDescription> operationSchema = buttonMap.getOperationSchema();
-        this.operationStateMap = new HashMap<Operation, OperationState>(operationSchema.size());
-        for (Operation operation : operationSchema.keySet())
+        AnalogOperationDescription[] analogOperationSchema = buttonMap.getAnalogOperationSchema();
+        DigitalOperationDescription[] digitalOperationSchema = buttonMap.getDigitalOperationSchema();
+
+        DigitalOperation[] digitalOperations = DigitalOperation.values();
+        AnalogOperation[] analogOperations = AnalogOperation.values();
+
+        this.operationStateMap = new HashMap<IOperation, OperationState>(analogOperations.length + digitalOperations.length);
+        for (DigitalOperationDescription description : digitalOperationSchema)
         {
-            this.operationStateMap.put(operation, OperationState.createFromDescription(operationSchema.get(operation)));
+            this.operationStateMap.put(description.getOperation(), new DigitalOperationState(description));
+        }
+
+        for (DigitalOperation operation : digitalOperations)
+        {
+            if (!this.operationStateMap.containsKey(operation))
+            {
+                this.operationStateMap.put(
+                    operation,
+                    new DigitalOperationState(new DigitalOperationDescription(operation)));
+            }
+        }
+
+        for (AnalogOperationDescription description : analogOperationSchema)
+        {
+            this.operationStateMap.put(description.getOperation(), new AnalogOperationState(description));
+        }
+
+        for (AnalogOperation operation : analogOperations)
+        {
+            if (!this.operationStateMap.containsKey(operation))
+            {
+                this.operationStateMap.put(
+                    operation,
+                    new AnalogOperationState(new AnalogOperationDescription(operation)));
+            }
         }
 
         this.routineSelector = injector.getInstance(AutonomousRoutineSelector.class);
@@ -66,19 +97,26 @@ public class Driver
         this.joystickDriver = provider.getJoystick(ElectronicsConstants.JOYSTICK_DRIVER_PORT);
         this.joystickCoDriver = provider.getJoystick(ElectronicsConstants.JOYSTICK_CO_DRIVER_PORT);
 
-        this.activeShifts = new HashSet<Shift>();
-        this.shiftMap = buttonMap.getShiftMap();
+        ShiftDescription[] shiftSchema = buttonMap.getShiftSchema();
+        this.shiftMap = new HashMap<Shift, ShiftDescription>();
+        for (ShiftDescription description : shiftSchema)
+        {
+            this.shiftMap.put(description.getShift(), description);
+        }
+
         this.macroStateMap = new HashMap<MacroOperation, IMacroOperationState>();
-        Map<MacroOperation, MacroOperationDescription> macroSchema = buttonMap.getMacroOperationSchema();
-        for (MacroOperation macroOperation : macroSchema.keySet())
+        MacroOperationDescription[] macroSchema = buttonMap.getMacroOperationSchema();
+        for (MacroOperationDescription description : macroSchema)
         {
             this.macroStateMap.put(
-                macroOperation,
+                (MacroOperation)description.getOperation(),
                 new MacroOperationState(
-                    macroSchema.get(macroOperation),
+                    description,
                     this.operationStateMap,
                     this.injector));
         }
+
+        ButtonMapVerifier.Verify(buttonMap);
 
         this.isAutonomous = false;
     }
@@ -96,7 +134,7 @@ public class Driver
      */
     public void update()
     {
-        this.logger.logBoolean("driver", "isAuto", this.isAutonomous);
+        this.logger.logBoolean(Driver.LogName, "isAuto", this.isAutonomous);
 
         // keep track of macros that were running before we checked user input...
         Set<MacroOperation> previouslyActiveMacroOperations = new HashSet<MacroOperation>();
@@ -110,33 +148,27 @@ public class Driver
         }
 
         // check inputs and update shifts based on it...
-        this.activeShifts.clear();
+        int shiftIndex = 0;
+        Shift[] activeShiftList = new Shift[this.shiftMap.size()];
         for (Shift shift : this.shiftMap.keySet())
         {
             ShiftDescription shiftDescription = this.shiftMap.get(shift);
             if (shiftDescription.checkInput(this.joystickDriver, this.joystickCoDriver))
             {
-                this.activeShifts.add(shift);
+                activeShiftList[shiftIndex++] = shift;
             }
         }
 
-        // if no other shifts are active, we will use the "None" shift
-        if (this.activeShifts.size() == 0)
-        {
-            this.activeShifts.add(Shift.None);
-        }
-
-        // no matter what, we will set the "Any" shift
-        this.activeShifts.add(Shift.Any);
+        Shift activeShifts = Shift.Union(activeShiftList);
 
         // check user inputs for various operations (non-macro) and keep track of:
         // operations that were interrupted already, and operations that were modified by user input in this update
-        Set<Operation> modifiedOperations = new HashSet<Operation>();
-        Set<Operation> interruptedOperations = new HashSet<Operation>();
-        for (Operation operation : this.operationStateMap.keySet())
+        Set<IOperation> modifiedOperations = new HashSet<IOperation>();
+        Set<IOperation> interruptedOperations = new HashSet<IOperation>();
+        for (IOperation operation : this.operationStateMap.keySet())
         {
             OperationState opState = this.operationStateMap.get(operation);
-            boolean receivedInput = opState.checkInput(this.joystickDriver, this.joystickCoDriver, this.activeShifts);
+            boolean receivedInput = opState.checkInput(this.joystickDriver, this.joystickCoDriver, activeShifts);
             if (receivedInput)
             {
                 modifiedOperations.add(operation);
@@ -151,17 +183,17 @@ public class Driver
         // check user inputs for various macro operations
         // also keep track of modified and active macro operations, and how macro operations and operations link together
         Set<MacroOperation> activeMacroOperations = new HashSet<MacroOperation>();
-        Map<Operation, Set<MacroOperation>> activeMacroOperationMap = new HashMap<Operation, Set<MacroOperation>>();
+        Map<IOperation, Set<MacroOperation>> activeMacroOperationMap = new HashMap<IOperation, Set<MacroOperation>>();
         for (MacroOperation macroOperation : this.macroStateMap.keySet())
         {
             IMacroOperationState macroState = this.macroStateMap.get(macroOperation);
-            macroState.checkInput(this.joystickDriver, this.joystickCoDriver, this.activeShifts);
+            macroState.checkInput(this.joystickDriver, this.joystickCoDriver, activeShifts);
 
             if (macroState.getIsActive())
             {
                 activeMacroOperations.add(macroOperation);
 
-                for (Operation affectedOperation : macroState.getMacroCancelOperations())
+                for (IOperation affectedOperation : macroState.getMacroCancelOperations())
                 {
                     Set<MacroOperation> relevantMacroOperations = activeMacroOperationMap.get(affectedOperation);
                     if (relevantMacroOperations == null)
@@ -180,7 +212,7 @@ public class Driver
         // 2. have not been usurped by a new macro (i.e. that was started in this round)
         // 3. are new macros that do not overlap with other new macros
         Set<MacroOperation> macroOperationsToCancel = new HashSet<MacroOperation>();
-        for (Operation operation : activeMacroOperationMap.keySet())
+        for (IOperation operation : activeMacroOperationMap.keySet())
         {
             Set<MacroOperation> relevantMacroOperations = activeMacroOperationMap.get(operation);
             if (modifiedOperations.contains(operation))
@@ -221,10 +253,16 @@ public class Driver
         }
 
         // second, run all of the active macros (which could add interrupts that were cleared in the previous phase)...
+        // while we're doing that, grab the names of the macros for logging
+        int i = 0;
+        String[] macroStrings = new String[activeMacroOperations.size()];
         for (MacroOperation macroOperation : activeMacroOperations)
         {
+            macroStrings[i++] = macroOperation.toString();
             this.macroStateMap.get(macroOperation).run();
         }
+
+        this.logger.logString(Driver.LogName, "activeMacros", String.join(", ", macroStrings));
     }
 
     /**
@@ -234,7 +272,8 @@ public class Driver
     {
         this.isAutonomous = false;
 
-        if (this.macroStateMap.containsKey(MacroOperation.AutonomousRoutine))
+        if (TuningConstants.CANCEL_AUTONOMOUS_ROUTINE_ON_DISABLE &&
+            this.macroStateMap.containsKey(MacroOperation.AutonomousRoutine))
         {
             this.macroStateMap.remove(MacroOperation.AutonomousRoutine);
         }
@@ -257,6 +296,11 @@ public class Driver
         this.isAutonomous = true;
         this.autonomousTask = this.routineSelector.selectRoutine();
         this.autonomousTask.initialize(this.operationStateMap, injector);
+        if (!TuningConstants.CANCEL_AUTONOMOUS_ROUTINE_ON_DISABLE &&
+            this.macroStateMap.containsKey(MacroOperation.AutonomousRoutine))
+        {
+            this.macroStateMap.remove(MacroOperation.AutonomousRoutine);
+        }
 
         this.macroStateMap.put(
             MacroOperation.AutonomousRoutine,
@@ -268,7 +312,7 @@ public class Driver
      * @param digitalOperation to get
      * @return the current value of the digital operation
      */
-    public boolean getDigital(Operation digitalOperation)
+    public boolean getDigital(DigitalOperation digitalOperation)
     {
         OperationState state = this.operationStateMap.get(digitalOperation);
         if (!(state instanceof DigitalOperationState))
@@ -290,7 +334,7 @@ public class Driver
      * @param analogOperation to get
      * @return the current value of the analog operation
      */
-    public double getAnalog(Operation analogOperation)
+    public double getAnalog(AnalogOperation analogOperation)
     {
         OperationState state = this.operationStateMap.get(analogOperation);
         if (!(state instanceof AnalogOperationState))
@@ -305,5 +349,5 @@ public class Driver
 
         AnalogOperationState analogState = (AnalogOperationState)state;
         return analogState.getState();
-    }
+    }  
 }

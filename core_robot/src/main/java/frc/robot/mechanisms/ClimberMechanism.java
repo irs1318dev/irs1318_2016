@@ -9,7 +9,8 @@ import frc.robot.common.robotprovider.IDashboardLogger;
 import frc.robot.common.robotprovider.IDoubleSolenoid;
 import frc.robot.common.robotprovider.IMotor;
 import frc.robot.common.robotprovider.IRobotProvider;
-import frc.robot.driver.Operation;
+import frc.robot.driver.AnalogOperation;
+import frc.robot.driver.DigitalOperation;
 import frc.robot.driver.common.Driver;
 
 import com.google.inject.Inject;
@@ -61,12 +62,12 @@ public class ClimberMechanism implements IMechanism
     public void update()
     {   
         // Extend or retract the arm as desired
-        if (this.driver.getDigital(Operation.ClimberArmUp))
+        if (this.driver.getDigital(DigitalOperation.ClimberArmUp))
         {
             this.arm.set(DoubleSolenoidValue.Forward);
             this.isArmExtended = true;
         }
-        else if (this.driver.getDigital(Operation.ClimberArmDown))
+        else if (this.driver.getDigital(DigitalOperation.ClimberArmDown))
         {
             this.arm.set(DoubleSolenoidValue.Reverse);
             this.isArmExtended = false;
@@ -74,20 +75,20 @@ public class ClimberMechanism implements IMechanism
 
         // Set the speed of the winch according to desire     
         double currentWinchSpeed = 0.0;
-        if (this.driver.getDigital(Operation.ClimberWinchExtend))
+        if (this.driver.getDigital(DigitalOperation.ClimberWinchExtend))
         {
-            currentWinchSpeed = this.driver.getAnalog(Operation.ClimberWinchSpeed);
+            currentWinchSpeed = this.driver.getAnalog(AnalogOperation.ClimberWinchSpeed);
         }
 
         this.winch.set(currentWinchSpeed);
 
         // Set the state of the hook according to desire
-        if (this.driver.getDigital(Operation.ClimberFiringPinExtend))
+        if (this.driver.getDigital(DigitalOperation.ClimberFiringPinExtend))
         {
             this.logger.logBoolean("c", "extend", true);
             this.firingPin.set(DoubleSolenoidValue.Forward);
         } 
-        else if (this.driver.getDigital(Operation.ClimberFiringPinRetract))
+        else if (this.driver.getDigital(DigitalOperation.ClimberFiringPinRetract))
         {
             this.logger.logBoolean("c", "extend", false);
             this.firingPin.set(DoubleSolenoidValue.Reverse);

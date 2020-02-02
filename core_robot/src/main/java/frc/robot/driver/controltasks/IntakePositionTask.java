@@ -1,6 +1,7 @@
 package frc.robot.driver.controltasks;
 
-import frc.robot.driver.Operation;
+import frc.robot.driver.AnalogOperation;
+import frc.robot.driver.DigitalOperation;
 
 public class IntakePositionTask extends ControlTaskBase
 {
@@ -14,13 +15,13 @@ public class IntakePositionTask extends ControlTaskBase
     @Override
     public void begin()
     {
-        this.setDigitalOperationState(Operation.IntakeExtend, this.extend);
+        this.setDigitalOperationState(DigitalOperation.IntakeExtend, this.extend);
     }
 
     @Override
     public void update()
     {
-        this.setDigitalOperationState(Operation.IntakeExtend, this.extend);
+        this.setDigitalOperationState(DigitalOperation.IntakeExtend, this.extend);
     }
 
     @Override
@@ -31,7 +32,7 @@ public class IntakePositionTask extends ControlTaskBase
     @Override
     public void end()
     {
-        this.setDigitalOperationState(Operation.IntakeExtend, this.extend);
+        this.setDigitalOperationState(DigitalOperation.IntakeExtend, this.extend);
     }
 
     @Override

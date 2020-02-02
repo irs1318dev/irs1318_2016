@@ -2,7 +2,8 @@
 package frc.robot.driver.controltasks;
 
 import frc.robot.driver.common.IControlTask;
-import frc.robot.driver.Operation;
+import frc.robot.driver.AnalogOperation;
+import frc.robot.driver.DigitalOperation;
 
 /**
  * Stinger Macro, used to put stinger in or out for a duration
@@ -31,11 +32,11 @@ public class StingerTask extends TimedTask implements IControlTask
         
         if (out)
         {
-            this.setDigitalOperationState(Operation.StingerOut, true); 
+            this.setDigitalOperationState(DigitalOperation.StingerOut, true); 
         }
         else
         {
-            this.setDigitalOperationState(Operation.StingerIn, true);
+            this.setDigitalOperationState(DigitalOperation.StingerIn, true);
         }
     }
     
@@ -44,11 +45,11 @@ public class StingerTask extends TimedTask implements IControlTask
     {      
         if (out)
         {
-            this.setDigitalOperationState(Operation.StingerOut, true); 
+            this.setDigitalOperationState(DigitalOperation.StingerOut, true); 
         }
         else
         {
-            this.setDigitalOperationState(Operation.StingerIn, true);
+            this.setDigitalOperationState(DigitalOperation.StingerIn, true);
         }
     }
     
@@ -60,8 +61,8 @@ public class StingerTask extends TimedTask implements IControlTask
     {   
         super.stop();
         
-        this.setDigitalOperationState(Operation.StingerIn, false);
-        this.setDigitalOperationState(Operation.StingerOut, false);
+        this.setDigitalOperationState(DigitalOperation.StingerIn, false);
+        this.setDigitalOperationState(DigitalOperation.StingerOut, false);
     }
     
     /*
@@ -72,7 +73,7 @@ public class StingerTask extends TimedTask implements IControlTask
     {
        super.end();
 
-       this.setDigitalOperationState(Operation.StingerIn, false);
-       this.setDigitalOperationState(Operation.StingerOut, false);
+       this.setDigitalOperationState(DigitalOperation.StingerIn, false);
+       this.setDigitalOperationState(DigitalOperation.StingerOut, false);
     }
 }

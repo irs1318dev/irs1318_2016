@@ -1,12 +1,11 @@
 package frc.robot.driver.common.states;
 
-import java.util.Set;
-
 import frc.robot.TuningConstants;
 import frc.robot.common.robotprovider.IJoystick;
 import frc.robot.driver.Shift;
 import frc.robot.driver.common.AnalogAxis;
 import frc.robot.driver.common.descriptions.AnalogOperationDescription;
+import frc.robot.driver.common.descriptions.UserInputDevice;
 
 /**
  * The state of the current analog operation.
@@ -59,23 +58,31 @@ public class AnalogOperationState extends OperationState
      * @return true if there was any active user input that triggered a state change
      */
     @Override
-    public boolean checkInput(IJoystick driver, IJoystick coDriver, Set<Shift> activeShifts)
+    public boolean checkInput(IJoystick driver, IJoystick coDriver, Shift activeShifts)
     {
         AnalogOperationDescription description = (AnalogOperationDescription)this.getDescription();
 
-        Shift requiredShift = description.getRequiredShift();
-        if (!activeShifts.contains(requiredShift))
+        UserInputDevice userInputDevice = description.getUserInputDevice();
+        if (userInputDevice == UserInputDevice.None)
         {
             return false;
         }
 
+        Shift relevantShifts = description.getRelevantShifts();
+        Shift requiredShifts = description.getRequiredShifts();
+        if (relevantShifts != null && requiredShifts != null)
+        {
+            Shift relevantActiveShifts = Shift.Intersect(relevantShifts, activeShifts);
+            if (relevantActiveShifts.hasFlag(requiredShifts))
+            {
+                return false;
+            }
+        }
+
         IJoystick relevantJoystick;
         AnalogAxis relevantAxis;
-        switch (description.getUserInputDevice())
+        switch (userInputDevice)
         {
-            case None:
-                return false;
-
             case Driver:
                 relevantJoystick = driver;
                 break;
@@ -90,7 +97,7 @@ public class AnalogOperationState extends OperationState
             default:
                 if (TuningConstants.THROW_EXCEPTIONS)
                 {
-                    throw new RuntimeException("unexpected user input device " + description.getUserInputDevice().toString());
+                    throw new RuntimeException("Unexpected user input device " + description.getUserInputDevice().toString());
                 }
 
                 return false;
@@ -141,7 +148,7 @@ public class AnalogOperationState extends OperationState
         {
             if (TuningConstants.THROW_EXCEPTIONS)
             {
-                throw new RuntimeException("cannot set interrupt state for non-interrupted analog operations");
+                throw new RuntimeException("Cannot set interrupt state for non-interrupted analog operations (" + this.getDescription().getOperation().toString() + ")");
             }
         }
 
