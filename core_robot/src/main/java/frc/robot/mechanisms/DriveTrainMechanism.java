@@ -262,7 +262,7 @@ public class DriveTrainMechanism implements IMechanism
 
         // apply the setpoints to the motors
         this.leftMotor.set(leftSetpoint);
-        this.rightMotor.set(rightSetpoint);
+        this.rightMotor.set(-rightSetpoint);
     }
 
     /**

@@ -1,13 +1,8 @@
 package frc.robot.driver;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import javax.inject.Singleton;
 
 import frc.robot.*;
-import frc.robot.common.robotprovider.*;
-import frc.robot.driver.*;
 import frc.robot.driver.common.*;
 import frc.robot.driver.common.buttons.*;
 import frc.robot.driver.common.descriptions.*;
@@ -18,32 +13,25 @@ public class ButtonMap implements IButtonMap
 {
     private static ShiftDescription[] ShiftButtonSchema = new ShiftDescription[]
     {
-/*        new ShiftDescription(
-            Shift.Debug,
+        new ShiftDescription(
+            Shift.DriverDebug,
             UserInputDevice.Driver,
-            UserInputDeviceButton.JOYSTICK_STICK_TRIGGER_BUTTON),*/
+            UserInputDeviceButton.XBONE_LEFT_BUTTON),
     };
 
     public static AnalogOperationDescription[] AnalogOperationSchema = new AnalogOperationDescription[]
     {
-        new AnalogOperationDescription(
-            AnalogOperation.PositionStartingAngle,
-            UserInputDevice.None,
-            AnalogAxis.NONE,
-            false,
-            0.0),
-
         // Operations for the drive train
         new AnalogOperationDescription(
             AnalogOperation.DriveTrainMoveForward,
             UserInputDevice.Driver,
-            AnalogAxis.JOYSTICK_Y,
+            AnalogAxis.XBONE_LSY,
             ElectronicsConstants.INVERT_Y_AXIS,
             TuningConstants.DRIVETRAIN_Y_DEAD_ZONE),
         new AnalogOperationDescription(
             AnalogOperation.DriveTrainTurn,
             UserInputDevice.Driver,
-            AnalogAxis.JOYSTICK_X,
+            AnalogAxis.XBONE_RSX,
             ElectronicsConstants.INVERT_X_AXIS,
             TuningConstants.DRIVETRAIN_X_DEAD_ZONE),
     };
@@ -51,22 +39,26 @@ public class ButtonMap implements IButtonMap
     public static DigitalOperationDescription[] DigitalOperationSchema = new DigitalOperationDescription[]
     {
         // Operations for the shooter
-        new DigitalOperationDescription(
-            DigitalOperation.ShooterSpin,
-            UserInputDevice.Driver,
-            UserInputDeviceButton.JOYSTICK_STICK_TOP_RIGHT_BUTTON,
-            ButtonType.Simple),
+        // new DigitalOperationDescription(
+        //     DigitalOperation.ShooterSpin,
+        //     UserInputDevice.Driver,
+        //     UserInputDeviceButton.JOYSTICK_STICK_TOP_RIGHT_BUTTON,
+        //     ButtonType.Simple),
 
         // Operations for the intake
         new DigitalOperationDescription(
             DigitalOperation.IntakeRotatingIn,
             UserInputDevice.Driver,
-            UserInputDeviceButton.JOYSTICK_STICK_TOP_RIGHT_BUTTON,
+            UserInputDeviceButton.XBONE_Y_BUTTON,
+            Shift.DriverDebug,
+            Shift.None,
             ButtonType.Simple),
         new DigitalOperationDescription(
             DigitalOperation.IntakeRotatingOut,
             UserInputDevice.Driver,
-            UserInputDeviceButton.JOYSTICK_STICK_BOTTOM_RIGHT_BUTTON,
+            UserInputDeviceButton.XBONE_A_BUTTON,
+            Shift.DriverDebug,
+            Shift.None,
             ButtonType.Simple),
         new DigitalOperationDescription(
             DigitalOperation.IntakeExtend,
@@ -82,17 +74,17 @@ public class ButtonMap implements IButtonMap
         // Operations for general stuff
         new DigitalOperationDescription(
             DigitalOperation.DisablePID,
-            UserInputDevice.CoDriver,   
+            UserInputDevice.Operator,   
             UserInputDeviceButton.BUTTON_PAD_BUTTON_11,
             ButtonType.Click),
         new DigitalOperationDescription(
             DigitalOperation.EnablePID,
-            UserInputDevice.CoDriver,
+            UserInputDevice.Operator,
             UserInputDeviceButton.BUTTON_PAD_BUTTON_12,
             ButtonType.Click),
         new DigitalOperationDescription(
             DigitalOperation.CancelBreachMacro,
-            UserInputDevice.CoDriver,
+            UserInputDevice.Operator,
             UserInputDeviceButton.BUTTON_PAD_BUTTON_16,
             ButtonType.Click),
 
@@ -100,12 +92,16 @@ public class ButtonMap implements IButtonMap
         new DigitalOperationDescription(
             DigitalOperation.StingerIn,
             UserInputDevice.Driver,
-            UserInputDeviceButton.JOYSTICK_BASE_MIDDLE_LEFT_BUTTON,
+            UserInputDeviceButton.XBONE_X_BUTTON,
+            Shift.DriverDebug,
+            Shift.None,
             ButtonType.Simple),
         new DigitalOperationDescription(
             DigitalOperation.StingerOut,
             UserInputDevice.Driver,
-            UserInputDeviceButton.JOYSTICK_BASE_TOP_LEFT_BUTTON,
+            UserInputDeviceButton.XBONE_B_BUTTON,
+            Shift.DriverDebug,
+            Shift.None,
             ButtonType.Simple),
     };
 
@@ -115,7 +111,9 @@ public class ButtonMap implements IButtonMap
         new MacroOperationDescription(
             MacroOperation.PIDBrake,
             UserInputDevice.Driver,
-            UserInputDeviceButton.JOYSTICK_STICK_THUMB_BUTTON,
+            AnalogAxis.XBONE_LT,
+            0.5,
+            1.0,
             ButtonType.Simple,
             () -> new PIDBrakeTask(),
             new IOperation[]
@@ -128,9 +126,12 @@ public class ButtonMap implements IButtonMap
 
         // Macros for shooting distance.
         new MacroOperationDescription(
+            true,
             MacroOperation.SpinClose,
             UserInputDevice.Driver,
-            UserInputDeviceButton.JOYSTICK_BASE_TOP_RIGHT_BUTTON,
+            UserInputDeviceButton.XBONE_X_BUTTON,
+            Shift.DriverDebug,
+            Shift.DriverDebug,
             ButtonType.Toggle,
             () -> SequentialTask.Sequence(
                 new ShooterKickerTask(TuningConstants.SHOOTER_LOWER_KICKER_DURATION, true),
@@ -145,9 +146,12 @@ public class ButtonMap implements IButtonMap
                 DigitalOperation.IntakeRotatingOut,
             }),
         new MacroOperationDescription(
+            true,
             MacroOperation.SpinMiddle,
             UserInputDevice.Driver,
-            UserInputDeviceButton.JOYSTICK_BASE_MIDDLE_RIGHT_BUTTON,
+            UserInputDeviceButton.XBONE_A_BUTTON,
+            Shift.DriverDebug,
+            Shift.DriverDebug,
             ButtonType.Toggle,
             () -> SequentialTask.Sequence(
                 new ShooterKickerTask(TuningConstants.SHOOTER_LOWER_KICKER_DURATION, true),
@@ -162,9 +166,12 @@ public class ButtonMap implements IButtonMap
                 DigitalOperation.IntakeRotatingOut,
             }),
         new MacroOperationDescription(
+            true,
             MacroOperation.SpinFar,
             UserInputDevice.Driver,
-            UserInputDeviceButton.JOYSTICK_BASE_BOTTOM_RIGHT_BUTTON,
+            UserInputDeviceButton.XBONE_B_BUTTON,
+            Shift.DriverDebug,
+            Shift.DriverDebug,
             ButtonType.Toggle,
             () -> SequentialTask.Sequence(
                 new IntakeExtendTask(TuningConstants.SHOOTER_LOWER_KICKER_DURATION, true),
@@ -184,7 +191,9 @@ public class ButtonMap implements IButtonMap
         new MacroOperationDescription(
             MacroOperation.Shoot,
             UserInputDevice.Driver,
-            UserInputDeviceButton.JOYSTICK_STICK_TRIGGER_BUTTON,
+            AnalogAxis.XBONE_RT,
+            0.5,
+            1.0,
             ButtonType.Toggle,
             () -> SequentialTask.Sequence(
                 new ShooterKickerTask(TuningConstants.SHOOTER_FIRE_DURATION, false),
@@ -219,7 +228,7 @@ public class ButtonMap implements IButtonMap
                 }),
         new MacroOperationDescription(
             MacroOperation.ClimbingArmDeploy,
-            UserInputDevice.CoDriver,
+            UserInputDevice.Operator,
             UserInputDeviceButton.BUTTON_PAD_BUTTON_7,
             ButtonType.Toggle,
             () -> SequentialTask.Sequence(
@@ -234,7 +243,7 @@ public class ButtonMap implements IButtonMap
             }),
         new MacroOperationDescription(
             MacroOperation.ClimbingArmLifterUp,
-            UserInputDevice.CoDriver,
+            UserInputDevice.Operator,
             UserInputDeviceButton.BUTTON_PAD_BUTTON_8,
             ButtonType.Toggle,
             () -> new ClimbingArmLifterMoveTask(true),
@@ -245,7 +254,7 @@ public class ButtonMap implements IButtonMap
             }),
         new MacroOperationDescription(
             MacroOperation.ClimbingArmLifterDown,
-            UserInputDevice.CoDriver,
+            UserInputDevice.Operator,
             UserInputDeviceButton.BUTTON_PAD_BUTTON_9,
             ButtonType.Toggle,
             () -> new ClimbingArmLifterMoveTask(false),
