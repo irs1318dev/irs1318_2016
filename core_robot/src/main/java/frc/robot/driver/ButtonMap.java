@@ -72,21 +72,21 @@ public class ButtonMap implements IButtonMap
             ButtonType.Click),
 
         // Operations for general stuff
-        new DigitalOperationDescription(
-            DigitalOperation.DisablePID,
-            UserInputDevice.Operator,   
-            UserInputDeviceButton.BUTTON_PAD_BUTTON_11,
-            ButtonType.Click),
-        new DigitalOperationDescription(
-            DigitalOperation.EnablePID,
-            UserInputDevice.Operator,
-            UserInputDeviceButton.BUTTON_PAD_BUTTON_12,
-            ButtonType.Click),
-        new DigitalOperationDescription(
-            DigitalOperation.CancelBreachMacro,
-            UserInputDevice.Operator,
-            UserInputDeviceButton.BUTTON_PAD_BUTTON_16,
-            ButtonType.Click),
+        // new DigitalOperationDescription(
+        //     DigitalOperation.DisablePID,
+        //     UserInputDevice.Operator,   
+        //     UserInputDeviceButton.BUTTON_PAD_BUTTON_11,
+        //     ButtonType.Click),
+        // new DigitalOperationDescription(
+        //     DigitalOperation.EnablePID,
+        //     UserInputDevice.Operator,
+        //     UserInputDeviceButton.BUTTON_PAD_BUTTON_12,
+        //     ButtonType.Click),
+        // new DigitalOperationDescription(
+        //     DigitalOperation.CancelBreachMacro,
+        //     UserInputDevice.Operator,
+        //     UserInputDeviceButton.BUTTON_PAD_BUTTON_16,
+        //     ButtonType.Click),
 
         // Stinger operations
         new DigitalOperationDescription(
@@ -126,7 +126,7 @@ public class ButtonMap implements IButtonMap
 
         // Macros for shooting distance.
         new MacroOperationDescription(
-            true,
+            false,
             MacroOperation.SpinClose,
             UserInputDevice.Driver,
             UserInputDeviceButton.XBONE_X_BUTTON,
@@ -146,7 +146,7 @@ public class ButtonMap implements IButtonMap
                 DigitalOperation.IntakeRotatingOut,
             }),
         new MacroOperationDescription(
-            true,
+            false,
             MacroOperation.SpinMiddle,
             UserInputDevice.Driver,
             UserInputDeviceButton.XBONE_A_BUTTON,
@@ -166,7 +166,7 @@ public class ButtonMap implements IButtonMap
                 DigitalOperation.IntakeRotatingOut,
             }),
         new MacroOperationDescription(
-            true,
+            false,
             MacroOperation.SpinFar,
             UserInputDevice.Driver,
             UserInputDeviceButton.XBONE_B_BUTTON,
