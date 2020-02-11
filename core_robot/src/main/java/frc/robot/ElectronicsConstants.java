@@ -12,7 +12,7 @@ public class ElectronicsConstants
     public static final boolean INVERT_X_AXIS = false;
 
     // change INVERT_Y_AXIS to true if positive on the joystick isn't forward, and negative isn't backwards.
-    public static final boolean INVERT_Y_AXIS = true;
+    public static final boolean INVERT_Y_AXIS = false;
 
     // change INVERT_THROTTLE_AXIS to true if positive on the joystick isn't forward, and negative isn't backwards.
     public static final boolean INVERT_THROTTLE_AXIS = true;
