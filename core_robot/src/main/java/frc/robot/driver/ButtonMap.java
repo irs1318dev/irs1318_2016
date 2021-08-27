@@ -16,7 +16,7 @@ public class ButtonMap implements IButtonMap
         new ShiftDescription(
             Shift.DriverDebug,
             UserInputDevice.Driver,
-            UserInputDeviceButton.XBONE_LEFT_BUTTON),
+            UserInputDeviceButton.JOYSTICK_BASE_BOTTOM_LEFT_BUTTON),
     };
 
     public static AnalogOperationDescription[] AnalogOperationSchema = new AnalogOperationDescription[]
@@ -25,13 +25,13 @@ public class ButtonMap implements IButtonMap
         new AnalogOperationDescription(
             AnalogOperation.DriveTrainMoveForward,
             UserInputDevice.Driver,
-            AnalogAxis.XBONE_LSY,
+            AnalogAxis.JOYSTICK_Y,
             ElectronicsConstants.INVERT_Y_AXIS,
             TuningConstants.DRIVETRAIN_Y_DEAD_ZONE),
         new AnalogOperationDescription(
             AnalogOperation.DriveTrainTurn,
             UserInputDevice.Driver,
-            AnalogAxis.XBONE_RSX,
+            AnalogAxis.JOYSTICK_TWIST,
             ElectronicsConstants.INVERT_X_AXIS,
             TuningConstants.DRIVETRAIN_X_DEAD_ZONE),
     };
@@ -39,24 +39,24 @@ public class ButtonMap implements IButtonMap
     public static DigitalOperationDescription[] DigitalOperationSchema = new DigitalOperationDescription[]
     {
         // Operations for the shooter
-        // new DigitalOperationDescription(
-        //     DigitalOperation.ShooterSpin,
-        //     UserInputDevice.Driver,
-        //     UserInputDeviceButton.JOYSTICK_STICK_TOP_RIGHT_BUTTON,
-        //     ButtonType.Simple),
+        new DigitalOperationDescription(
+            DigitalOperation.ShooterSpin,
+            UserInputDevice.Driver,
+            UserInputDeviceButton.JOYSTICK_STICK_TOP_RIGHT_BUTTON,
+            ButtonType.Simple),
 
         // Operations for the intake
         new DigitalOperationDescription(
             DigitalOperation.IntakeRotatingIn,
             UserInputDevice.Driver,
-            UserInputDeviceButton.XBONE_Y_BUTTON,
+            UserInputDeviceButton.JOYSTICK_STICK_BOTTOM_LEFT_BUTTON,
             Shift.DriverDebug,
             Shift.None,
             ButtonType.Simple),
         new DigitalOperationDescription(
             DigitalOperation.IntakeRotatingOut,
             UserInputDevice.Driver,
-            UserInputDeviceButton.XBONE_A_BUTTON,
+            UserInputDeviceButton.JOYSTICK_STICK_BOTTOM_RIGHT_BUTTON,
             Shift.DriverDebug,
             Shift.None,
             ButtonType.Simple),
@@ -92,14 +92,14 @@ public class ButtonMap implements IButtonMap
         new DigitalOperationDescription(
             DigitalOperation.StingerIn,
             UserInputDevice.Driver,
-            UserInputDeviceButton.XBONE_X_BUTTON,
+            UserInputDeviceButton.JOYSTICK_BASE_TOP_LEFT_BUTTON,
             Shift.DriverDebug,
             Shift.None,
             ButtonType.Simple),
         new DigitalOperationDescription(
             DigitalOperation.StingerOut,
             UserInputDevice.Driver,
-            UserInputDeviceButton.XBONE_B_BUTTON,
+            UserInputDeviceButton.JOYSTICK_BASE_MIDDLE_LEFT_BUTTON,
             Shift.DriverDebug,
             Shift.None,
             ButtonType.Simple),
@@ -129,9 +129,9 @@ public class ButtonMap implements IButtonMap
             false,
             MacroOperation.SpinClose,
             UserInputDevice.Driver,
-            UserInputDeviceButton.XBONE_X_BUTTON,
+            UserInputDeviceButton.JOYSTICK_BASE_TOP_RIGHT_BUTTON,
             Shift.DriverDebug,
-            Shift.DriverDebug,
+            Shift.None,
             ButtonType.Toggle,
             () -> SequentialTask.Sequence(
                 new ShooterKickerTask(TuningConstants.SHOOTER_LOWER_KICKER_DURATION, true),
@@ -149,9 +149,9 @@ public class ButtonMap implements IButtonMap
             false,
             MacroOperation.SpinMiddle,
             UserInputDevice.Driver,
-            UserInputDeviceButton.XBONE_A_BUTTON,
+            UserInputDeviceButton.JOYSTICK_BASE_MIDDLE_RIGHT_BUTTON,
             Shift.DriverDebug,
-            Shift.DriverDebug,
+            Shift.None,
             ButtonType.Toggle,
             () -> SequentialTask.Sequence(
                 new ShooterKickerTask(TuningConstants.SHOOTER_LOWER_KICKER_DURATION, true),
@@ -169,9 +169,9 @@ public class ButtonMap implements IButtonMap
             false,
             MacroOperation.SpinFar,
             UserInputDevice.Driver,
-            UserInputDeviceButton.XBONE_B_BUTTON,
+            UserInputDeviceButton.JOYSTICK_BASE_BOTTOM_RIGHT_BUTTON,
             Shift.DriverDebug,
-            Shift.DriverDebug,
+            Shift.None,
             ButtonType.Toggle,
             () -> SequentialTask.Sequence(
                 new IntakeExtendTask(TuningConstants.SHOOTER_LOWER_KICKER_DURATION, true),
@@ -191,9 +191,9 @@ public class ButtonMap implements IButtonMap
         new MacroOperationDescription(
             MacroOperation.Shoot,
             UserInputDevice.Driver,
-            AnalogAxis.XBONE_RT,
-            0.5,
-            1.0,
+            UserInputDeviceButton.JOYSTICK_STICK_TRIGGER_BUTTON,
+            Shift.DriverDebug,
+            Shift.None,
             ButtonType.Toggle,
             () -> SequentialTask.Sequence(
                 new ShooterKickerTask(TuningConstants.SHOOTER_FIRE_DURATION, false),

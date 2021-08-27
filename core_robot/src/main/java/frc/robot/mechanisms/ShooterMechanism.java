@@ -90,6 +90,8 @@ public class ShooterMechanism implements IMechanism
         boolean shouldLight = false;
         if (spin)
         {
+            power = velocityGoal;
+            /*
             double speedPercentage = this.counterRate / TuningConstants.SHOOTER_MAX_COUNTER_RATE;
             shouldLight = velocityGoal != 0.0 && speedPercentage > velocityGoal - TuningConstants.SHOOTER_DEVIANCE && speedPercentage < velocityGoal + TuningConstants.SHOOTER_DEVIANCE;
 
@@ -100,7 +102,7 @@ public class ShooterMechanism implements IMechanism
             {
                 power *= (TuningConstants.SHOOTER_VELOCITY_TUNING_VOLTAGE / this.powerManager.getBatteryVoltage());
                 power = Helpers.EnforceRange(power, -TuningConstants.SHOOTER_MAX_POWER_LEVEL, TuningConstants.SHOOTER_MAX_POWER_LEVEL);
-            }
+            }*/
         }
 
         this.readyLight.set(shouldLight);
