@@ -92,14 +92,14 @@ public class ButtonMap implements IButtonMap
         new DigitalOperationDescription(
             DigitalOperation.StingerIn,
             UserInputDevice.Driver,
-            UserInputDeviceButton.JOYSTICK_BASE_TOP_LEFT_BUTTON,
+            UserInputDeviceButton.JOYSTICK_BASE_MIDDLE_LEFT_BUTTON,
             Shift.DriverDebug,
             Shift.None,
             ButtonType.Simple),
         new DigitalOperationDescription(
             DigitalOperation.StingerOut,
             UserInputDevice.Driver,
-            UserInputDeviceButton.JOYSTICK_BASE_MIDDLE_LEFT_BUTTON,
+            UserInputDeviceButton.JOYSTICK_BASE_TOP_LEFT_BUTTON,
             Shift.DriverDebug,
             Shift.None,
             ButtonType.Simple),

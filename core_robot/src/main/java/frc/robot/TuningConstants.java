@@ -138,7 +138,7 @@ public class TuningConstants
 
     public static final double SHOOTER_CLOSE_SHOT_VELOCITY = 0.6; //0.7;
     public static final double SHOOTER_MIDDLE_SHOT_VELOCITY = 0.52; //0.52;
-    public static final double SHOOTER_FAR_SHOT_VELOCITY = 0.4; //0.7;
+    public static final double SHOOTER_FAR_SHOT_VELOCITY = 0.8; //0.7;
    
     public static final double SHOOTER_LOWER_KICKER_DURATION = 0.5;
     public static final double SHOOTER_SPIN_UP_DURATION = 1.75;
