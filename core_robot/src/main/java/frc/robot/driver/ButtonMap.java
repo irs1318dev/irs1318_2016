@@ -72,16 +72,16 @@ public class ButtonMap implements IButtonMap
             ButtonType.Click),
 
         // Operations for general stuff
-        // new DigitalOperationDescription(
-        //     DigitalOperation.DisablePID,
-        //     UserInputDevice.Operator,   
-        //     UserInputDeviceButton.BUTTON_PAD_BUTTON_11,
-        //     ButtonType.Click),
-        // new DigitalOperationDescription(
-        //     DigitalOperation.EnablePID,
-        //     UserInputDevice.Operator,
-        //     UserInputDeviceButton.BUTTON_PAD_BUTTON_12,
-        //     ButtonType.Click),
+        new DigitalOperationDescription(
+            DigitalOperation.DriveTrainSimpleMode,
+            UserInputDevice.Driver,   
+            UserInputDeviceButton.JOYSTICK_BASE_MIDDLE_LEFT_BUTTON,
+            ButtonType.Click),
+        new DigitalOperationDescription(
+            DigitalOperation.EnablePID,
+            UserInputDevice.Driver,
+            UserInputDeviceButton.JOYSTICK_STICK_BOTTOM_LEFT_BUTTON,
+            ButtonType.Click),
         // new DigitalOperationDescription(
         //     DigitalOperation.CancelBreachMacro,
         //     UserInputDevice.Operator,
@@ -89,13 +89,13 @@ public class ButtonMap implements IButtonMap
         //     ButtonType.Click),
 
         // Stinger operations
-        new DigitalOperationDescription(
-            DigitalOperation.StingerIn,
-            UserInputDevice.Driver,
-            UserInputDeviceButton.JOYSTICK_BASE_MIDDLE_LEFT_BUTTON,
-            Shift.DriverDebug,
-            Shift.None,
-            ButtonType.Simple),
+        // new DigitalOperationDescription(
+        //     DigitalOperation.StingerIn,
+        //     UserInputDevice.Driver,
+        //     UserInputDeviceButton.JOYSTICK_BASE_MIDDLE_LEFT_BUTTON,
+        //     Shift.DriverDebug,
+        //     Shift.None,
+        //     ButtonType.Simple),
         new DigitalOperationDescription(
             DigitalOperation.StingerOut,
             UserInputDevice.Driver,
